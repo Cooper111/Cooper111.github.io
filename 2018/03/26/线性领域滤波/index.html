@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······  方框滤波——boxblur函数 均值滤波——blur函数 高斯滤波——GaussianBlur函数  函数的原理和源代码分析见：  https://blog.csdn.net/poem_qianmo/article/details/22745559  起手式  #include “opencv2/core/core.hpp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/03/26/线性领域滤波/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······  方框滤波——boxblur函数 均值滤波——blur函数 高斯滤波——GaussianBlur函数  函数的原理和源代码分析见：  https://blog.csdn.net/poem_qianmo/article/details/22745559  起手式  #include “opencv2/core/core.hpp">
+<meta property="og:updated_time" content="2018-03-26T11:40:03.129Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······  方框滤波——boxblur函数 均值滤波——blur函数 高斯滤波——GaussianBlur函数  函数的原理和源代码分析见：  https://blog.csdn.net/poem_qianmo/article/details/22745559  起手式  #include “opencv2/core/core.hpp">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-线性领域滤波" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/26/线性领域滤波/" class="article-date">
+  <time datetime="2018-03-26T11:24:54.554Z" itemprop="datePublished">2018-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="邻域算子和线性滤波函数"><a href="#邻域算子和线性滤波函数" class="headerlink" title="邻域算子和线性滤波函数"></a>邻域算子和线性滤波函数</h1><p>ps: 只能说数学基础不好，得慢慢补呐······</p>
+<blockquote>
+<p>方框滤波——boxblur函数</p>
+<p>均值滤波——blur函数</p>
+<p>高斯滤波——GaussianBlur函数</p>
+</blockquote>
+<p>函数的原理和源代码分析见：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/poem_qianmo/article/details/22745559" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/22745559</a></p>
+</blockquote>
+<h2 id="起手式"><a href="#起手式" class="headerlink" title="起手式"></a>起手式</h2><blockquote>
+<blockquote>
+<p>#include “opencv2/core/core.hpp”  </p>
+</blockquote>
+<p>#include”opencv2/highgui/highgui.hpp”  </p>
+<p>#include”opencv2/imgproc/imgproc.hpp”  </p>
+<p>#include &lt;stdio.h&gt;  </p>
+<p>using namespace cv; </p>
+</blockquote>
+<h2 id="boxFilter函数——方框滤波"><a href="#boxFilter函数——方框滤波" class="headerlink" title="boxFilter函数——方框滤波"></a><1>boxFilter函数——方框滤波</1></h2><pre>C++: void boxFilter(InputArray src,OutputArray dst, int ddepth, Size ksize, Point anchor=Point(-1,-1), boolnormalize=true, int borderType=BORDER_DEFAULT )
+参数详解如下：
+
+第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。该函数对通道是独立处理的，且可以处理任意通道数的图片，但需要注意，待处理的图片深度应该为CV_8U, CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
+第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。
+第三个参数，int类型的ddepth，输出图像的深度，-1代表使用原图深度，即src.depth()。
+第四个参数，Size类型的ksize，内核的大小。一般这样写Size( w,h )来表示内核的大小( 其中，w 为像素宽度， h为像素高度)。Size（3,3）就表示3x3的核大小，Size（5,5）就表示5x5的核大小
+第五个参数，Point类型的anchor，表示锚点（即被平滑的那个点），注意他有默认值Point(-1,-1)。如果这个点坐标是负值的话，就表示取核的中心为锚点，所以默认值Point(-1,-1)表示这个锚点在核的中心。
+第六个参数，bool类型的normalize，默认值为true，一个标识符，表示内核是否被其区域归一化（normalized）了。
+第七个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。有默认值BORDER_DEFAULT，我们一般不去管它。
+
+调用代码示范如下：
+    //载入原图  
+    Mat image=imread("2.jpg");  
+    //进行均值滤波操作  
+    Mat out;  
+    boxFilter(image, out, -1,Size(5, 5));  
+</pre>
+## <2>blur函数——均值滤波
+
+<pre>
+C++: void blur(InputArray src, OutputArraydst, Size ksize, Point anchor=Point(-1,-1), int borderType=BORDER_DEFAULT )  
+参数详解如下：
+
+第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。该函数对通道是独立处理的，且可以处理任意通道数的图片，但需要注意，待处理的图片深度应该为CV_8U, CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
+第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。比如可以用Mat::Clone，以源图片为模板，来初始化得到如假包换的目标图。
+第三个参数，Size类型（对Size类型稍后有讲解）的ksize，内核的大小。一般这样写Size( w,h )来表示内核的大小( 其中，w 为像素宽度， h为像素高度)。Size（3,3）就表示3x3的核大小，Size（5,5）就表示5x5的核大小
+第四个参数，Point类型的anchor，表示锚点（即被平滑的那个点），注意他有默认值Point(-1,-1)。如果这个点坐标是负值的话，就表示取核的中心为锚点，所以默认值Point(-1,-1)表示这个锚点在核的中心。
+第五个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。有默认值BORDER_DEFAULT，我们一般不去管它。
+
+调用代码示范：
+//载入原图  
+  Mat image=imread("1.jpg");  
+  //进行均值滤波操作  
+  Mat out;  
+  blur(image, out, Size(7, 7));  
+</pre>
+## <3>GaussianBlur函数——高斯滤波
+<pre>
+C++: void GaussianBlur(InputArray src,OutputArray dst, Size ksize, double sigmaX, double sigmaY=0, intborderType=BORDER_DEFAULT )
+参数详解如下：
+
+第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。它可以是单独的任意通道数的图片，但需要注意，图片深度应该为CV_8U,CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
+第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。比如可以用Mat::Clone，以源图片为模板，来初始化得到如假包换的目标图。
+第三个参数，Size类型的ksize高斯内核的大小。其中ksize.width和ksize.height可以不同，但他们都必须为正数和奇数。或者，它们可以是零的，它们都是由sigma计算而来。
+第四个参数，double类型的sigmaX，表示高斯核函数在X方向的的标准偏差。
+第五个参数，double类型的sigmaY，表示高斯核函数在Y方向的的标准偏差。若sigmaY为零，就将它设为sigmaX，如果sigmaX和sigmaY都是0，那么就由ksize.width和ksize.height计算出来。
+为了结果的正确性着想，最好是把第三个参数Size，第四个参数sigmaX和第五个参数sigmaY全部指定到。
+第六个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。注意它有默认值BORDER_DEFAULT。
+
+调用示例：
+    //载入原图  
+    Mat image=imread("1.jpg");  
+    //进行滤波操作  
+    Mat out;  
+    GaussianBlur( image, out, Size( 5, 5 ), 0, 0 );  
+</pre>
+
+
+
+<p>卷积：</p>
+<blockquote>
+<p><a href="https://www.zhihu.com/question/22298352" target="_blank" rel="noopener">https://www.zhihu.com/question/22298352</a></p>
+</blockquote>
+<p>高斯模糊：</p>
+<blockquote>
+<p><a href="http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html</a></p>
+</blockquote>
+<p>傅里叶变换</p>
+<blockquote>
+<p><a href="https://www.zhihu.com/question/19991026/answer/252715189?utm_source=qq&amp;utm_medium=social" target="_blank" rel="noopener">https://www.zhihu.com/question/19991026/answer/252715189?utm_source=qq&amp;utm_medium=social</a></p>
+</blockquote>
+<p>欧拉公式</p>
+<blockquote>
+<p><a href="https://www.zhihu.com/question/41134540?utm_source=qq&amp;utm_medium=social" target="_blank" rel="noopener">https://www.zhihu.com/question/41134540?utm_source=qq&amp;utm_medium=social</a></p>
+</blockquote>
+<p>图像亮度和明度概念</p>
+<blockquote>
+<p><a href="https://zhidao.baidu.com/question/460598833160628645.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/460598833160628645.html</a></p>
+</blockquote>
+</3></2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/26/线性领域滤波/" data-id="cjfavciue0006e4vru4zq9jg2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/25/分离颜色通道&多通道图像混合/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/26/线性领域滤波/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/25/分离颜色通道&多通道图像混合/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分离颜色通道&amp;amp;多通道图像混合  Split函数  C++: void split(const Mat&amp; src, Mat*mvbegin);   C++: void split(InputArray m,OutputArrayOfArrays mv);  第一个参数，InputArray类型的m或者const Mat&amp;类型的src，填我们需要进行分离的多通道数组。 第二个参数，Output">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/03/25/分离颜色通道&多通道图像混合/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分离颜色通道&amp;amp;多通道图像混合  Split函数  C++: void split(const Mat&amp; src, Mat*mvbegin);   C++: void split(InputArray m,OutputArrayOfArrays mv);  第一个参数，InputArray类型的m或者const Mat&amp;类型的src，填我们需要进行分离的多通道数组。 第二个参数，Output">
+<meta property="og:image" content="http://images2015.cnblogs.com/blog/451660/201509/451660-20150909114518965-189619534.png">
+<meta property="og:image" content="http://image.mamicode.com/info/201509/20180110181627195634.png">
+<meta property="og:image" content="http://image.mamicode.com/info/201509/20180110181627200516.png">
+<meta property="og:image" content="http://image.mamicode.com/info/201509/20180110181627202469.png">
+<meta property="og:updated_time" content="2018-03-25T09:51:06.425Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="分离颜色通道&amp;amp;多通道图像混合  Split函数  C++: void split(const Mat&amp; src, Mat*mvbegin);   C++: void split(InputArray m,OutputArrayOfArrays mv);  第一个参数，InputArray类型的m或者const Mat&amp;类型的src，填我们需要进行分离的多通道数组。 第二个参数，Output">
+<meta name="twitter:image" content="http://images2015.cnblogs.com/blog/451660/201509/451660-20150909114518965-189619534.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-分离颜色通道&amp;多通道图像混合" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/25/分离颜色通道&多通道图像混合/" class="article-date">
+  <time datetime="2018-03-25T09:45:09.834Z" itemprop="datePublished">2018-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="分离颜色通道-amp-多通道图像混合"><a href="#分离颜色通道-amp-多通道图像混合" class="headerlink" title="分离颜色通道&amp;多通道图像混合"></a>分离颜色通道&amp;多通道图像混合</h1><hr>
+
+<p><strong>Split函数</strong></p>
+<pre>
+C++: void split(const Mat& src, Mat*mvbegin);  
+C++: void split(InputArray m,OutputArrayOfArrays mv); 
+第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
+第二个参数，OutputArrayOfArrays类型的mv，填函数的输出数组或者输出的vector容器。
+</pre>
+split函数分割多通道数组转换成独立的单通道数组，按公式来看就是这样：<br>
+###### mv[c](I) = src(I)c
+
+<hr>
+
+**merge()函数**
+<pre>
+C++: void merge(const Mat* mv, size_tcount, OutputArray dst)  
+C++: void merge(InputArrayOfArrays mv,OutputArray dst)
+第一个参数，mv，填需要被合并的输入矩阵或vector容器的阵列，这个mv参数中所有的矩阵必须有着一样的尺寸和深度。
+第二个参数，count，当mv为一个空白的C数组时，代表输入矩阵的个数，这个参数显然必须大于1.
+第三个参数，dst，即输出矩阵，和mv[0]拥有一样的尺寸和深度，并且通道的数量是矩阵阵列中的通道的总数。
+</pre>
+merge()函数的功能是split()函数的逆向操作，将多个数组组合合并成一个多通道的数组。<br>
+> merge函数的功能是将一些数组合并成一个多通道的数组。关于组合的细节，输出矩阵中的每个元素都将是输出数组的串接，其中，第i个输入数组的元素被视为mv[i]。 c一般用其中的Mat::at（）方法对某个通道进行存取,也就是这样用 channels\.at(0)。
+
+PS: Mat::at（）方法，返回一个引用到指定的数组元素。注意是引用，相当于两者等价，修改其中一个另一个跟着变。<br>
+
+
+### 多通道图像混合示例程序
+<pre>
+//-----------------------------------【程序说明】----------------------------------------------  
+//  程序名称:：【OpenCV入门教程之四】分离颜色通道&多通道图像混合   配套源码  
+// VS2010版   OpenCV版本：2.4.8  
+//     2014年3月13 日 Create by 浅墨  
+//  图片素材出处：dota2原画 dota2logo   
+//     浅墨的微博：@浅墨_毛星云  
+//------------------------------------------------------------------------------------------------  
+
+//-----------------------------------【头文件包含部分】---------------------------------------  
+//     描述：包含程序所依赖的头文件  
+//----------------------------------------------------------------------------------------------                                                                                      
+#include <cv.h>  
+#include <highgui.h>  
+#include <iostream>  
+
+//-----------------------------------【命名空间声明部分】---------------------------------------  
+//     描述：包含程序所使用的命名空间  
+//-----------------------------------------------------------------------------------------------    
+using namespace cv;  
+using namespace std;  
+
+
+//-----------------------------------【全局函数声明部分】--------------------------------------  
+//     描述：全局函数声明  
+//-----------------------------------------------------------------------------------------------  
+bool MultiChannelBlending();  
+
+//-----------------------------------【main( )函数】--------------------------------------------  
+//     描述：控制台应用程序的入口函数，我们的程序从这里开始  
+//-----------------------------------------------------------------------------------------------  
+int main(  )  
+{  
+       system("color5E");  
+
+       if(MultiChannelBlending())  
+       {  
+              cout<<endl<<"嗯。好了，得出了你需要的混合值图像~"; }="" waitkey(0);="" return="" 0;="" -----------------------------【multichannelblending(="" )函数】--------------------------------="" 描述：多通道混合的实现函数="" -----------------------------------------------------------------------------------------------="" bool="" multichannelblending()="" {="" 【0】定义相关变量="" mat="" srcimage;="" logoimage;="" vector<mat="">channels;
+       channels.resize(3);
+
+       Mat  imageBlueChannel;  
+
+       //=================【蓝色通道部分】=================  
+       //     描述：多通道混合-蓝色分量部分  
+       //============================================  
+
+       //【1】读入图片  
+       logoImage=imread("dota_logo.jpg",0);  
+       srcImage=imread("dota_jugg.jpg");  
+
+       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
+       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
+
+       //【2】把一个3通道图像转换成3个单通道图像  
+       split(srcImage,channels);//分离色彩通道  
+
+       //【3】将原图的蓝色通道引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
+       imageBlueChannel=channels.at(0);  
+       //【4】将原图的蓝色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageBlueChannel中  
+       addWeighted(imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
+              logoImage,0.5,0,imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
+
+       //【5】将三个单通道重新合并成一个三通道  
+       merge(channels,srcImage);  
+
+       //【6】显示效果图  
+       namedWindow("<1>游戏原画+logo蓝色通道 by浅墨");  
+       imshow("<1>游戏原画+logo蓝色通道 by浅墨",srcImage);  
+
+
+       //=================【绿色通道部分】=================  
+       //     描述：多通道混合-绿色分量部分  
+       //============================================  
+
+       //【0】定义相关变量  
+       Mat  imageGreenChannel;  
+
+       //【1】重新读入图片  
+       logoImage=imread("dota_logo.jpg",0);  
+       srcImage=imread("dota_jugg.jpg");  
+
+       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
+       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
+
+       //【2】将一个三通道图像转换成三个单通道图像  
+       split(srcImage,channels);//分离色彩通道  
+
+       //【3】将原图的绿色通道的引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
+       imageGreenChannel=channels.at(1);  
+       //【4】将原图的绿色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageGreenChannel中  
+       addWeighted(imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
+              logoImage,0.5,0.,imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
+
+       //【5】将三个独立的单通道重新合并成一个三通道  
+       merge(channels,srcImage);  
+
+       //【6】显示效果图  
+       namedWindow("<2>游戏原画+logo绿色通道 by浅墨");  
+       imshow("<2>游戏原画+logo绿色通道 by浅墨",srcImage);  
+
+
+
+       //=================【红色通道部分】=================  
+       //     描述：多通道混合-红色分量部分  
+       //============================================  
+
+       //【0】定义相关变量  
+       Mat  imageRedChannel;  
+
+       //【1】重新读入图片  
+       logoImage=imread("dota_logo.jpg",0);  
+       srcImage=imread("dota_jugg.jpg");  
+
+       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
+       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
+
+       //【2】将一个三通道图像转换成三个单通道图像  
+       split(srcImage,channels);//分离色彩通道  
+
+       //【3】将原图的红色通道引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
+       imageRedChannel=channels.at(2);  
+       //【4】将原图的红色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageRedChannel中  
+       addWeighted(imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
+              logoImage,0.5,0.,imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
+
+       //【5】将三个独立的单通道重新合并成一个三通道  
+       merge(channels,srcImage);  
+
+       //【6】显示效果图  
+       namedWindow("<3>游戏原画+logo红色通道 by浅墨");  
+       imshow("<3>游戏原画+logo红色通道 by浅墨",srcImage);  
+
+       return true;  
+}  
+
+
+</3></3></2></2></1></1></endl<<"嗯。好了，得出了你需要的混合值图像~";></iostream></highgui.h></cv.h></pre>
+
+<h3 id="注：规定通道数"><a href="#注：规定通道数" class="headerlink" title="注：规定通道数"></a>注：规定通道数</h3><blockquote>
+<p>vector<mat>channels;<br>channels.resize(3);</mat></p>
+</blockquote>
+<p><img src="http://images2015.cnblogs.com/blog/451660/201509/451660-20150909114518965-189619534.png" alt="image"></p>
+<p><img src="http://image.mamicode.com/info/201509/20180110181627195634.png" alt="image"></p>
+<p><img src="http://image.mamicode.com/info/201509/20180110181627200516.png" alt="image"></p>
+<p><img src="http://image.mamicode.com/info/201509/20180110181627202469.png" alt="image"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/25/分离颜色通道&多通道图像混合/" data-id="cjfavciu60002e4vrr1k6r7pa" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/26/线性领域滤波/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/25/图像载入，初级图像混合/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">图像载入，初级图像混合</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/26/线性领域滤波/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/25/分离颜色通道&多通道图像混合/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

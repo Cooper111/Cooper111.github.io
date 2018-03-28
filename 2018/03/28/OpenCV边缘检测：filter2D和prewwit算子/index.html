@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta property="og:updated_time" content="2018-03-28T08:50:30.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-OpenCV边缘检测：filter2D和prewwit算子" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/" class="article-date">
+  <time datetime="2018-03-28T08:49:21.023Z" itemprop="datePublished">2018-03-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="Filter2D函数："><a href="#Filter2D函数：" class="headerlink" title="Filter2D函数："></a>Filter2D函数：</h3><pre>
+CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
+                            InputArray kernel, Point anchor=Point(-1,-1),
+                            double delta=0, int borderType=BORDER_DEFAULT );
+参数说明：
+    InputArray src: 输入图像
+    OutputArray dst: 输出图像，和输入图像具有相同的尺寸和通道数量
+    int ddepth: 目标图像深度，如果没写将生成与原图像深度相同的图像。原图像和目标图像支持的图像深度如下：
+        src.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
+        src.depth() = CV_16U/CV_16S, ddepth = -1/CV_32F/CV_64F
+        src.depth() = CV_32F, ddepth = -1/CV_32F/CV_64F
+        src.depth() = CV_64F, ddepth = -1/CV_64F
+    当ddepth输入值为-1时，目标图像和原图像深度保持一致。
+    InputArray kernel:卷积核（或者是相关核）,一个单通道浮点型矩阵。如果想在图像不同的通道使用不同的kernel，可以先使用split()函数将图像通道事先分开。
+    Point anchor: 内核的基准点(anchor)，其默认值为(-1,-1)说明位于kernel的中心位置。基准点即kernel中与进行处理的像素点重合的点。
+    double delta: 在储存目标图像前可选的添加到像素的值，默认值为0
+    int borderType: 像素向外逼近的方法，默认值是BORDER_DEFAULT,即对全部边界进行计算。
+</pre>
+该函数使用于任意线性滤波器的图像，支持就地操作。当其中心移动到图像外，函数可以根据指定的边界模式进行插值运算。函数实质上是计算kernel与图像的相关性而不是卷积
+![image](https://img-blog.csdn.net/20161109175042784)
+也就是说kernel并不是中心点的镜像，如果需要一个正真的卷积，使用函数flip()并将中心点设置为(kernel.cols - anchor.x - 1, kernel.rows - anchor.y -1). 
+该函数在大核(11x11或更大)的情况下使用基于DFT的算法，而在小核情况下使用直接算法(使用createLinearFilter()检索得到). 
+
+### prewwit算子
+加入均值处理，对噪声有一定抑制作用
+算法实现如下：
+<pre>
+Kernelx = (Mat_<double>(3, 3) << 1, 1, 1, 0, 0, 0, -1, -1, -1);
+Kernely = (Mat_<double>(3, 3) << -1, 0, 1, -1, 0, 1, -1, 0, 1);
+filter2D(gray, grad_x, CV_16S, Kernelx, Point(-1, -1));
+filter2D(gray, grad_y, CV_16S, Kernely, Point(-1, -1));
+convertScaleAbs(grad_x, abs_grad_x);
+convertScaleAbs(grad_y, abs_grad_y);
+addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
+
+</double></double></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/" data-id="cjfavciu30001e4vr862m894u" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/26/线性领域滤波/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/25/分离颜色通道&多通道图像混合/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
