@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <title>Archives | Cooper111&#39;s Blog</title>
-  <meta name="description" content="Just do what you want !" />
+  <meta name="description" content="A lazy student." />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +30,7 @@
         <div class="site-head-content inner">
              <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
             <h1 class="blog-title">Cooper111's Blog</h1>
-            <h2 class="blog-description">Just do what you want !</h2>
+            <h2 class="blog-description">A lazy student.</h2>
         </div>
     </div>
 </header>
@@ -273,6 +273,43 @@ int main()
       </time>
     
 </span>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Sobel算子/">OpenCV边缘检测：Sobel算子</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        OpenCV边缘检测：Sobel算子基础概念：图像梯度:
+
+G(x,y) = dx i + dy j; 
+dx(i,j) = I(i+1,j) - I(i,j); 
+dy(i,j) = I(i,j+1) - I(i,j); 
+
+其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
+
+
+理解卷积：
+
+https://blog.csdn.net/bitcarmanlee/article/details/54729807
+
+图片处理
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
       <h2 class="post-title"><a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">Opencv边缘检测：Laplacian函数和scharr滤波器</a></h2>
     </header>
     <section class="post-excerpt">
@@ -289,63 +326,6 @@ C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, dou
       
       <p>
           <a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">OpenCV边缘检测：filter2D和prewwit算子</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        Filter2D函数：
-CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
-                            InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BO
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Canny算子/">OpenCV边缘检测：Canny算子</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        边缘检测的一般步骤1.滤波2.增强3.检测现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充
-Canny 算子大致步骤如同老师讲时记得笔记：
-二维高斯函数平滑图像
-计算结果梯度
-使用梯度幅度来估计每一点边缘强度
-非极大值抑制和细化边缘
-阈值处理，去掉伪边缘一、最简单的canny用法，拿到原图后直接用。二、高阶的canny用法，转成灰度图，降噪，用canny，最后将得到的边缘作为掩码，拷贝原图到效果图上，得到彩色的边
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/26/OpenCV边缘检测：Canny算子/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -384,6 +364,36 @@ https://blog.csdn.net/poem_qianmo/article/details/22745559
       
       <p>
           <a href="/2018/03/26/线性领域滤波/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Canny算子/">OpenCV边缘检测：Canny算子</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        边缘检测的一般步骤1.滤波2.增强3.检测现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充
+Canny 算子大致步骤如同老师讲时记得笔记：
+二维高斯函数平滑图像
+计算结果梯度
+使用梯度幅度来估计每一点边缘强度
+非极大值抑制和细化边缘
+阈值处理，去掉伪边缘一、最简单的canny用法，拿到原图后直接用。二、高阶的canny用法，转成灰度图，降噪，用canny，最后将得到的边缘作为掩码，拷贝原图到效果图上，得到彩色的边
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/OpenCV边缘检测：Canny算子/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
