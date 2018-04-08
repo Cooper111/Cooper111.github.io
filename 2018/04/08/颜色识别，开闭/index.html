@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Opencv颜色识别,开闭 | Cooper111&#39;s Blog</title>
+  <meta name="description" content="Just do what you want !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Cooper111's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Cooper111's Blog</h1>
+            <h2 class="blog-description">Just do what you want !</h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
+          2018-04-08
+      </time>
+    
+</span>
+    <h1 class="post-title">Opencv颜色识别,开闭</h1>
+    <section class="post-content">
+      <pre>
+#include <iostream>
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
+
+
+using namespace cv;
+using namespace std;
+
+static void on_imgThresholded(int, void*);
+
+int iLowH = 0;
+int iHighH = 75;
+
+int iLowS = 0;
+int iHighS = 255;
+
+int iLowV = 0;
+int iHighV = 255;
+Mat imgThresholded;
+Mat imgOriginal;
+Mat imgHSV;
+vector<mat> hsvSplit;
+
+void on_imgThresholded(int, void*)
+{
+    inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
+
+                                                                                                  //开操作 (去除一些噪点)
+    Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
+    morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
+
+    //闭操作 (连接一些连通域)
+    morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
+
+    imshow("Thresholded Image", imgThresholded); //show the thresholded image
+    imshow("Original", imgOriginal); //show the original image
+
+
+}
+
+int main()
+{
+    imgOriginal = imread("pyrMeanShiftFiltering_RGB.jpg");
+
+    namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
+
+    cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+
+                                                  //因为我们读取的是彩色图，直方图均衡化需要在HSV空间做
+    split(imgHSV, hsvSplit);
+    equalizeHist(hsvSplit[2], hsvSplit[2]);
+    merge(hsvSplit, imgHSV);
+    //imshow("HSV",imgHSV);
+
+
+    createTrackbar("LowH", "Control", &iLowH, 179, on_imgThresholded); //Hue (0 - 179)
+    createTrackbar("HighH", "Control", &iHighH, 179, on_imgThresholded);
+
+    createTrackbar("LowS", "Control", &iLowS, 255, on_imgThresholded); //Saturation (0 - 255)
+    createTrackbar("HighS", "Control", &iHighS, 255, on_imgThresholded);
+
+    createTrackbar("LowV", "Control", &iLowV, 255, on_imgThresholded); //Value (0 - 255)
+    createTrackbar("HighV", "Control", &iHighV, 255, on_imgThresholded);
+
+    on_imgThresholded(0, 0);
+
+
+
+    waitKey(0);
+    return 0;
+
+}
+</mat></iostream></pre>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>花郎世纪</h4>
+    <p>A lazy student.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/04/08/颜色识别，开闭/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/04/08/颜色识别，开闭/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/04/08/颜色识别，开闭/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">
+        Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>

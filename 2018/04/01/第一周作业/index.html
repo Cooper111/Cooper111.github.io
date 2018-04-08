@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>邻域算子和线性滤波函数 | Cooper111&#39;s Blog</title>
+  <meta name="description" content="Just do what you want !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Cooper111's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Cooper111's Blog</h1>
+            <h2 class="blog-description">Just do what you want !</h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-04-01T06:53:27.000Z" itemprop="datePublished">
+          2018-04-01
+      </time>
+    
+</span>
+    <h1 class="post-title">邻域算子和线性滤波函数</h1>
+    <section class="post-content">
+      <h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><blockquote>
+<pre><code>因为图像近于水平，所以采用sobel或者canny效果好一些；
+车辙--sobel--滤波（不高斯）--
+</code></pre></blockquote>
+<blockquote>
+<pre><code>载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
+</code></pre></blockquote>
+<h4 id="附上代码："><a href="#附上代码：" class="headerlink" title="附上代码："></a>附上代码：</h4><pre>
+#include<iostream>  
+#include <opencv2 opencv.hpp="">  
+#include<opencv2 highgui="" highgui.hpp="">  
+#include<opencv2 imgproc="" imgproc.hpp="">
+
+using namespace cv;
+using namespace std;
+
+int main()
+{
+    //载入原始图    
+    Mat image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  //工程目录下应该有一张名为1.jpg的素材图  
+    Mat img_gray = image_gray_row.clone();
+
+    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6),0,0,INTER_LINEAR);
+    imshow("【原图】", img_gray);
+
+    blur(img_gray, img_gray, Size(3, 3));
+    imshow("滤波", img_gray);
+    imwrite("滤波.jpg",img_gray);
+
+    Mat img_sobelX;
+    Mat abs_img_sobelX;
+    Sobel(img_gray, img_sobelX,CV_16S,1,0,3,1,1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelX, abs_img_sobelX);
+    imshow("【效果图】 X方向Sobel", abs_img_sobelX);
+    imwrite("【效果图】 X方向Sobel.jpg",abs_img_sobelX);
+
+    Mat img_sobelY;
+    Mat abs_img_sobelY;
+    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelY, abs_img_sobelY);
+    imshow("【效果图】 Y方向Sobel", abs_img_sobelY);
+    imwrite("【效果图】 Y方向Sobel.jpg", abs_img_sobelY);
+
+    Mat dst;
+    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
+    imshow("【效果图】整体方向Sobel", dst);
+    imwrite("【效果图】整体方向Sobel.jpg",dst);
+
+    Mat dst_up;
+    Mat dst_upX;
+    Mat dst_upY;
+    dst_up.create(dst.size(), dst.type());
+    dst_upX.create(dst.size(), dst.type());
+    dst_upY.create(dst.size(), dst.type());
+
+//    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
+//    imshow("检测垂直阈值分割", dst_upY);
+
+//    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
+//    imshow("检测水平阈值分割", dst_upX);
+
+    threshold(dst, dst_up, 84, 255, THRESH_BINARY);
+    imshow("整体二值化",dst_up);
+    imwrite("整体二值化.jpg", dst_up);
+
+
+    waitKey(0);
+    return 0;
+}
+
+</opencv2></opencv2></opencv2></iostream></pre>
+
+<p>提示：注意全局变量！！！！ Mat 和 参数都得是全局变量！main里面不要重申！<br>附上带trackbar的代码：</p>
+<pre>
+
+#include <stdlib.h>
+#include <stdio.h>
+#include<iostream>  
+#include <opencv2 opencv.hpp="">  
+#include<opencv2 highgui="" highgui.hpp="">  
+#include<opencv2 imgproc="" imgproc.hpp="">  
+
+
+
+using namespace cv;
+using namespace std;
+
+int threshold_value = 30;
+
+Mat image_gray_row, img_gray, img_sobelX, abs_img_sobelX, img_sobelY, abs_img_sobelY, dst, dst_up, dst_upX, dst_upY;
+
+/// 自定义函数声明
+static void Threshold_Demo(int, void*);
+
+
+int main()
+{
+    //载入原始图    
+    image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  
+    img_gray = image_gray_row.clone();
+
+    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6), 0, 0, INTER_LINEAR);
+
+
+    blur(img_gray, img_gray, Size(3, 3));
+
+
+
+
+
+    Sobel(img_gray, img_sobelX, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelX, abs_img_sobelX);
+
+
+
+
+    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelY, abs_img_sobelY);
+
+
+    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
+
+
+
+    dst_up.create(dst.size(), dst.type());
+    dst_upX.create(dst.size(), dst.type());
+    dst_upY.create(dst.size(), dst.type());
+
+    //    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
+    //    imshow("检测垂直阈值分割", dst_upY);
+
+    //    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
+    //    imshow("检测水平阈值分割", dst_upX);
+
+
+
+    namedWindow("Demo", CV_WINDOW_AUTOSIZE);
+    //创建滑动条来控制阈值
+    createTrackbar("Threshold",
+        "Demo", &threshold_value,
+        255, Threshold_Demo);
+
+    Threshold_Demo(0, 0);//结果在回调函数中显示
+
+
+    waitKey(0);
+    return 0;
+}
+
+void Threshold_Demo(int, void*)
+{
+
+    threshold(dst, dst_up, threshold_value, 255, THRESH_BINARY);
+
+    imshow("Demo", dst_up);
+}
+</opencv2></opencv2></opencv2></iostream></stdio.h></stdlib.h></pre>
+
+<p><strong>待改进：</strong><br><br><br>霍夫变换–找线<br>路–k只有一个，路正交—-拉普拉斯强化边缘，二值化</p>
+<p>管道（拉普拉斯锐化/膨胀和腐蚀，二值化，分离，零交叉）</p>
+<p>–以下为闭环区域</p>
+<p>颜色特征识别（煤堆）—闭环后中间杂质（）可忽略，已闭环<br>RGB，UIV，LAD，色态聚类（不固定集群，需要贪婪，簇的合并问题-中心点相近放一块-！-！-同一簇的分离(根据像素的距离再聚类)，sobel算子迭代，识别出边缘轮廓后拼接填洞</p>
+<p>膨胀和腐蚀</p>
+<p>检测纹理复杂程度–判断煤堆</p>
+<p>路灯（路灯两侧相对比较高–波峰波谷）</p>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>花郎世纪</h4>
+    <p>A lazy student.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/04/01/第一周作业/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/04/01/第一周作业/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/04/01/第一周作业/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">
+        ← Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2018/03/28/opencv颜色空间转换/">
+        邻域算子和线性滤波函数 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>

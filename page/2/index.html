@@ -40,6 +40,207 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/学习进度/">学习进度</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        3.249:00，第一次参加挑战杯会议，基本没听懂下午开始配置vs和opencv，半夜成功，并且学到博客第三节
+3.25上午搭建了博客
+
+“https://cooper111.github.io/”；
+
+接下午，学到博客第六章，撰写了2个md笔记；Mat通道的理解：
+
+https://blog.csdn.net/gdfsg/article/details/50927257高斯模糊算法：http://www.ruanyifeng.com/
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/学习进度/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Sobel算子/">OpenCV边缘检测：Sobel算子</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        OpenCV边缘检测：Sobel算子基础概念：图像梯度:
+
+G(x,y) = dx i + dy j; 
+dx(i,j) = I(i+1,j) - I(i,j); 
+dy(i,j) = I(i,j+1) - I(i,j); 
+
+其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
+
+
+理解卷积：
+
+https://blog.csdn.net/bitcarmanlee/article/details/54729807
+
+图片处理
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/常用语法笔记/">OpenCV常用语法笔记</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        imread()第二个参数
+
+
+0:返回3通道=0:返回灰度图&lt;0:返回原图
+
+
+Mat 的API：
+
+( Mat image; )Mat new_image;new_image =  image.clone()
+
+向下采样：
+
+Mat dstImage;pyrDown(srcImage, dstImage, Size(srcImage.cols / 2, srcImage.rows / 2));  
+
+resize图片缩放：
+
+
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/常用语法笔记/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/分离颜色通道&多通道图像混合/">OpenCV分离颜色通道&多通道图像混合</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        分离颜色通道&amp;多通道图像混合
+
+Split函数
+
+C++: void split(const Mat& src, Mat*mvbegin);  
+C++: void split(InputArray m,OutputArrayOfArrays mv); 
+第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
+第二个参数，OutputArrayOfArrays类型的mv，填
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/分离颜色通道&多通道图像混合/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-25T06:53:27.000Z" itemprop="datePublished">
+          2018-03-25
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        图像载入，初级图像混合标配
+#include   
+#include  
+
+using namespace cv; 
+
+
+
+图像读取
+Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1.jpg”);
+
+建立窗口容器
+void namedWindow(const string&amp; winname,int flags=WINDOW
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/25/图像载入，初级图像混合/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-25T03:30:17.000Z" itemprop="datePublished">
+          2018-03-25
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/25/你好，Hexo/">你好，Hexo</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        使用Hexo，是一件非常简单的事.
+拖拖拖的慢更Blog内容初涉，有误请指教( • ̀ω•́ )✧
+
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/25/你好，Hexo/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
       <time datetime="2018-03-25T02:57:33.084Z" itemprop="datePublished">
           2018-03-25
       </time>

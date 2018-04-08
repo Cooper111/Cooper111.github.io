@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Archives: 2018/3 | Cooper111&#39;s Blog</title>
+  <title>Archives: 2018/4 | Cooper111&#39;s Blog</title>
   <meta name="description" content="Just do what you want !" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -40,29 +40,36 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
+      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
+          2018-04-08
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/26/分离颜色通道&多通道图像混合/">OpenCV分离颜色通道&多通道图像混合</a></h2>
+      <h2 class="post-title"><a href="/2018/04/08/颜色识别，开闭/">Opencv颜色识别,开闭</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        分离颜色通道&amp;多通道图像混合
+        
+#include 
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 
-Split函数
 
-C++: void split(const Mat& src, Mat*mvbegin);  
-C++: void split(InputArray m,OutputArrayOfArrays mv); 
-第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
-第二个参数，OutputArrayOfArrays类型的mv，填
+using namespace cv;
+using namespace std;
+
+static void on_imgThresholded(int, void*);
+
+int iLowH = 0;
+int iHighH = 75;
+
+int iLowS 
       
       </p>
       
       <p>
-          <a href="/2018/03/26/分离颜色通道&多通道图像混合/" class="excerpt-link">Read More...</a>
+          <a href="/2018/04/08/颜色识别，开闭/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -71,93 +78,82 @@ C++: void split(InputArray m,OutputArrayOfArrays mv);
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-03-25T06:53:27.000Z" itemprop="datePublished">
-          2018-03-25
+      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
+          2018-04-08
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a></h2>
+      <h2 class="post-title"><a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        图像载入，初级图像混合标配
+        
+#include "opencv2/highgui/highgui.hpp"  
+#include "opencv2/core/core.hpp"  
+#include "opencv2/imgproc/imgproc.hpp"  
+
+using namespace cv;
+using namespace std;
+
+int main(int argc)
+{
+    Mat img = imread("kuang1.jpg"); //
+      
+      </p>
+      
+      <p>
+          <a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-04-01T06:53:27.000Z" itemprop="datePublished">
+          2018-04-01
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/04/01/第一周作业/">邻域算子和线性滤波函数</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        思路：
+因为图像近于水平，所以采用sobel或者canny效果好一些；
+车辙--sobel--滤波（不高斯）--
+
+
+载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
+
+附上代码：
+#include  
 #include   
 #include  
+#include
 
-using namespace cv; 
+using namespace cv;
+using namespace std;
 
-
-
-图像读取
-Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1.jpg”);
-
-建立窗口容器
-void namedWindow(const string&amp; winname,int flags=WINDOW
+int main()
+{
+    //载入原始图 
       
       </p>
       
       <p>
-          <a href="/2018/03/25/图像载入，初级图像混合/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-25T03:30:17.000Z" itemprop="datePublished">
-          2018-03-25
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/25/你好，Hexo/">你好，Hexo</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        使用Hexo，是一件非常简单的事.
-拖拖拖的慢更Blog内容初涉，有误请指教( • ̀ω•́ )✧
-
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/25/你好，Hexo/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-25T02:57:33.084Z" itemprop="datePublished">
-          2018-03-25
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/25/hello-world/">Hello World</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new p
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/25/hello-world/" class="excerpt-link">Read More...</a>
+          <a href="/2018/04/01/第一周作业/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
   </article>
   
   <nav class="pagination" role="pagination">
-    <a class="newer-posts" href="/archives/2018/03/">← Newer Posts</a>
-    <span class="page-number">Page 2 of 2</span>
+    
+    <span class="page-number">Page 1 of 1</span>
     
   </nav>
 </main>

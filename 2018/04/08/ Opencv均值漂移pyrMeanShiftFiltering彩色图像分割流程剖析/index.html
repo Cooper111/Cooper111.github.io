@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>学习进度 | Cooper111&#39;s Blog</title>
+  <title>Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析 | Cooper111&#39;s Blog</title>
   <meta name="description" content="Just do what you want !" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -39,26 +39,43 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
+      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
+          2018-04-08
       </time>
     
 </span>
-    <h1 class="post-title">学习进度</h1>
+    <h1 class="post-title">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</h1>
     <section class="post-content">
-      <h3 id="3-24"><a href="#3-24" class="headerlink" title="3.24"></a>3.24</h3><p>9:00，第一次参加挑战杯会议，基本没听懂<br><br>下午开始配置vs和opencv，半夜成功，并且学到博客第三节</p>
-<h3 id="3-25"><a href="#3-25" class="headerlink" title="3.25"></a>3.25</h3><p>上午搭建了博客</p>
-<blockquote>
-<p>“<a href="https://cooper111.github.io/”；">https://cooper111.github.io/”；</a><br><br></p>
-</blockquote>
-<p>接下午，学到博客第六章，撰写了2个md笔记；<br><br>Mat通道的理解：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/gdfsg/article/details/50927257" target="_blank" rel="noopener">https://blog.csdn.net/gdfsg/article/details/50927257</a><br>高斯模糊算法：<br><a href="http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html</a></p>
-</blockquote>
-<p>3.26<br><br>看了图像原理，傅立叶变换，欧拉函数，试了canny算子，滤波，傅立叶和欧拉只是有一点点概念，并不能理解多少，待深入</p>
-<p>2.27<br><br><strong>值得高兴的一天：</strong><br><br>明白了卷积，梯度，Sobel算子<br><br><strong>然后完成了老师布置的项目</strong><br><br><strong>待学习</strong>：<br><br>threshold的用法介绍，<br><br>filter2D（）结合prewwit算子（ppt里），<br><br>LOG ,拉普拉斯算子,二维高斯函数 待学习<br></p>
-<h2 id="还有计算机图形绿皮书跟进"><a href="#还有计算机图形绿皮书跟进" class="headerlink" title="还有计算机图形绿皮书跟进"></a>还有计算机图形绿皮书跟进<br></h2><p>layout: “学习w<br>title: 学习进度<br>date: 2018-03-27 20:58:18</p>
-<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2>
+      <pre>
+#include "opencv2/highgui/highgui.hpp"  
+#include "opencv2/core/core.hpp"  
+#include "opencv2/imgproc/imgproc.hpp"  
+
+using namespace cv;
+using namespace std;
+
+int main(int argc)
+{
+    Mat img = imread("kuang1.jpg"); //读入图像，RGB三通道    
+    resize(img, img, Size(img.cols / 7, img.rows / 7), 0, 0, INTER_LINEAR);
+    imshow("原图像", img);
+    Mat res; //分割后图像  
+    int spatialRad = 20;  //空间窗口大小  
+    int colorRad = 20;   //色彩窗口大小  
+    int maxPyrLevel = 3;  //金字塔层数  
+    pyrMeanShiftFiltering(img, res, spatialRad, colorRad, maxPyrLevel); //色彩聚类平滑滤波  
+    imshow("res", res);
+    imwrite("pyrMeanShiftFiltering_RGB.jpg",res);
+    Mat img_hsv,res_hsv;
+    cvtColor(img, img_hsv, CV_BGR2HSV);
+    pyrMeanShiftFiltering(img_hsv, res_hsv, spatialRad, colorRad, maxPyrLevel);
+    imshow("res_hsv", res_hsv);
+    imwrite("pyrMeanShiftFiltering_HSV.jpg",res_hsv);
+
+    waitKey();
+    return 0;
+}
+</pre>
     </section>
     <footer class="post-footer">
       <section class="author">
@@ -67,15 +84,15 @@
 </section>
       <section class="share">
     <h4>Share this post</h4>
-    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/03/26/学习进度/"
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/"
        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/03/26/学习进度/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/"
        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/03/26/学习进度/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/"
        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -84,14 +101,14 @@
   </article>
   <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2018/03/26/线性领域滤波/">
-        ← 邻域算子和线性滤波函数
+    <a class="newer-posts" href="/2018/04/08/颜色识别，开闭/">
+        ← Opencv颜色识别,开闭
     </a>
     
     <span class="page-number">•</span>
     
-    <a class="older-posts" href="/2018/03/26/OpenCV边缘检测：Sobel算子/">
-        OpenCV边缘检测：Sobel算子 →
+    <a class="older-posts" href="/2018/04/01/第一周作业/">
+        邻域算子和线性滤波函数 →
     </a>
     
 </nav>

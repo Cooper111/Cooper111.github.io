@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>第二周作业 | Cooper111&#39;s Blog</title>
+  <meta name="description" content="Just do what you want !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Cooper111's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Cooper111's Blog</h1>
+            <h2 class="blog-description">Just do what you want !</h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-03-28T06:53:27.000Z" itemprop="datePublished">
+          2018-03-28
+      </time>
+    
+</span>
+    <h1 class="post-title">第二周作业</h1>
+    <section class="post-content">
+      <h1 id="矿堆识别（绿）"><a href="#矿堆识别（绿）" class="headerlink" title="矿堆识别（绿）"></a>矿堆识别（绿）</h1><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><blockquote>
+<p>1.要对颜色进行处理–了解颜色的聚类算法（无监督）<br>{<br>    ‘k-mean’:选定簇的数目；<br>    ‘mean-shift’:无须选定簇的数目；<br>}<br>簇的合并和分离（根据像素距离重组）—》不会······</p>
+</blockquote>
+<blockquote>
+<p>2.如何做–&gt;&gt;HSV，颜色检测</p>
+</blockquote>
+<blockquote>
+<p>3.优化–&gt;&gt;拼接,填洞</p>
+</blockquote>
+<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><blockquote>
+<p> 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）</p>
+</blockquote>
+<blockquote>
+<p> 2.然后转为HSV模型，做直方图均衡化</p>
+</blockquote>
+<blockquote>
+<p> 3.进行颜色检测，得到目标颜色的二值图像</p>
+</blockquote>
+<blockquote>
+<p> 4.开操作-删除一些零零星星的噪点</p>
+</blockquote>
+<blockquote>
+<p> 5.再使用闭操作-连接一些连通域，也就是删除一些目标区域的白色的洞</p>
+</blockquote>
+<hr>
+
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><h4 id="pyrMeanShiftFiltering–meanShfit均值漂移算法"><a href="#pyrMeanShiftFiltering–meanShfit均值漂移算法" class="headerlink" title="pyrMeanShiftFiltering–meanShfit均值漂移算法"></a>pyrMeanShiftFiltering–meanShfit均值漂移算法</h4><p>聚类算法解释和分析：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/dcrmg/article/details/52705087" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/52705087</a></p>
+</blockquote>
+<p>meanshift算法深入</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_23968185/article/details/51804574" target="_blank" rel="noopener">https://blog.csdn.net/qq_23968185/article/details/51804574</a></p>
+</blockquote>
+<p>注：这个函数严格来说并不是图像的分割，而是图像在色彩层面的平滑滤波，它可以中和色彩分布相近的颜色，平滑色彩细节，侵蚀掉面积较小的颜色区域</p>
+<hr>
+
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><h4 id="颜色识别："><a href="#颜色识别：" class="headerlink" title="颜色识别："></a>颜色识别：</h4><blockquote>
+<p>1.RGB转HSV<br>cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV);<br><br>2.直方图均衡化<br><br>split(imgHSV, hsvSplit);<br><br>    equalizeHist(hsvSplit[2],hsvSplit[2]);<br><br>    merge(hsvSplit,imgHSV);<br><br>3.颜色检测<br><br>void inRange(InputArray src, InputArray lowerb, InputArray upperb,<br> OutputArray dst);<br><br>4.存为二值图<br></p>
+</blockquote>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="对二值图像进行开操作，删除一些零零星星的噪点，"><a href="#对二值图像进行开操作，删除一些零零星星的噪点，" class="headerlink" title="对二值图像进行开操作，删除一些零零星星的噪点，"></a>对二值图像进行开操作，删除一些零零星星的噪点，<br></h4><blockquote>
+<p>Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));<br><br>   morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);<br></p>
+</blockquote>
+<h4 id="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"><a href="#再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。" class="headerlink" title="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"></a>再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。<br></h4><blockquote>
+<p> morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);<br></p>
+</blockquote>
+<p>待改进：<br><br>1.簇的合并分离<br><br>2.优化的进步<br><br>3.利用pyrMeanShiftFiltering来优化道路<br><br>源码：<a href="http://blog.sina.com.cn/s/blog_63913ba601013336.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_63913ba601013336.html</a><br><br>      <a href="https://blog.csdn.net/Dinosoft/article/details/78877917" target="_blank" rel="noopener">https://blog.csdn.net/Dinosoft/article/details/78877917</a><br><br>      都没看懂···<br><br>4.开，闭操作研究<br><br>5.看一个聚类实现代码<br></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/yangtrees/article/details/7386723" target="_blank" rel="noopener">https://blog.csdn.net/yangtrees/article/details/7386723</a></p>
+</blockquote>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>花郎世纪</h4>
+    <p>A lazy student.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/03/28/第二周作业/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/03/28/第二周作业/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/03/28/第二周作业/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2018/03/28/三色通道分离/">
+        ← 三色通道分离
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">
+        Opencv边缘检测：Laplacian函数和scharr滤波器 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>
