@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>OpenCV边缘检测：Canny算子 | Cooper111&#39;s Blog</title>
+  <meta name="description" content="Just do what you want !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Cooper111's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Cooper111's Blog</h1>
+            <h2 class="blog-description">Just do what you want !</h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+    <h1 class="post-title">OpenCV边缘检测：Canny算子</h1>
+    <section class="post-content">
+      <h3 id="边缘检测的一般步骤"><a href="#边缘检测的一般步骤" class="headerlink" title="边缘检测的一般步骤"></a>边缘检测的一般步骤</h3><p><pre><br>1.滤波<br>2.增强<br>3.检测<br></pre><br>现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充</p>
+<h3 id="Canny-算子"><a href="#Canny-算子" class="headerlink" title="Canny 算子"></a>Canny 算子</h3><p>大致步骤如同老师讲时记得笔记：</p>
+<p><pre><br>二维高斯函数平滑图像</pre></p>
+<p>计算结果梯度</p>
+<p>使用梯度幅度来估计每一点边缘强度</p>
+<p>非极大值抑制和细化边缘</p>
+<p>阈值处理，去掉伪边缘<br><br>一、最简单的canny用法，拿到原图后直接用。<br><br>二、高阶的canny用法，转成灰度图，降噪，用canny，最后将得到的边缘作为掩码，拷贝原图到效果图上，得到彩色的边缘图  <br></p>
+<h3 id="实验代码"><a href="#实验代码" class="headerlink" title="实验代码"></a>实验代码</h3><pre>
+
+<p>//———————————–【头文件包含部分】—————————————<br>//     描述：包含程序所依赖的头文件<br>//———————————————————————————————-  </p>
+<p>#include<iostream>  </iostream></p>
+<p>#include &lt;opencv2/opencv.hpp&gt;  </p>
+<p>#include&lt;opencv2/highgui/highgui.hpp&gt;  </p>
+<p>#include&lt;opencv2/imgproc/imgproc.hpp&gt;  </p>
+<p>//———————————–【命名空间声明部分】—————————————<br>//     描述：包含程序所使用的命名空间<br>//———————————————————————————————–   </p>
+<p>using namespace cv;<br>using namespace std;</p>
+<p>//———————————–【全局变量声明部分】————————————–<br>//     描述：全局变量声明<br>//———————————————————————————————–  </p>
+<p>//———————————–【全局函数声明部分】————————————–<br>//     描述：全局函数声明<br>//———————————————————————————————–  </p>
+<p>//———————————–【main( )函数】——————————————–<br>//     描述：控制台应用程序的入口函数，我们的程序从这里开始<br>//———————————————————————————————–<br>int main()<br>{<br>    //载入原始图<br>    Mat src = imread(“kuang1.jpg”);  //工程目录下应该有一张名为1.jpg的素材图<br>    Mat src1 = src.clone();</p>
+<pre><code>resize(src, src1, Size(src.cols / 6, src.rows / 6),0,0,INTER_LINEAR);
+
+Mat dst, edge, gray;
+
+
+// 【2】将原图像转换为灰度图像  
+cvtColor(src1, gray, CV_BGR2GRAY);
+
+// 【3】先用使用 3x3内核来降噪  
+GaussianBlur(gray, edge, Size(3, 3),0,0);
+
+// 【4】运行Canny算子  
+Canny(edge, edge, 3, 9, 3);
+imshow(&quot;canny&quot;,edge);
+imwrite(&quot;cannyqq.jpg&quot;, edge);
+
+
+
+
+
+waitKey(0);
+return 0;
+</code></pre><p>}</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2></pre><p>title: OpenCV边缘检测：Canny算子<br>date: 2018-03-28 16:54:18</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>花郎世纪</h4>
+    <p>A lazy student.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Canny算子/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Canny算子/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Canny算子/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">
+        Opencv边缘检测：Laplacian函数和scharr滤波器 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>

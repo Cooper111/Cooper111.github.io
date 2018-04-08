@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>OpenCV边缘检测：Sobel算子 | Cooper111&#39;s Blog</title>
+  <meta name="description" content="Just do what you want !" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Cooper111's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Cooper111's Blog</h1>
+            <h2 class="blog-description">Just do what you want !</h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+    <h1 class="post-title">OpenCV边缘检测：Sobel算子</h1>
+    <section class="post-content">
+      <h1 id="OpenCV边缘检测：Sobel算子"><a href="#OpenCV边缘检测：Sobel算子" class="headerlink" title="OpenCV边缘检测：Sobel算子"></a>OpenCV边缘检测：Sobel算子</h1><h3 id="基础概念："><a href="#基础概念：" class="headerlink" title="基础概念："></a>基础概念：</h3><p><strong>图像梯度:</strong></p>
+<pre>
+G(x,y) = dx i + dy j; 
+dx(i,j) = I(i+1,j) - I(i,j); 
+dy(i,j) = I(i,j+1) - I(i,j); 
+
+其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
+</pre>
+
+<p><strong>理解卷积：</strong></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/bitcarmanlee/article/details/54729807" target="_blank" rel="noopener">https://blog.csdn.net/bitcarmanlee/article/details/54729807</a></p>
+</blockquote>
+<p><strong>图片处理(卷积):</strong><br></p>
+<blockquote>
+<p><a href="http://blog.sina.com.cn/s/blog_4bdb170b01019atv.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_4bdb170b01019atv.html</a><br>注：只稍微做一点了解，看了前面一小部分</p>
+</blockquote>
+<h3 id="概念重点提要："><a href="#概念重点提要：" class="headerlink" title="概念重点提要："></a>概念重点提要：</h3><p><hr><br><img src="http://img.blog.csdn.net/20131213145230031?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhcXVuZmVuZzEyMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="image"></p>
+<p><img src="http://img.blog.csdn.net/20131213145243546?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhcXVuZmVuZzEyMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="image"></p>
+<p><img src="http://img.blog.csdn.net/20131213145256890?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhcXVuZmVuZzEyMw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="image"></p>
+<p>图像边缘,相素值会发生显著的变化了。表示这一改变的一个方法是使用 导数 。 梯度值的大变预示着图像中内容的显著变化。用更加形象的图像来解释,假设我们有一张一维图形。下图2中灰度值的”跃升”表示边缘的存在，图3中使用一阶微分求导我们可以更加清晰的看到边缘”跃升”的存在。</p>
+<p><hr><br>由上述公式计算得到Gy和Gx后，可以计算得到G的值，一个点的G的代表该点的梯度，如果大于某一设定范围则认为该点是边缘点。<br></p>
+<p>图像梯度，水平差分处理监测竖直，对x求1阶导数用来检测竖直边缘，sobel算子</p>
+<hr>
+
+<h3 id="细节概念梳理"><a href="#细节概念梳理" class="headerlink" title="细节概念梳理"></a>细节概念梳理</h3><p>水平差分处理监测竖直，对x求1阶导数用来检测竖直边缘，sobel算子</p>
+<pre>
+https://blog.csdn.net/chaipp0607/article/details/54348624
+https://blog.csdn.net/xiaqunfeng123/article/details/17302003
+最后看https://blog.csdn.net/poem_qianmo/article/details/25560901，就懂了
+</pre>
+
+<h3 id="总体归纳"><a href="#总体归纳" class="headerlink" title="总体归纳"></a>总体归纳</h3><blockquote>
+<p> <a href="https://blog.csdn.net/sophia_xw/article/details/70168554" target="_blank" rel="noopener">https://blog.csdn.net/sophia_xw/article/details/70168554</a></p>
+</blockquote>
+<h2 id="实验代码："><a href="#实验代码：" class="headerlink" title="实验代码："></a>实验代码：</h2><h1 id="①"><a href="#①" class="headerlink" title="①"></a>①</h1><p>来源：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/poem_qianmo/article/details/25560901" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/25560901</a></p>
+</blockquote>
+<pre>
+//-----------------------------------【头文件包含部分】---------------------------------------  
+//            描述：包含程序所依赖的头文件  
+//----------------------------------------------------------------------------------------------  
+#include <opencv2 opencv.hpp="">  
+#include<opencv2 highgui="" highgui.hpp="">  
+#include<opencv2 imgproc="" imgproc.hpp="">  
+
+//-----------------------------------【命名空间声明部分】---------------------------------------  
+//            描述：包含程序所使用的命名空间  
+//-----------------------------------------------------------------------------------------------  
+using namespace cv;  
+//-----------------------------------【main( )函数】--------------------------------------------  
+//            描述：控制台应用程序的入口函数，我们的程序从这里开始  
+//-----------------------------------------------------------------------------------------------  
+int main( )  
+{  
+    //【0】创建 grad_x 和 grad_y 矩阵  
+    Mat grad_x, grad_y;  
+    Mat abs_grad_x, abs_grad_y,dst;  
+
+    //【1】载入原始图    
+    Mat src = imread("1.jpg");  //工程目录下应该有一张名为1.jpg的素材图  
+
+    //【2】显示原始图   
+    imshow("【原始图】sobel边缘检测", src);   
+
+    //【3】求 X方向梯度  
+    Sobel( src, grad_x, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT );  
+    convertScaleAbs( grad_x, abs_grad_x );  
+    imshow("【效果图】 X方向Sobel", abs_grad_x);   
+
+    //【4】求Y方向梯度  
+    Sobel( src, grad_y, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT );  
+    convertScaleAbs( grad_y, abs_grad_y );  
+    imshow("【效果图】Y方向Sobel", abs_grad_y);   
+
+    //【5】合并梯度(近似)  
+    addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );  
+    imshow("【效果图】整体方向Sobel", dst);   
+
+    waitKey(0);   
+    return 0;   
+}  
+</opencv2></opencv2></opencv2></pre>
+
+<h1 id="②"><a href="#②" class="headerlink" title="②"></a>②</h1><p>来源： </p>
+<blockquote>
+<p><a href="http://blog.csdn.net/dcrmg/article/details/52280768" target="_blank" rel="noopener">http://blog.csdn.net/dcrmg/article/details/52280768</a></p>
+</blockquote>
+<pre>
+#include "core/core.hpp"      
+#include "highgui/highgui.hpp"      
+#include "imgproc/imgproc.hpp"      
+#include "iostream"    
+
+using namespace std;  
+using namespace cv;  
+
+int main(int argc, char *argv[])  
+{  
+    Mat image = imread("qiaoba.jpg", 0);  
+    Mat imageX = Mat::zeros(image.size(), CV_16SC1);  
+    Mat imageY = Mat::zeros(image.size(), CV_16SC1);  
+    Mat imageXY = Mat::zeros(image.size(), CV_16SC1);  
+    Mat imageX8UC;  
+    Mat imageY8UC;  
+    Mat imageXY8UC;  
+    if (!image.data)  
+    {  
+        return -1;  
+    }  
+    GaussianBlur(image, image, Size(3, 3), 0); //高斯滤波消除噪点    
+    uchar *P = image.data;  
+    uchar *PX = imageX.data;  
+    uchar *PY = imageY.data;  
+    int step = image.step;  
+    int stepXY = imageX.step;  
+    for (int i = 1; i<image.rows 2="" -="" 1;="" i++)="" {="" for="" (int="" j="1;" j<image.cols="" j++)="" 通过指针遍历图像上每一个像素="" px[i*imagex.step="" +="" j*(stepxy="" step)]="abs(P[(i" 1)*step="" 1]="" p[i*step="" *="" p[(i="" 1]);="" py[i*imagex.step="" j]="" }="" addweighted(imagex,="" 0.5,="" imagey,="" 0,="" imagexy);="" 融合x、y方向="" convertscaleabs(imagex,="" imagex8uc);="" convertscaleabs(imagey,="" imagey8uc);="" convertscaleabs(imagexy,="" imagexy8uc);="" 转换为8bit图像="" mat="" imagesobel;="" sobel(image,="" imagesobel,="" cv_8uc1,="" 1,="" 1);="" opencv的sobel函数="" imshow("source="" image",="" image);="" imshow("x="" direction",="" imshow("y="" imshow("xy="" imshow("opencv="" soble",="" imagesobel);="" waitkey();="" return="" 0;="" <="" pre="">
+
+<p><strong>sobel用法的想法：</strong></p>
+<blockquote>
+<p>载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和；</p>
+</blockquote>
+<h3 id="Sobel优劣："><a href="#Sobel优劣：" class="headerlink" title="Sobel优劣："></a>Sobel优劣：</h3><pre>
+优点：计算简单，速度很快；
+
+缺点：计算方向单一，对复杂纹理的情况显得乏力；
+
+　　直接用阈值来判断边缘点欠合理解释，会造成较多的噪声点误判。
+</pre>
+
+<hr>
+<p>title: ‘ OpenCV边缘检测：Sobel算子’<br>date: 2018-03-28 16:54:42</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2></image.rows></pre>
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>花郎世纪</h4>
+    <p>A lazy student.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Sobel算子/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Sobel算子/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Sobel算子/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <a class="newer-posts" href="/2018/03/26/分离颜色通道&多通道图像混合/">
+        ← OpenCV分离颜色通道&多通道图像混合
+    </a>
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2018/03/26/学习进度/">
+        学习进度 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>

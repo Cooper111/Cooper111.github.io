@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <title>Archives | Cooper111&#39;s Blog</title>
-  <meta name="description" content="" />
+  <meta name="description" content="Just do what you want !" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +30,7 @@
         <div class="site-head-content inner">
              <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
             <h1 class="blog-title">Cooper111's Blog</h1>
-            <h2 class="blog-description"></h2>
+            <h2 class="blog-description">Just do what you want !</h2>
         </div>
     </div>
 </header>
@@ -40,25 +40,28 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-03-28T08:49:21.023Z" itemprop="datePublished">
-          2018-03-28
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/"></a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Canny算子/">OpenCV边缘检测：Canny算子</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        Filter2D函数：
-CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
-                            InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BO
+        边缘检测的一般步骤1.滤波2.增强3.检测现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充
+Canny 算子大致步骤如同老师讲时记得笔记：
+二维高斯函数平滑图像
+计算结果梯度
+使用梯度幅度来估计每一点边缘强度
+非极大值抑制和细化边缘
+阈值处理，去掉伪边缘一、最简单的canny用法，拿到原图后直接用。二、高阶的canny用法，转成灰度图，降噪，用canny，最后将得到的边缘作为掩码，拷贝原图到效果图上，得到彩色的边
       
       </p>
       
       <p>
-          <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/" class="excerpt-link">Read More...</a>
+          <a href="/2018/03/26/OpenCV边缘检测：Canny算子/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -67,12 +70,12 @@ CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-03-28T08:48:57.854Z" itemprop="datePublished">
-          2018-03-28
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/"></a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">Opencv边缘检测：Laplacian函数和scharr滤波器</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
@@ -87,7 +90,7 @@ C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, dou
       </p>
       
       <p>
-          <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/" class="excerpt-link">Read More...</a>
+          <a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -96,12 +99,178 @@ C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, dou
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-03-26T11:24:54.554Z" itemprop="datePublished">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
           2018-03-26
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/26/线性领域滤波/"></a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">OpenCV边缘检测：filter2D和prewwit算子</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        Filter2D函数：
+CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
+                            InputArray kernel, Point anchor=Point(-1,-1),
+                            double delta=0, int borderType=BO
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/分离颜色通道&多通道图像混合/">OpenCV分离颜色通道&多通道图像混合</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        分离颜色通道&amp;多通道图像混合
+
+Split函数
+
+C++: void split(const Mat& src, Mat*mvbegin);  
+C++: void split(InputArray m,OutputArrayOfArrays mv); 
+第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
+第二个参数，OutputArrayOfArrays类型的mv，填
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/分离颜色通道&多通道图像混合/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Sobel算子/">OpenCV边缘检测：Sobel算子</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        OpenCV边缘检测：Sobel算子基础概念：图像梯度:
+
+G(x,y) = dx i + dy j; 
+dx(i,j) = I(i+1,j) - I(i,j); 
+dy(i,j) = I(i,j+1) - I(i,j); 
+
+其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
+
+
+理解卷积：
+
+https://blog.csdn.net/bitcarmanlee/article/details/54729807
+
+图片处理
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/学习进度/">学习进度</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        3.249:00，第一次参加挑战杯会议，基本没听懂下午开始配置vs和opencv，半夜成功，并且学到博客第三节
+3.25上午搭建了博客
+
+“https://cooper111.github.io/”；
+
+接下午，学到博客第六章，撰写了2个md笔记；Mat通道的理解：
+
+https://blog.csdn.net/gdfsg/article/details/50927257高斯模糊算法：http://www.ruanyifeng.com/
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/学习进度/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/常用语法笔记/">OpenCV常用语法笔记</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        imread()第二个参数
+
+
+0:返回3通道=0:返回灰度图&lt;0:返回原图
+
+
+Mat 的API：
+
+( Mat image; )Mat new_image;new_image =  image.clone()
+
+向下采样：
+
+Mat dstImage;pyrDown(srcImage, dstImage, Size(srcImage.cols / 2, srcImage.rows / 2));  
+
+resize图片缩放：
+
+
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/26/常用语法笔记/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/线性领域滤波/">邻域算子和线性滤波函数</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
@@ -126,37 +295,6 @@ https://blog.csdn.net/poem_qianmo/article/details/22745559
       
       <p>
           <a href="/2018/03/26/线性领域滤波/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-25T09:45:09.834Z" itemprop="datePublished">
-          2018-03-25
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/25/分离颜色通道&多通道图像混合/"></a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        分离颜色通道&amp;多通道图像混合
-
-Split函数
-
-C++: void split(const Mat& src, Mat*mvbegin);  
-C++: void split(InputArray m,OutputArrayOfArrays mv); 
-第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
-第二个参数，OutputArrayOfArrays类型的mv，填
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/25/分离颜色通道&多通道图像混合/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -224,35 +362,10 @@ void namedWindow(const string&amp; winname,int flags=WINDOW
     </section>
   </article>
   
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-25T02:57:33.084Z" itemprop="datePublished">
-          2018-03-25
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/25/hello-world/">Hello World</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick StartCreate a new p
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/25/hello-world/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
   <nav class="pagination" role="pagination">
     
-    <span class="page-number">Page 1 of 1</span>
-    
+    <span class="page-number">Page 1 of 2</span>
+    <a class="older-posts" href="/archives/page/2/">Older Posts →</a>
   </nav>
 </main>
 

@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>你好，Hexo | Cooper111&#39;s Blog</title>
+  <title>OpenCV常用语法笔记 | Cooper111&#39;s Blog</title>
   <meta name="description" content="Just do what you want !" />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -39,16 +39,47 @@
 <main class="content" role="main">
   <article class="post">
     <span class="post-meta">
-      <time datetime="2018-03-25T03:30:17.000Z" itemprop="datePublished">
-          2018-03-25
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
       </time>
     
 </span>
-    <h1 class="post-title">你好，Hexo</h1>
+    <h1 class="post-title">OpenCV常用语法笔记</h1>
     <section class="post-content">
-      <p>使用Hexo，是一件非常简单的事.</p>
-<p>拖拖拖的慢更Blog<br><br><br><br><br>内容初涉，有误请指教( • ̀ω•́ )✧</p>
-
+      <p><strong>imread()第二个参数</strong></p>
+<blockquote>
+<blockquote>
+<p>0:返回3通道<br>=0:返回灰度图<br>&lt;0:返回原图</p>
+</blockquote>
+</blockquote>
+<p><strong>Mat 的API：</strong></p>
+<blockquote>
+<p>( Mat image; )<br>Mat new_image;<br>new_image =  image.clone()</p>
+</blockquote>
+<p><strong>向下采样：</strong></p>
+<blockquote>
+<p>Mat dstImage;<br>pyrDown(srcImage, dstImage, Size(srcImage.cols / 2, srcImage.rows / 2));  </p>
+</blockquote>
+<p><strong>resize图片缩放：</strong></p>
+<blockquote>
+<p>resize(src, dstimage, Size(src.cols / 6, src.rows / 6),0,0,INTER_LINEAR);</p>
+</blockquote>
+<p><strong>二值化</strong></p>
+<blockquote>
+<p>threshold(dst, dst_up, 84, 255, THRESH_BINARY);</p>
+</blockquote>
+<p><strong>友链：</strong></p>
+<p>基本的阈值操作：</p>
+<blockquote>
+<p><a href="http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/tutorials/imgproc/threshold/threshold.html" target="_blank" rel="noopener">http://www.opencv.org.cn/opencvdoc/2.3.2/html/doc/tutorials/imgproc/threshold/threshold.html</a></p>
+</blockquote>
+<p><strong>createTrackbar自己总结</strong></p>
+<p><pre><br>1.首先要声明全局变量（Mat）和 变量参数（int型）<br>2.其次申明全局函数  static void xxx（int， void*）<br>3.然后在int mian里操作<br>实例：<br>namedWindow(“Demo”, CV_WINDOW_AUTOSIZE);<br>//创建显示窗口<br>createTrackbar(“Threshold”,”Demo”, &amp;threshold_value,255, Threshold_Demo);<br>//创建滑动条来控制阈值<br>Threshold_Demo(0, 0);<br>//结果在回调函数中显示</pre></p>
+<p>4.在全局给出void xxx（int， void<em>）的定义<br>实例：<br>void Threshold_Demo(int, void</em>)<br>{<br>    threshold(dst, dst_up, threshold_value, 255, THRESH_BINARY);</p>
+<pre><code>imshow(&quot;Demo&quot;, dst_up);
+</code></pre><p>}</p>
+<h2 id=""><a href="#" class="headerlink" title=""></a></h2><p>title: 常用语法笔记<br>date: 2018-03-28 16:48:30</p>
+<h2 id="tags"><a href="#tags" class="headerlink" title="tags:"></a>tags:</h2>
     </section>
     <footer class="post-footer">
       <section class="author">
@@ -57,15 +88,15 @@
 </section>
       <section class="share">
     <h4>Share this post</h4>
-    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/03/25/你好，Hexo/"
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/03/26/常用语法笔记/"
        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <span class="hidden">Twitter</span>
     </a>
-    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/03/25/你好，Hexo/"
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/03/26/常用语法笔记/"
        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <span class="hidden">Facebook</span>
     </a>
-    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/03/25/你好，Hexo/"
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/03/26/常用语法笔记/"
        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <span class="hidden">Google+</span>
     </a>
@@ -74,14 +105,14 @@
   </article>
   <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2018/03/25/图像载入，初级图像混合/">
-        ← 图像载入，初级图像混合
+    <a class="newer-posts" href="/2018/03/26/学习进度/">
+        ← 学习进度
     </a>
     
     <span class="page-number">•</span>
     
-    <a class="older-posts" href="/2018/03/25/hello-world/">
-        Hello World →
+    <a class="older-posts" href="/2018/03/26/线性领域滤波/">
+        邻域算子和线性滤波函数 →
     </a>
     
 </nav>
