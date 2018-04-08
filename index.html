@@ -1,820 +1,280 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>Hexo</title>
+  <meta name="description" content="" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Hexo">
+
+  
+  
   
 
   
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+
+<body class="home-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Hexo</h1>
+            <h2 class="blog-description"></h2>
+        </div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
 </header>
-      <div class="outer">
-        <section id="main">
   
-    <article id="post-OpenCV边缘检测：filter2D和prewwit算子" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/" class="article-date">
-  <time datetime="2018-03-28T08:49:21.023Z" itemprop="datePublished">2018-03-28</time>
-</a>
+<main class="content" role="main">
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-28T08:49:21.023Z" itemprop="datePublished">
+          2018-03-28
+      </time>
     
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
+</span>
+      <h2 class="post-title"><a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/"></a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
       
-        <h3 id="Filter2D函数："><a href="#Filter2D函数：" class="headerlink" title="Filter2D函数："></a>Filter2D函数：</h3><pre>
+        Filter2D函数：
 CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
                             InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BORDER_DEFAULT );
-参数说明：
-    InputArray src: 输入图像
-    OutputArray dst: 输出图像，和输入图像具有相同的尺寸和通道数量
-    int ddepth: 目标图像深度，如果没写将生成与原图像深度相同的图像。原图像和目标图像支持的图像深度如下：
-        src.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
-        src.depth() = CV_16U/CV_16S, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_32F, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_64F, ddepth = -1/CV_64F
-    当ddepth输入值为-1时，目标图像和原图像深度保持一致。
-    InputArray kernel:卷积核（或者是相关核）,一个单通道浮点型矩阵。如果想在图像不同的通道使用不同的kernel，可以先使用split()函数将图像通道事先分开。
-    Point anchor: 内核的基准点(anchor)，其默认值为(-1,-1)说明位于kernel的中心位置。基准点即kernel中与进行处理的像素点重合的点。
-    double delta: 在储存目标图像前可选的添加到像素的值，默认值为0
-    int borderType: 像素向外逼近的方法，默认值是BORDER_DEFAULT,即对全部边界进行计算。
-</pre>
-该函数使用于任意线性滤波器的图像，支持就地操作。当其中心移动到图像外，函数可以根据指定的边界模式进行插值运算。函数实质上是计算kernel与图像的相关性而不是卷积
-![image](https://img-blog.csdn.net/20161109175042784)
-也就是说kernel并不是中心点的镜像，如果需要一个正真的卷积，使用函数flip()并将中心点设置为(kernel.cols - anchor.x - 1, kernel.rows - anchor.y -1). 
-该函数在大核(11x11或更大)的情况下使用基于DFT的算法，而在小核情况下使用直接算法(使用createLinearFilter()检索得到). 
-
-### prewwit算子
-加入均值处理，对噪声有一定抑制作用
-算法实现如下：
-<pre>
-Kernelx = (Mat_<double>(3, 3) << 1, 1, 1, 0, 0, 0, -1, -1, -1);
-Kernely = (Mat_<double>(3, 3) << -1, 0, 1, -1, 0, 1, -1, 0, 1);
-filter2D(gray, grad_x, CV_16S, Kernelx, Point(-1, -1));
-filter2D(gray, grad_y, CV_16S, Kernely, Point(-1, -1));
-convertScaleAbs(grad_x, abs_grad_x);
-convertScaleAbs(grad_y, abs_grad_y);
-addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
-
-</double></double></pre>
-
+                            double delta=0, int borderType=BO
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/" data-id="cjfavciu30001e4vr862m894u" class="article-share-link">Teilen</a>
+      </p>
       
+      <p>
+          <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/" class="excerpt-link">Read More...</a>
+      </p>
       
-    </footer>
-  </div>
+    </section>
+  </article>
   
-</article>
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-28T08:48:57.854Z" itemprop="datePublished">
+          2018-03-28
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/"></a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        (基本)参考的博文：
 
+https://blog.csdn.net/poem_qianmo/article/details/25560901
 
+Laplacian函数
+C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intborderType=BORDER_DEFAUL
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
   
-    <article id="post-Opencv边缘检测：Laplacian函数和scharr滤波器" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/" class="article-date">
-  <time datetime="2018-03-28T08:48:57.854Z" itemprop="datePublished">2018-03-28</time>
-</a>
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-26T11:24:54.554Z" itemprop="datePublished">
+          2018-03-26
+      </time>
     
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
+</span>
+      <h2 class="post-title"><a href="/2018/03/26/线性领域滤波/"></a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
       
-        <p>(基本)参考的博文：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/poem_qianmo/article/details/25560901" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/25560901</a></p>
-</blockquote>
-<h3 id="Laplacian函数"><a href="#Laplacian函数" class="headerlink" title="Laplacian函数"></a>Laplacian函数</h3><pre>
-C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intborderType=BORDER_DEFAULT );
+        邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······
 
-第一个参数，InputArray类型的image，输入图像，即源图像，填Mat类的对象即可，且需为单通道8位图像。
-第二个参数，OutputArray类型的edges，输出的边缘图，需要和源图片有一样的尺寸和通道数。
-第三个参数，int类型的ddept，目标图像的深度。
-第四个参数，int类型的ksize，用于计算二阶导数的滤波器的孔径尺寸，大小必须为正奇数，且有默认值1。
-第五个参数，double类型的scale，计算拉普拉斯值的时候可选的比例因子，有默认值1。
-第六个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
-第七个参数， int类型的borderType，边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate()处得到更详细的信息。
-</pre>
-Laplacian( )函数其实主要是利用sobel算子的运算。它通过加上sobel算子运算出的图像x方向和y方向上的导数，来得到我们载入图像的拉普拉斯变换结果。
-<br>
-其中，sobel算子（ksize>1）如下：
-![image](http://img.blog.csdn.net/20140511215812515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-<br>
-而当ksize=1时，Laplacian()函数采用以下3x3的孔径：
-![image](http://img.blog.csdn.net/20140511215703203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-<br>
-#### 部分实例：(先高斯滤波，转灰度图)
-<pre>
-Laplacian( src_gray, dst, CV_16S, 3, 1, 0, BORDER_DEFAULT ); 
-convertScaleAbs( dst, abs_dst );  
-</pre>
+方框滤波——boxblur函数
+均值滤波——blur函数
+高斯滤波——GaussianBlur函数
 
-<h3 id="scharr滤波器"><a href="#scharr滤波器" class="headerlink" title="scharr滤波器"></a>scharr滤波器</h3><pre>
-C++: void Scharr(  
-InputArray src, //源图  
- OutputArray dst, //目标图  
- int ddepth,//图像深度  
- int dx,// x方向上的差分阶数  
- int dy,//y方向上的差分阶数  
- double scale=1,//缩放因子  
- double delta=0,// delta值  
- intborderType=BORDER_DEFAULT )// 边界模式 
+函数的原理和源代码分析见：
 
- 第一个参数，InputArray 类型的src，为输入图像，填Mat类型即可。
-第二个参数，OutputArray类型的dst，即目标图像，函数的输出参数，需要和源图片有一样的尺寸和类型。
-第三个参数，int类型的ddepth，输出图像的深度，支持如下src.depth()和ddepth的组合：
-若src.depth() = CV_8U, 取ddepth =-1/CV_16S/CV_32F/CV_64F
-若src.depth() = CV_16U/CV_16S, 取ddepth =-1/CV_32F/CV_64F
-若src.depth() = CV_32F, 取ddepth =-1/CV_32F/CV_64F
-若src.depth() = CV_64F, 取ddepth = -1/CV_64F
-第四个参数，int类型dx，x方向上的差分阶数。
-第五个参数，int类型dy，y方向上的差分阶数。
-第六个参数，double类型的scale，计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。我们可以在文档中查阅getDerivKernels的相关介绍，来得到这个参数的更多信息。
-第七个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
-第八个参数， int类型的borderType，我们的老朋友了（万年是最后一个参数），边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate处得到更详细的信息。
-</pre>
+https://blog.csdn.net/poem_qianmo/article/details/22745559
 
-<blockquote>
-<p>使用Scharr滤波器运算符计算x或y方向的图像差分。其实它的参数变量和Sobel基本上是一样的，除了没有ksize核的大小。</p>
-</blockquote>
-<h4 id="（部分）代码实例："><a href="#（部分）代码实例：" class="headerlink" title="（部分）代码实例："></a>（部分）代码实例：</h4><pre>
-Scharr( src, grad_x, CV_16S, 1, 0, 1, 0, BORDER_DEFAULT );  
-convertScaleAbs( grad_x, abs_grad_x ); 
+起手式
 
-Scharr( src, grad_y, CV_16S, 0, 1, 1, 0, BORDER_DEFAULT );  
-convertScaleAbs( grad_y, abs_grad_y ); 
+#include “opencv2/core/core.hpp”  
 
-addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
-</pre>
+#include”opencv
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/" data-id="cjfavciua0004e4vrko3v3y7h" class="article-share-link">Teilen</a>
+      </p>
       
+      <p>
+          <a href="/2018/03/26/线性领域滤波/" class="excerpt-link">Read More...</a>
+      </p>
       
-    </footer>
-  </div>
+    </section>
+  </article>
   
-</article>
-
-
-  
-    <article id="post-线性领域滤波" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/26/线性领域滤波/" class="article-date">
-  <time datetime="2018-03-26T11:24:54.554Z" itemprop="datePublished">2018-03-26</time>
-</a>
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-25T09:45:09.834Z" itemprop="datePublished">
+          2018-03-25
+      </time>
     
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
+</span>
+      <h2 class="post-title"><a href="/2018/03/25/分离颜色通道&多通道图像混合/"></a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
       
-        <h1 id="邻域算子和线性滤波函数"><a href="#邻域算子和线性滤波函数" class="headerlink" title="邻域算子和线性滤波函数"></a>邻域算子和线性滤波函数</h1><p>ps: 只能说数学基础不好，得慢慢补呐······</p>
-<blockquote>
-<p>方框滤波——boxblur函数</p>
-<p>均值滤波——blur函数</p>
-<p>高斯滤波——GaussianBlur函数</p>
-</blockquote>
-<p>函数的原理和源代码分析见：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/poem_qianmo/article/details/22745559" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/22745559</a></p>
-</blockquote>
-<h2 id="起手式"><a href="#起手式" class="headerlink" title="起手式"></a>起手式</h2><blockquote>
-<blockquote>
-<p>#include “opencv2/core/core.hpp”  </p>
-</blockquote>
-<p>#include”opencv2/highgui/highgui.hpp”  </p>
-<p>#include”opencv2/imgproc/imgproc.hpp”  </p>
-<p>#include &lt;stdio.h&gt;  </p>
-<p>using namespace cv; </p>
-</blockquote>
-<h2 id="boxFilter函数——方框滤波"><a href="#boxFilter函数——方框滤波" class="headerlink" title="boxFilter函数——方框滤波"></a><1>boxFilter函数——方框滤波</1></h2><pre>C++: void boxFilter(InputArray src,OutputArray dst, int ddepth, Size ksize, Point anchor=Point(-1,-1), boolnormalize=true, int borderType=BORDER_DEFAULT )
-参数详解如下：
+        分离颜色通道&amp;多通道图像混合
 
-第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。该函数对通道是独立处理的，且可以处理任意通道数的图片，但需要注意，待处理的图片深度应该为CV_8U, CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
-第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。
-第三个参数，int类型的ddepth，输出图像的深度，-1代表使用原图深度，即src.depth()。
-第四个参数，Size类型的ksize，内核的大小。一般这样写Size( w,h )来表示内核的大小( 其中，w 为像素宽度， h为像素高度)。Size（3,3）就表示3x3的核大小，Size（5,5）就表示5x5的核大小
-第五个参数，Point类型的anchor，表示锚点（即被平滑的那个点），注意他有默认值Point(-1,-1)。如果这个点坐标是负值的话，就表示取核的中心为锚点，所以默认值Point(-1,-1)表示这个锚点在核的中心。
-第六个参数，bool类型的normalize，默认值为true，一个标识符，表示内核是否被其区域归一化（normalized）了。
-第七个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。有默认值BORDER_DEFAULT，我们一般不去管它。
+Split函数
 
-调用代码示范如下：
-    //载入原图  
-    Mat image=imread("2.jpg");  
-    //进行均值滤波操作  
-    Mat out;  
-    boxFilter(image, out, -1,Size(5, 5));  
-</pre>
-## <2>blur函数——均值滤波
-
-<pre>
-C++: void blur(InputArray src, OutputArraydst, Size ksize, Point anchor=Point(-1,-1), int borderType=BORDER_DEFAULT )  
-参数详解如下：
-
-第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。该函数对通道是独立处理的，且可以处理任意通道数的图片，但需要注意，待处理的图片深度应该为CV_8U, CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
-第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。比如可以用Mat::Clone，以源图片为模板，来初始化得到如假包换的目标图。
-第三个参数，Size类型（对Size类型稍后有讲解）的ksize，内核的大小。一般这样写Size( w,h )来表示内核的大小( 其中，w 为像素宽度， h为像素高度)。Size（3,3）就表示3x3的核大小，Size（5,5）就表示5x5的核大小
-第四个参数，Point类型的anchor，表示锚点（即被平滑的那个点），注意他有默认值Point(-1,-1)。如果这个点坐标是负值的话，就表示取核的中心为锚点，所以默认值Point(-1,-1)表示这个锚点在核的中心。
-第五个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。有默认值BORDER_DEFAULT，我们一般不去管它。
-
-调用代码示范：
-//载入原图  
-  Mat image=imread("1.jpg");  
-  //进行均值滤波操作  
-  Mat out;  
-  blur(image, out, Size(7, 7));  
-</pre>
-## <3>GaussianBlur函数——高斯滤波
-<pre>
-C++: void GaussianBlur(InputArray src,OutputArray dst, Size ksize, double sigmaX, double sigmaY=0, intborderType=BORDER_DEFAULT )
-参数详解如下：
-
-第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。它可以是单独的任意通道数的图片，但需要注意，图片深度应该为CV_8U,CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
-第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。比如可以用Mat::Clone，以源图片为模板，来初始化得到如假包换的目标图。
-第三个参数，Size类型的ksize高斯内核的大小。其中ksize.width和ksize.height可以不同，但他们都必须为正数和奇数。或者，它们可以是零的，它们都是由sigma计算而来。
-第四个参数，double类型的sigmaX，表示高斯核函数在X方向的的标准偏差。
-第五个参数，double类型的sigmaY，表示高斯核函数在Y方向的的标准偏差。若sigmaY为零，就将它设为sigmaX，如果sigmaX和sigmaY都是0，那么就由ksize.width和ksize.height计算出来。
-为了结果的正确性着想，最好是把第三个参数Size，第四个参数sigmaX和第五个参数sigmaY全部指定到。
-第六个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。注意它有默认值BORDER_DEFAULT。
-
-调用示例：
-    //载入原图  
-    Mat image=imread("1.jpg");  
-    //进行滤波操作  
-    Mat out;  
-    GaussianBlur( image, out, Size( 5, 5 ), 0, 0 );  
-</pre>
-
-
-
-<p>卷积：</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/22298352" target="_blank" rel="noopener">https://www.zhihu.com/question/22298352</a></p>
-</blockquote>
-<p>高斯模糊：</p>
-<blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html</a></p>
-</blockquote>
-<p>傅里叶变换</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/19991026/answer/252715189?utm_source=qq&amp;utm_medium=social" target="_blank" rel="noopener">https://www.zhihu.com/question/19991026/answer/252715189?utm_source=qq&amp;utm_medium=social</a></p>
-</blockquote>
-<p>欧拉公式</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/41134540?utm_source=qq&amp;utm_medium=social" target="_blank" rel="noopener">https://www.zhihu.com/question/41134540?utm_source=qq&amp;utm_medium=social</a></p>
-</blockquote>
-<p>图像亮度和明度概念</p>
-<blockquote>
-<p><a href="https://zhidao.baidu.com/question/460598833160628645.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/460598833160628645.html</a></p>
-</blockquote>
-</3></2>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/26/线性领域滤波/" data-id="cjfavciue0006e4vru4zq9jg2" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-分离颜色通道&amp;多通道图像混合" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/25/分离颜色通道&多通道图像混合/" class="article-date">
-  <time datetime="2018-03-25T09:45:09.834Z" itemprop="datePublished">2018-03-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="分离颜色通道-amp-多通道图像混合"><a href="#分离颜色通道-amp-多通道图像混合" class="headerlink" title="分离颜色通道&amp;多通道图像混合"></a>分离颜色通道&amp;多通道图像混合</h1><hr>
-
-<p><strong>Split函数</strong></p>
-<pre>
 C++: void split(const Mat& src, Mat*mvbegin);  
 C++: void split(InputArray m,OutputArrayOfArrays mv); 
 第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
-第二个参数，OutputArrayOfArrays类型的mv，填函数的输出数组或者输出的vector容器。
-</pre>
-split函数分割多通道数组转换成独立的单通道数组，按公式来看就是这样：<br>
-###### mv[c](I) = src(I)c
-
-<hr>
-
-**merge()函数**
-<pre>
-C++: void merge(const Mat* mv, size_tcount, OutputArray dst)  
-C++: void merge(InputArrayOfArrays mv,OutputArray dst)
-第一个参数，mv，填需要被合并的输入矩阵或vector容器的阵列，这个mv参数中所有的矩阵必须有着一样的尺寸和深度。
-第二个参数，count，当mv为一个空白的C数组时，代表输入矩阵的个数，这个参数显然必须大于1.
-第三个参数，dst，即输出矩阵，和mv[0]拥有一样的尺寸和深度，并且通道的数量是矩阵阵列中的通道的总数。
-</pre>
-merge()函数的功能是split()函数的逆向操作，将多个数组组合合并成一个多通道的数组。<br>
-> merge函数的功能是将一些数组合并成一个多通道的数组。关于组合的细节，输出矩阵中的每个元素都将是输出数组的串接，其中，第i个输入数组的元素被视为mv[i]。 c一般用其中的Mat::at（）方法对某个通道进行存取,也就是这样用 channels\.at(0)。
-
-PS: Mat::at（）方法，返回一个引用到指定的数组元素。注意是引用，相当于两者等价，修改其中一个另一个跟着变。<br>
-
-
-### 多通道图像混合示例程序
-<pre>
-//-----------------------------------【程序说明】----------------------------------------------  
-//  程序名称:：【OpenCV入门教程之四】分离颜色通道&多通道图像混合   配套源码  
-// VS2010版   OpenCV版本：2.4.8  
-//     2014年3月13 日 Create by 浅墨  
-//  图片素材出处：dota2原画 dota2logo   
-//     浅墨的微博：@浅墨_毛星云  
-//------------------------------------------------------------------------------------------------  
-
-//-----------------------------------【头文件包含部分】---------------------------------------  
-//     描述：包含程序所依赖的头文件  
-//----------------------------------------------------------------------------------------------                                                                                      
-#include <cv.h>  
-#include <highgui.h>  
-#include <iostream>  
-
-//-----------------------------------【命名空间声明部分】---------------------------------------  
-//     描述：包含程序所使用的命名空间  
-//-----------------------------------------------------------------------------------------------    
-using namespace cv;  
-using namespace std;  
-
-
-//-----------------------------------【全局函数声明部分】--------------------------------------  
-//     描述：全局函数声明  
-//-----------------------------------------------------------------------------------------------  
-bool MultiChannelBlending();  
-
-//-----------------------------------【main( )函数】--------------------------------------------  
-//     描述：控制台应用程序的入口函数，我们的程序从这里开始  
-//-----------------------------------------------------------------------------------------------  
-int main(  )  
-{  
-       system("color5E");  
-
-       if(MultiChannelBlending())  
-       {  
-              cout<<endl<<"嗯。好了，得出了你需要的混合值图像~"; }="" waitkey(0);="" return="" 0;="" -----------------------------【multichannelblending(="" )函数】--------------------------------="" 描述：多通道混合的实现函数="" -----------------------------------------------------------------------------------------------="" bool="" multichannelblending()="" {="" 【0】定义相关变量="" mat="" srcimage;="" logoimage;="" vector<mat="">channels;
-       channels.resize(3);
-
-       Mat  imageBlueChannel;  
-
-       //=================【蓝色通道部分】=================  
-       //     描述：多通道混合-蓝色分量部分  
-       //============================================  
-
-       //【1】读入图片  
-       logoImage=imread("dota_logo.jpg",0);  
-       srcImage=imread("dota_jugg.jpg");  
-
-       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
-       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
-
-       //【2】把一个3通道图像转换成3个单通道图像  
-       split(srcImage,channels);//分离色彩通道  
-
-       //【3】将原图的蓝色通道引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
-       imageBlueChannel=channels.at(0);  
-       //【4】将原图的蓝色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageBlueChannel中  
-       addWeighted(imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
-              logoImage,0.5,0,imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
-
-       //【5】将三个单通道重新合并成一个三通道  
-       merge(channels,srcImage);  
-
-       //【6】显示效果图  
-       namedWindow("<1>游戏原画+logo蓝色通道 by浅墨");  
-       imshow("<1>游戏原画+logo蓝色通道 by浅墨",srcImage);  
-
-
-       //=================【绿色通道部分】=================  
-       //     描述：多通道混合-绿色分量部分  
-       //============================================  
-
-       //【0】定义相关变量  
-       Mat  imageGreenChannel;  
-
-       //【1】重新读入图片  
-       logoImage=imread("dota_logo.jpg",0);  
-       srcImage=imread("dota_jugg.jpg");  
-
-       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
-       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
-
-       //【2】将一个三通道图像转换成三个单通道图像  
-       split(srcImage,channels);//分离色彩通道  
-
-       //【3】将原图的绿色通道的引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
-       imageGreenChannel=channels.at(1);  
-       //【4】将原图的绿色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageGreenChannel中  
-       addWeighted(imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
-              logoImage,0.5,0.,imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
-
-       //【5】将三个独立的单通道重新合并成一个三通道  
-       merge(channels,srcImage);  
-
-       //【6】显示效果图  
-       namedWindow("<2>游戏原画+logo绿色通道 by浅墨");  
-       imshow("<2>游戏原画+logo绿色通道 by浅墨",srcImage);  
-
-
-
-       //=================【红色通道部分】=================  
-       //     描述：多通道混合-红色分量部分  
-       //============================================  
-
-       //【0】定义相关变量  
-       Mat  imageRedChannel;  
-
-       //【1】重新读入图片  
-       logoImage=imread("dota_logo.jpg",0);  
-       srcImage=imread("dota_jugg.jpg");  
-
-       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
-       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
-
-       //【2】将一个三通道图像转换成三个单通道图像  
-       split(srcImage,channels);//分离色彩通道  
-
-       //【3】将原图的红色通道引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
-       imageRedChannel=channels.at(2);  
-       //【4】将原图的红色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageRedChannel中  
-       addWeighted(imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
-              logoImage,0.5,0.,imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
-
-       //【5】将三个独立的单通道重新合并成一个三通道  
-       merge(channels,srcImage);  
-
-       //【6】显示效果图  
-       namedWindow("<3>游戏原画+logo红色通道 by浅墨");  
-       imshow("<3>游戏原画+logo红色通道 by浅墨",srcImage);  
-
-       return true;  
-}  
-
-
-</3></3></2></2></1></1></endl<<"嗯。好了，得出了你需要的混合值图像~";></iostream></highgui.h></cv.h></pre>
-
-<h3 id="注：规定通道数"><a href="#注：规定通道数" class="headerlink" title="注：规定通道数"></a>注：规定通道数</h3><blockquote>
-<p>vector<mat>channels;<br>channels.resize(3);</mat></p>
-</blockquote>
-<p><img src="http://images2015.cnblogs.com/blog/451660/201509/451660-20150909114518965-189619534.png" alt="image"></p>
-<p><img src="http://image.mamicode.com/info/201509/20180110181627195634.png" alt="image"></p>
-<p><img src="http://image.mamicode.com/info/201509/20180110181627200516.png" alt="image"></p>
-<p><img src="http://image.mamicode.com/info/201509/20180110181627202469.png" alt="image"></p>
-
+第二个参数，OutputArrayOfArrays类型的mv，填
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/分离颜色通道&多通道图像混合/" data-id="cjfavciu60002e4vrr1k6r7pa" class="article-share-link">Teilen</a>
+      </p>
       
+      <p>
+          <a href="/2018/03/25/分离颜色通道&多通道图像混合/" class="excerpt-link">Read More...</a>
+      </p>
       
-    </footer>
-  </div>
+    </section>
+  </article>
   
-</article>
-
-
-  
-    <article id="post-图像载入，初级图像混合" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/25/图像载入，初级图像混合/" class="article-date">
-  <time datetime="2018-03-25T06:53:27.000Z" itemprop="datePublished">2018-03-25</time>
-</a>
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-25T06:53:27.000Z" itemprop="datePublished">
+          2018-03-25
+      </time>
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+</span>
+      <h2 class="post-title"><a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
       
-        <h1 id="图像载入，初级图像混合"><a href="#图像载入，初级图像混合" class="headerlink" title="图像载入，初级图像混合"></a>图像载入，初级图像混合</h1><h1 id="标配"><a href="#标配" class="headerlink" title="标配"></a>标配</h1><pre>
-#include <opencv2 core="" core.hpp="">  
-#include<opencv2 highgui="" highgui.hpp="">  
+        图像载入，初级图像混合标配
+#include   
+#include  
 
 using namespace cv; 
 
-</opencv2></opencv2></pre>
 
-<h3 id="图像读取"><a href="#图像读取" class="headerlink" title="图像读取"></a>图像读取</h3><blockquote>
-<p>Mat imread(const string&amp; filename, intflags=1 ); <br><br>eg: Mat image = imread(“1.jpg”);</p>
-</blockquote>
-<h3 id="建立窗口容器"><a href="#建立窗口容器" class="headerlink" title="建立窗口容器"></a>建立窗口容器</h3><blockquote>
-<p>void namedWindow(const string&amp; winname,int flags=WINDOW_AUTOSIZE );<br>eg: namedWindow(“第一个窗口”);</p>
-</blockquote>
-<h3 id="在指定窗口显示图像"><a href="#在指定窗口显示图像" class="headerlink" title="在指定窗口显示图像"></a>在指定窗口显示图像</h3><blockquote>
-<p>void imshow(const string&amp; winname, InputArray mat);<br>eg: imshow(“第一个窗口”,iamge);</p>
-</blockquote>
-<hr>
 
-<h1 id="感兴趣的区域：ROI"><a href="#感兴趣的区域：ROI" class="headerlink" title="感兴趣的区域：ROI"></a>感兴趣的区域：ROI</h1><p>两种定义方法：<pre><br>    //定义一个Mat类型并给其设定ROI区域<br>    Mat imageROI;<br>    //方法一<br>    imageROI=image(Rect(500,250,logo.cols,logo.rows));<br>    //方法二<br>    imageROI=srcImage3(Range(250,250+logoImage.rows),Range(200,200+logoImage.cols));</pre></p>
-<h3 id="（一）ROI区域图像叠加-–图像掩膜mask和copyTo函数"><a href="#（一）ROI区域图像叠加-–图像掩膜mask和copyTo函数" class="headerlink" title="（一）ROI区域图像叠加  –图像掩膜mask和copyTo函数"></a>（一）ROI区域图像叠加  –图像掩膜mask和copyTo函数</h3><pre>
-//----------------------------------【ROI_AddImage( )函数】----------------------------------  
-// 函数名：ROI_AddImage（）  
-//     描述：利用感兴趣区域ROI实现图像叠加  
-//----------------------------------------------------------------------------------------------  
-bool ROI_AddImage()  
-{  
+图像读取
+Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1.jpg”);
 
-       //【1】读入图像  
-       Mat srcImage1= imread("dota_pa.jpg");  
-       Mat logoImage= imread("dota_logo.jpg");  
-       if(!srcImage1.data ) { printf("你妹，读取srcImage1错误~！ \n"); return false; }  
-       if(!logoImage.data ) { printf("你妹，读取logoImage错误~！ \n"); return false; }  
-
-       //【2】定义一个Mat类型并给其设定ROI区域  
-       Mat imageROI= srcImage1(Rect(200,250,logoImage.cols,logoImage.rows));  
-
-       //【3】加载掩模（必须是灰度图）  
-       Mat mask= imread("dota_logo.jpg",0);  
-
-       //【4】将掩膜拷贝到ROI  
-       logoImage.copyTo(imageROI,mask);  
-
-       //【5】显示结果  
-       namedWindow("<1>利用ROI实现图像叠加示例窗口");  
-       imshow("<1>利用ROI实现图像叠加示例窗口",srcImage1);  
-
-       return true;  
-}  
-</1></1></pre>
-
-<p>ps:注意关联，具体解释见链接博文；</p>
-<h3 id="（二）初级图像混合-–addWeighted函数"><a href="#（二）初级图像混合-–addWeighted函数" class="headerlink" title="（二）初级图像混合 –addWeighted函数"></a>（二）初级图像混合 –addWeighted函数</h3><pre>
-void addWeighted(InputArray src1, double alpha, InputArray src2, double beta, double gamma, OutputArray dst, int dtype=-1);
-
-第一个参数，InputArray类型的src1，表示需要加权的第一个数组，常常填一个Mat。
-第二个参数，alpha，表示第一个数组的权重
-第三个参数，src2，表示第二个数组，它需要和第一个数组拥有相同的尺寸和通道数。
-第四个参数，beta，表示第二个数组的权重值。
-第五个参数，dst，输出的数组，它和输入的两个数组拥有相同的尺寸和通道数。
-第六个参数，gamma，一个加到权重总和上的标量值。看下面的式子自然会理解。
-第七个参数，dtype，输出阵列的可选深度，有默认值-1。;当两个输入数组具有相同的深度时，这个参数设置为-1（默认值），即等同于src1.depth（）。
-dst = src1[I]*alpha+ src2[I]*beta + gamma;
-</pre>
-
-<p><strong>eg:</strong></p>
-<p><pre><br>    betaValue= ( 1.0 - alphaValue );<br>    addWeighted(srcImage2, alphaValue, srcImage3, betaValue, 0.0, dstImage);  </pre></p>
-<pre><code># 输出即为和输入的两个数组拥有相同的尺寸和通道数的dstImage
-</code></pre><p><br>相関概念：权重(权重总和上的标量值),深度,尺寸和通道数;</p>
+建立窗口容器
+void namedWindow(const string&amp; winname,int flags=WINDOW
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/25/图像载入，初级图像混合/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-25T03:30:17.000Z" itemprop="datePublished">
+          2018-03-25
+      </time>
+    
+</span>
+      <h2 class="post-title"><a href="/2018/03/25/你好，Hexo/">你好，Hexo</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        使用Hexo，是一件非常简单的事.
+拖拖拖的慢更Blog内容初涉，有误请指教( • ̀ω•́ )✧
 
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/图像载入，初级图像混合/" data-id="cjfavciud0005e4vrxuocm1bp" class="article-share-link">Teilen</a>
+      </p>
       
+      <p>
+          <a href="/2018/03/25/你好，Hexo/" class="excerpt-link">Read More...</a>
+      </p>
       
-    </footer>
-  </div>
+    </section>
+  </article>
   
-</article>
-
-
-  
-    <article id="post-你好，Hexo" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/25/你好，Hexo/" class="article-date">
-  <time datetime="2018-03-25T03:30:17.000Z" itemprop="datePublished">2018-03-25</time>
-</a>
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-25T02:57:33.084Z" itemprop="datePublished">
+          2018-03-25
+      </time>
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/25/你好，Hexo/">你好，Hexo</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
+</span>
+      <h2 class="post-title"><a href="/2018/03/25/hello-world/">Hello World</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
       
-        <p>使用Hexo，是一件非常简单的事.</p>
-<p>拖拖拖的慢更Blog<br><br><br><br><br>内容初涉，有误请指教( • ̀ω•́ )✧</p>
-
+        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
+Quick StartCreate a new p
       
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/你好，Hexo/" data-id="cjfavciu80003e4vruzl9cb5b" class="article-share-link">Teilen</a>
+      </p>
       
+      <p>
+          <a href="/2018/03/25/hello-world/" class="excerpt-link">Read More...</a>
+      </p>
       
-    </footer>
-  </div>
+    </section>
+  </article>
   
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/03/25/hello-world/" class="article-date">
-  <time datetime="2018-03-25T02:57:33.084Z" itemprop="datePublished">2018-03-25</time>
-</a>
+  <nav class="pagination" role="pagination">
     
-  </div>
-  <div class="article-inner">
+    <span class="page-number">Page 1 of 1</span>
     
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/25/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/03/25/hello-world/" data-id="cjfavcity0000e4vraxlh6ode" class="article-share-link">Teilen</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
+  </nav>
+</main>
 
 
   
-
-
-</section>
-        
-          <aside id="sidebar">
+<footer class="site-footer">
   
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">March 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/03/28/OpenCV边缘检测：filter2D和prewwit算子/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/28/Opencv边缘检测：Laplacian函数和scharr滤波器/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/26/线性领域滤波/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/25/分离颜色通道&多通道图像混合/">(no title)</a>
-          </li>
-        
-          <li>
-            <a href="/2018/03/25/图像载入，初级图像混合/">图像载入，初级图像混合</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Hexo</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
   </div>
 </footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
 
 
 
-  </div>
+
+
+
 </body>
 </html>
