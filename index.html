@@ -1,84 +1,581 @@
 <!DOCTYPE html>
-<html>
 
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
-  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Cooper111&#39;s Blog</title>
-  <meta name="description" content="A lazy student." />
-  <meta name="HandheldFriendly" content="True" />
-  <meta name="MobileOptimized" content="320" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
 
-  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
 
-  <meta name="generator" content="Cooper111's Blog">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   
   
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cooper111&#39;s Blog">
+<meta property="og:url" content="https://cooper111.github.io/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cooper111&#39;s Blog">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/"/>
+
+
+
+
+
+  <title>Cooper111's Blog</title>
   
 
-  
+
+
+
+
+
+
+
 </head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
-<body class="home-template">
+  
+  
+    
+  
 
-  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
-    <div class="vertical">
-        <div class="site-head-content inner">
-             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
-            <h1 class="blog-title">Cooper111's Blog</h1>
-            <h2 class="blog-description">A lazy student.</h2>
-        </div>
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+	
+	<a href="https://your-url" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
     </div>
-</header>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
   
-<main class="content" role="main">
+
   
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-08-31T16:32:55.000Z" itemprop="datePublished">
-          2018-09-01
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/">正则化，学习率指数衰减和滑动均值模型</a></h2>
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
     </header>
-    <section class="post-excerpt">
-      <p>
-      
-        序浏览学长博客有感，稍微记一点：1.正则化损失函数L22.学习率的指数衰减3.滑动平均模型ps：看到类似的博客也不错
 
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
 
-正则化损失函数L2概念简述：由于数据存在很多干扰或者噪声，容易产生过拟合现象。在相同网络结构下，决策面越复杂，参数w的值往往更大，而w较小时候，得到的决策面相对平缓。L2正则化是一种减少过拟合的方法，让w尽量小，在损失函数中加入刻画模型复杂程度的指标。假设损失函数是J(θ)，则优化的是J(θ)+λR(w)，R(w)=
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/正则化，学习率指数衰减和滑动均值模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/" itemprop="url">正则化，学习率指数衰减和滑动均值模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T00:32:55+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
-      </p>
       
-      <p>
-          <a href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/" class="excerpt-link">Read More...</a>
-      </p>
+
       
-    </section>
+        
+          
+            <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>浏览学长<a href="https://blog.csdn.net/qq_38343111/article/details/82107360" target="_blank" rel="noopener">博客</a>有感，稍微记一点：<br><br>1.正则化损失函数L2<br><br>2.学习率的指数衰减<br><br>3.滑动平均模型<br><br>ps：看到类似的<br><a href="https://blog.csdn.net/myhaspl/article/details/78468754" target="_blank" rel="noopener">博客</a><br>也不错</p>
+<hr>
+
+<h3 id="正则化损失函数L2"><a href="#正则化损失函数L2" class="headerlink" title="正则化损失函数L2"></a>正则化损失函数L2</h3><p><strong>概念简述</strong>：<br><br>由于数据存在很多干扰或者噪声，容易产生过拟合现象。在相同网络结构下，决策面越复杂，参数w的值往往更大，而w较小时候，得到的决策面相对平缓。<br>L2正则化是一种减少过拟合的方法，让w尽量小，在损失函数中加入刻画模型复杂程度的指标。假设损失函数是J(θ)，则优化的是J(θ)+λR(w)，R(w)=∑ni=0|w2i|。<br><br><br><a href="https://blog.csdn.net/gadwgdsk/article/details/80351291" target="_blank" rel="noopener">公式推导</a><br><br><a href="https://blog.csdn.net/abiggg/article/details/78947769" target="_blank" rel="noopener">正则化函数理解</a>（比较好）<br><br><strong>代码实现</strong></p>
+<pre>
+training.py中：
+#正则化损失函数L2
+REGULARATION_RATE = 0.0001
+regularizer =tf.contrib.layers.l2_regularizer(REGULARATION_RATE)
+
+model.py中
+ # fc1密集全连层中,将权重的正则化结果加入损失集合“loss”
+ with tf.variable_scope("fc1") as scope:
+        W_fc1 = weight_variable([6 * 96, 256])  # 输入维度为1*6*96，输出维度为256
+        if regularizer != None:
+            tf.add_to_collection('loss', regularizer(W_fc1))
+        b_fc1 = bias_variable([256])
+        fc1 = tf.nn.relu(tf.matmul(h_pool5_flat, W_fc1) + b_fc1, name="fc1")
+ #fc2可以同理
+
+然后再在training.py中
+loss1 = cross_entropy_mean + tf.add_n(tf.get_collection('loss'))
+即用交叉熵损失和权重损失之和，代替原来的交叉熵损失
+</pre>
+
+<h3 id="学习率的指数衰减"><a href="#学习率的指数衰减" class="headerlink" title="学习率的指数衰减"></a>学习率的指数衰减</h3><p><strong>概念简述</strong>：<br><br>使用固定的 α,不能精确的收敛,算法最后在附近摆动,所以采用指数衰减<br>这里使用退化学习率，公式为：<br></p>
+<blockquote>
+<p>decayed_learning_rate = learning_rate * decay_rate ^ (global_step / decay_steps)</p>
+</blockquote>
+<p><br>对应函数为</p>
+<blockquote>
+<p>tf.train.exponential_decay(learning_rate, global_step, decay_steps, decay_rate, staircase=False, name=None) </p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/02/18/5a88f98e71ea7.png" alt="退化学习率"></p>
+<p>摘自博客，不理解建议看<a href="https://blog.csdn.net/u013555719/article/details/79334359" target="_blank" rel="noopener">原博</a><br><br><strong>代码实现</strong></p>
+<pre>
+在training.py里
+LEARNING_RATE_BASE = 0.8
+LEARNING_RATE_DECAY = 0.99
+BATCH_SIZE = 128
+global_step = tf.Variable(0, trainable=False)
+#设置指数衰减的学习率
+    learning_rate = tf.train.exponential_decay(
+        LEARNING_RATE_BASE,
+        global_step,
+        100000 / BATCH_SIZE,
+        LEARNING_RATE_DECAY
+    )
+
+在model.py中
+#往梯度下降优化器里传入参数学习率(我封装在函数里了)
+def trainning(loss,learning_rate):
+    # 梯度下降
+    train_step = tf.train.AdamOptimizer(learning_rate).minimize(loss)
+    return train_step
+
+training.py中调用
+train_step = model.trainning(loss1,learning_rate)
+</pre>
+### 滑动平均模型
+**概念简述**：<br>
+tf.train.ExponentialMovingAverage实现滑动平均模型,提高模型在测试数据上的健壮性。
+> 说白了就是在更新参数的时候不太过了也不太小，更新参数跟你之前的参数有联系，不会发生突变。健壮性就是对突变的抵抗能力，健壮性越好，这个模型对恶性参数的提抗能力就越强。你训练的时候万一遇到个“疯狂”的参数，有了这个算法疯狂的参数就会被抑制下来，回到正常的队伍里
+
+ExponentialMovingAverage对每一个待更新的变量（variable）都会维护一个影子变量（shadow variable）。影子变量的初始值就是这个变量的初始值，
+> shadow_variable=decay×shadow_variable+(1−decay)×variable
+
+ExponentialMovingAverage 还提供了 num_updates 参数来动态设置 decay 的大小： 
+> decay=min{decay,1+num_updates10+num_updates}
+
+[实例](https://blog.csdn.net/IAMoldpan/article/details/78208897?locationNum=11&fps=1)<br>
+ps:一开始0.99和计算后的0.1相比取0.1，之后计算结果0.99较小取0.99
+
+**代码实现**
+<pre>
+#tf.trainable_variables返回的是需要训练的变量列表
+在training.py中
+ # 定义损失函数、学习率、滑动平均操作以及训练过程
+    variable_averages = tf.train.ExponentialMovingAverage(
+        MOVING_AVERAGE_DECAY, global_step)
+    variable_averages_op = variable_averages.apply(
+        tf.trainable_variables())
+
+ #训练与更新参数的滑动平均值
+    #将2大步操作打包在train_op中，第1大步操作是使用正则化和指数衰减更新参数值
+    #第2大步操作是使用滑动平均再次更新参数值。
+    #每次训练都完成这2大步操作。
+    with tf.control_dependencies([train_step, variable_averages_op]):
+        train_op = tf.no_op(name='train')
+
+#然后在训练的时候调用train_op就完事拉
+</pre>
+
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li>正则化：防止过拟合</li>
+<li>学习率衰减： 最优值收敛</li>
+<li>滑动均值模型： 抵御突变数据，增强模型健壮性</li>
+<li>最后完整代码见序中两篇博客···<br><hr><br>=====================================================2018.8.31</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
   </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-08-31T16:31:01.000Z" itemprop="datePublished">
-          2018-09-01
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/09/01/处理mat数据/">处理mat数据</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        解析原mat的索引，分割训练和测试制作新mat
 
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/处理mat数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/处理mat数据/" itemprop="url">处理mat数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T00:31:01+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>解析原mat的索引，分割训练和测试制作新mat</p>
+<pre>
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jul  1 15:55:32 2018
@@ -87,32 +584,443 @@ Created on Sun Jul  1 15:55:32 2018
 HSGAN dataset:
 Semisupervised Hyperspectral Image Classification Based on Generative Adversarial Networks
 
-Dataset: Indian Pines 
+Dataset: Indian Pines data set
+    IndiaP.mat
+
+@author: FeiDong
+"""
+import numpy as np
+import scipy.io as scio
+import matplotlib.pyplot as plt
+import math
+from sklearn.cross_validation import train_test_split
+# =============================================================================
+# read dataset and convert
+dataset_path = './dataset/IndiaP.mat'
+data_mat = scio.loadmat(dataset_path)
+
+img = np.array(data_mat['img']) # read data from dict
+GroundT = np.array(data_mat['GroundT']).T # read data from dict
+data_G_img = np.zeros((GroundT.shape[0], img.shape[2])) # 存放提取的具有标签的img
+
+for i in range(GroundT.shape[0]):
+    temp_index = GroundT[i, 0]
+    if temp_index % img.shape[0] != 0 :
+        temp_col = math.floor(temp_index / img.shape[0])
+        temp_row = int(math.fmod(temp_index, img.shape[0]) - 1)
+    else:
+        temp_col = math.floor(temp_index / img.shape[0])-1
+        temp_row = int(img.shape[0] - 1)
+
+    data_G_img[i, :] = img[temp_col, temp_row, :]
+
+# 每一行是一个样本，第1列为索引值，第2列为标签，之后200列为像元信息.
+data_sample = np.hstack((GroundT, data_G_img)) 
+# 每一行是一个样本，第1列为索引值，第2列为标签.
+data_sample_label = data_sample[:, [0,1]]   
+# 每一行是一个样本，第1列为索引值，之后200列为像元信息.
+data_sample_dataset = data_sample
+data_sample_dataset = np.delete(data_sample, [1], axis=1)   
+
+# 随机划分为训练子集和测试子集
+x_trainI, x_testI, y_trainI, y_testI = train_test_split(
+        data_sample_dataset,data_sample_label,test_size=0.1, random_state=1)
+# 提取出训练样本和测试样本的索引
+x_train_index = x_trainI[:, 0]
+x_test_index = x_testI[:, 0]
+# 剔除样本中的index
+x_train = x_trainI[:, 1:201]
+x_test = x_testI[:, 1:201]
+y_train = y_trainI[:, 1][:, np.newaxis]
+y_test = y_testI[:, 1][:, np.newaxis]
+
+# save data_sample
+data_sample_path = './dataset/data_sample.mat'
+scio.savemat(data_sample_path, {'data': data_sample,
+                               'x_train': x_train,
+                               'x_test': x_test,
+                               'y_train': y_train,
+                               'y_test': y_test,
+                               'file_information': 'Indian Pines data set, each row is a sample, first columns are index values, second columns are label, and the last 200 columns are pixel information.'})
+
+# end
+# =============================================================================
+</pre>
+
+
+
+
+<p>读取新mat</p>
+<pre>
+import numpy as np
+import scipy.io as sio
+import tensorflow as tf
+
+
+def make_one_hot(data, num_label):
+    return (np.arange(num_label) == data).astype(np.integer)
+
+def MaxMinNormalization(matrix):
+    Min = np.min(matrix)
+    Max = np.max(matrix)
+    mat_norm = (matrix - Min) / (Max - Min)
+    return mat_norm
+
+def get_batch_data(batch_size, x_train, y_train_onehot):
+    # 数据类型转换为tf.float32
+    x_train = tf.cast(x_train, tf.float32)
+    y_train_onehot = tf.cast(y_train_onehot, tf.float32)
+    #从tensor列表中按顺序或随机抽取一个tensor
+    input_queue = tf.train.slice_input_producer([x_train, y_train_onehot], shuffle=False)
+    x_batch, y_batch = tf.train.batch(input_queue, batch_size=batch_size, num_threads=1, capacity=128)
+    return x_batch, y_batch
+
+def get_files():
+    dataset_path = 'data_sample_new.mat'
+    data_mat = sio.matlab.loadmat(dataset_path)
+    data_sample = np.array(data_mat['data'])  # read data from dict
+    x_train = np.array(data_mat['x_train'])  # read x_train data from dict
+    x_test = np.array(data_mat['x_test'])  # read x_test data from dict
+    y_train = np.array(data_mat['y_train'])  # read y_train data from dict
+    y_test = np.array(data_mat['y_test'])  # read y_test data from dict
+
+    # 归一化
+    x_train = MaxMinNormalization(x_train)
+    x_test = MaxMinNormalization(x_test)
+    # onehot
+    y_train_onehot = make_one_hot(y_train, 16)
+    y_test_onehot = make_one_hot(y_test, 16)
+
+    print('x_train.shape',x_train.shape)
+    print(x_train[0])
+    print('y_train_onehot.shape',y_train_onehot.shape)
+    print(y_train_onehot[0])
+
+    return x_train,y_train_onehot
+
+def get_batch( x_train, y_train_onehot, image_W, image_H, batch_size, capacity):
+    return get_batch_data(batch_size, x_train, y_train_onehot)
+
+def main(argv=None):
+    t1,t2 = get_files()
+    t3,t4 = get_batch(t1,t2, 1, 200, 6, 126)
+    print("Training data is converted into images!")
+
+
+if __name__ == '__main__':
+    main()
+
+#然后再training.py里get_files再get_batch即可
+</pre>
+
+<h3 id="对mat文件取领域窗口····"><a href="#对mat文件取领域窗口····" class="headerlink" title="对mat文件取领域窗口····"></a>对mat文件取领域窗口····<br></h3><p>我是用matlab分割mat文件(比较方便)<br>用pytho读取分割后的文件合并制作成数据集mat,再同上面的get_files和get_batch一样</p>
+<p><hr><br>matlab分割：<br><br>testt.m</p>
+<p><pre><br>clc, clear, close all<br>% load the ground truth and the hyperspectral image<br>path = ‘.\Dataset\’;<br>inputs = ‘Salinas’;<br>location = [path, inputs];<br>load(location);<br>%%<br>% estimate the size of the input image<br>[height, width, bands] = size(img);<br>%Label构成的图<br>GroundImage = zeros(height, width);%145*145<br>GroundImage(GroundT(1, :)) = GroundT(2, :);%145x145 double</pre></p>
+<p>X_cell = 29;<br>Y_cell = 29;</p>
+<p>totalNum = floor(height/Y_cell) <em> floor(width/X_cell);%[个数,对应每个的所有像素点数]<br>OutData = zeros(totalNum,X_cell</em>Y_cell<em>bands);<br>for row=1:floor(height/Y_cell)<br>    start = (row-1)</em>Y_cell;<br>    stop = row*Y_cell;<br>    dataCol = GroundImage(start+1:stop,:,:);%height中取出对应的height衿<br>    Path_ = strcat(path,’<em>Label</em>‘,’row’,num2str(row));%strcat字符串拼接，D:\四个波段\row1’<br>    testtfunc(dataCol,width ,X_cell,Y_cell,Path_,row );<br>    row/floor(height/Y_cell)<br>end<br><br>testt.func</p>
+<p><pre><br>function [  ] = testtfunc( label,width ,X_cell,Y_cell,outputPath,row )<br>ColNum = floor(width / X_cell);<br>for col = 1:ColNum<br>    start = (col-1)<em>X_cell;<br>    stop = col</em>X_cell;<br>    data = label(:,start+1:stop,:);<br>%     data(:,:,3) = dataCol(:,start+1:stop,1);</pre></p>
+<pre><code>path_ =strcat(outputPath,&apos;col&apos;,num2str(col));
+%inPath=strcat(outputPath,&apos;col&apos;,num2str(col),&apos;.tif&apos;);
+%imwrite(uint32(data),inPath);
+sum = 0;
+count = 0;
+result = 0;
+for i = 1:X_cell
+    for j = 1:Y_cell
+        if(data(j,i) ~= &apos;0&apos;)
+            sum = sum + data(j,i);
+            count  = count + 1;
+        end
+    end
+end
+
+result = [sum / count];
+
+strr = strcat(path_ , &apos;.mat&apos;)
+save(strr,&apos;result&apos;);
+</code></pre><p>%     imwrite(data,inPath);<br>%     tmp = reshape(data,[1 feature]);<br>%     outputData(k,:)=tmp;<br>%     k=k+1;<br>end<br><br>python的读取和制作mat:</p>
+<p><pre><br>import numpy as np<br>import scipy.io as scio<br>import matplotlib.pyplot as plt<br>import math<br>from sklearn.cross_validation import train_test_split</pre></p>
+<p>dataset_path = ‘./Salinas切割后数据/‘<br>label_path = ‘./Salinas切割后标签（有值的取均值）/‘</p>
+<p>#dataname = ‘row1col1’</p>
+<p>#data_mat = scio.loadmat(dataset_path+dataname)</p>
+<p>#data = np.array(data_mat[‘data’])</p>
+<p>ROW = 17<br>COL = 7<br>train_data = []<br>train_label = []</p>
+<p>for i in range(ROW):<br>    for j in range(COL):<br>        dataname = ‘row’+str(i+1)+’col’+str(j+1)<br>        data_mat = scio.loadmat(dataset_path+dataname)<br>        data = data_mat[‘data’]<br>        train_data.append(data)</p>
+<p>train_data = np.array(train_data)</p>
+<p>for i in range(ROW):<br>    for j in range(COL):<br>        dataname = ‘_Label_row’+str(i+1)+’col’+str(j+1)#_Label_row1col1<br>        data_mat = scio.loadmat(label_path+dataname)<br>        label = data_mat[‘result’][0]<br>        train_label.append(label)</p>
+<p>train_label = np.array(train_label)</p>
+<p>print(“data.shape”,train_data.shape)<br>print(“data.shape”,train_label.shape)</p>
+<p>x_train, x_test, y_train, y_test = train_test_split(<br>        train_data,train_label,test_size=0.1, random_state=1)</p>
+<h1 id="save-data-sample"><a href="#save-data-sample" class="headerlink" title="save data_sample"></a>save data_sample</h1><p>data_sample_path = ‘./data_sample_Salinas.mat’<br>scio.savemat(data_sample_path, {‘data’: train_data,<br>                               ‘x_train’: x_train,<br>                               ‘x_test’: x_test,<br>                               ‘y_train’: y_train,<br>                               ‘y_test’: y_test,<br>                               ‘file_information’: ‘Salinas data set, each row is a sample.Made by Kevin’})<br><br>领域窗口先保存再读取制作，是比较低效且占内存的方法·····<br>领域窗口分割如果直接使用python会更好，只比matlab分割麻烦些。python可以用nump的zero创建矩阵然后解析原ma进行填充，再作分割，或者领域窗口滑动</p>
+
+          
+        
       
-      </p>
-      
-      <p>
-          <a href="/2018/09/01/处理mat数据/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
-          2018-04-08
-      </time>
+    </div>
     
-</span>
-      <h2 class="post-title"><a href="/2018/04/08/颜色识别，开闭/">Opencv颜色识别,开闭</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" itemprop="url">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:53:27+08:00">
+                2018-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         
-#include 
+          
+            <pre>
+#include "opencv2/highgui/highgui.hpp"  
+#include "opencv2/core/core.hpp"  
+#include "opencv2/imgproc/imgproc.hpp"  
+
+using namespace cv;
+using namespace std;
+
+int main(int argc)
+{
+    Mat img = imread("kuang1.jpg"); //读入图像，RGB三通道    
+    resize(img, img, Size(img.cols / 7, img.rows / 7), 0, 0, INTER_LINEAR);
+    imshow("原图像", img);
+    Mat res; //分割后图像  
+    int spatialRad = 20;  //空间窗口大小  
+    int colorRad = 20;   //色彩窗口大小  
+    int maxPyrLevel = 3;  //金字塔层数  
+    pyrMeanShiftFiltering(img, res, spatialRad, colorRad, maxPyrLevel); //色彩聚类平滑滤波  
+    imshow("res", res);
+    imwrite("pyrMeanShiftFiltering_RGB.jpg",res);
+    Mat img_hsv,res_hsv;
+    cvtColor(img, img_hsv, CV_BGR2HSV);
+    pyrMeanShiftFiltering(img_hsv, res_hsv, spatialRad, colorRad, maxPyrLevel);
+    imshow("res_hsv", res_hsv);
+    imwrite("pyrMeanShiftFiltering_HSV.jpg",res_hsv);
+
+    waitKey();
+    return 0;
+}
+</pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/08/颜色识别，开闭/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/08/颜色识别，开闭/" itemprop="url">Opencv颜色识别,开闭</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:53:27+08:00">
+                2018-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre>
+#include <iostream>
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 
@@ -125,111 +1033,635 @@ static void on_imgThresholded(int, void*);
 int iLowH = 0;
 int iHighH = 75;
 
-int iLowS 
+int iLowS = 0;
+int iHighS = 255;
+
+int iLowV = 0;
+int iHighV = 255;
+Mat imgThresholded;
+Mat imgOriginal;
+Mat imgHSV;
+vector<mat> hsvSplit;
+
+void on_imgThresholded(int, void*)
+{
+    inRange(imgHSV, Scalar(iLowH, iLowS, iLowV), Scalar(iHighH, iHighS, iHighV), imgThresholded); //Threshold the image
+
+                                                                                                  //开操作 (去除一些噪点)
+    Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));
+    morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);
+
+    //闭操作 (连接一些连通域)
+    morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);
+
+    imshow("Thresholded Image", imgThresholded); //show the thresholded image
+    imshow("Original", imgOriginal); //show the original image
+
+
+}
+
+int main()
+{
+    imgOriginal = imread("pyrMeanShiftFiltering_RGB.jpg");
+
+    namedWindow("Control", CV_WINDOW_AUTOSIZE); //create a window called "Control"
+
+    cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV); //Convert the captured frame from BGR to HSV
+
+                                                  //因为我们读取的是彩色图，直方图均衡化需要在HSV空间做
+    split(imgHSV, hsvSplit);
+    equalizeHist(hsvSplit[2], hsvSplit[2]);
+    merge(hsvSplit, imgHSV);
+    //imshow("HSV",imgHSV);
+
+
+    createTrackbar("LowH", "Control", &iLowH, 179, on_imgThresholded); //Hue (0 - 179)
+    createTrackbar("HighH", "Control", &iHighH, 179, on_imgThresholded);
+
+    createTrackbar("LowS", "Control", &iLowS, 255, on_imgThresholded); //Saturation (0 - 255)
+    createTrackbar("HighS", "Control", &iHighS, 255, on_imgThresholded);
+
+    createTrackbar("LowV", "Control", &iLowV, 255, on_imgThresholded); //Value (0 - 255)
+    createTrackbar("HighV", "Control", &iHighV, 255, on_imgThresholded);
+
+    on_imgThresholded(0, 0);
+
+
+
+    waitKey(0);
+    return 0;
+
+}
+</mat></iostream></pre>
+          
+        
       
-      </p>
-      
-      <p>
-          <a href="/2018/04/08/颜色识别，开闭/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
-          2018-04-08
-      </time>
+    </div>
     
-</span>
-      <h2 class="post-title"><a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/01/第一周作业/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/01/第一周作业/" itemprop="url">邻域算子和线性滤波函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T14:53:27+08:00">
+                2018-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         
-#include "opencv2/highgui/highgui.hpp"  
-#include "opencv2/core/core.hpp"  
-#include "opencv2/imgproc/imgproc.hpp"  
-
-using namespace cv;
-using namespace std;
-
-int main(int argc)
-{
-    Mat img = imread("kuang1.jpg"); //
-      
-      </p>
-      
-      <p>
-          <a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-04-01T06:53:27.000Z" itemprop="datePublished">
-          2018-04-01
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/04/01/第一周作业/">邻域算子和线性滤波函数</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        思路：
-因为图像近于水平，所以采用sobel或者canny效果好一些；
+          
+            <h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><blockquote>
+<pre><code>因为图像近于水平，所以采用sobel或者canny效果好一些；
 车辙--sobel--滤波（不高斯）--
-
-
-载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
-
-附上代码：
-#include  
-#include   
-#include  
-#include
+</code></pre></blockquote>
+<blockquote>
+<pre><code>载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
+</code></pre></blockquote>
+<h4 id="附上代码："><a href="#附上代码：" class="headerlink" title="附上代码："></a>附上代码：</h4><pre>
+#include<iostream>  
+#include <opencv2 opencv.hpp="">  
+#include<opencv2 highgui="" highgui.hpp="">  
+#include<opencv2 imgproc="" imgproc.hpp="">
 
 using namespace cv;
 using namespace std;
 
 int main()
 {
-    //载入原始图 
-      
-      </p>
-      
-      <p>
-          <a href="/2018/04/01/第一周作业/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-28T06:53:27.000Z" itemprop="datePublished">
-          2018-03-28
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/28/三色通道分离/">三色通道分离</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        其一
+    //载入原始图    
+    Mat image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  //工程目录下应该有一张名为1.jpg的素材图  
+    Mat img_gray = image_gray_row.clone();
 
-#include   
-#include   
-#include   
+    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6),0,0,INTER_LINEAR);
+    imshow("【原图】", img_gray);
+
+    blur(img_gray, img_gray, Size(3, 3));
+    imshow("滤波", img_gray);
+    imwrite("滤波.jpg",img_gray);
+
+    Mat img_sobelX;
+    Mat abs_img_sobelX;
+    Sobel(img_gray, img_sobelX,CV_16S,1,0,3,1,1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelX, abs_img_sobelX);
+    imshow("【效果图】 X方向Sobel", abs_img_sobelX);
+    imwrite("【效果图】 X方向Sobel.jpg",abs_img_sobelX);
+
+    Mat img_sobelY;
+    Mat abs_img_sobelY;
+    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelY, abs_img_sobelY);
+    imshow("【效果图】 Y方向Sobel", abs_img_sobelY);
+    imwrite("【效果图】 Y方向Sobel.jpg", abs_img_sobelY);
+
+    Mat dst;
+    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
+    imshow("【效果图】整体方向Sobel", dst);
+    imwrite("【效果图】整体方向Sobel.jpg",dst);
+
+    Mat dst_up;
+    Mat dst_upX;
+    Mat dst_upY;
+    dst_up.create(dst.size(), dst.type());
+    dst_upX.create(dst.size(), dst.type());
+    dst_upY.create(dst.size(), dst.type());
+
+//    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
+//    imshow("检测垂直阈值分割", dst_upY);
+
+//    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
+//    imshow("检测水平阈值分割", dst_upX);
+
+    threshold(dst, dst_up, 84, 255, THRESH_BINARY);
+    imshow("整体二值化",dst_up);
+    imwrite("整体二值化.jpg", dst_up);
+
+
+    waitKey(0);
+    return 0;
+}
+
+</opencv2></opencv2></opencv2></iostream></pre>
+
+<p>提示：注意全局变量！！！！ Mat 和 参数都得是全局变量！main里面不要重申！<br>附上带trackbar的代码：</p>
+<pre>
+
+#include <stdlib.h>
+#include <stdio.h>
+#include<iostream>  
+#include <opencv2 opencv.hpp="">  
+#include<opencv2 highgui="" highgui.hpp="">  
+#include<opencv2 imgproc="" imgproc.hpp="">  
+
+
+
+using namespace cv;
+using namespace std;
+
+int threshold_value = 30;
+
+Mat image_gray_row, img_gray, img_sobelX, abs_img_sobelX, img_sobelY, abs_img_sobelY, dst, dst_up, dst_upX, dst_upY;
+
+/// 自定义函数声明
+static void Threshold_Demo(int, void*);
+
+
+int main()
+{
+    //载入原始图    
+    image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  
+    img_gray = image_gray_row.clone();
+
+    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6), 0, 0, INTER_LINEAR);
+
+
+    blur(img_gray, img_gray, Size(3, 3));
+
+
+
+
+
+    Sobel(img_gray, img_sobelX, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelX, abs_img_sobelX);
+
+
+
+
+    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
+    convertScaleAbs(img_sobelY, abs_img_sobelY);
+
+
+    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
+
+
+
+    dst_up.create(dst.size(), dst.type());
+    dst_upX.create(dst.size(), dst.type());
+    dst_upY.create(dst.size(), dst.type());
+
+    //    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
+    //    imshow("检测垂直阈值分割", dst_upY);
+
+    //    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
+    //    imshow("检测水平阈值分割", dst_upX);
+
+
+
+    namedWindow("Demo", CV_WINDOW_AUTOSIZE);
+    //创建滑动条来控制阈值
+    createTrackbar("Threshold",
+        "Demo", &threshold_value,
+        255, Threshold_Demo);
+
+    Threshold_Demo(0, 0);//结果在回调函数中显示
+
+
+    waitKey(0);
+    return 0;
+}
+
+void Threshold_Demo(int, void*)
+{
+
+    threshold(dst, dst_up, threshold_value, 255, THRESH_BINARY);
+
+    imshow("Demo", dst_up);
+}
+</opencv2></opencv2></opencv2></iostream></stdio.h></stdlib.h></pre>
+
+<p><strong>待改进：</strong><br><br><br>霍夫变换–找线<br>路–k只有一个，路正交—-拉普拉斯强化边缘，二值化</p>
+<p>管道（拉普拉斯锐化/膨胀和腐蚀，二值化，分离，零交叉）</p>
+<p>–以下为闭环区域</p>
+<p>颜色特征识别（煤堆）—闭环后中间杂质（）可忽略，已闭环<br>RGB，UIV，LAD，色态聚类（不固定集群，需要贪婪，簇的合并问题-中心点相近放一块-！-！-同一簇的分离(根据像素的距离再聚类)，sobel算子迭代，识别出边缘轮廓后拼接填洞</p>
+<p>膨胀和腐蚀</p>
+<p>检测纹理复杂程度–判断煤堆</p>
+<p>路灯（路灯两侧相对比较高–波峰波谷）</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/opencv颜色空间转换/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/28/opencv颜色空间转换/" itemprop="url">邻域算子和线性滤波函数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <pre>
+#include <opencv2 imgproc="" imgproc.hpp="">
+#include <opencv2 highgui="" highgui.hpp="">
+#include <opencv2 core="" core.hpp="">
+#include <iostream>
+#include <stdio.h>
+using namespace std;
+int main()
+{
+    cv::Mat srcImage = cv::imread("C:\\Users\\LP\\Desktop\\C++\\ConsoleApplication4\\ConsoleApplication4\\1.jpg");
+    if (srcImage.empty())
+    {
+        return -1;
+    } 
+    cv::imshow("原图像", srcImage);
+    cv::Mat image_hsv, image_H, image_S, image_V, image_col;
+    //HSV颜色空间转换
+    cv::cvtColor(srcImage, image_hsv, CV_BGR2HSV);
+    cv::imshow("image_hsv", image_hsv);
+    //YCrCb颜色空间转换
+    cv::cvtColor(srcImage, image_col, CV_BGR2YCrCb);
+    cv::imshow("image_col", image_col);
+    //HLS颜色空间转换
+    cv::cvtColor(srcImage, image_col, CV_BGR2HLS);
+    cv::imshow("iamge_HLS", image_col);
+    //Lab颜色空间转换
+    cv::cvtColor(srcImage, image_col, CV_BGR2Lab);
+    cv::imshow("image_Lab", image_col);
+    //分离HSV各个通道
+    std::vector<cv::mat> hsvChannels;
+    cv::split(image_hsv, hsvChannels);
+    //0通道为H分量，1通道为S分量，2通道为V分量
+    image_H = hsvChannels[0];
+    image_S = hsvChannels[1];
+    image_V = hsvChannels[2];
+    //分别显示各通道图像
+    cv::imshow("image_H", image_H);
+    cv::imshow("image_S", image_S);
+    cv::imshow("image_V", image_V);
+
+    cv::waitKey(0);
+    return 0;
+} 
+</cv::mat></stdio.h></iostream></opencv2></opencv2></opencv2></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/三色通道分离/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/28/三色通道分离/" itemprop="url">三色通道分离</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="其一"><a href="#其一" class="headerlink" title="其一"></a>其一</h3><pre>
+
+#include <cv.h>  
+#include <highgui.h>  
+#include <iostream>  
 
 using namespace cv;
 using namespace std;
@@ -243,181 +1675,1127 @@ int main()
 
     if (MultiChannelBlending())
     {
-        cout  sbgr;
-    sbgr.re
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/28/三色通道分离/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-28T06:53:27.000Z" itemprop="datePublished">
-          2018-03-28
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/28/opencv颜色空间转换/">邻域算子和线性滤波函数</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        
-#include 
-#include 
-#include 
-#include 
-#include 
+        cout << endl << "嗯。好了，得出了你需要的混合值图像~";
+    }
+
+    waitKey(0);
+    return 0;
+}
+
+
+bool MultiChannelBlending()
+{
+    Mat image = imread("kuang1.jpg");
+    resize(image, image, Size(image.cols / 7, image.rows / 7), 0, 0, INTER_LINEAR);
+
+    vector<mat> sbgr;
+    sbgr.resize(3);
+    split(image, sbgr);
+    vector<mat> mbgr(3);
+    Mat bk1(image.size(), CV_8UC1, Scalar(0));
+
+
+    imshow("imageA-huiduR", sbgr[0]);
+    //imwrite("imageA-huiduR.jpg", sbgr[0]);
+    //显示彩色的分值
+    Mat imageA(image.size(), CV_8UC3);
+    mbgr[0] = sbgr[0];
+    mbgr[1] = bk1;
+    mbgr[2] = bk1;
+    merge(mbgr, imageA);
+    namedWindow("imageA");
+    imshow("imageA", imageA);
+    //imwrite("imageA.jpg", imageA);
+
+
+    imshow("imageB-huiduG", sbgr[1]);
+    //imwrite("imageB-huiduG.jpg", sbgr[1]);
+    //显示彩色的分值
+    Mat imageB(image.size(), CV_8UC3);
+    mbgr[0] = bk1;
+    mbgr[1] = sbgr[1];
+    mbgr[2] = bk1;
+    merge(mbgr, imageB);
+    namedWindow("imageB");
+    imshow("imageB", imageB);
+    //imwrite("imageB.jpg", imageB);
+
+
+    imshow("imageC-huiduB", sbgr[2]);
+    //imwrite("imageC-huiduB.jpg", sbgr[2]);
+    //显示彩色的分值
+    Mat imageC(image.size(), CV_8UC3);
+    mbgr[0] = bk1;
+    mbgr[1] = bk1;
+    mbgr[2] = sbgr[2];
+    merge(mbgr, imageC);
+    namedWindow("imageC");
+    imshow("imageC", imageC);
+    //imwrite("imageC.jpg", imageC);
+
+    return true;
+}
+</mat></mat></iostream></highgui.h></cv.h></pre>
+
+<h3 id="其二"><a href="#其二" class="headerlink" title="其二"></a>其二</h3><pre>
+
+#include <cv.h>  
+#include <highgui.h>  
+#include <iostream>  
+
+using namespace cv;
 using namespace std;
+
+
+bool MultiChannelBlending();
+
 int main()
 {
-    cv::Mat srcImage = cv::imread("C:\\Users\\LP\\Desktop\\C++\\ConsoleApplication4\\ConsoleApplication4\\1.jpg");
-    if (srcImage.emp
+    system("color5E");
+
+    if (MultiChannelBlending())
+    {
+        cout << endl << "嗯。好了，得出了你需要的混合值图像~";
+    }
+
+    waitKey(0);
+    return 0;
+}
+
+
+bool MultiChannelBlending()
+{
+    Mat image = imread("kuang1.jpg");
+    resize(image, image, Size(image.cols / 7, image.rows / 7), 0, 0, INTER_LINEAR);
+
+    vector<mat> sbgr;
+    sbgr.resize(3);
+    split(image, sbgr);
+    vector<mat> mbgr(3);
+    Mat bk1(image.size(), CV_8UC1, Scalar(0));
+
+
+    imshow("imageA-huiduR", sbgr[0]);
+    //imwrite("imageA-huiduR.jpg", sbgr[0]);
+    //显示彩色的分值
+    Mat imageA(image.size(), CV_8UC3);
+    mbgr[0] = sbgr[0];
+    mbgr[1] = bk1;
+    mbgr[2] = bk1;
+    merge(mbgr, imageA);
+    namedWindow("imageA");
+    imshow("imageA", imageA);
+    //imwrite("imageA.jpg", imageA);
+
+
+    imshow("imageB-huiduG", sbgr[1]);
+    //imwrite("imageB-huiduG.jpg", sbgr[1]);
+    //显示彩色的分值
+    Mat imageB(image.size(), CV_8UC3);
+    mbgr[0] = bk1;
+    mbgr[1] = sbgr[1];
+    mbgr[2] = bk1;
+    merge(mbgr, imageB);
+    namedWindow("imageB");
+    imshow("imageB", imageB);
+    //imwrite("imageB.jpg", imageB);
+
+
+    imshow("imageC-huiduB", sbgr[2]);
+    //imwrite("imageC-huiduB.jpg", sbgr[2]);
+    //显示彩色的分值
+    Mat imageC(image.size(), CV_8UC3);
+    mbgr[0] = bk1;
+    mbgr[1] = bk1;
+    mbgr[2] = sbgr[2];
+    merge(mbgr, imageC);
+    namedWindow("imageC");
+    imshow("imageC", imageC);
+    //imwrite("imageC.jpg", imageC);
+
+    return true;
+}
+</mat></mat></iostream></highgui.h></cv.h></pre>
+          
+        
       
-      </p>
-      
-      <p>
-          <a href="/2018/03/28/opencv颜色空间转换/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-28T06:53:27.000Z" itemprop="datePublished">
-          2018-03-28
-      </time>
+    </div>
     
-</span>
-      <h2 class="post-title"><a href="/2018/03/28/第二周作业/">第二周作业</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        矿堆识别（绿）思路
-1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······
-
-
-2.如何做–&gt;&gt;HSV，颜色检测
-
-
-3.优化–&gt;&gt;拼接,填洞
-
-步骤：
- 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）
-
-
- 2.然后转为HS
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/28/第二周作业/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
-      </time>
     
-</span>
-      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Sobel算子/">OpenCV边缘检测：Sobel算子</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        OpenCV边缘检测：Sobel算子基础概念：图像梯度:
-
-G(x,y) = dx i + dy j; 
-dx(i,j) = I(i+1,j) - I(i,j); 
-dy(i,j) = I(i,j+1) - I(i,j); 
-
-其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
-
-
-理解卷积：
-
-https://blog.csdn.net/bitcarmanlee/article/details/54729807
-
-图片处理
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
-      </time>
     
-</span>
-      <h2 class="post-title"><a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">Opencv边缘检测：Laplacian函数和scharr滤波器</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        (基本)参考的博文：
 
-https://blog.csdn.net/poem_qianmo/article/details/25560901
-
-Laplacian函数
-C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intborderType=BORDER_DEFAUL
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <nav class="pagination" role="pagination">
     
-    <span class="page-number">Page 1 of 2</span>
-    <a class="older-posts" href="/page/2/">Older Posts →</a>
-  </nav>
-</main>
 
+    
 
-  
-<footer class="site-footer">
-  
-  <div class="inner">
-     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
-     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
   </div>
-</footer>
-
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
-<script type="text/javascript" src="/js/index.js"></script>
+  
+  
+  
+  </article>
 
 
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/第二周作业/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/28/第二周作业/" itemprop="url">第二周作业</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="矿堆识别（绿）"><a href="#矿堆识别（绿）" class="headerlink" title="矿堆识别（绿）"></a>矿堆识别（绿）</h1><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><blockquote>
+<p>1.要对颜色进行处理–了解颜色的聚类算法（无监督）<br>{<br>    ‘k-mean’:选定簇的数目；<br>    ‘mean-shift’:无须选定簇的数目；<br>}<br>簇的合并和分离（根据像素距离重组）—》不会······</p>
+</blockquote>
+<blockquote>
+<p>2.如何做–&gt;&gt;HSV，颜色检测</p>
+</blockquote>
+<blockquote>
+<p>3.优化–&gt;&gt;拼接,填洞</p>
+</blockquote>
+<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><blockquote>
+<p> 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）</p>
+</blockquote>
+<blockquote>
+<p> 2.然后转为HSV模型，做直方图均衡化</p>
+</blockquote>
+<blockquote>
+<p> 3.进行颜色检测，得到目标颜色的二值图像</p>
+</blockquote>
+<blockquote>
+<p> 4.开操作-删除一些零零星星的噪点</p>
+</blockquote>
+<blockquote>
+<p> 5.再使用闭操作-连接一些连通域，也就是删除一些目标区域的白色的洞</p>
+</blockquote>
+<hr>
+
+<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><h4 id="pyrMeanShiftFiltering–meanShfit均值漂移算法"><a href="#pyrMeanShiftFiltering–meanShfit均值漂移算法" class="headerlink" title="pyrMeanShiftFiltering–meanShfit均值漂移算法"></a>pyrMeanShiftFiltering–meanShfit均值漂移算法</h4><p>聚类算法解释和分析：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/dcrmg/article/details/52705087" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/52705087</a></p>
+</blockquote>
+<p>meanshift算法深入</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/qq_23968185/article/details/51804574" target="_blank" rel="noopener">https://blog.csdn.net/qq_23968185/article/details/51804574</a></p>
+</blockquote>
+<p>注：这个函数严格来说并不是图像的分割，而是图像在色彩层面的平滑滤波，它可以中和色彩分布相近的颜色，平滑色彩细节，侵蚀掉面积较小的颜色区域</p>
+<hr>
+
+<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><h4 id="颜色识别："><a href="#颜色识别：" class="headerlink" title="颜色识别："></a>颜色识别：</h4><blockquote>
+<p>1.RGB转HSV<br>cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV);<br><br>2.直方图均衡化<br><br>split(imgHSV, hsvSplit);<br><br>    equalizeHist(hsvSplit[2],hsvSplit[2]);<br><br>    merge(hsvSplit,imgHSV);<br><br>3.颜色检测<br><br>void inRange(InputArray src, InputArray lowerb, InputArray upperb,<br> OutputArray dst);<br><br>4.存为二值图<br></p>
+</blockquote>
+<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="对二值图像进行开操作，删除一些零零星星的噪点，"><a href="#对二值图像进行开操作，删除一些零零星星的噪点，" class="headerlink" title="对二值图像进行开操作，删除一些零零星星的噪点，"></a>对二值图像进行开操作，删除一些零零星星的噪点，<br></h4><blockquote>
+<p>Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));<br><br>   morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);<br></p>
+</blockquote>
+<h4 id="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"><a href="#再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。" class="headerlink" title="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"></a>再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。<br></h4><blockquote>
+<p> morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);<br></p>
+</blockquote>
+<p>待改进：<br><br>1.簇的合并分离<br><br>2.优化的进步<br><br>3.利用pyrMeanShiftFiltering来优化道路<br><br>源码：<a href="http://blog.sina.com.cn/s/blog_63913ba601013336.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_63913ba601013336.html</a><br><br>      <a href="https://blog.csdn.net/Dinosoft/article/details/78877917" target="_blank" rel="noopener">https://blog.csdn.net/Dinosoft/article/details/78877917</a><br><br>      都没看懂···<br><br>4.开，闭操作研究<br><br>5.看一个聚类实现代码<br></p>
+<blockquote>
+<p><a href="https://blog.csdn.net/yangtrees/article/details/7386723" target="_blank" rel="noopener">https://blog.csdn.net/yangtrees/article/details/7386723</a></p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/" itemprop="url">Opencv边缘检测：Laplacian函数和scharr滤波器</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>(基本)参考的博文：</p>
+<blockquote>
+<p><a href="https://blog.csdn.net/poem_qianmo/article/details/25560901" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/25560901</a></p>
+</blockquote>
+<h3 id="Laplacian函数"><a href="#Laplacian函数" class="headerlink" title="Laplacian函数"></a>Laplacian函数</h3><pre>
+C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intborderType=BORDER_DEFAULT );
+
+第一个参数，InputArray类型的image，输入图像，即源图像，填Mat类的对象即可，且需为单通道8位图像。
+第二个参数，OutputArray类型的edges，输出的边缘图，需要和源图片有一样的尺寸和通道数。
+第三个参数，int类型的ddept，目标图像的深度。
+第四个参数，int类型的ksize，用于计算二阶导数的滤波器的孔径尺寸，大小必须为正奇数，且有默认值1。
+第五个参数，double类型的scale，计算拉普拉斯值的时候可选的比例因子，有默认值1。
+第六个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
+第七个参数， int类型的borderType，边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate()处得到更详细的信息。
+</pre>
+Laplacian( )函数其实主要是利用sobel算子的运算。它通过加上sobel算子运算出的图像x方向和y方向上的导数，来得到我们载入图像的拉普拉斯变换结果。
+<br>
+其中，sobel算子（ksize>1）如下：
+![image](http://img.blog.csdn.net/20140511215812515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+<br>
+而当ksize=1时，Laplacian()函数采用以下3x3的孔径：
+![image](http://img.blog.csdn.net/20140511215703203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+<br>
+#### 部分实例：(先高斯滤波，转灰度图)
+<pre>
+Laplacian( src_gray, dst, CV_16S, 3, 1, 0, BORDER_DEFAULT ); 
+convertScaleAbs( dst, abs_dst );  
+</pre>
+
+<h3 id="scharr滤波器"><a href="#scharr滤波器" class="headerlink" title="scharr滤波器"></a>scharr滤波器</h3><pre>
+C++: void Scharr(  
+InputArray src, //源图  
+ OutputArray dst, //目标图  
+ int ddepth,//图像深度  
+ int dx,// x方向上的差分阶数  
+ int dy,//y方向上的差分阶数  
+ double scale=1,//缩放因子  
+ double delta=0,// delta值  
+ intborderType=BORDER_DEFAULT )// 边界模式 
+
+ 第一个参数，InputArray 类型的src，为输入图像，填Mat类型即可。
+第二个参数，OutputArray类型的dst，即目标图像，函数的输出参数，需要和源图片有一样的尺寸和类型。
+第三个参数，int类型的ddepth，输出图像的深度，支持如下src.depth()和ddepth的组合：
+若src.depth() = CV_8U, 取ddepth =-1/CV_16S/CV_32F/CV_64F
+若src.depth() = CV_16U/CV_16S, 取ddepth =-1/CV_32F/CV_64F
+若src.depth() = CV_32F, 取ddepth =-1/CV_32F/CV_64F
+若src.depth() = CV_64F, 取ddepth = -1/CV_64F
+第四个参数，int类型dx，x方向上的差分阶数。
+第五个参数，int类型dy，y方向上的差分阶数。
+第六个参数，double类型的scale，计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。我们可以在文档中查阅getDerivKernels的相关介绍，来得到这个参数的更多信息。
+第七个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
+第八个参数， int类型的borderType，我们的老朋友了（万年是最后一个参数），边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate处得到更详细的信息。
+</pre>
+
+<blockquote>
+<p>使用Scharr滤波器运算符计算x或y方向的图像差分。其实它的参数变量和Sobel基本上是一样的，除了没有ksize核的大小。</p>
+</blockquote>
+<h4 id="（部分）代码实例："><a href="#（部分）代码实例：" class="headerlink" title="（部分）代码实例："></a>（部分）代码实例：</h4><pre>
+Scharr( src, grad_x, CV_16S, 1, 0, 1, 0, BORDER_DEFAULT );  
+convertScaleAbs( grad_x, abs_grad_x ); 
+
+Scharr( src, grad_y, CV_16S, 0, 1, 1, 0, BORDER_DEFAULT );  
+convertScaleAbs( grad_y, abs_grad_y ); 
+
+addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
+</pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/分离颜色通道&多通道图像混合/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/26/分离颜色通道&多通道图像混合/" itemprop="url">OpenCV分离颜色通道&多通道图像混合</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="分离颜色通道-amp-多通道图像混合"><a href="#分离颜色通道-amp-多通道图像混合" class="headerlink" title="分离颜色通道&amp;多通道图像混合"></a>分离颜色通道&amp;多通道图像混合</h1><hr>
+
+<p><strong>Split函数</strong></p>
+<pre>
+C++: void split(const Mat& src, Mat*mvbegin);  
+C++: void split(InputArray m,OutputArrayOfArrays mv); 
+第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
+第二个参数，OutputArrayOfArrays类型的mv，填函数的输出数组或者输出的vector容器。
+</pre>
+split函数分割多通道数组转换成独立的单通道数组，按公式来看就是这样：<br>
+###### mv[c](I) = src(I)c
+
+<hr>
+
+**merge()函数**
+<pre>
+C++: void merge(const Mat* mv, size_tcount, OutputArray dst)  
+C++: void merge(InputArrayOfArrays mv,OutputArray dst)
+第一个参数，mv，填需要被合并的输入矩阵或vector容器的阵列，这个mv参数中所有的矩阵必须有着一样的尺寸和深度。
+第二个参数，count，当mv为一个空白的C数组时，代表输入矩阵的个数，这个参数显然必须大于1.
+第三个参数，dst，即输出矩阵，和mv[0]拥有一样的尺寸和深度，并且通道的数量是矩阵阵列中的通道的总数。
+</pre>
+merge()函数的功能是split()函数的逆向操作，将多个数组组合合并成一个多通道的数组。<br>
+> merge函数的功能是将一些数组合并成一个多通道的数组。关于组合的细节，输出矩阵中的每个元素都将是输出数组的串接，其中，第i个输入数组的元素被视为mv[i]。 c一般用其中的Mat::at（）方法对某个通道进行存取,也就是这样用 channels\.at(0)。
+
+PS: Mat::at（）方法，返回一个引用到指定的数组元素。注意是引用，相当于两者等价，修改其中一个另一个跟着变。<br>
+
+
+### 多通道图像混合示例程序
+<pre>
+//-----------------------------------【程序说明】----------------------------------------------  
+//  程序名称:：【OpenCV入门教程之四】分离颜色通道&多通道图像混合   配套源码  
+// VS2010版   OpenCV版本：2.4.8  
+//     2014年3月13 日 Create by 浅墨  
+//  图片素材出处：dota2原画 dota2logo   
+//     浅墨的微博：@浅墨_毛星云  
+//------------------------------------------------------------------------------------------------  
+
+//-----------------------------------【头文件包含部分】---------------------------------------  
+//     描述：包含程序所依赖的头文件  
+//----------------------------------------------------------------------------------------------                                                                                      
+#include <cv.h>  
+#include <highgui.h>  
+#include <iostream>  
+
+//-----------------------------------【命名空间声明部分】---------------------------------------  
+//     描述：包含程序所使用的命名空间  
+//-----------------------------------------------------------------------------------------------    
+using namespace cv;  
+using namespace std;  
+
+
+//-----------------------------------【全局函数声明部分】--------------------------------------  
+//     描述：全局函数声明  
+//-----------------------------------------------------------------------------------------------  
+bool MultiChannelBlending();  
+
+//-----------------------------------【main( )函数】--------------------------------------------  
+//     描述：控制台应用程序的入口函数，我们的程序从这里开始  
+//-----------------------------------------------------------------------------------------------  
+int main(  )  
+{  
+       system("color5E");  
+
+       if(MultiChannelBlending())  
+       {  
+              cout<<endl<<"嗯。好了，得出了你需要的混合值图像~"; }="" waitkey(0);="" return="" 0;="" -----------------------------【multichannelblending(="" )函数】--------------------------------="" 描述：多通道混合的实现函数="" -----------------------------------------------------------------------------------------------="" bool="" multichannelblending()="" {="" 【0】定义相关变量="" mat="" srcimage;="" logoimage;="" vector<mat="">channels;
+       channels.resize(3);
+
+       Mat  imageBlueChannel;  
+
+       //=================【蓝色通道部分】=================  
+       //     描述：多通道混合-蓝色分量部分  
+       //============================================  
+
+       //【1】读入图片  
+       logoImage=imread("dota_logo.jpg",0);  
+       srcImage=imread("dota_jugg.jpg");  
+
+       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
+       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
+
+       //【2】把一个3通道图像转换成3个单通道图像  
+       split(srcImage,channels);//分离色彩通道  
+
+       //【3】将原图的蓝色通道引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
+       imageBlueChannel=channels.at(0);  
+       //【4】将原图的蓝色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageBlueChannel中  
+       addWeighted(imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
+              logoImage,0.5,0,imageBlueChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
+
+       //【5】将三个单通道重新合并成一个三通道  
+       merge(channels,srcImage);  
+
+       //【6】显示效果图  
+       namedWindow("<1>游戏原画+logo蓝色通道 by浅墨");  
+       imshow("<1>游戏原画+logo蓝色通道 by浅墨",srcImage);  
+
+
+       //=================【绿色通道部分】=================  
+       //     描述：多通道混合-绿色分量部分  
+       //============================================  
+
+       //【0】定义相关变量  
+       Mat  imageGreenChannel;  
+
+       //【1】重新读入图片  
+       logoImage=imread("dota_logo.jpg",0);  
+       srcImage=imread("dota_jugg.jpg");  
+
+       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
+       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
+
+       //【2】将一个三通道图像转换成三个单通道图像  
+       split(srcImage,channels);//分离色彩通道  
+
+       //【3】将原图的绿色通道的引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
+       imageGreenChannel=channels.at(1);  
+       //【4】将原图的绿色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageGreenChannel中  
+       addWeighted(imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
+              logoImage,0.5,0.,imageGreenChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
+
+       //【5】将三个独立的单通道重新合并成一个三通道  
+       merge(channels,srcImage);  
+
+       //【6】显示效果图  
+       namedWindow("<2>游戏原画+logo绿色通道 by浅墨");  
+       imshow("<2>游戏原画+logo绿色通道 by浅墨",srcImage);  
 
 
 
+       //=================【红色通道部分】=================  
+       //     描述：多通道混合-红色分量部分  
+       //============================================  
+
+       //【0】定义相关变量  
+       Mat  imageRedChannel;  
+
+       //【1】重新读入图片  
+       logoImage=imread("dota_logo.jpg",0);  
+       srcImage=imread("dota_jugg.jpg");  
+
+       if(!logoImage.data ) { printf("Oh，no，读取logoImage错误~！\n"); return false; }  
+       if(!srcImage.data ) { printf("Oh，no，读取srcImage错误~！\n"); return false; }  
+
+       //【2】将一个三通道图像转换成三个单通道图像  
+       split(srcImage,channels);//分离色彩通道  
+
+       //【3】将原图的红色通道引用返回给imageBlueChannel，注意是引用，相当于两者等价，修改其中一个另一个跟着变  
+       imageRedChannel=channels.at(2);  
+       //【4】将原图的红色通道的（500,250）坐标处右下方的一块区域和logo图进行加权操作，将得到的混合结果存到imageRedChannel中  
+       addWeighted(imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)),1.0,  
+              logoImage,0.5,0.,imageRedChannel(Rect(500,250,logoImage.cols,logoImage.rows)));  
+
+       //【5】将三个独立的单通道重新合并成一个三通道  
+       merge(channels,srcImage);  
+
+       //【6】显示效果图  
+       namedWindow("<3>游戏原画+logo红色通道 by浅墨");  
+       imshow("<3>游戏原画+logo红色通道 by浅墨",srcImage);  
+
+       return true;  
+}  
+
+
+</3></3></2></2></1></1></endl<<"嗯。好了，得出了你需要的混合值图像~";></iostream></highgui.h></cv.h></pre>
+
+<h3 id="注：规定通道数"><a href="#注：规定通道数" class="headerlink" title="注：规定通道数"></a>注：规定通道数</h3><blockquote>
+<p>vector<mat>channels;<br>channels.resize(3);</mat></p>
+</blockquote>
+<p><img src="http://images2015.cnblogs.com/blog/451660/201509/451660-20150909114518965-189619534.png" alt="image"></p>
+<p><img src="http://image.mamicode.com/info/201509/20180110181627195634.png" alt="image"></p>
+<p><img src="http://image.mamicode.com/info/201509/20180110181627200516.png" alt="image"></p>
+<p><img src="http://image.mamicode.com/info/201509/20180110181627202469.png" alt="image"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
 
 </body>
 </html>
