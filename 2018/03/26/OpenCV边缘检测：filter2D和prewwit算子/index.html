@@ -65,7 +65,7 @@ CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
     int borderType: 像素向外逼近的方法，默认值是BORDER_DEFAULT,即对全部边界进行计算。
 </pre>
 该函数使用于任意线性滤波器的图像，支持就地操作。当其中心移动到图像外，函数可以根据指定的边界模式进行插值运算。函数实质上是计算kernel与图像的相关性而不是卷积
-![image](https://img-blog.csdn.net/20161109175042784)
+![Filter2D](http://img.blog.csdn.net/20131110140727656)
 也就是说kernel并不是中心点的镜像，如果需要一个正真的卷积，使用函数flip()并将中心点设置为(kernel.cols - anchor.x - 1, kernel.rows - anchor.y -1). 
 该函数在大核(11x11或更大)的情况下使用基于DFT的算法，而在小核情况下使用直接算法(使用createLinearFilter()检索得到). 
 
@@ -108,8 +108,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
   </article>
   <nav class="pagination" role="pagination">
     
-    <a class="newer-posts" href="/2018/03/26/常用语法笔记/">
-        ← OpenCV常用语法笔记
+    <a class="newer-posts" href="/2018/03/26/线性领域滤波/">
+        ← 邻域算子和线性滤波函数
     </a>
     
     <span class="page-number">•</span>

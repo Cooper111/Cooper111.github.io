@@ -45,6 +45,40 @@
       </time>
     
 </span>
+      <h2 class="post-title"><a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        
+#include "opencv2/highgui/highgui.hpp"  
+#include "opencv2/core/core.hpp"  
+#include "opencv2/imgproc/imgproc.hpp"  
+
+using namespace cv;
+using namespace std;
+
+int main(int argc)
+{
+    Mat img = imread("kuang1.jpg"); //
+      
+      </p>
+      
+      <p>
+          <a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
+          2018-04-08
+      </time>
+    
+</span>
       <h2 class="post-title"><a href="/2018/04/08/颜色识别，开闭/">Opencv颜色识别,开闭</a></h2>
     </header>
     <section class="post-excerpt">
@@ -70,40 +104,6 @@ int iLowS
       
       <p>
           <a href="/2018/04/08/颜色识别，开闭/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
-          2018-04-08
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        
-#include "opencv2/highgui/highgui.hpp"  
-#include "opencv2/core/core.hpp"  
-#include "opencv2/imgproc/imgproc.hpp"  
-
-using namespace cv;
-using namespace std;
-
-int main(int argc)
-{
-    Mat img = imread("kuang1.jpg"); //
-      
-      </p>
-      
-      <p>
-          <a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -193,6 +193,43 @@ int main()
       </time>
     
 </span>
+      <h2 class="post-title"><a href="/2018/03/28/第二周作业/">第二周作业</a></h2>
+    </header>
+    <section class="post-excerpt">
+      <p>
+      
+        矿堆识别（绿）思路
+1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······
+
+
+2.如何做–&gt;&gt;HSV，颜色检测
+
+
+3.优化–&gt;&gt;拼接,填洞
+
+步骤：
+ 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）
+
+
+ 2.然后转为HS
+      
+      </p>
+      
+      <p>
+          <a href="/2018/03/28/第二周作业/" class="excerpt-link">Read More...</a>
+      </p>
+      
+    </section>
+  </article>
+  
+  <article class="post">
+    <header class="post-header">
+      <span class="post-meta">
+      <time datetime="2018-03-28T06:53:27.000Z" itemprop="datePublished">
+          2018-03-28
+      </time>
+    
+</span>
       <h2 class="post-title"><a href="/2018/03/28/三色通道分离/">三色通道分离</a></h2>
     </header>
     <section class="post-excerpt">
@@ -231,35 +268,38 @@ int main()
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-03-28T06:53:27.000Z" itemprop="datePublished">
-          2018-03-28
+      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
+          2018-03-26
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/28/第二周作业/">第二周作业</a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/常用语法笔记/">OpenCV常用语法笔记</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        矿堆识别（绿）思路
-1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······
+        imread()第二个参数
 
 
-2.如何做–&gt;&gt;HSV，颜色检测
+0:返回3通道=0:返回灰度图&lt;0:返回原图
 
 
-3.优化–&gt;&gt;拼接,填洞
+Mat 的API：
 
-步骤：
- 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）
+( Mat image; )Mat new_image;new_image =  image.clone()
+
+向下采样：
+
+Mat dstImage;pyrDown(srcImage, dstImage, Size(srcImage.cols / 2, srcImage.rows / 2));  
+
+resize图片缩放：
 
 
- 2.然后转为HS
       
       </p>
       
       <p>
-          <a href="/2018/03/28/第二周作业/" class="excerpt-link">Read More...</a>
+          <a href="/2018/03/26/常用语法笔记/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -273,30 +313,24 @@ int main()
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Sobel算子/">OpenCV边缘检测：Sobel算子</a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/分离颜色通道&多通道图像混合/">OpenCV分离颜色通道&多通道图像混合</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        OpenCV边缘检测：Sobel算子基础概念：图像梯度:
+        分离颜色通道&amp;多通道图像混合
 
-G(x,y) = dx i + dy j; 
-dx(i,j) = I(i+1,j) - I(i,j); 
-dy(i,j) = I(i,j+1) - I(i,j); 
+Split函数
 
-其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
-
-
-理解卷积：
-
-https://blog.csdn.net/bitcarmanlee/article/details/54729807
-
-图片处理
+C++: void split(const Mat& src, Mat*mvbegin);  
+C++: void split(InputArray m,OutputArrayOfArrays mv); 
+第一个参数，InputArray类型的m或者const Mat&类型的src，填我们需要进行分离的多通道数组。
+第二个参数，OutputArrayOfArrays类型的mv，填
       
       </p>
       
       <p>
-          <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" class="excerpt-link">Read More...</a>
+          <a href="/2018/03/26/分离颜色通道&多通道图像混合/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -339,61 +373,30 @@ C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, dou
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/26/线性领域滤波/">邻域算子和线性滤波函数</a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Sobel算子/">OpenCV边缘检测：Sobel算子</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······
+        OpenCV边缘检测：Sobel算子基础概念：图像梯度:
 
-方框滤波——boxblur函数
-均值滤波——blur函数
-高斯滤波——GaussianBlur函数
+G(x,y) = dx i + dy j; 
+dx(i,j) = I(i+1,j) - I(i,j); 
+dy(i,j) = I(i,j+1) - I(i,j); 
 
-函数的原理和源代码分析见：
+其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
 
-https://blog.csdn.net/poem_qianmo/article/details/22745559
 
-起手式
+理解卷积：
 
-#include “opencv2/core/core.hpp”  
+https://blog.csdn.net/bitcarmanlee/article/details/54729807
 
-#include”opencv
+图片处理
       
       </p>
       
       <p>
-          <a href="/2018/03/26/线性领域滤波/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-03-26T06:53:27.000Z" itemprop="datePublished">
-          2018-03-26
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：Canny算子/">OpenCV边缘检测：Canny算子</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        边缘检测的一般步骤1.滤波2.增强3.检测现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充
-Canny 算子大致步骤如同老师讲时记得笔记：
-二维高斯函数平滑图像
-计算结果梯度
-使用梯度幅度来估计每一点边缘强度
-非极大值抑制和细化边缘
-阈值处理，去掉伪边缘一、最简单的canny用法，拿到原图后直接用。二、高阶的canny用法，转成灰度图，降噪，用canny，最后将得到的边缘作为掩码，拷贝原图到效果图上，得到彩色的边
-      
-      </p>
-      
-      <p>
-          <a href="/2018/03/26/OpenCV边缘检测：Canny算子/" class="excerpt-link">Read More...</a>
+          <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
