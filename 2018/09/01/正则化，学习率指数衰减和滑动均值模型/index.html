@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+  <title>正则化，学习率指数衰减和滑动均值模型 | Cooper111&#39;s Blog</title>
+  <meta name="description" content="A lazy student." />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="MobileOptimized" content="320" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" type="text/css" href="/css/screen.css" />
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400" />
+
+  <meta name="generator" content="Cooper111's Blog">
+
+  
+  
+  
+
+  
+</head>
+
+
+<body class="post-template">
+
+  <header class="site-head"  style="background-image: url(//blog.ghost.org/content/images/2013/Nov/cover.png)" >
+    <div class="vertical">
+        <div class="site-head-content inner">
+             <a class="blog-logo" href="/"><img src="//blog.ghost.org/content/images/2013/Nov/bloglogo_1-1.png" alt="Blog Logo"/></a> 
+            <h1 class="blog-title">Cooper111's Blog</h1>
+            <h2 class="blog-description">A lazy student.</h2>
+        </div>
+    </div>
+</header>
+  
+
+<main class="content" role="main">
+  <article class="post">
+    <span class="post-meta">
+      <time datetime="2018-08-31T16:32:55.000Z" itemprop="datePublished">
+          2018-09-01
+      </time>
+    
+</span>
+    <h1 class="post-title">正则化，学习率指数衰减和滑动均值模型</h1>
+    <section class="post-content">
+      <h2 id="序"><a href="#序" class="headerlink" title="序"></a>序</h2><p>浏览学长<a href="https://blog.csdn.net/qq_38343111/article/details/82107360" target="_blank" rel="noopener">博客</a>有感，稍微记一点：<br><br>1.正则化损失函数L2<br><br>2.学习率的指数衰减<br><br>3.滑动平均模型<br><br>ps：看到类似的<br><a href="https://blog.csdn.net/myhaspl/article/details/78468754" target="_blank" rel="noopener">博客</a><br>也不错</p>
+<hr>
+
+<h3 id="正则化损失函数L2"><a href="#正则化损失函数L2" class="headerlink" title="正则化损失函数L2"></a>正则化损失函数L2</h3><p><strong>概念简述</strong>：<br><br>由于数据存在很多干扰或者噪声，容易产生过拟合现象。在相同网络结构下，决策面越复杂，参数w的值往往更大，而w较小时候，得到的决策面相对平缓。<br>L2正则化是一种减少过拟合的方法，让w尽量小，在损失函数中加入刻画模型复杂程度的指标。假设损失函数是J(θ)，则优化的是J(θ)+λR(w)，R(w)=∑ni=0|w2i|。<br><br><br><a href="https://blog.csdn.net/gadwgdsk/article/details/80351291" target="_blank" rel="noopener">公式推导</a><br><br><a href="https://blog.csdn.net/abiggg/article/details/78947769" target="_blank" rel="noopener">正则化函数理解</a>（比较好）<br><br><strong>代码实现</strong></p>
+<pre>
+training.py中：
+#正则化损失函数L2
+REGULARATION_RATE = 0.0001
+regularizer =tf.contrib.layers.l2_regularizer(REGULARATION_RATE)
+
+model.py中
+ # fc1密集全连层中,将权重的正则化结果加入损失集合“loss”
+ with tf.variable_scope("fc1") as scope:
+        W_fc1 = weight_variable([6 * 96, 256])  # 输入维度为1*6*96，输出维度为256
+        if regularizer != None:
+            tf.add_to_collection('loss', regularizer(W_fc1))
+        b_fc1 = bias_variable([256])
+        fc1 = tf.nn.relu(tf.matmul(h_pool5_flat, W_fc1) + b_fc1, name="fc1")
+ #fc2可以同理
+
+然后再在training.py中
+loss1 = cross_entropy_mean + tf.add_n(tf.get_collection('loss'))
+即用交叉熵损失和权重损失之和，代替原来的交叉熵损失
+</pre>
+
+<h3 id="学习率的指数衰减"><a href="#学习率的指数衰减" class="headerlink" title="学习率的指数衰减"></a>学习率的指数衰减</h3><p><strong>概念简述</strong>：<br><br>使用固定的 α,不能精确的收敛,算法最后在附近摆动,所以采用指数衰减<br>这里使用退化学习率，公式为：<br></p>
+<blockquote>
+<p>decayed_learning_rate = learning_rate * decay_rate ^ (global_step / decay_steps)</p>
+</blockquote>
+<p><br>对应函数为</p>
+<blockquote>
+<p>tf.train.exponential_decay(learning_rate, global_step, decay_steps, decay_rate, staircase=False, name=None) </p>
+</blockquote>
+<p><img src="https://i.loli.net/2018/02/18/5a88f98e71ea7.png" alt="退化学习率"></p>
+<p>摘自博客，不理解建议看<a href="https://blog.csdn.net/u013555719/article/details/79334359" target="_blank" rel="noopener">原博</a><br><br><strong>代码实现</strong></p>
+<pre>
+在training.py里
+LEARNING_RATE_BASE = 0.8
+LEARNING_RATE_DECAY = 0.99
+BATCH_SIZE = 128
+global_step = tf.Variable(0, trainable=False)
+#设置指数衰减的学习率
+    learning_rate = tf.train.exponential_decay(
+        LEARNING_RATE_BASE,
+        global_step,
+        100000 / BATCH_SIZE,
+        LEARNING_RATE_DECAY
+    )
+
+在model.py中
+#往梯度下降优化器里传入参数学习率(我封装在函数里了)
+def trainning(loss,learning_rate):
+    # 梯度下降
+    train_step = tf.train.AdamOptimizer(learning_rate).minimize(loss)
+    return train_step
+
+training.py中调用
+train_step = model.trainning(loss1,learning_rate)
+</pre>
+### 滑动平均模型
+**概念简述**：<br>
+tf.train.ExponentialMovingAverage实现滑动平均模型,提高模型在测试数据上的健壮性。
+> 说白了就是在更新参数的时候不太过了也不太小，更新参数跟你之前的参数有联系，不会发生突变。健壮性就是对突变的抵抗能力，健壮性越好，这个模型对恶性参数的提抗能力就越强。你训练的时候万一遇到个“疯狂”的参数，有了这个算法疯狂的参数就会被抑制下来，回到正常的队伍里
+
+ExponentialMovingAverage对每一个待更新的变量（variable）都会维护一个影子变量（shadow variable）。影子变量的初始值就是这个变量的初始值，
+> shadow_variable=decay×shadow_variable+(1−decay)×variable
+
+ExponentialMovingAverage 还提供了 num_updates 参数来动态设置 decay 的大小： 
+> decay=min{decay,1+num_updates10+num_updates}
+
+[实例](https://blog.csdn.net/IAMoldpan/article/details/78208897?locationNum=11&fps=1)<br>
+ps:一开始0.99和计算后的0.1相比取0.1，之后计算结果0.99较小取0.99
+
+**代码实现**
+<pre>
+#tf.trainable_variables返回的是需要训练的变量列表
+在training.py中
+ # 定义损失函数、学习率、滑动平均操作以及训练过程
+    variable_averages = tf.train.ExponentialMovingAverage(
+        MOVING_AVERAGE_DECAY, global_step)
+    variable_averages_op = variable_averages.apply(
+        tf.trainable_variables())
+
+ #训练与更新参数的滑动平均值
+    #将2大步操作打包在train_op中，第1大步操作是使用正则化和指数衰减更新参数值
+    #第2大步操作是使用滑动平均再次更新参数值。
+    #每次训练都完成这2大步操作。
+    with tf.control_dependencies([train_step, variable_averages_op]):
+        train_op = tf.no_op(name='train')
+
+#然后在训练的时候调用train_op就完事拉
+</pre>
+
+<h2 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h2><ul>
+<li>正则化：防止过拟合</li>
+<li>学习率衰减： 最优值收敛</li>
+<li>滑动均值模型： 抵御突变数据，增强模型健壮性</li>
+<li>最后完整代码见序中两篇博客···<br><hr><br>=====================================================2018.8.31</li>
+</ul>
+
+    </section>
+    <footer class="post-footer">
+      <section class="author">
+    <h4>花郎世纪</h4>
+    <p>A lazy student.</p>
+</section>
+      <section class="share">
+    <h4>Share this post</h4>
+    <a class="icon-twitter" href="http://twitter.com/share?url=https://cooper111.github.io/2018/09/01/正则化，学习率指数衰减和滑动均值模型/"
+       onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <span class="hidden">Twitter</span>
+    </a>
+    <a class="icon-facebook" href="https://www.facebook.com/sharer/sharer.php?u=https://cooper111.github.io/2018/09/01/正则化，学习率指数衰减和滑动均值模型/"
+       onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <span class="hidden">Facebook</span>
+    </a>
+    <a class="icon-google-plus" href="https://plus.google.com/share?url=https://cooper111.github.io/2018/09/01/正则化，学习率指数衰减和滑动均值模型/"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <span class="hidden">Google+</span>
+    </a>
+</section>
+    </footer>
+  </article>
+  <nav class="pagination" role="pagination">
+    
+    <span class="page-number">•</span>
+    
+    <a class="older-posts" href="/2018/09/01/处理mat数据/">
+        处理mat数据 →
+    </a>
+    
+</nav>
+  <div id="comment" class="comments-area">
+    <h1 class="title"><a href="#disqus_comments" name="disqus_comments">Comments</a></h1>
+
+    
+</div>
+</main>
+
+
+  
+<footer class="site-footer">
+  
+  <div class="inner">
+     <section class="copyright">All content copyright <a href="/">Cooper111's Blog</a> &copy; 2014 &bull; All rights reserved.</section>
+     <section class="poweredby">Proudly published with <a class="icon-ghost" href="http://zespia.tw/hexo/">Hexo</a></section>
+  </div>
+</footer>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script type="text/javascript" src="/js/jquery.fitvids.js"></script>
+<script type="text/javascript" src="/js/index.js"></script>
+
+
+
+
+
+
+</body>
+</html>

@@ -45,20 +45,33 @@
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">OpenCV边缘检测：filter2D和prewwit算子</a></h2>
+      <h2 class="post-title"><a href="/2018/03/26/常用语法笔记/">OpenCV常用语法笔记</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        Filter2D函数：
-CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
-                            InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BO
+        imread()第二个参数
+
+
+0:返回3通道=0:返回灰度图&lt;0:返回原图
+
+
+Mat 的API：
+
+( Mat image; )Mat new_image;new_image =  image.clone()
+
+向下采样：
+
+Mat dstImage;pyrDown(srcImage, dstImage, Size(srcImage.cols / 2, srcImage.rows / 2));  
+
+resize图片缩放：
+
+
       
       </p>
       
       <p>
-          <a href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/" class="excerpt-link">Read More...</a>
+          <a href="/2018/03/26/常用语法笔记/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>

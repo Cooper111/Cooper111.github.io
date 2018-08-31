@@ -4,7 +4,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-  <title>Archives: 2018/4 | Cooper111&#39;s Blog</title>
+  <title>Archives: 2018/9 | Cooper111&#39;s Blog</title>
   <meta name="description" content="A lazy student." />
   <meta name="HandheldFriendly" content="True" />
   <meta name="MobileOptimized" content="320" />
@@ -40,36 +40,25 @@
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
-          2018-04-08
+      <time datetime="2018-08-31T16:32:55.000Z" itemprop="datePublished">
+          2018-09-01
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/04/08/颜色识别，开闭/">Opencv颜色识别,开闭</a></h2>
+      <h2 class="post-title"><a href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/">正则化，学习率指数衰减和滑动均值模型</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        
-#include 
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
+        序浏览学长博客有感，稍微记一点：1.正则化损失函数L22.学习率的指数衰减3.滑动平均模型ps：看到类似的博客也不错
 
 
-using namespace cv;
-using namespace std;
-
-static void on_imgThresholded(int, void*);
-
-int iLowH = 0;
-int iHighH = 75;
-
-int iLowS 
+正则化损失函数L2概念简述：由于数据存在很多干扰或者噪声，容易产生过拟合现象。在相同网络结构下，决策面越复杂，参数w的值往往更大，而w较小时候，得到的决策面相对平缓。L2正则化是一种减少过拟合的方法，让w尽量小，在损失函数中加入刻画模型复杂程度的指标。假设损失函数是J(θ)，则优化的是J(θ)+λR(w)，R(w)=
       
       </p>
       
       <p>
-          <a href="/2018/04/08/颜色识别，开闭/" class="excerpt-link">Read More...</a>
+          <a href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
@@ -78,74 +67,32 @@ int iLowS
   <article class="post">
     <header class="post-header">
       <span class="post-meta">
-      <time datetime="2018-04-08T06:53:27.000Z" itemprop="datePublished">
-          2018-04-08
+      <time datetime="2018-08-31T16:31:01.000Z" itemprop="datePublished">
+          2018-09-01
       </time>
     
 </span>
-      <h2 class="post-title"><a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h2>
+      <h2 class="post-title"><a href="/2018/09/01/处理mat数据/">处理mat数据</a></h2>
     </header>
     <section class="post-excerpt">
       <p>
       
-        
-#include "opencv2/highgui/highgui.hpp"  
-#include "opencv2/core/core.hpp"  
-#include "opencv2/imgproc/imgproc.hpp"  
+        解析原mat的索引，分割训练和测试制作新mat
 
-using namespace cv;
-using namespace std;
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul  1 15:55:32 2018
 
-int main(int argc)
-{
-    Mat img = imread("kuang1.jpg"); //
+
+HSGAN dataset:
+Semisupervised Hyperspectral Image Classification Based on Generative Adversarial Networks
+
+Dataset: Indian Pines 
       
       </p>
       
       <p>
-          <a href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" class="excerpt-link">Read More...</a>
-      </p>
-      
-    </section>
-  </article>
-  
-  <article class="post">
-    <header class="post-header">
-      <span class="post-meta">
-      <time datetime="2018-04-01T06:53:27.000Z" itemprop="datePublished">
-          2018-04-01
-      </time>
-    
-</span>
-      <h2 class="post-title"><a href="/2018/04/01/第一周作业/">邻域算子和线性滤波函数</a></h2>
-    </header>
-    <section class="post-excerpt">
-      <p>
-      
-        思路：
-因为图像近于水平，所以采用sobel或者canny效果好一些；
-车辙--sobel--滤波（不高斯）--
-
-
-载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
-
-附上代码：
-#include  
-#include   
-#include  
-#include
-
-using namespace cv;
-using namespace std;
-
-int main()
-{
-    //载入原始图 
-      
-      </p>
-      
-      <p>
-          <a href="/2018/04/01/第一周作业/" class="excerpt-link">Read More...</a>
+          <a href="/2018/09/01/处理mat数据/" class="excerpt-link">Read More...</a>
       </p>
       
     </section>
