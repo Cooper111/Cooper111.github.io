@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概念:摘自网上  Scrapy主要包括了以下组件：  引擎(Scrapy)用来处理整个系统的数据流处理, 触发事务(框架核心) 调度器(Scheduler)用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址 下载器(Downloader)用于下载网页内容,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scrapy框架笔记">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/01/Scrapy框架笔记/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="概念:摘自网上  Scrapy主要包括了以下组件：  引擎(Scrapy)用来处理整个系统的数据流处理, 触发事务(框架核心) 调度器(Scheduler)用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址 下载器(Downloader)用于下载网页内容,">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/425762/201605/425762-20160507220247421-1722096301.png">
+<meta property="og:updated_time" content="2018-09-01T15:32:36.939Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Scrapy框架笔记">
+<meta name="twitter:description" content="概念:摘自网上  Scrapy主要包括了以下组件：  引擎(Scrapy)用来处理整个系统的数据流处理, 触发事务(框架核心) 调度器(Scheduler)用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址 下载器(Downloader)用于下载网页内容,">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/425762/201605/425762-20160507220247421-1722096301.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/01/Scrapy框架笔记/"/>
+
+
+
+
+
+  <title>Scrapy框架笔记 | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/Scrapy框架笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Scrapy框架笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T23:30:57+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/爬虫·框架/" itemprop="url" rel="index">
+                    <span itemprop="name">爬虫·框架</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概念"><a href="#概念" class="headerlink" title="概念:"></a>概念:</h1><p>摘自<a href="">网上</a></p>
+<p><img src="https://images2015.cnblogs.com/blog/425762/201605/425762-20160507220247421-1722096301.png" alt="框架"></p>
+<p><strong>Scrapy主要包括了以下组件：</strong></p>
+<ul>
+<li>引擎(Scrapy)<br><br>用来处理整个系统的数据流处理, 触发事务(框架核心)</li>
+<li>调度器(Scheduler)<br><br>用来接受引擎发过来的请求, 压入队列中, 并在引擎再次请求的时候返回. 可以想像成一个URL（抓取网页的网址或者说是链接）的优先队列, 由它来决定下一个要抓取的网址是什么, 同时去除重复的网址</li>
+<li>下载器(Downloader)<br><br>用于下载网页内容, 并将网页内容返回给蜘蛛(Scrapy下载器是建立在twisted这个高效的异步模型上的)</li>
+<li>爬虫(Spiders)<br><br>爬虫是主要干活的, 用于从特定的网页中<strong>提取</strong>自己需要的<strong>信息</strong>, 即所谓的实体(Item)。用户也可以从中提取出链接,让Scrapy<strong>继续抓取</strong>下一个页面</li>
+<li>项目管道(Pipeline)<br><br>负责处理爬虫从网页中抽取的实体，主要的功能是<strong>持久化实体、验证实体的有效性、清除不需要的信息</strong>。当页面被爬虫解析后，将被发送到项目管道，并经过几个特定的次序处理数据。</li>
+<li>下载器中间件(Downloader Middlewares)<br><br>位于Scrapy引擎和下载器之间的框架，主要是处理Scrapy引擎与下载器之间的请求及响应。</li>
+<li>爬虫中间件(Spider Middlewares)<br><br>介于Scrapy引擎和爬虫之间的框架，主要工作是处理蜘蛛的响应输入和请求输出。<br>调度中间件(Scheduler Middewares)<br>介于Scrapy引擎和调度之间的中间件，从Scrapy引擎发送到调度的请求和响应。</li>
+</ul>
+<p>Scrapy运行流程大概如下：</p>
+<ul>
+<li>引擎从调度器中取出一个链接(URL)用于接下来的抓取</li>
+<li>引擎把URL封装成一个请求(Request)传给下载器</li>
+<li>下载器把资源下载下来，并封装成应答包(Response)</li>
+<li>爬虫解析Response</li>
+<li>解析出实体（Item）,则交给实体管道进行进一步的处理</li>
+<li>解析出的是链接（URL）,则把URL交给调度器等待抓取</li>
+</ul>
+<hr>
+
+<h2 id="让俗人我接接地气"><a href="#让俗人我接接地气" class="headerlink" title="让俗人我接接地气"></a>让俗人我接接地气</h2><h3 id="item-py"><a href="#item-py" class="headerlink" title="item .py"></a>item .py</h3><p>定义实体包括的信息,类似</p>
+<blockquote>
+<p>nickname = scrapy.Field()</p>
+</blockquote>
+<p>如果连接MongoDB，可以定义表名，稍后在Pipline里会提到</p>
+<blockquote>
+<p>collection = table = ‘images’</p>
+</blockquote>
+<ul>
+<li>实例</li>
+</ul>
+<pre>
+import scrapy
+class DouyuItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    collection = table = 'images'
+
+    nickname = scrapy.Field()
+    imagelink = scrapy.Field()
+    online = scrapy.Field()
+    game_name = scrapy.Field()
+    anchor_city = scrapy.Field()
+</pre>
+### middlewares\.py
+> 和管道一样，得在settinngs里激活，设置优先级-----SPIDER_MIDDLEWARES{}
+
+> 如果您想禁止内置的(在 SPIDER_MIDDLEWARES_BASE 中设置并默认启用的)中间件， 您必须在项目的 SPIDER_MIDDLEWARES设置中定义该中间件，并将其值赋为 None 。
+
+>例如，如果您想要关闭off-site中间件，在SPIDER_MIDDLEWARES_BASE中设置其为None
+#### 函数
+- **from_crawler(cls, crawler)**
+>This method is used by Scrapy to create your spiders. 
+
+eg:
+<pre>
+def from_crawler(cls, crawler):
+        # This method is used by Scrapy to create your spiders.
+        s = cls()
+        crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
+        return s
+</pre>
+
+<ul>
+<li><strong>process_spider_input(response, spider)</strong><blockquote>
+<p>return None</p>
+</blockquote>
+</li>
+<li><strong>process_spider_output(response, result, spider)</strong></li>
+</ul>
+<pre>
+for i in result:
+    yield i
+</pre>
+- **process_spider_exception(response, exception, spider)**
+>pass
+- **process_start_requests(start_requests, spider)**
+
+<pre>
+for r in start_requests:
+    yield r
+</pre>
+- **spider_opened(self, spider)**
+>spider. logger. info('Spider opened: % s' % spider. name)
+
+#####  看函数名参数和返回值稍微知道了[基本用途](http://wiki.jikexueyuan.com/project/scrapy/spider-middleware.html)···
+看一个测试实例：(摘自[此](https://blog.csdn.net/beyond_f/article/details/74626311))
+<pre>
+# -*- coding: utf-8 -*-
+
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+class ModifyStartRequest(object):
+
+    def process_start_requests(self, start_requests, spider):
+        logging.debug("#### 2222222 start_requests %s , spider %s ####" % (start_requests, spider))
+        last_request = []
+        for one_request in start_requests:
+            logging.debug("#### one_request %s , spider %s ####" % (one_request, spider))
+            last_request.append(one_request)
+        logging.debug("#### last_request %s ####" % last_request)
+        return last_request
+
+
+</pre>
+
+<pre>
+# -*- coding: utf-8 -*-
+import logging
+# from scrapy.shell import inspect_response
+
+
+logger = logging.getLogger(__name__)
+
+
+class SpiderInputMiddleware(object):
+
+    def process_spider_input(self, response, spider):
+        # inspect_response(response, spider)
+        logging.debug("#### 33333 response %s , spider %s ####" % (response, spider))
+        return
+</pre>
+
+<pre>
+# -*- coding: utf-8 -*-
+import logging
+
+logger = logging.getLogger(__name__)
+
+class SpiderOutputMiddleware(object):
+
+    def process_spider_output(self, response, result, spider):
+        logging.debug("#### 44444 response %s , result %s , spider %s ####" % (response, result, spider))
+        return result
+</pre>
+配置
+<pre>
+SPIDER_MIDDLEWARES = {
+    #    'Save_GirlImage.middlewares.MyCustomSpiderMiddleware': 543,
+    'Save_GirlImage.modify_start_request_middleware.ModifyStartRequest': 643,
+    'Save_GirlImage.process_spider_input_middleware.SpiderInputMiddleware': 743,
+    'Save_GirlImage.process_spider_output_middleware.SpiderOutputMiddleware': 843,
+}
+</pre>
+上面的三个Spider中间件，其实也没有做什么实际有用的功能，旨在了解Spider中间件相关的各接口函数的使用，中间件相关打印可以在日志文件中查看
+
+### Pipeline\.py
+- 数据库的管道
+- 图片下载的管道
+
+放代码····见注释
+
+<pre>
+# -*- coding: utf-8 -*-
+
+# Define your item pipelines here
+#
+# Don't forget to add your pipeline to the ITEM_PIPELINES setting
+# See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
+
+import os
+import scrapy
+from scrapy.pipelines.images import ImagesPipeline
+from Douyu.settings import IMAGES_STORE
+import pymongo
+
+class MongoPipeline(object):
+    def __init__(self, mongo_uri, mongo_db):
+        self.mongo_uri = mongo_uri
+        self.mongo_db = mongo_db
+
+    #自动从setting里取数据填充
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            mongo_uri=crawler.settings.get('MONGO_URI'),
+            mongo_db=crawler.settings.get('MONGO_DB')
+        )
+    #蜘蛛的实例生成时调用，一般用于初始化数据库连接
+    def open_spider(self, spider):
+        self.client = pymongo.MongoClient(self.mongo_uri)
+        self.db = self.client[self.mongo_db]
+
+    #对实例执行（数据库）操作
+    def process_item(self, item, spider):
+        name = item.collection
+        self.db[name].insert(dict(item))
+        return item
+    #关闭爬虫
+    def close_spider(self, spider):
+        self.client.close()
+
+
+# 新的管线类，用于处理二进制文件
+class DouyuPipeline(ImagesPipeline):
+     #def file_path(self, request, response=None, info=None):
+        #url = request.url
+        #file_name = url.split('/')[-1]
+        #return file_name
+    # 二进制下载，电影视频实际都可以，会自动调用download模组的函数
+    def get_media_requests(self, item, info):
+        image_link = item['imagelink']
+        yield scrapy.Request(image_link)
+
+    # 这个方法会在一次处理的最后调用（从返回item也可以推理出）
+    # result表示下载的结果状态
+    def item_completed(self, results, item, info):
+        # print(results)
+        # [(True, {'url': 'https://rpic.douyucdn.cn/acrpic/170827/3034164_v1319.jpg',
+        # 'checksum': '7383ee5f8dfadebf16a7f123bce4dc45', 'path': 'full/6faebfb1ae66d563476449c69258f2e0aa24000a.jpg'})]
+        image_path = [x['path'] for ok,x in results if ok]
+        os.rename(IMAGES_STORE + '/'+ image_path[0], IMAGES_STORE+ '/' + item['nickname'] + '.jpg')
+        if not image_path:
+            raise scrapy.DropItem('Image Downloaded Failed')
+        return item
+
+</pre>
+### Settings\.py
+=======配置都放这儿啦
+
+- 配置数据库，调用：
+> from Douyu.settings import IMAGES_STORE
+
+> crawler.settings.get('MONGO_URI')
+
+- ROBOTSTXT_OBEY = False
+> [取消遵守robot.txt](https://blog.csdn.net/you_are_my_dream/article/details/60479699)
+
+- ITEM_PIPELINES  设置优先级
+越低优先级越高
+<pre>
+ITEM_PIPELINES = {
+    'Douyu.pipelines.DouyuPipeline': 300,
+    'Douyu.pipelines.MongoPipeline': 301,
+}
+</pre>
+
+<h3 id="Spider-py"><a href="#Spider-py" class="headerlink" title="Spider.py"></a>Spider.py</h3><pre>
+import json
+from Douyu.items import DouyuItem
+import scrapy
+from urllib.parse import urlencode
+
+
+
+class DouyuspiderSpider(scrapy.Spider):
+    name = "DouyuSpider"
+    allowed_domains = ["douyucdn.cn"]
+    baseURL = 'http://capi.douyucdn.cn/api/v1/getVerticalRoom?limit=20&offset='
+    offset = 0
+    start_urls = [baseURL + str(offset)]
+
+    default_headers = {
+        'Accept' : 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Encoding' : 'gzip, deflate',
+        'Accept-Language' : 'zh-CN,zh;q=0.9',
+        'Cache-Control' : 'max-age=0',
+        'Connection' : 'keep-alive',
+        'Host' : 'capi.douyucdn.cn',
+        'Upgrade-Insecure-Requests' : '1',
+        'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36',
+    }
+    def start_requests(self):
+            for url in self.start_urls:
+                yield scrapy.Request(url = url, headers = self.default_headers, callback = self.parse)
+
+
+    def parse(self, response):
+        # .load和磁盘交互，.loads处理字符串
+        data_list = json.loads(response.body.decode('utf-8'))['data']
+        if not len(data_list):
+            return
+
+        for data in data_list:
+            item = DouyuItem()
+            item['nickname'] = data['nickname']
+            item['imagelink'] = data['vertical_src']
+            item['online'] = data['online']
+            item['game_name'] = data['game_name']
+            item['anchor_city'] = data['anchor_city']
+            yield item
+
+        self.offset += 20
+        yield scrapy.Request(self.baseURL + str(self.offset), callback=self.parse)
+</pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/01/Mat处理第二弹/" rel="next" title="Mat处理第二弹">
+                <i class="fa fa-chevron-left"></i> Mat处理第二弹
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概念"><span class="nav-number">1.</span> <span class="nav-text">概念:</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#让俗人我接接地气"><span class="nav-number">1.1.</span> <span class="nav-text">让俗人我接接地气</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#item-py"><span class="nav-number">1.1.1.</span> <span class="nav-text">item .py</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spider-py"><span class="nav-number">1.1.2.</span> <span class="nav-text">Spider.py</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
