@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······  方框滤波——boxblur函数 均值滤波——blur函数 高斯滤波——GaussianBlur函数  函数的原理和源代码分析见：  https://blog.csdn.net/poem_qianmo/article/details/22745559  起手式  #include “opencv2/core/core.hpp">
+<meta name="description" content="代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集 Ps:是分割······  import numpy as npimport scipy.io as scioimport matplotlib.pyplot as pltimport mathfrom sklearn.cross_validation import train_test_splitimport opera">
 <meta property="og:type" content="article">
-<meta property="og:title" content="邻域算子和线性滤波函数">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/26/线性领域滤波/index.html">
+<meta property="og:title" content="Mat处理第二弹">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/01/Mat处理第二弹/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······  方框滤波——boxblur函数 均值滤波——blur函数 高斯滤波——GaussianBlur函数  函数的原理和源代码分析见：  https://blog.csdn.net/poem_qianmo/article/details/22745559  起手式  #include “opencv2/core/core.hpp">
+<meta property="og:description" content="代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集 Ps:是分割······  import numpy as npimport scipy.io as scioimport matplotlib.pyplot as pltimport mathfrom sklearn.cross_validation import train_test_splitimport opera">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T13:59:56.382Z">
+<meta property="og:updated_time" content="2018-09-01T13:12:06.061Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邻域算子和线性滤波函数">
-<meta name="twitter:description" content="邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······  方框滤波——boxblur函数 均值滤波——blur函数 高斯滤波——GaussianBlur函数  函数的原理和源代码分析见：  https://blog.csdn.net/poem_qianmo/article/details/22745559  起手式  #include “opencv2/core/core.hpp">
+<meta name="twitter:title" content="Mat处理第二弹">
+<meta name="twitter:description" content="代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集 Ps:是分割······  import numpy as npimport scipy.io as scioimport matplotlib.pyplot as pltimport mathfrom sklearn.cross_validation import train_test_splitimport opera">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/26/线性领域滤波/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/01/Mat处理第二弹/"/>
 
 
 
 
 
-  <title>邻域算子和线性滤波函数 | Cooper111's Blog</title>
+  <title>Mat处理第二弹 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/线性领域滤波/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/Mat处理第二弹/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">邻域算子和线性滤波函数</h1>
+          <h1 class="post-title" itemprop="name headline">Mat处理第二弹</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T21:06:59+08:00">
+                2018-09-01
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据处理与分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理与分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,106 +333,106 @@
       
 
       
-        <h1 id="邻域算子和线性滤波函数"><a href="#邻域算子和线性滤波函数" class="headerlink" title="邻域算子和线性滤波函数"></a>邻域算子和线性滤波函数</h1><p>ps: 只能说数学基础不好，得慢慢补呐······</p>
-<blockquote>
-<p>方框滤波——boxblur函数</p>
-<p>均值滤波——blur函数</p>
-<p>高斯滤波——GaussianBlur函数</p>
+        <h1 id="代码功能-读取高光谱mat文件，按照领域窗口进行分割-制作数据集和标签集"><a href="#代码功能-读取高光谱mat文件，按照领域窗口进行分割-制作数据集和标签集" class="headerlink" title="代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集"></a>代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集</h1><blockquote>
+<p>Ps:是分割······</p>
 </blockquote>
-<p>函数的原理和源代码分析见：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/poem_qianmo/article/details/22745559" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/22745559</a></p>
-</blockquote>
-<h2 id="起手式"><a href="#起手式" class="headerlink" title="起手式"></a>起手式</h2><blockquote>
-<blockquote>
-<p>#include “opencv2/core/core.hpp”  </p>
-</blockquote>
-<p>#include”opencv2/highgui/highgui.hpp”  </p>
-<p>#include”opencv2/imgproc/imgproc.hpp”  </p>
-<p>#include &lt;stdio.h&gt;  </p>
-<p>using namespace cv; </p>
-</blockquote>
-<h2 id="boxFilter函数——方框滤波"><a href="#boxFilter函数——方框滤波" class="headerlink" title="boxFilter函数——方框滤波"></a><1>boxFilter函数——方框滤波</1></h2><pre>C++: void boxFilter(InputArray src,OutputArray dst, int ddepth, Size ksize, Point anchor=Point(-1,-1), boolnormalize=true, int borderType=BORDER_DEFAULT )
-参数详解如下：
-
-第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。该函数对通道是独立处理的，且可以处理任意通道数的图片，但需要注意，待处理的图片深度应该为CV_8U, CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
-第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。
-第三个参数，int类型的ddepth，输出图像的深度，-1代表使用原图深度，即src.depth()。
-第四个参数，Size类型的ksize，内核的大小。一般这样写Size( w,h )来表示内核的大小( 其中，w 为像素宽度， h为像素高度)。Size（3,3）就表示3x3的核大小，Size（5,5）就表示5x5的核大小
-第五个参数，Point类型的anchor，表示锚点（即被平滑的那个点），注意他有默认值Point(-1,-1)。如果这个点坐标是负值的话，就表示取核的中心为锚点，所以默认值Point(-1,-1)表示这个锚点在核的中心。
-第六个参数，bool类型的normalize，默认值为true，一个标识符，表示内核是否被其区域归一化（normalized）了。
-第七个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。有默认值BORDER_DEFAULT，我们一般不去管它。
-
-调用代码示范如下：
-    //载入原图  
-    Mat image=imread("2.jpg");  
-    //进行均值滤波操作  
-    Mat out;  
-    boxFilter(image, out, -1,Size(5, 5));  
-</pre>
-## <2>blur函数——均值滤波
-
-<pre>
-C++: void blur(InputArray src, OutputArraydst, Size ksize, Point anchor=Point(-1,-1), int borderType=BORDER_DEFAULT )  
-参数详解如下：
-
-第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。该函数对通道是独立处理的，且可以处理任意通道数的图片，但需要注意，待处理的图片深度应该为CV_8U, CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
-第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。比如可以用Mat::Clone，以源图片为模板，来初始化得到如假包换的目标图。
-第三个参数，Size类型（对Size类型稍后有讲解）的ksize，内核的大小。一般这样写Size( w,h )来表示内核的大小( 其中，w 为像素宽度， h为像素高度)。Size（3,3）就表示3x3的核大小，Size（5,5）就表示5x5的核大小
-第四个参数，Point类型的anchor，表示锚点（即被平滑的那个点），注意他有默认值Point(-1,-1)。如果这个点坐标是负值的话，就表示取核的中心为锚点，所以默认值Point(-1,-1)表示这个锚点在核的中心。
-第五个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。有默认值BORDER_DEFAULT，我们一般不去管它。
-
-调用代码示范：
-//载入原图  
-  Mat image=imread("1.jpg");  
-  //进行均值滤波操作  
-  Mat out;  
-  blur(image, out, Size(7, 7));  
-</pre>
-## <3>GaussianBlur函数——高斯滤波
-<pre>
-C++: void GaussianBlur(InputArray src,OutputArray dst, Size ksize, double sigmaX, double sigmaY=0, intborderType=BORDER_DEFAULT )
-参数详解如下：
-
-第一个参数，InputArray类型的src，输入图像，即源图像，填Mat类的对象即可。它可以是单独的任意通道数的图片，但需要注意，图片深度应该为CV_8U,CV_16U, CV_16S, CV_32F 以及 CV_64F之一。
-第二个参数，OutputArray类型的dst，即目标图像，需要和源图片有一样的尺寸和类型。比如可以用Mat::Clone，以源图片为模板，来初始化得到如假包换的目标图。
-第三个参数，Size类型的ksize高斯内核的大小。其中ksize.width和ksize.height可以不同，但他们都必须为正数和奇数。或者，它们可以是零的，它们都是由sigma计算而来。
-第四个参数，double类型的sigmaX，表示高斯核函数在X方向的的标准偏差。
-第五个参数，double类型的sigmaY，表示高斯核函数在Y方向的的标准偏差。若sigmaY为零，就将它设为sigmaX，如果sigmaX和sigmaY都是0，那么就由ksize.width和ksize.height计算出来。
-为了结果的正确性着想，最好是把第三个参数Size，第四个参数sigmaX和第五个参数sigmaY全部指定到。
-第六个参数，int类型的borderType，用于推断图像外部像素的某种边界模式。注意它有默认值BORDER_DEFAULT。
-
-调用示例：
-    //载入原图  
-    Mat image=imread("1.jpg");  
-    //进行滤波操作  
-    Mat out;  
-    GaussianBlur( image, out, Size( 5, 5 ), 0, 0 );  
-</pre>
+<p><br>import numpy as np<br>import scipy.io as scio<br>import matplotlib.pyplot as plt<br>import math<br>from sklearn.cross_validation import train_test_split<br>import operator</p>
+<p>#用于将一维索引转换成二维索引，制作label图<br>def chage_to_matrix_index(num,height,weight):<br>    temp_index = num<br>    if int(temp_index) % int(height) != 0:<br>        temp_col = math.floor(temp_index / height)<br>        temp_row = int(math.fmod(temp_index, height) - 1)<br>    else:<br>        temp_col = math.floor(temp_index / height)-1<br>        temp_row = int(height - 1)<br>    return temp_row,temp_col  </p>
+<p>#裁剪后的数据块的标签，去对应的label小块图，得出种类<br>def matrix_make_label(dataset,Y_cell,X_cell):<br>    classCount={}<br>    for i in range(Y_cell):<br>        for j in range(X_cell):<br>            tt = dataset[i][j]<br>            if tt not in classCount.keys(): classCount[ tt ] = 0<br>            classCount[ tt ] += 1<br>    sortedClassCount = sorted(classCount.items(), key=operator.itemgetter(1), reverse=True)</p>
+<pre><code>#1-只有0  2-有0最多,且两种即以上 3-0不是最多的
+if (sortedClassCount[0][0] ==0)and(len(sortedClassCount)==1):
+    return 999                        #代表不应该参与分类
+elif (sortedClassCount[0][0] ==0)and(len(sortedClassCount)!=1):
+    return sortedClassCount[1][0]
+else:
+    return sortedClassCount[0][0] 
+</code></pre><p>def get_files():<br>    data_mat = scio.loadmat(“Salinas.mat”)<br>    img = np.array(data_mat[‘img’]) # read data from dict<br>    GroundT = np.array(data_mat[‘GroundT’]).T # read data from dict(54129, 2)<br>    [height,weight,channels] = img.shape<br>    print(height,weight,channels)#512 217 204<br>    img_GroundT = np.zeros([height,weight])</p>
+<pre><code>#print(GroundT.shape[0])
 
 
+#制作label构成的图
 
-<p>卷积：</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/22298352" target="_blank" rel="noopener">https://www.zhihu.com/question/22298352</a></p>
-</blockquote>
-<p>高斯模糊：</p>
-<blockquote>
-<p><a href="http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/11/gaussian_blur.html</a></p>
-</blockquote>
-<p>傅里叶变换</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/19991026/answer/252715189?utm_source=qq&amp;utm_medium=social" target="_blank" rel="noopener">https://www.zhihu.com/question/19991026/answer/252715189?utm_source=qq&amp;utm_medium=social</a></p>
-</blockquote>
-<p>欧拉公式</p>
-<blockquote>
-<p><a href="https://www.zhihu.com/question/41134540?utm_source=qq&amp;utm_medium=social" target="_blank" rel="noopener">https://www.zhihu.com/question/41134540?utm_source=qq&amp;utm_medium=social</a></p>
-</blockquote>
-<p>图像亮度和明度概念</p>
-<blockquote>
-<p><a href="https://zhidao.baidu.com/question/460598833160628645.html" target="_blank" rel="noopener">https://zhidao.baidu.com/question/460598833160628645.html</a></p>
-</blockquote>
-</3></2>
+
+for t in range(GroundT.shape[0]):
+    i,j = chage_to_matrix_index(GroundT[t][0],height,weight)#取出索引，转换为下标
+    img_GroundT[i][j] = GroundT[t][1]
+
+#print(GroundT[0][0],GroundT[0][1])   33  15
+#print(chage_to_matrix_index(GroundT[0][0],row,col))  (32, 0)
+#print(img_GroundT[32][0])   15.0
+#矩阵元素[row,col]
+#=====================================label图制作完成=====================
+X_cell = 29;
+Y_cell = 29;
+label_list = []
+train_list = []
+
+#判断划分后的块label值有没有用,标记999
+img_useful = np.zeros([math.floor(height/Y_cell),math.floor(weight/X_cell)])
+
+#先裁剪出label图,先裁行再裁列
+for i in range(math.floor(height/Y_cell)):  #(i+1)*29 -1 不会超height
+    start = i*Y_cell  #i为row-1    0*29     1*29
+    last = (i+1)*Y_cell #          1*29     2*29 
+    dataCol_h = img_GroundT[start:last,:]
+    #Path_ = strcat(path,&apos;_Label_&apos;,&apos;row&apos;,num2str(row));
+    for j in range(math.floor(weight/X_cell)):  #(i+1)*29 -1 不会超weight
+        start = j*X_cell  #j为col-1     0*29     1*29
+        last = (j+1)*X_cell #           1*29    2*29  
+        dataCol_x = dataCol_h[:,start:last]
+        #=============================
+        #对矩阵操作法①转为one-hot想家多数表决，法②转为字典，封装为函数
+        #print(dataCol_x.shape)
+        temp = matrix_make_label(dataCol_x,Y_cell,X_cell)
+        #最后列表append的应该是个label值
+        #===============
+        label_list.append(temp)
+        if temp == 999:
+            img_useful[i][j] = 999
+
+#print(&apos;img_useful&apos;,img_useful)
+#print(np.array(label_list).shape)
+#print(label_list[87])
+#ok~但此时label还有999
+for i in range(math.floor(height/Y_cell)):  #(i+1)*29 -1 不会超height
+    start = i*Y_cell  #i为row-1     0*29     1*29
+    stop = (i+1)*Y_cell-1 #         1*29 -1  2*29 -1
+    dataCol_h = img[start:stop,:,:]
+    #Path_ = strcat(path,&apos;_Label_&apos;,&apos;row&apos;,num2str(row));
+    for j in range(math.floor(weight/X_cell)):  #(i+1)*29 -1 不会超weight
+        start = j*X_cell  #j为col-1     0*29     1*29
+        stop = (j+1)*X_cell-1 #         1*29 -1  2*29 -1
+        #==================================================
+        #检测label值是否为0，为0就不加这个train块,总共7*17(119)块里有些全是0的····
+        if img_useful[i][j] == 999:
+            continue
+        #==================================================
+        dataCol_x = dataCol_h[:,start:stop,:]
+        train_list.append(dataCol_x)
+
+#print(np.array(train_list).shape)
+#print(train_list[0].shape)
+#print(train_list[0][0][0])
+#print(train_list[0])
+#ok~
+#=========================================
+#剔除完train块里的0的，在剔除label的999的
+#逻辑：label和train都是遍历切行再切列，顺序一致
+#区别只是label在序列上多余了999，所以直接删除值为999的即可
+re_label_list = []
+for value in label_list:
+    if value != 999:
+        re_label_list.append(value)
+#print(&quot;len----label_list&quot;,len(label_list))
+#print(&quot;len----re_label_list&quot;,len(re_label_list))#=========剔除完也是92个
+#print(label_list)
+#print(re_label_list)
+
+#====================制作完train_list和label_list====================
+return train_list,re_label_list
+</code></pre><p>if <strong>name</strong> == ‘<strong>main</strong>‘:<br>    train_list,re_label_list = get_files()<br>    print(np.array(train_list).shape)<br>    print(np.array(re_label_list).shape)</p>
+<p></p>
+
       
     </div>
     
@@ -434,8 +456,8 @@ C++: void GaussianBlur(InputArray src,OutputArray dst, Size ksize, double sigmaX
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/常用语法笔记/" rel="next" title="OpenCV常用语法笔记">
-                <i class="fa fa-chevron-left"></i> OpenCV常用语法笔记
+              <a href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/" rel="next" title="正则化，学习率指数衰减和滑动均值模型">
+                <i class="fa fa-chevron-left"></i> 正则化，学习率指数衰减和滑动均值模型
               </a>
             
           </div>
@@ -443,10 +465,6 @@ C++: void GaussianBlur(InputArray src,OutputArray dst, Size ksize, double sigmaX
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/26/OpenCV边缘检测：Canny算子/" rel="prev" title="OpenCV边缘检测：Canny算子">
-                OpenCV边缘检测：Canny算子 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -569,7 +587,7 @@ C++: void GaussianBlur(InputArray src,OutputArray dst, Size ksize, double sigmaX
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#邻域算子和线性滤波函数"><span class="nav-number">1.</span> <span class="nav-text">邻域算子和线性滤波函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#起手式"><span class="nav-number">1.1.</span> <span class="nav-text">起手式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boxFilter函数——方框滤波"><span class="nav-number">1.2.</span> <span class="nav-text">boxFilter函数——方框滤波</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#代码功能-读取高光谱mat文件，按照领域窗口进行分割-制作数据集和标签集"><span class="nav-number">1.</span> <span class="nav-text">代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集</span></a></li></ol></div>
             
 
           </div>
