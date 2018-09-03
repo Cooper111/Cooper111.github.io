@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="(基本)参考的博文：  https://blog.csdn.net/poem_qianmo/article/details/25560901  Laplacian函数 C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intbord">
+<meta name="description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920    8.326976    0.953952    largeDoses 14488    7.153469    1.673904    smallDoses 26052    1.441871    0.805124    didntLike">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Opencv边缘检测：Laplacian函数和scharr滤波器">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/index.html">
+<meta property="og:title" content="KNN">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/03/KNN/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="(基本)参考的博文：  https://blog.csdn.net/poem_qianmo/article/details/25560901  Laplacian函数 C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intbord">
+<meta property="og:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920    8.326976    0.953952    largeDoses 14488    7.153469    1.673904    smallDoses 26052    1.441871    0.805124    didntLike">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T14:02:17.225Z">
+<meta property="og:updated_time" content="2018-09-03T14:39:45.990Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Opencv边缘检测：Laplacian函数和scharr滤波器">
-<meta name="twitter:description" content="(基本)参考的博文：  https://blog.csdn.net/poem_qianmo/article/details/25560901  Laplacian函数 C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intbord">
+<meta name="twitter:title" content="KNN">
+<meta name="twitter:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920    8.326976    0.953952    largeDoses 14488    7.153469    1.673904    smallDoses 26052    1.441871    0.805124    didntLike">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/03/KNN/"/>
 
 
 
 
 
-  <title>Opencv边缘检测：Laplacian函数和scharr滤波器 | Cooper111's Blog</title>
+  <title>KNN | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/03/KNN/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Opencv边缘检测：Laplacian函数和scharr滤波器</h1>
+          <h1 class="post-title" itemprop="name headline">KNN</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T22:38:31+08:00">
+                2018-09-03
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,71 +333,193 @@
       
 
       
-        <p>(基本)参考的博文：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/poem_qianmo/article/details/25560901" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/25560901</a></p>
+        <h1 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h1><blockquote>
+<p>缺点:每次计算得遍历所有样本</p>
 </blockquote>
-<h3 id="Laplacian函数"><a href="#Laplacian函数" class="headerlink" title="Laplacian函数"></a>Laplacian函数</h3><pre>
-C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intborderType=BORDER_DEFAULT );
-
-第一个参数，InputArray类型的image，输入图像，即源图像，填Mat类的对象即可，且需为单通道8位图像。
-第二个参数，OutputArray类型的edges，输出的边缘图，需要和源图片有一样的尺寸和通道数。
-第三个参数，int类型的ddept，目标图像的深度。
-第四个参数，int类型的ksize，用于计算二阶导数的滤波器的孔径尺寸，大小必须为正奇数，且有默认值1。
-第五个参数，double类型的scale，计算拉普拉斯值的时候可选的比例因子，有默认值1。
-第六个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
-第七个参数， int类型的borderType，边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate()处得到更详细的信息。
-</pre>
-Laplacian( )函数其实主要是利用sobel算子的运算。它通过加上sobel算子运算出的图像x方向和y方向上的导数，来得到我们载入图像的拉普拉斯变换结果。
-<br>
-其中，sobel算子（ksize>1）如下：
-![image](http://img.blog.csdn.net/20140511215812515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-<br>
-而当ksize=1时，Laplacian()函数采用以下3x3的孔径：
-![image](http://img.blog.csdn.net/20140511215703203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-<br>
-#### 部分实例：(先高斯滤波，转灰度图)
+<blockquote>
+<p>注:以下导入,处理是对trainmat,但testmat同理</p>
+</blockquote>
+<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><ul>
+<li>特征值-标签</li>
+</ul>
 <pre>
-Laplacian( src_gray, dst, CV_16S, 3, 1, 0, BORDER_DEFAULT ); 
-convertScaleAbs( dst, abs_dst );  
+40920    8.326976    0.953952    largeDoses
+14488    7.153469    1.673904    smallDoses
+26052    1.441871    0.805124    didntLike
 </pre>
 
-<h3 id="scharr滤波器"><a href="#scharr滤波器" class="headerlink" title="scharr滤波器"></a>scharr滤波器</h3><pre>
-C++: void Scharr(  
-InputArray src, //源图  
- OutputArray dst, //目标图  
- int ddepth,//图像深度  
- int dx,// x方向上的差分阶数  
- int dy,//y方向上的差分阶数  
- double scale=1,//缩放因子  
- double delta=0,// delta值  
- intborderType=BORDER_DEFAULT )// 边界模式 
-
- 第一个参数，InputArray 类型的src，为输入图像，填Mat类型即可。
-第二个参数，OutputArray类型的dst，即目标图像，函数的输出参数，需要和源图片有一样的尺寸和类型。
-第三个参数，int类型的ddepth，输出图像的深度，支持如下src.depth()和ddepth的组合：
-若src.depth() = CV_8U, 取ddepth =-1/CV_16S/CV_32F/CV_64F
-若src.depth() = CV_16U/CV_16S, 取ddepth =-1/CV_32F/CV_64F
-若src.depth() = CV_32F, 取ddepth =-1/CV_32F/CV_64F
-若src.depth() = CV_64F, 取ddepth = -1/CV_64F
-第四个参数，int类型dx，x方向上的差分阶数。
-第五个参数，int类型dy，y方向上的差分阶数。
-第六个参数，double类型的scale，计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。我们可以在文档中查阅getDerivKernels的相关介绍，来得到这个参数的更多信息。
-第七个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
-第八个参数， int类型的borderType，我们的老朋友了（万年是最后一个参数），边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate处得到更详细的信息。
-</pre>
-
-<blockquote>
-<p>使用Scharr滤波器运算符计算x或y方向的图像差分。其实它的参数变量和Sobel基本上是一样的，除了没有ksize核的大小。</p>
+<ul>
+<li>二进制图片<blockquote>
+<p>eg:手写数字识别</p>
 </blockquote>
-<h4 id="（部分）代码实例："><a href="#（部分）代码实例：" class="headerlink" title="（部分）代码实例："></a>（部分）代码实例：</h4><pre>
-Scharr( src, grad_x, CV_16S, 1, 0, 1, 0, BORDER_DEFAULT );  
-convertScaleAbs( grad_x, abs_grad_x ); 
+<pre>
+00000000000000111000000000000000
+00000000000001111000000000000000
+00000000000111111110000000000000
+00000000000111111111000000000000
+00000000011111111111100000000000
+00000000011111101111100000000000
+00000000111111000011110000000000
+00000000111111000011111000000000
+00000001111110000000111100000000
+00000001111100000000111100000000
+00000011111100000000111100000000
+00000011111100000000111100000000
+00000011110000000000111100000000
+00000001111000000000011110000000
+00000001111000000000001111000000
+00000001111100000000001111000000
+00000011111100000000001111000000
+00000011111000000000001111000000
+00000011111000000000001111000000
+00000011111000000000001110000000
+00000001111100000000001111000000
+00000000111100000000001111000000
+00000000111100000000001111000000
+00000000111100000000011111000000
+00000000111100000000111110000000
+00000000111100000001111100000000
+00000000011100000011111100000000
+00000000001111100111111100000000
+00000000000111111111111000000000
+00000000000111111111100000000000
+00000000000111111111000000000000
+00000000000011111100000000000000
+</pre>
 
-Scharr( src, grad_y, CV_16S, 0, 1, 1, 0, BORDER_DEFAULT );  
-convertScaleAbs( grad_y, abs_grad_y ); 
+</li>
+</ul>
+<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><ul>
+<li><p>特征值-标签</p>
+<pre>
+def file2matrix(filename):
+  fr = open(filename)
+  numberOfLines = len(fr.readlines())         #get the number of lines in the file
+  returnMat = zeros((numberOfLines,3))        #prepare matrix to return
+  classLabelVector = []                       #prepare labels return   
+  fr = open(filename)
+  index = 0
+  for line in fr.readlines():
+      line = line.strip()
+      listFromLine = line.split('\t')
+      returnMat[index,:] = listFromLine[0:3]
+      classLabelVector.append(int(listFromLine[-1]))
+      index += 1
+  return returnMat,classLabelVector
+</pre>
+</li>
+<li><p>二进制图像</p>
+<pre>
+trainingFileList = listdir('trainingDigits')           #load the training set
+  m = len(trainingFileList)
+  trainingMat = zeros((m,1024))
+  for i in range(m):
+      fileNameStr = trainingFileList[i]
+      fileStr = fileNameStr.split('.')[0]     #take off .txt
+      classNumStr = int(fileStr.split('_')[0])
+      hwLabels.append(classNumStr)
+      trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
+      #img2vector使图片成向量,见处理
+</pre>
 
-addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
+</li>
+</ul>
+<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><ul>
+<li>解析“特征值-标签”类的文本数据</li>
+</ul>
+<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
+def autoNorm(dataSet):
+    minVals = dataSet.min(0)
+    maxVals = dataSet.max(0)
+    ranges = maxVals - minVals
+    normDataSet = zeros(shape(dataSet))
+    m = dataSet.shape[0]
+    normDataSet = dataSet - tile(minVals, (m,1))
+    normDataSet = normDataSet/tile(ranges, (m,1))   #element wise divide
+    return normDataSet, ranges, minVals
+
+</pre>
+
+<ul>
+<li>解析二进制图像<blockquote>
+<p>示例为读取32*32的转为1*1024</p>
+</blockquote>
+</li>
+</ul>
+<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
+def img2vector(filename):
+    returnVect = zeros((1,1024))
+    fr = open(filename)
+    for i in range(32):
+        lineStr = fr.readline()
+        for j in range(32):
+            returnVect[0,32*i+j] = int(lineStr[j])
+    return returnVect
+</pre>
+
+<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><blockquote>
+<p>直接计算平方和的根(RMSE)对应欧几里得范数，很好懂</p>
+<ul>
+<li>python</li>
+</ul>
+</blockquote>
+<pre>
+def classify0(inX, dataSet, labels, k):
+    dataSetSize = dataSet.shape[0]
+    diffMat = tile(inX, (dataSetSize,1)) - dataSet
+    sqDiffMat = diffMat**2
+    sqDistances = sqDiffMat.sum(axis=1)
+    distances = sqDistances**0.5
+    sortedDistIndicies = distances.argsort()     
+    classCount={}          
+    for i in range(k):
+        voteIlabel = labels[sortedDistIndicies[i]]
+        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
+    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
+    return sortedClassCount[0][0]
+
+</pre>
+# 回归
+- sklearn
+### 数据导入
+
+<pre>
+# Code example
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import sklearn.linear_model
+
+# Load the data
+oecd_bli = pd.read_csv(datapath + "oecd_bli_2015.csv", thousands=',')
+gdp_per_capita = pd.read_csv(datapath + "gdp_per_capita.csv",thousands=',',delimiter='\t',
+                             encoding='latin1', na_values="n/a")
+
+# Prepare the data
+country_stats = prepare_country_stats(oecd_bli, gdp_per_capita)
+X = np.c_[country_stats["GDP per capita"]]
+y = np.c_[country_stats["Life satisfaction"]]
+# np.c从列上合并数据，numpy的列表是个列向量
+</pre>
+
+<h3 id="数据处理-1"><a href="#数据处理-1" class="headerlink" title="数据处理"></a>数据处理</h3><pre>
+# Visualize the data
+country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
+plt.show()
+</pre>
+### 核心算法
+<pre>
+# Select a linear model
+# model = sklearn.linear_model.LinearRegression()
+model = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
+
+# Train the model
+model.fit(X, y)
+
+# Make a prediction for Cyprus
+X_new = [[22587]]  # Cyprus' GDP per capita
+print(model.predict(X_new)) # outputs [[ 5.96242338]]
 </pre>
       
     </div>
@@ -400,8 +544,8 @@ addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/25/图像载入，初级图像混合/" rel="next" title="图像载入，初级图像混合">
-                <i class="fa fa-chevron-left"></i> 图像载入，初级图像混合
+              <a href="/2018/09/01/Scrapy框架笔记/" rel="next" title="Scrapy框架笔记">
+                <i class="fa fa-chevron-left"></i> Scrapy框架笔记
               </a>
             
           </div>
@@ -409,10 +553,6 @@ addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/26/线性领域滤波/" rel="prev" title="邻域算子和线性滤波函数">
-                邻域算子和线性滤波函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -535,7 +675,7 @@ addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Laplacian函数"><span class="nav-number">1.</span> <span class="nav-text">Laplacian函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scharr滤波器"><span class="nav-number">2.</span> <span class="nav-text">scharr滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（部分）代码实例："><span class="nav-number">2.1.</span> <span class="nav-text">（部分）代码实例：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KNN"><span class="nav-number">1.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">1.0.4.</span> <span class="nav-text">核心算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">数据处理</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
