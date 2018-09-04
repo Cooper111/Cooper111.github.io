@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
 <meta property="og:description" content="见“各个模型”里详细的分割数据集和测试集 # to make this notebook&apos;s output identical at every run np.random.seed(42)  import numpy as np  # For illustration only. Sklearn has train_test_split() def split_train_test(data,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:09:17.905Z">
+<meta property="og:updated_time" content="2018-09-04T13:13:50.099Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="创建测试机集——数据层分割(随机·分层)">
 <meta name="twitter:description" content="见“各个模型”里详细的分割数据集和测试集 # to make this notebook&apos;s output identical at every run np.random.seed(42)  import numpy as np  # For illustration only. Sklearn has train_test_split() def split_train_test(data,">
@@ -371,10 +371,9 @@ train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "id")
 from sklearn.model_selection import train_test_split
 train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 </pre>
-## 另外一种拆分形式：分层采样
-将人群分成均匀的子分组，称为分层，从每个分层去除合适数量的实例，以保证测试集对总人数有代表性。例如，美国人口的 51.3% 是女性，48.7% 是男性。所以在美国，严谨的调查需要保证样本也是这个比例：513 名女性，487 名男性作为数据样本。
 
-数据集中的每个分层都要有足够的实例位于你的数据中，这点很重要。否则，对分层重要性的评估就会有偏差。这意味着，你不能有过多的分层，且每个分层都要足够大。后面的代码通过将收入中位数除以 1.5（以限制收入分类的数量），创建了一个收入类别属性，用ceil对值舍入（以产生离散的分类），然后将所有大于 5的分类归入到分类5 ：
+<h1 id="另外一种拆分形式：分层采样"><a href="#另外一种拆分形式：分层采样" class="headerlink" title="另外一种拆分形式：分层采样"></a>另外一种拆分形式：分层采样</h1><p>将人群分成均匀的子分组，称为分层，从每个分层去除合适数量的实例，以保证测试集对总人数有代表性。例如，美国人口的 51.3% 是女性，48.7% 是男性。所以在美国，严谨的调查需要保证样本也是这个比例：513 名女性，487 名男性作为数据样本。</p>
+<p>数据集中的每个分层都要有足够的实例位于你的数据中，这点很重要。否则，对分层重要性的评估就会有偏差。这意味着，你不能有过多的分层，且每个分层都要足够大。后面的代码通过将收入中位数除以 1.5（以限制收入分类的数量），创建了一个收入类别属性，用ceil对值舍入（以产生离散的分类），然后将所有大于 5的分类归入到分类5 ：</p>
 <pre>
 # 预处理，创建"income_cat"属性 
 # 凡是会对原数组作出修改并返回一个新数组的，往往都有一个 inplace可选参数
@@ -556,7 +555,7 @@ for set in (strat_train_set, strat_test_set):
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#见“各个模型”里详细的"><span class="nav-number">1.</span> <span class="nav-text">见“各个模型”里详细的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分割数据集和测试集"><span class="nav-number">2.</span> <span class="nav-text">分割数据集和测试集</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#见“各个模型”里详细的"><span class="nav-number">1.</span> <span class="nav-text">见“各个模型”里详细的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分割数据集和测试集"><span class="nav-number">2.</span> <span class="nav-text">分割数据集和测试集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#另外一种拆分形式：分层采样"><span class="nav-number">3.</span> <span class="nav-text">另外一种拆分形式：分层采样</span></a></li></ol></div>
             
 
           </div>
