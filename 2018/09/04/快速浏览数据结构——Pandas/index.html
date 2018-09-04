@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KNN">
-<meta property="og:url" content="https://cooper111.github.io/2018/09/03/KNN/index.html">
+<meta property="og:title" content="快速浏览数据结构——Pandas">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/04/快速浏览数据结构——Pandas/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta property="og:description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:03:29.779Z">
+<meta property="og:updated_time" content="2018-09-04T13:09:13.341Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KNN">
-<meta name="twitter:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="twitter:title" content="快速浏览数据结构——Pandas">
+<meta name="twitter:description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/09/03/KNN/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/04/快速浏览数据结构——Pandas/"/>
 
 
 
 
 
-  <title>KNN | Cooper111's Blog</title>
+  <title>快速浏览数据结构——Pandas | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/03/KNN/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/04/快速浏览数据结构——Pandas/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">KNN</h1>
+          <h1 class="post-title" itemprop="name headline">快速浏览数据结构——Pandas</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T22:38:31+08:00">
-                2018-09-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T21:07:38+08:00">
+                2018-09-04
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/数据处理与分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理与分析</span>
                   </a>
                 </span>
 
@@ -333,253 +333,55 @@
       
 
       
-        <h1 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h1><blockquote>
-<p>缺点:每次计算得遍历所有样本</p>
-</blockquote>
-<blockquote>
-<p>注:以下导入,处理是对trainmat,但testmat同理</p>
-</blockquote>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><ul>
-<li>特征值-标签</li>
-</ul>
-<pre>
-40920   8.326976    0.953952    largeDoses
-14488   7.153469    1.673904    smallDoses
-26052   1.441871    0.805124    didntLike
-</pre>
-
-<ul>
-<li>二进制图片<blockquote>
-<p>eg:手写数字识别</p>
-</blockquote>
-<pre>
-00000000000000111000000000000000
-00000000000001111000000000000000
-00000000000111111110000000000000
-00000000000111111111000000000000
-00000000011111111111100000000000
-00000000011111101111100000000000
-00000000111111000011110000000000
-00000000111111000011111000000000
-00000001111110000000111100000000
-00000001111100000000111100000000
-00000011111100000000111100000000
-00000011111100000000111100000000
-00000011110000000000111100000000
-00000001111000000000011110000000
-00000001111000000000001111000000
-00000001111100000000001111000000
-00000011111100000000001111000000
-00000011111000000000001111000000
-00000011111000000000001111000000
-00000011111000000000001110000000
-00000001111100000000001111000000
-00000000111100000000001111000000
-00000000111100000000001111000000
-00000000111100000000011111000000
-00000000111100000000111110000000
-00000000111100000001111100000000
-00000000011100000011111100000000
-00000000001111100111111100000000
-00000000000111111111111000000000
-00000000000111111111100000000000
-00000000000111111111000000000000
-00000000000011111100000000000000
-</pre>
-
-</li>
-</ul>
-<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><ul>
-<li><p>特征值-标签</p>
-<pre>
-def file2matrix(filename):
-  fr = open(filename)
-  numberOfLines = len(fr.readlines())         #get the number of lines in the file
-  returnMat = zeros((numberOfLines,3))        #prepare matrix to return
-  classLabelVector = []                       #prepare labels return   
-  fr = open(filename)
-  index = 0
-  for line in fr.readlines():
-      line = line.strip()
-      listFromLine = line.split('\t')
-      returnMat[index,:] = listFromLine[0:3]
-      classLabelVector.append(int(listFromLine[-1]))
-      index += 1
-  return returnMat,classLabelVector
-</pre>
-</li>
-<li><p>二进制图像</p>
-<pre>
-trainingFileList = listdir('trainingDigits')           #load the training set
-  m = len(trainingFileList)
-  trainingMat = zeros((m,1024))
-  for i in range(m):
-      fileNameStr = trainingFileList[i]
-      fileStr = fileNameStr.split('.')[0]     #take off .txt
-      classNumStr = int(fileStr.split('_')[0])
-      hwLabels.append(classNumStr)
-      trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
-      #img2vector使图片成向量,见处理
-</pre>
-
-
-
-</li>
-</ul>
-<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><ul>
-<li>解析“特征值-标签”类的文本数据</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def autoNorm(dataSet):
-    minVals = dataSet.min(0)
-    maxVals = dataSet.max(0)
-    ranges = maxVals - minVals
-    normDataSet = zeros(shape(dataSet))
-    m = dataSet.shape[0]
-    normDataSet = dataSet - tile(minVals, (m,1))
-    normDataSet = normDataSet/tile(ranges, (m,1))   #element wise divide
-    return normDataSet, ranges, minVals
-
-</pre>
-
-<ul>
-<li>解析二进制图像<blockquote>
-<p>示例为读取32*32的转为1*1024</p>
-</blockquote>
-</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def img2vector(filename):
-    returnVect = zeros((1,1024))
-    fr = open(filename)
-    for i in range(32):
-        lineStr = fr.readline()
-        for j in range(32):
-            returnVect[0,32*i+j] = int(lineStr[j])
-    return returnVect
-</pre>
-
-<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><blockquote>
-<p>直接计算平方和的根(RMSE)对应欧几里得范数，很好懂</p>
-<ul>
-<li>python</li>
-</ul>
-</blockquote>
-<pre>
-def classify0(inX, dataSet, labels, k):
-    dataSetSize = dataSet.shape[0]
-    diffMat = tile(inX, (dataSetSize,1)) - dataSet
-    sqDiffMat = diffMat**2
-    sqDistances = sqDiffMat.sum(axis=1)
-    distances = sqDistances**0.5
-    sortedDistIndicies = distances.argsort()     
-    classCount={}          
-    for i in range(k):
-        voteIlabel = labels[sortedDistIndicies[i]]
-        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
-    return sortedClassCount[0][0]
-
-</pre>
-- sklearn
-<pre>
-#knn
-from sklearn.neighbors import KNeighborsClassifier
-#begin time
-start = time.clock()
-
-#progressing
-knn_clf=KNeighborsClassifier(n_neighbors=5, algorithm='kd_tree', weights='distance', p=3)
-score = cross_val_score(knn_clf, X_train_small, y_train_small, cv=3)
-
-print( score.mean() )
-#end time
-elapsed = (time.clock() - start)
-print("Time used:",int(elapsed), "s")
-#k=3
-#0.942300738697
-#0.946100822903 weights='distance'
-#0.950799888775 p=3
-#k=5
-#0.939899237556
-#0.94259888029
-#k=7
-#0.935395994386 
-#0.938997377902
-#k=9
-#0.933897851978
-</pre>
-<pre>#最后用全量数据训练，提交kaggle。代码模版
-clf=knn_clf
-
-start = time.clock()
-clf.fit(X_train,y_train)
-elapsed = (time.clock() - start)
-print("Training Time used:",int(elapsed/60) , "min")
-
-result=clf.predict(X_test)
-result = np.c_[range(1,len(result)+1), result.astype(int)]
-df_result = pd.DataFrame(result, columns=['ImageId', 'Label'])
-
-df_result.to_csv('./results.knn.csv', index=False)
-#end time
-elapsed = (time.clock() - start)
-print("Test Time used:",int(elapsed/60) , "min")
-</pre>
-# 回归
-- sklearn
-### 数据导入
-
-<pre>
-# Code example
-import matplotlib
+        <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>data.iloc[train_indices]<br><br>对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。</p>
+<h1 id="数据观测"><a href="#数据观测" class="headerlink" title="数据观测"></a>数据观测</h1><pre>
+#返回一个DataFrame对象
+housing  = pd.read_csv("housing.csv")
+#预览头n行
+housing.head(6)
+#查看此列的不同值统计
+housing["ocean_proximity"].value_counts()
+#查看表的列的总体情况count总数,mean均值,std(标准差),min，25%，50%，75%
+housing.describe()
+#数据展示，bins代表条数
+%matplotlib inline
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import sklearn.linear_model
-
-# Load the data
-oecd_bli = pd.read_csv(datapath + "oecd_bli_2015.csv", thousands=',')
-gdp_per_capita = pd.read_csv(datapath + "gdp_per_capita.csv",thousands=',',delimiter='\t',
-                             encoding='latin1', na_values="n/a")
-
-def prepare_country_stats(oecd_bli, gdp_per_capita):
-    oecd_bli = oecd_bli[oecd_bli["INEQUALITY"]=="TOT"]
-    oecd_bli = oecd_bli.pivot(index="Country", columns="Indicator", values="Value")
-    gdp_per_capita.rename(columns={"2015": "GDP per capita"}, inplace=True)
-    gdp_per_capita.set_index("Country", inplace=True)
-    full_country_stats = pd.merge(left=oecd_bli, right=gdp_per_capita,
-                                  left_index=True, right_index=True)
-    full_country_stats.sort_values(by="GDP per capita", inplace=True)
-    remove_indices = [0, 1, 6, 8, 33, 34, 35]
-    keep_indices = list(set(range(36)) - set(remove_indices))
-    return full_country_stats[["GDP per capita", 'Life satisfaction']].iloc[keep_indices]
-
-# Prepare the data
-country_stats = prepare_country_stats(oecd_bli, gdp_per_capita)
-X = np.c_[country_stats["GDP per capita"]]
-y = np.c_[country_stats["Life satisfaction"]]
-# np.c从列上合并数据，numpy的列表是个列向量
-</pre>
-
-<h3 id="数据处理-1"><a href="#数据处理-1" class="headerlink" title="数据处理"></a>数据处理</h3><pre>
-# Visualize the data
-country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
+housing.hist(bins=50, figsize=(20,15))
 plt.show()
+#查看单列
+housing["median_income"].hist()
 </pre>
-### 核心算法
+
+<h2 id="选取数据集"><a href="#选取数据集" class="headerlink" title="选取数据集"></a>选取数据集</h2><h5 id="loc与iloc函数"><a href="#loc与iloc函数" class="headerlink" title="loc与iloc函数"></a>loc与iloc函数</h5><ul>
+<li><p>loc函数</p>
 <pre>
-# Select a linear model
-# model = sklearn.linear_model.LinearRegression()
-model = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
-
-# Train the model
-model.fit(X, y)
-
-# Make a prediction for Cyprus
-X_new = [[22587]]  # Cyprus' GDP per capita
-print(model.predict(X_new)) # outputs [[ 5.96242338]]
+import pandas as pd
+import numpy
+# 导入数据
+df = pd.read_csv(filepath_or_buffer="D://movie.csv")
+#1：根据列中的元素，选取对应元素的数据集 
+df_new = df.set_index(["country"])
+#2：根据元素的选取条件来选取对应的数据集 
+df_new.loc[list(["Canada"])] # 1
+#3：根据元素的选取条件来来选取对应的数据集，并在符合条件的数据行添加flage标签
+df_new.loc[df_new["duration"]>160] # 2
+df_new.loc[((df_new["duration"] > 200) & (df_new["director_facebook_likes"] > 300 )),"flage"] =1 # 3
+#4：isin函数是series用来判断值是否在目标值是否在series 
+df_new.loc[df_new["duration"].isin([100])] # 4
+#5：query函数中用来判断条件符合的数据集并返回
+df_new.query("duration > 100 & index == 'UK'") # 5
 </pre>
+</li>
+<li><p>iloc函数</p>
+<blockquote>
+<p>df_new.iloc[0:4]</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>iloc比较简单，它是基于索引位来选取数据集，0:4就是选取 0，1，2，3这四行，需要注意的是这里是前闭后开集合</p>
+</blockquote>
+
       
     </div>
     
@@ -603,8 +405,8 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/01/Scrapy框架笔记/" rel="next" title="Scrapy框架笔记">
-                <i class="fa fa-chevron-left"></i> Scrapy框架笔记
+              <a href="/2018/09/04/创建测试机集——数据层分割-随机·分层/" rel="next" title="创建测试机集——数据层分割(随机·分层)">
+                <i class="fa fa-chevron-left"></i> 创建测试机集——数据层分割(随机·分层)
               </a>
             
           </div>
@@ -612,10 +414,6 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/04/创建测试机集——数据层分割-随机·分层/" rel="prev" title="创建测试机集——数据层分割(随机·分层)">
-                创建测试机集——数据层分割(随机·分层) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -738,7 +536,7 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KNN"><span class="nav-number">1.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">1.0.4.</span> <span class="nav-text">核心算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">数据处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据观测"><span class="nav-number">2.</span> <span class="nav-text">数据观测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选取数据集"><span class="nav-number">2.1.</span> <span class="nav-text">选取数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#loc与iloc函数"><span class="nav-number">2.1.0.0.1.</span> <span class="nav-text">loc与iloc函数</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

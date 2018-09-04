@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="description" content="见“各个模型”里详细的分割数据集和测试集 # to make this notebook&apos;s output identical at every run np.random.seed(42)  import numpy as np  # For illustration only. Sklearn has train_test_split() def split_train_test(data,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KNN">
-<meta property="og:url" content="https://cooper111.github.io/2018/09/03/KNN/index.html">
+<meta property="og:title" content="创建测试机集——数据层分割(随机·分层)">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/04/创建测试机集——数据层分割-随机·分层/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta property="og:description" content="见“各个模型”里详细的分割数据集和测试集 # to make this notebook&apos;s output identical at every run np.random.seed(42)  import numpy as np  # For illustration only. Sklearn has train_test_split() def split_train_test(data,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:03:29.779Z">
+<meta property="og:updated_time" content="2018-09-04T13:09:17.905Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KNN">
-<meta name="twitter:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="twitter:title" content="创建测试机集——数据层分割(随机·分层)">
+<meta name="twitter:description" content="见“各个模型”里详细的分割数据集和测试集 # to make this notebook&apos;s output identical at every run np.random.seed(42)  import numpy as np  # For illustration only. Sklearn has train_test_split() def split_train_test(data,">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/09/03/KNN/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/04/创建测试机集——数据层分割-随机·分层/"/>
 
 
 
 
 
-  <title>KNN | Cooper111's Blog</title>
+  <title>创建测试机集——数据层分割(随机·分层) | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/03/KNN/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/04/创建测试机集——数据层分割-随机·分层/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">KNN</h1>
+          <h1 class="post-title" itemprop="name headline">创建测试机集——数据层分割(随机·分层)</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T22:38:31+08:00">
-                2018-09-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T21:05:44+08:00">
+                2018-09-04
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/数据处理与分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理与分析</span>
                   </a>
                 </span>
 
@@ -333,253 +333,71 @@
       
 
       
-        <h1 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h1><blockquote>
-<p>缺点:每次计算得遍历所有样本</p>
-</blockquote>
-<blockquote>
-<p>注:以下导入,处理是对trainmat,但testmat同理</p>
-</blockquote>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><ul>
-<li>特征值-标签</li>
-</ul>
-<pre>
-40920   8.326976    0.953952    largeDoses
-14488   7.153469    1.673904    smallDoses
-26052   1.441871    0.805124    didntLike
-</pre>
+        <h1 id="见“各个模型”里详细的"><a href="#见“各个模型”里详细的" class="headerlink" title="见“各个模型”里详细的"></a>见“各个模型”里详细的</h1><h1 id="分割数据集和测试集"><a href="#分割数据集和测试集" class="headerlink" title="分割数据集和测试集"></a>分割数据集和测试集</h1><pre>
+# to make this notebook's output identical at every run
+np.random.seed(42)
 
-<ul>
-<li>二进制图片<blockquote>
-<p>eg:手写数字识别</p>
-</blockquote>
-<pre>
-00000000000000111000000000000000
-00000000000001111000000000000000
-00000000000111111110000000000000
-00000000000111111111000000000000
-00000000011111111111100000000000
-00000000011111101111100000000000
-00000000111111000011110000000000
-00000000111111000011111000000000
-00000001111110000000111100000000
-00000001111100000000111100000000
-00000011111100000000111100000000
-00000011111100000000111100000000
-00000011110000000000111100000000
-00000001111000000000011110000000
-00000001111000000000001111000000
-00000001111100000000001111000000
-00000011111100000000001111000000
-00000011111000000000001111000000
-00000011111000000000001111000000
-00000011111000000000001110000000
-00000001111100000000001111000000
-00000000111100000000001111000000
-00000000111100000000001111000000
-00000000111100000000011111000000
-00000000111100000000111110000000
-00000000111100000001111100000000
-00000000011100000011111100000000
-00000000001111100111111100000000
-00000000000111111111111000000000
-00000000000111111111100000000000
-00000000000111111111000000000000
-00000000000011111100000000000000
-</pre>
-
-</li>
-</ul>
-<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><ul>
-<li><p>特征值-标签</p>
-<pre>
-def file2matrix(filename):
-  fr = open(filename)
-  numberOfLines = len(fr.readlines())         #get the number of lines in the file
-  returnMat = zeros((numberOfLines,3))        #prepare matrix to return
-  classLabelVector = []                       #prepare labels return   
-  fr = open(filename)
-  index = 0
-  for line in fr.readlines():
-      line = line.strip()
-      listFromLine = line.split('\t')
-      returnMat[index,:] = listFromLine[0:3]
-      classLabelVector.append(int(listFromLine[-1]))
-      index += 1
-  return returnMat,classLabelVector
-</pre>
-</li>
-<li><p>二进制图像</p>
-<pre>
-trainingFileList = listdir('trainingDigits')           #load the training set
-  m = len(trainingFileList)
-  trainingMat = zeros((m,1024))
-  for i in range(m):
-      fileNameStr = trainingFileList[i]
-      fileStr = fileNameStr.split('.')[0]     #take off .txt
-      classNumStr = int(fileStr.split('_')[0])
-      hwLabels.append(classNumStr)
-      trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
-      #img2vector使图片成向量,见处理
-</pre>
-
-
-
-</li>
-</ul>
-<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><ul>
-<li>解析“特征值-标签”类的文本数据</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def autoNorm(dataSet):
-    minVals = dataSet.min(0)
-    maxVals = dataSet.max(0)
-    ranges = maxVals - minVals
-    normDataSet = zeros(shape(dataSet))
-    m = dataSet.shape[0]
-    normDataSet = dataSet - tile(minVals, (m,1))
-    normDataSet = normDataSet/tile(ranges, (m,1))   #element wise divide
-    return normDataSet, ranges, minVals
-
-</pre>
-
-<ul>
-<li>解析二进制图像<blockquote>
-<p>示例为读取32*32的转为1*1024</p>
-</blockquote>
-</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def img2vector(filename):
-    returnVect = zeros((1,1024))
-    fr = open(filename)
-    for i in range(32):
-        lineStr = fr.readline()
-        for j in range(32):
-            returnVect[0,32*i+j] = int(lineStr[j])
-    return returnVect
-</pre>
-
-<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><blockquote>
-<p>直接计算平方和的根(RMSE)对应欧几里得范数，很好懂</p>
-<ul>
-<li>python</li>
-</ul>
-</blockquote>
-<pre>
-def classify0(inX, dataSet, labels, k):
-    dataSetSize = dataSet.shape[0]
-    diffMat = tile(inX, (dataSetSize,1)) - dataSet
-    sqDiffMat = diffMat**2
-    sqDistances = sqDiffMat.sum(axis=1)
-    distances = sqDistances**0.5
-    sortedDistIndicies = distances.argsort()     
-    classCount={}          
-    for i in range(k):
-        voteIlabel = labels[sortedDistIndicies[i]]
-        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
-    return sortedClassCount[0][0]
-
-</pre>
-- sklearn
-<pre>
-#knn
-from sklearn.neighbors import KNeighborsClassifier
-#begin time
-start = time.clock()
-
-#progressing
-knn_clf=KNeighborsClassifier(n_neighbors=5, algorithm='kd_tree', weights='distance', p=3)
-score = cross_val_score(knn_clf, X_train_small, y_train_small, cv=3)
-
-print( score.mean() )
-#end time
-elapsed = (time.clock() - start)
-print("Time used:",int(elapsed), "s")
-#k=3
-#0.942300738697
-#0.946100822903 weights='distance'
-#0.950799888775 p=3
-#k=5
-#0.939899237556
-#0.94259888029
-#k=7
-#0.935395994386 
-#0.938997377902
-#k=9
-#0.933897851978
-</pre>
-<pre>#最后用全量数据训练，提交kaggle。代码模版
-clf=knn_clf
-
-start = time.clock()
-clf.fit(X_train,y_train)
-elapsed = (time.clock() - start)
-print("Training Time used:",int(elapsed/60) , "min")
-
-result=clf.predict(X_test)
-result = np.c_[range(1,len(result)+1), result.astype(int)]
-df_result = pd.DataFrame(result, columns=['ImageId', 'Label'])
-
-df_result.to_csv('./results.knn.csv', index=False)
-#end time
-elapsed = (time.clock() - start)
-print("Test Time used:",int(elapsed/60) , "min")
-</pre>
-# 回归
-- sklearn
-### 数据导入
-
-<pre>
-# Code example
-import matplotlib
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import sklearn.linear_model
 
-# Load the data
-oecd_bli = pd.read_csv(datapath + "oecd_bli_2015.csv", thousands=',')
-gdp_per_capita = pd.read_csv(datapath + "gdp_per_capita.csv",thousands=',',delimiter='\t',
-                             encoding='latin1', na_values="n/a")
+# For illustration only. Sklearn has train_test_split()
+def split_train_test(data, test_ratio):
+    shuffled_indices = np.random.permutation(len(data))
+    test_set_size = int(len(data) * test_ratio)
+    test_indices = shuffled_indices[:test_set_size]
+    train_indices = shuffled_indices[test_set_size:]
+    return data.iloc[train_indices], data.iloc[test_indices]
 
-def prepare_country_stats(oecd_bli, gdp_per_capita):
-    oecd_bli = oecd_bli[oecd_bli["INEQUALITY"]=="TOT"]
-    oecd_bli = oecd_bli.pivot(index="Country", columns="Indicator", values="Value")
-    gdp_per_capita.rename(columns={"2015": "GDP per capita"}, inplace=True)
-    gdp_per_capita.set_index("Country", inplace=True)
-    full_country_stats = pd.merge(left=oecd_bli, right=gdp_per_capita,
-                                  left_index=True, right_index=True)
-    full_country_stats.sort_values(by="GDP per capita", inplace=True)
-    remove_indices = [0, 1, 6, 8, 33, 34, 35]
-    keep_indices = list(set(range(36)) - set(remove_indices))
-    return full_country_stats[["GDP per capita", 'Life satisfaction']].iloc[keep_indices]
+    from zlib import crc32
+#这个方法可行，但是并不完美：如果再次运行程序，就会产生一个不同的测试集。多次运行之后，你（或你的机器学习算法）就会得到整个数据集，这是需要避免的。
 
-# Prepare the data
-country_stats = prepare_country_stats(oecd_bli, gdp_per_capita)
-X = np.c_[country_stats["GDP per capita"]]
-y = np.c_[country_stats["Life satisfaction"]]
-# np.c从列上合并数据，numpy的列表是个列向量
+def test_set_check(identifier, test_ratio):
+    return crc32(np.int64(identifier)) & 0xffffffff < test_ratio * 2**32
+
+def split_train_test_by_id(data, test_ratio, id_column):
+    ids = data[id_column]
+    in_test_set = ids.apply(lambda id_: test_set_check(id_, test_ratio))
+    return data.loc[~in_test_set], data.loc[in_test_set]
+
+
+
+housing_with_id = housing.reset_index()   # adds an `index` column
+train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "index")
+#第二种增加ID的方式
+housing_with_id["id"] = housing["longitude"] * 1000 + housing["latitude"]
+train_set, test_set = split_train_test_by_id(housing_with_id, 0.2, "id")
+
+
+#如果你想简单地拆分数据做预测模型示例，使用split_train_test进行拆分即可。Scikit-Learn 提供了一些函数，可以用多种方式将数据集分割成多个子集。最简单的函数是train_test_split，它的作用和之前的函数split_train_test很像，并带有其它一些功能。首先，它有一个random_state参数，可以设定前面讲过的随机生成器种子；第二，你可以将种子传递到多个行数相同的数据集，可以在相同的索引上分割数据集（这个功能非常有用，比如你有另一个DataFrame作为标签）：
+from sklearn.model_selection import train_test_split
+train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
 </pre>
+## 另外一种拆分形式：分层采样
+将人群分成均匀的子分组，称为分层，从每个分层去除合适数量的实例，以保证测试集对总人数有代表性。例如，美国人口的 51.3% 是女性，48.7% 是男性。所以在美国，严谨的调查需要保证样本也是这个比例：513 名女性，487 名男性作为数据样本。
 
-<h3 id="数据处理-1"><a href="#数据处理-1" class="headerlink" title="数据处理"></a>数据处理</h3><pre>
-# Visualize the data
-country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
-plt.show()
-</pre>
-### 核心算法
+数据集中的每个分层都要有足够的实例位于你的数据中，这点很重要。否则，对分层重要性的评估就会有偏差。这意味着，你不能有过多的分层，且每个分层都要足够大。后面的代码通过将收入中位数除以 1.5（以限制收入分类的数量），创建了一个收入类别属性，用ceil对值舍入（以产生离散的分类），然后将所有大于 5的分类归入到分类5 ：
 <pre>
-# Select a linear model
-# model = sklearn.linear_model.LinearRegression()
-model = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
+# 预处理，创建"income_cat"属性 
+# 凡是会对原数组作出修改并返回一个新数组的，往往都有一个 inplace可选参数
+# inplace=True,原数组名对应的内存值直接改变;inplace=False,原数组名对应的内存值并不改变，新的结果赋给一个新的数组.
+housing["income_cat"] = np.ceil(housing["median_income"] / 1.5)
+housing["income_cat"].where(housing["income_cat"] < 5, 5.0, inplace=True)
+# 现在，就可以根据收入分类，进行分层采样。你可以使用 Scikit-Learn 的StratifiedShuffleSplit类
+from sklearn.model_selection import StratifiedShuffleSplit
 
-# Train the model
-model.fit(X, y)
+# random_state为随机种子生成器，可以得到相同的随机结果
+# n_splits是将训练数据分成train/test对的组数，这里汇总成一组数据
+split = StratifiedShuffleSplit(n_splits=1, test_size=0.2, random_state=42)    
 
-# Make a prediction for Cyprus
-X_new = [[22587]]  # Cyprus' GDP per capita
-print(model.predict(X_new)) # outputs [[ 5.96242338]]
+for train_index, test_index in split.split(housing, housing["income_cat"]):
+    strat_train_set = housing.loc[train_index]
+    strat_test_set = housing.loc[test_index]
+
+# 现在，你需要删除income_cat属性，使数据回到初始状态：    
+for set in (strat_train_set, strat_test_set):
+    set.drop(["income_cat"], axis=1, inplace=True)
 </pre>
+
+
       
     </div>
     
@@ -603,8 +421,8 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/01/Scrapy框架笔记/" rel="next" title="Scrapy框架笔记">
-                <i class="fa fa-chevron-left"></i> Scrapy框架笔记
+              <a href="/2018/09/03/KNN/" rel="next" title="KNN">
+                <i class="fa fa-chevron-left"></i> KNN
               </a>
             
           </div>
@@ -613,8 +431,8 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/09/04/创建测试机集——数据层分割-随机·分层/" rel="prev" title="创建测试机集——数据层分割(随机·分层)">
-                创建测试机集——数据层分割(随机·分层) <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/04/快速浏览数据结构——Pandas/" rel="prev" title="快速浏览数据结构——Pandas">
+                快速浏览数据结构——Pandas <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -738,7 +556,7 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KNN"><span class="nav-number">1.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">1.0.4.</span> <span class="nav-text">核心算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">数据处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#见“各个模型”里详细的"><span class="nav-number">1.</span> <span class="nav-text">见“各个模型”里详细的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分割数据集和测试集"><span class="nav-number">2.</span> <span class="nav-text">分割数据集和测试集</span></a></li></ol></div>
             
 
           </div>
