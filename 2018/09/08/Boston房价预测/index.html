@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta name="description" content="Boston房价预测输入数据要求 回归问题 标准化处理输入数据 k-折评估少样本模型 滑动均值平滑epoch均方差观测图  输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。  train_data.shape#(404, 13) test_data.shape#(102, 13) train_targets.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenCV边缘检测：filter2D和prewwit算子">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/index.html">
+<meta property="og:title" content="Boston房价预测">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/08/Boston房价预测/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta property="og:description" content="Boston房价预测输入数据要求 回归问题 标准化处理输入数据 k-折评估少样本模型 滑动均值平滑epoch均方差观测图  输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。  train_data.shape#(404, 13) test_data.shape#(102, 13) train_targets.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-31T10:50:15.378Z">
+<meta property="og:updated_time" content="2018-09-08T03:26:46.417Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenCV边缘检测：filter2D和prewwit算子">
-<meta name="twitter:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta name="twitter:title" content="Boston房价预测">
+<meta name="twitter:description" content="Boston房价预测输入数据要求 回归问题 标准化处理输入数据 k-折评估少样本模型 滑动均值平滑epoch均方差观测图  输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。  train_data.shape#(404, 13) test_data.shape#(102, 13) train_targets.">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/08/Boston房价预测/"/>
 
 
 
 
 
-  <title>OpenCV边缘检测：filter2D和prewwit算子 | Cooper111's Blog</title>
+  <title>Boston房价预测 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/08/Boston房价预测/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenCV边缘检测：filter2D和prewwit算子</h1>
+          <h1 class="post-title" itemprop="name headline">Boston房价预测</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T11:21:38+08:00">
+                2018-09-08
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,42 +333,189 @@
       
 
       
-        <h3 id="Filter2D函数："><a href="#Filter2D函数：" class="headerlink" title="Filter2D函数："></a>Filter2D函数：</h3><pre>
-CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
-                            InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BORDER_DEFAULT );
-参数说明：
-    InputArray src: 输入图像
-    OutputArray dst: 输出图像，和输入图像具有相同的尺寸和通道数量
-    int ddepth: 目标图像深度，如果没写将生成与原图像深度相同的图像。原图像和目标图像支持的图像深度如下：
-        src.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
-        src.depth() = CV_16U/CV_16S, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_32F, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_64F, ddepth = -1/CV_64F
-    当ddepth输入值为-1时，目标图像和原图像深度保持一致。
-    InputArray kernel:卷积核（或者是相关核）,一个单通道浮点型矩阵。如果想在图像不同的通道使用不同的kernel，可以先使用split()函数将图像通道事先分开。
-    Point anchor: 内核的基准点(anchor)，其默认值为(-1,-1)说明位于kernel的中心位置。基准点即kernel中与进行处理的像素点重合的点。
-    double delta: 在储存目标图像前可选的添加到像素的值，默认值为0
-    int borderType: 像素向外逼近的方法，默认值是BORDER_DEFAULT,即对全部边界进行计算。
-</pre>
-该函数使用于任意线性滤波器的图像，支持就地操作。当其中心移动到图像外，函数可以根据指定的边界模式进行插值运算。函数实质上是计算kernel与图像的相关性而不是卷积
-![Filter2D](http://img.blog.csdn.net/20131110140727656)
-也就是说kernel并不是中心点的镜像，如果需要一个正真的卷积，使用函数flip()并将中心点设置为(kernel.cols - anchor.x - 1, kernel.rows - anchor.y -1). 
-该函数在大核(11x11或更大)的情况下使用基于DFT的算法，而在小核情况下使用直接算法(使用createLinearFilter()检索得到). 
-
-### prewwit算子
-加入均值处理，对噪声有一定抑制作用
-算法实现如下：
+        <h1 id="Boston房价预测"><a href="#Boston房价预测" class="headerlink" title="Boston房价预测"></a>Boston房价预测</h1><h4 id="输入数据要求"><a href="#输入数据要求" class="headerlink" title="输入数据要求"></a>输入数据要求</h4><ul>
+<li>回归问题</li>
+<li>标准化处理输入数据</li>
+<li>k-折评估少样本模型</li>
+<li>滑动均值平滑epoch均方差观测图</li>
+</ul>
+<p>输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。</p>
 <pre>
-Kernelx = (Mat_<double>(3, 3) << 1, 1, 1, 0, 0, 0, -1, -1, -1);
-Kernely = (Mat_<double>(3, 3) << -1, 0, 1, -1, 0, 1, -1, 0, 1);
-filter2D(gray, grad_x, CV_16S, Kernelx, Point(-1, -1));
-filter2D(gray, grad_y, CV_16S, Kernely, Point(-1, -1));
-convertScaleAbs(grad_x, abs_grad_x);
-convertScaleAbs(grad_y, abs_grad_y);
-addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
+train_data.shape#(404, 13)
+test_data.shape#(102, 13)
+train_targets.shape#(404,)
+</pre>
+### 数据导入
+<pre>
+from keras.datasets import boston_housing
 
-</double></double></pre>
+(train_data, train_targets), (test_data, test_targets) =  boston_housing.load_data()
+</pre>
+### 数据观测
+<pre>
+train_data.shape#(404, 13)
+test_data.shape#(102, 13)
+train_targets.shape#(404,)
+</pre>
+### 数据处理
+<pre>
+#目的是均衡取值范围，将特征标准化。将取值范围差别很大的输入神经网络会产生很大问题。
+mean = train_data.mean(axis=0)
+train_data -= mean
+std = train_data.std(axis=0)
+train_data /= std
+
+test_data -= mean
+test_data /= std
+</pre>
+### 模型搭建
+<pre>
+#函数式编程返回编译好的模型
+from keras import models
+from keras import layers
+
+def build_model():
+    # Because we will need to instantiate
+    # the same model multiple times,
+    # we use a function to construct it.
+    model = models.Sequential()
+    model.add(layers.Dense(64, activation='relu',
+                           input_shape=(train_data.shape[1],)))
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(1))
+    model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])#均方差
+    return model
+</pre>
+
+<h3 id="模型训练与评估"><a href="#模型训练与评估" class="headerlink" title="模型训练与评估"></a>模型训练与评估</h3><ul>
+<li>k折交叉验证</li>
+<li>&lt;对少样本数据进行可靠的评估&gt;<br><pre><br>#样本很少，验证分数会有很大波动，验证集的划分方式可能会造成验证分数上很大的方差<br>import numpy as np</pre></li>
+</ul>
+<p>k = 4<br>num_val_samples = len(train_data) // k<br>num_epochs = 100<br>all_scores = []<br>for i in range(k):<br>    print(‘processing fold #’, i)</p>
+<pre><code># Prepare the validation data: data from partition # k
+val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
+val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
+
+# Prepare the training data: data from all other partitions
+partial_train_data = np.concatenate(
+    [train_data[:i * num_val_samples],
+     train_data[(i + 1) * num_val_samples:]],
+    axis=0)
+partial_train_targets = np.concatenate(
+    [train_targets[:i * num_val_samples],
+     train_targets[(i + 1) * num_val_samples:]],
+    axis=0)
+
+# Build the Keras model (already compiled)
+model = build_model()
+# Train the model (in silent mode, verbose=0)
+model.fit(partial_train_data, partial_train_targets,
+          epochs=num_epochs, batch_size=1, verbose=0)
+# Evaluate the model on the validation data
+val_mse, val_mae = model.evaluate(val_data, val_targets, verbose=0)
+all_scores.append(val_mae)
+</code></pre><p>#all_scores</p>
+<p>#[2.0750808349930412, 2.117215852926273, 2.9140411863232605, 2.4288365227161068]</p>
+<p>#np.mean(all_scores)</p>
+<p>#2.3837935992396706<br></p>
+<h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><pre>
+from keras import backend as K
+
+# Some memory clean-up
+K.clear_session()
+# 延长训练时间达到500轮次，为了记录模型在每轮的表现，我们需要修改训练循环，以保存每轮的验证分数记录
+num_epochs = 500
+all_mae_histories = []
+for i in range(k):
+    print('processing fold #', i)
+    # Prepare the validation data: data from partition # k
+    val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
+    val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
+
+    # Prepare the training data: data from all other partitions
+    partial_train_data = np.concatenate(
+        [train_data[:i * num_val_samples],
+         train_data[(i + 1) * num_val_samples:]],
+        axis=0)
+    partial_train_targets = np.concatenate(
+        [train_targets[:i * num_val_samples],
+         train_targets[(i + 1) * num_val_samples:]],
+        axis=0)
+
+    # Build the Keras model (already compiled)
+    model = build_model()
+    # Train the model (in silent mode, verbose=0)
+    history = model.fit(partial_train_data, partial_train_targets,
+                        validation_data=(val_data, val_targets),
+                        epochs=num_epochs, batch_size=1, verbose=0)
+    mae_history = history.history['val_mean_absolute_error']
+    all_mae_histories.append(mae_history)
+
+
+#计算每个轮次中所有折MAE，取每轮的k个模型的均值
+#all_mae_histories.shape()
+#[4,500]
+
+average_mae_history = [
+    np.mean([x[i] for x in all_mae_histories]) for i in range(num_epochs)]
+#average_mae_history.shape()
+#[500,]
+
+#绘制按轮次的验证分数
+import matplotlib.pyplot as plt
+
+plt.plot(range(1, len(average_mae_history) + 1), average_mae_history)
+plt.xlabel('Epochs')
+plt.ylabel('Validation MAE')
+plt.show()
+
+# 得知前10个epoch异常，先删除前10点
+#之后波动过大，采用滑动均值模型得到光滑曲线继续观测
+def smooth_curve(points, factor=0.9):
+  smoothed_points = []
+  for point in points:
+    if smoothed_points:
+      previous = smoothed_points[-1]
+      smoothed_points.append(previous * factor + point * (1 - factor))
+    else:
+      smoothed_points.append(point)
+  return smoothed_points
+
+smooth_mae_history = smooth_curve(average_mae_history[10:])
+
+plt.plot(range(1, len(smooth_mae_history) + 1), smooth_mae_history)
+plt.xlabel('Epochs')
+plt.ylabel('Validation MAE')
+plt.show()
+
+</pre>
+### 模型优化
+>画图得知模型在8轮后过拟合了，所以8轮时停止
+
+<pre>
+# Get a fresh, compiled model.
+model = build_model()
+# Train it on the entirety of the data.
+model.fit(train_data, train_targets,
+          epochs=80, batch_size=16, verbose=0)
+test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
+#test_mae_score
+#2.5532484335057877
+
+</pre>
+### 模型使用
+>model.predict(x_test)#估计是好评的概率
+<pre>
+array([[0.20031697],
+       [0.99983263],
+       [0.9702985 ],
+       ...,
+       [0.12498155],
+       [0.05971182],
+       [0.7418488 ]], dtype=float32)
+</pre>
+
+
 
       
     </div>
@@ -371,8 +540,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/学习进度/" rel="next" title="学习进度">
-                <i class="fa fa-chevron-left"></i> 学习进度
+              <a href="/2018/09/04/快速浏览数据结构——Pandas/" rel="next" title="快速浏览数据结构——Pandas">
+                <i class="fa fa-chevron-left"></i> 快速浏览数据结构——Pandas
               </a>
             
           </div>
@@ -381,8 +550,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" rel="prev" title="OpenCV边缘检测：Sobel算子">
-                OpenCV边缘检测：Sobel算子 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/08/IMDB影评分类/" rel="prev" title="IMDB影评分类">
+                IMDB影评分类 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -506,7 +675,7 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter2D函数："><span class="nav-number">1.</span> <span class="nav-text">Filter2D函数：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Boston房价预测"><span class="nav-number">1.</span> <span class="nav-text">Boston房价预测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入数据要求"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">输入数据要求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型训练与评估"><span class="nav-number">1.0.1.</span> <span class="nav-text">模型训练与评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型评估"><span class="nav-number">1.0.2.</span> <span class="nav-text">模型评估</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta name="description" content="IMDB影评分类输入数据要求 分类问题  输入数据是向量，标签是标量[0/1]代表差/好评 数据导入 from keras.datasets import imdb  (train_data, train_labels), (test_data, test_labels) = imdb.load_data(     num_words=10000)  ### 数据观测  #输入数据是数字的数组，数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenCV边缘检测：filter2D和prewwit算子">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/index.html">
+<meta property="og:title" content="IMDB影评分类">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/08/IMDB影评分类/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta property="og:description" content="IMDB影评分类输入数据要求 分类问题  输入数据是向量，标签是标量[0/1]代表差/好评 数据导入 from keras.datasets import imdb  (train_data, train_labels), (test_data, test_labels) = imdb.load_data(     num_words=10000)  ### 数据观测  #输入数据是数字的数组，数">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-31T10:50:15.378Z">
+<meta property="og:updated_time" content="2018-09-08T03:26:59.916Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenCV边缘检测：filter2D和prewwit算子">
-<meta name="twitter:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta name="twitter:title" content="IMDB影评分类">
+<meta name="twitter:description" content="IMDB影评分类输入数据要求 分类问题  输入数据是向量，标签是标量[0/1]代表差/好评 数据导入 from keras.datasets import imdb  (train_data, train_labels), (test_data, test_labels) = imdb.load_data(     num_words=10000)  ### 数据观测  #输入数据是数字的数组，数">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/08/IMDB影评分类/"/>
 
 
 
 
 
-  <title>OpenCV边缘检测：filter2D和prewwit算子 | Cooper111's Blog</title>
+  <title>IMDB影评分类 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/08/IMDB影评分类/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenCV边缘检测：filter2D和prewwit算子</h1>
+          <h1 class="post-title" itemprop="name headline">IMDB影评分类</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T11:21:58+08:00">
+                2018-09-08
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,42 +333,146 @@
       
 
       
-        <h3 id="Filter2D函数："><a href="#Filter2D函数：" class="headerlink" title="Filter2D函数："></a>Filter2D函数：</h3><pre>
-CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
-                            InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BORDER_DEFAULT );
-参数说明：
-    InputArray src: 输入图像
-    OutputArray dst: 输出图像，和输入图像具有相同的尺寸和通道数量
-    int ddepth: 目标图像深度，如果没写将生成与原图像深度相同的图像。原图像和目标图像支持的图像深度如下：
-        src.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
-        src.depth() = CV_16U/CV_16S, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_32F, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_64F, ddepth = -1/CV_64F
-    当ddepth输入值为-1时，目标图像和原图像深度保持一致。
-    InputArray kernel:卷积核（或者是相关核）,一个单通道浮点型矩阵。如果想在图像不同的通道使用不同的kernel，可以先使用split()函数将图像通道事先分开。
-    Point anchor: 内核的基准点(anchor)，其默认值为(-1,-1)说明位于kernel的中心位置。基准点即kernel中与进行处理的像素点重合的点。
-    double delta: 在储存目标图像前可选的添加到像素的值，默认值为0
-    int borderType: 像素向外逼近的方法，默认值是BORDER_DEFAULT,即对全部边界进行计算。
+        <h1 id="IMDB影评分类"><a href="#IMDB影评分类" class="headerlink" title="IMDB影评分类"></a>IMDB影评分类</h1><h4 id="输入数据要求"><a href="#输入数据要求" class="headerlink" title="输入数据要求"></a>输入数据要求</h4><ul>
+<li>分类问题</li>
+</ul>
+<p>输入数据是向量，标签是标量[0/1]代表差/好评</p>
+<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><pre>
+from keras.datasets import imdb
+
+(train_data, train_labels), (test_data, test_labels) = imdb.load_data(
+    num_words=10000)
 </pre>
-该函数使用于任意线性滤波器的图像，支持就地操作。当其中心移动到图像外，函数可以根据指定的边界模式进行插值运算。函数实质上是计算kernel与图像的相关性而不是卷积
-![Filter2D](http://img.blog.csdn.net/20131110140727656)
-也就是说kernel并不是中心点的镜像，如果需要一个正真的卷积，使用函数flip()并将中心点设置为(kernel.cols - anchor.x - 1, kernel.rows - anchor.y -1). 
-该函数在大核(11x11或更大)的情况下使用基于DFT的算法，而在小核情况下使用直接算法(使用createLinearFilter()检索得到). 
-
-### prewwit算子
-加入均值处理，对噪声有一定抑制作用
-算法实现如下：
+### 数据观测
 <pre>
-Kernelx = (Mat_<double>(3, 3) << 1, 1, 1, 0, 0, 0, -1, -1, -1);
-Kernely = (Mat_<double>(3, 3) << -1, 0, 1, -1, 0, 1, -1, 0, 1);
-filter2D(gray, grad_x, CV_16S, Kernelx, Point(-1, -1));
-filter2D(gray, grad_y, CV_16S, Kernely, Point(-1, -1));
-convertScaleAbs(grad_x, abs_grad_x);
-convertScaleAbs(grad_y, abs_grad_y);
-addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
+#输入数据是数字的数组，数字映射英文单词
+#eg:[1,14,22,48,6489,9999,...,598]
+#word_index是  英文字母:数字  的映射字典
+word_index = imdb.get_word_index()
+#键值反转， 数字:英文字母
+reverse_word_index = dict(
+    (value, key) for (key, value) in word_index.items())
+#显示第一条影评
+decode_review = ' '.join(
+    [reverse_word_index.get(i - 3, '?') for i in train_data[0]])
+</pre>
+### 数据处理
+<pre>
+#目的是吧输入数据处理成显示词频的向量，有该单词则向量对应位置置1
+import numpy as np
 
-</double></double></pre>
+def vectorize_sequences(sequences, dimension=10000):
+    results = np.zeros((len(sequences),dimension))
+    for i, sequence in enumerate(sequences):
+        #print(sepuence)
+        results[i,sequence] = 1
+    return results
+x_train = vectorize_sequences(train_data)
+x_test = vectorize_sequences(test_data)
+y_train = np.asarray(train_labels).astype('float32')
+y_test = np.asarray(test_labels).astype('float32')
+</pre>
+### 模型搭建
+<pre>
+from keras import models
+from keras import layers
+
+model = models.Sequential()
+model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
+model.add(layers.Dense(16, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer='rmsprop',
+              loss='binary_crossentropy',#二元交叉熵
+              metrics=['accuracy']
+)
+
+x_val = x_train[:10000]
+partial_x_train = x_train[10000:]
+
+y_val = y_train[:10000]
+partial_y_train = y_train[10000:]
+
+history = model.fit(partial_x_train,
+                    partial_y_train,
+                    epochs=20,
+                    batch_size=512,
+                    validation_data=(x_val, y_val))
+
+#使用512个样本的小批量，将模型训练20轮次，监控validation_data（留出的10000个样本——验证数据）
+</pre>
+
+<h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><pre>
+# 画损失率和正确率的变化图
+history_dict = history.history
+print(history_dict.keys())
+#dict_keys(['val_loss', 'val_acc', 'loss', 'acc'])
+# 损失率
+import matplotlib.pyplot as plt
+
+acc = history.history['acc']
+val_acc = history_dict['val_acc']
+loss = history_dict['loss']
+val_loss = history_dict['val_loss']
+
+epoch = range(1, len(acc) +1)
+
+plt.plot(epoch,loss,'bo', label='Training Loss')
+
+plt.plot(epoch,val_loss,'b',label='Validation Loss')
+
+plt.title('Training and validation')
+plt.xlabel('Epochs')
+plt.ylabel('Loss')
+plt.legend()
+
+plt.show()
+# 正确率
+plt.clf()
+
+plt.plot(epoch,acc,'bo',label='Training acc')
+plt.plot(epoch,val_acc,'b',label='Validation acc')
+plt.title('Training and Validation accuracy')
+plt.xlabel('Epoch')
+plt.ylabel('accuracy')
+plt.legend()
+
+plt.show()
+</pre>
+### 模型优化
+>画图得知模型在4轮后过拟合了，所以4轮时停止
+
+>这里我改了一改模型··请忽略  :P
+<pre>
+model = models.Sequential()
+model.add(layers.Dense(16, activation='relu',input_shape=(10000,)))
+model.add(layers.Dense(32, activation='relu'))
+model.add(layers.Dense(64, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer='rmsprop',
+             loss='binary_crossentropy',
+             metrics=['accuracy']
+             )
+model.fit(x_train,y_train,epochs=4, batch_size=512)
+result = model.evaluate(x_test, y_test)
+#result
+#[0.31514283887386324, 0.88116]
+
+</pre>
+### 模型使用
+>model.predict(x_test)#估计是好评的概率
+<pre>
+array([[0.20031697],
+       [0.99983263],
+       [0.9702985 ],
+       ...,
+       [0.12498155],
+       [0.05971182],
+       [0.7418488 ]], dtype=float32)
+</pre>
+
+
 
       
     </div>
@@ -371,8 +497,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/学习进度/" rel="next" title="学习进度">
-                <i class="fa fa-chevron-left"></i> 学习进度
+              <a href="/2018/09/08/Boston房价预测/" rel="next" title="Boston房价预测">
+                <i class="fa fa-chevron-left"></i> Boston房价预测
               </a>
             
           </div>
@@ -381,8 +507,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/26/OpenCV边缘检测：Sobel算子/" rel="prev" title="OpenCV边缘检测：Sobel算子">
-                OpenCV边缘检测：Sobel算子 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/08/Reuters新闻分类/" rel="prev" title="Reuters新闻分类">
+                Reuters新闻分类 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -506,7 +632,7 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter2D函数："><span class="nav-number">1.</span> <span class="nav-text">Filter2D函数：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#IMDB影评分类"><span class="nav-number">1.</span> <span class="nav-text">IMDB影评分类</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入数据要求"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">输入数据要求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型评估"><span class="nav-number">1.0.2.</span> <span class="nav-text">模型评估</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

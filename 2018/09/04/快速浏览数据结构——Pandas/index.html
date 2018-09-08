@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
 <meta property="og:description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:09:13.341Z">
+<meta property="og:updated_time" content="2018-09-08T03:20:09.004Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速浏览数据结构——Pandas">
 <meta name="twitter:description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
@@ -352,7 +352,7 @@ plt.show()
 housing["median_income"].hist()
 </pre>
 
-<h2 id="选取数据集"><a href="#选取数据集" class="headerlink" title="选取数据集"></a>选取数据集</h2><h5 id="loc与iloc函数"><a href="#loc与iloc函数" class="headerlink" title="loc与iloc函数"></a>loc与iloc函数</h5><ul>
+<h1 id="选取数据集"><a href="#选取数据集" class="headerlink" title="选取数据集"></a>选取数据集</h1><h5 id="loc与iloc函数"><a href="#loc与iloc函数" class="headerlink" title="loc与iloc函数"></a>loc与iloc函数</h5><ul>
 <li><p>loc函数</p>
 <pre>
 import pandas as pd
@@ -381,6 +381,19 @@ df_new.query("duration > 100 & index == 'UK'") # 5
 <blockquote>
 <p>iloc比较简单，它是基于索引位来选取数据集，0:4就是选取 0，1，2，3这四行，需要注意的是这里是前闭后开集合</p>
 </blockquote>
+<p>其他用到的函数(见KNN.md)<br><a href="https://www.cnblogs.com/sunbigdata/p/8134441.html" target="_blank" rel="noopener">pandas.DataFrame.pivot</a></p>
+<p><a href="https://blog.csdn.net/tz_zs/article/details/81355537" target="_blank" rel="noopener">pandas 之 rename、reindex</a></p>
+<p><a href="https://blog.csdn.net/jingyi130705008/article/details/78162758" target="_blank" rel="noopener">pandas中关于set_index和reset_index的用法</a></p>
+<p><a href="https://blog.csdn.net/zhouwenyuan1015/article/details/77334889" target="_blank" rel="noopener">python—pandas.merge</a></p>
+<p><a href="https://blog.csdn.net/wendaomudong_l2d4/article/details/80648633" target="_blank" rel="noopener">Pandas—排序sort_values</a></p>
+<p><a href="https://blog.csdn.net/stevenkwong/article/details/52528616" target="_blank" rel="noopener">PANDAS 数据合并与重塑（concat篇）</a></p>
+<p><a href="https://blog.csdn.net/qq_36523839/article/details/80061326" target="_blank" rel="noopener">pandas的DataFrame、Series删除列</a></p>
+<h1 id="小小项目-两班成绩统计"><a href="#小小项目-两班成绩统计" class="headerlink" title="小小项目: 两班成绩统计"></a>小小项目: 两班成绩统计</h1><ul>
+<li>合并两班成绩表</li>
+<li>追加排名</li>
+<li>做数据分析</li>
+<li><a href="https://github.com/Cooper111/Analysis-of-twoClassse-s-score" target="_blank" rel="noopener">项目地址</a></li>
+</ul>
 
       
     </div>
@@ -414,6 +427,10 @@ df_new.query("duration > 100 & index == 'UK'") # 5
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/08/Boston房价预测/" rel="prev" title="Boston房价预测">
+                Boston房价预测 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -490,7 +507,7 @@ df_new.query("duration > 100 & index == 'UK'") # 5
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -536,7 +553,7 @@ df_new.query("duration > 100 & index == 'UK'") # 5
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据观测"><span class="nav-number">2.</span> <span class="nav-text">数据观测</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#选取数据集"><span class="nav-number">2.1.</span> <span class="nav-text">选取数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#loc与iloc函数"><span class="nav-number">2.1.0.0.1.</span> <span class="nav-text">loc与iloc函数</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据观测"><span class="nav-number">2.</span> <span class="nav-text">数据观测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选取数据集"><span class="nav-number">3.</span> <span class="nav-text">选取数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#loc与iloc函数"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">loc与iloc函数</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小小项目-两班成绩统计"><span class="nav-number">4.</span> <span class="nav-text">小小项目: 两班成绩统计</span></a></li></ol></div>
             
 
           </div>
