@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="description" content="防止神经网络过拟合的常用方法： 获取更多的训练数据 减小网络容量 添加权重正则化 添加dropout  减小网络容量 #原模型 from keras import models from keras import layers  original_model = models.Sequential() original_model.add(layers.Dense(16, activation=&apos;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="KNN">
-<meta property="og:url" content="https://cooper111.github.io/2018/09/03/KNN/index.html">
+<meta property="og:title" content="防止过拟合和机器学习通用流程">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/09/防止过拟合和机器学习通用流程/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta property="og:description" content="防止神经网络过拟合的常用方法： 获取更多的训练数据 减小网络容量 添加权重正则化 添加dropout  减小网络容量 #原模型 from keras import models from keras import layers  original_model = models.Sequential() original_model.add(layers.Dense(16, activation=&apos;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:03:29.779Z">
+<meta property="og:updated_time" content="2018-09-09T09:14:13.419Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="KNN">
-<meta name="twitter:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="twitter:title" content="防止过拟合和机器学习通用流程">
+<meta name="twitter:description" content="防止神经网络过拟合的常用方法： 获取更多的训练数据 减小网络容量 添加权重正则化 添加dropout  减小网络容量 #原模型 from keras import models from keras import layers  original_model = models.Sequential() original_model.add(layers.Dense(16, activation=&apos;">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/09/03/KNN/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/09/防止过拟合和机器学习通用流程/"/>
 
 
 
 
 
-  <title>KNN | Cooper111's Blog</title>
+  <title>防止过拟合和机器学习通用流程 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/03/KNN/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/09/防止过拟合和机器学习通用流程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">KNN</h1>
+          <h1 class="post-title" itemprop="name headline">防止过拟合和机器学习通用流程</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-03T22:38:31+08:00">
-                2018-09-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-09T17:13:08+08:00">
+                2018-09-09
               </time>
             
 
@@ -333,253 +333,132 @@
       
 
       
-        <h1 id="KNN"><a href="#KNN" class="headerlink" title="KNN"></a>KNN</h1><blockquote>
-<p>缺点:每次计算得遍历所有样本</p>
-</blockquote>
-<blockquote>
-<p>注:以下导入,处理是对trainmat,但testmat同理</p>
-</blockquote>
-<h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><ul>
-<li>特征值-标签</li>
+        <h3 id="防止神经网络过拟合的常用方法："><a href="#防止神经网络过拟合的常用方法：" class="headerlink" title="防止神经网络过拟合的常用方法："></a>防止神经网络过拟合的常用方法：</h3><ul>
+<li>获取更多的训练数据</li>
+<li>减小网络容量</li>
+<li>添加权重正则化</li>
+<li>添加dropout</li>
 </ul>
-<pre>
-40920   8.326976    0.953952    largeDoses
-14488   7.153469    1.673904    smallDoses
-26052   1.441871    0.805124    didntLike
-</pre>
+<h4 id="减小网络容量"><a href="#减小网络容量" class="headerlink" title="减小网络容量"></a>减小网络容量</h4><pre>
+#原模型
+from keras import models
+from keras import layers
 
-<ul>
-<li>二进制图片<blockquote>
-<p>eg:手写数字识别</p>
-</blockquote>
-<pre>
-00000000000000111000000000000000
-00000000000001111000000000000000
-00000000000111111110000000000000
-00000000000111111111000000000000
-00000000011111111111100000000000
-00000000011111101111100000000000
-00000000111111000011110000000000
-00000000111111000011111000000000
-00000001111110000000111100000000
-00000001111100000000111100000000
-00000011111100000000111100000000
-00000011111100000000111100000000
-00000011110000000000111100000000
-00000001111000000000011110000000
-00000001111000000000001111000000
-00000001111100000000001111000000
-00000011111100000000001111000000
-00000011111000000000001111000000
-00000011111000000000001111000000
-00000011111000000000001110000000
-00000001111100000000001111000000
-00000000111100000000001111000000
-00000000111100000000001111000000
-00000000111100000000011111000000
-00000000111100000000111110000000
-00000000111100000001111100000000
-00000000011100000011111100000000
-00000000001111100111111100000000
-00000000000111111111111000000000
-00000000000111111111100000000000
-00000000000111111111000000000000
-00000000000011111100000000000000
-</pre>
+original_model = models.Sequential()
+original_model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
+original_model.add(layers.Dense(16, activation='relu'))
+original_model.add(layers.Dense(1, activation='sigmoid'))
 
-</li>
-</ul>
-<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><ul>
-<li><p>特征值-标签</p>
-<pre>
-def file2matrix(filename):
-  fr = open(filename)
-  numberOfLines = len(fr.readlines())         #get the number of lines in the file
-  returnMat = zeros((numberOfLines,3))        #prepare matrix to return
-  classLabelVector = []                       #prepare labels return   
-  fr = open(filename)
-  index = 0
-  for line in fr.readlines():
-      line = line.strip()
-      listFromLine = line.split('\t')
-      returnMat[index,:] = listFromLine[0:3]
-      classLabelVector.append(int(listFromLine[-1]))
-      index += 1
-  return returnMat,classLabelVector
-</pre>
-</li>
-<li><p>二进制图像</p>
-<pre>
-trainingFileList = listdir('trainingDigits')           #load the training set
-  m = len(trainingFileList)
-  trainingMat = zeros((m,1024))
-  for i in range(m):
-      fileNameStr = trainingFileList[i]
-      fileStr = fileNameStr.split('.')[0]     #take off .txt
-      classNumStr = int(fileStr.split('_')[0])
-      hwLabels.append(classNumStr)
-      trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
-      #img2vector使图片成向量,见处理
-</pre>
+original_model.compile(optimizer='rmsprop',
+                       loss='binary_crossentropy',
+                       metrics=['acc'])
+#现模型
+smaller_model = models.Sequential()
+smaller_model.add(layers.Dense(4, activation='relu', input_shape=(10000,)))
+smaller_model.add(layers.Dense(4, activation='relu'))
+smaller_model.add(layers.Dense(1, activation='sigmoid'))
 
+smaller_model.compile(optimizer='rmsprop',
+                      loss='binary_crossentropy',
+                      metrics=['acc'])
+#通过训练和画图评估
+original_hist = original_model.fit(x_train, y_train,
+                                   epochs=20,
+                                   batch_size=512,
+                                   validation_data=(x_test, y_test))
+smaller_model_hist = smaller_model.fit(x_train, y_train,
+                                       epochs=20,
+                                       batch_size=512,
+                                       validation_data=(x_test, y_test))
+epochs = range(1, 21)
+original_val_loss = original_hist.history['val_loss']
+smaller_model_val_loss = smaller_model_hist.history['val_loss']
 
-
-</li>
-</ul>
-<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><ul>
-<li>解析“特征值-标签”类的文本数据</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def autoNorm(dataSet):
-    minVals = dataSet.min(0)
-    maxVals = dataSet.max(0)
-    ranges = maxVals - minVals
-    normDataSet = zeros(shape(dataSet))
-    m = dataSet.shape[0]
-    normDataSet = dataSet - tile(minVals, (m,1))
-    normDataSet = normDataSet/tile(ranges, (m,1))   #element wise divide
-    return normDataSet, ranges, minVals
-
-</pre>
-
-<ul>
-<li>解析二进制图像<blockquote>
-<p>示例为读取32*32的转为1*1024</p>
-</blockquote>
-</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def img2vector(filename):
-    returnVect = zeros((1,1024))
-    fr = open(filename)
-    for i in range(32):
-        lineStr = fr.readline()
-        for j in range(32):
-            returnVect[0,32*i+j] = int(lineStr[j])
-    return returnVect
-</pre>
-
-<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><blockquote>
-<p>直接计算平方和的根(RMSE)对应欧几里得范数，很好懂</p>
-<ul>
-<li>python</li>
-</ul>
-</blockquote>
-<pre>
-def classify0(inX, dataSet, labels, k):
-    dataSetSize = dataSet.shape[0]
-    diffMat = tile(inX, (dataSetSize,1)) - dataSet
-    sqDiffMat = diffMat**2
-    sqDistances = sqDiffMat.sum(axis=1)
-    distances = sqDistances**0.5
-    sortedDistIndicies = distances.argsort()     
-    classCount={}          
-    for i in range(k):
-        voteIlabel = labels[sortedDistIndicies[i]]
-        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
-    return sortedClassCount[0][0]
-
-</pre>
-- sklearn
-<pre>
-#knn
-from sklearn.neighbors import KNeighborsClassifier
-#begin time
-start = time.clock()
-
-#progressing
-knn_clf=KNeighborsClassifier(n_neighbors=5, algorithm='kd_tree', weights='distance', p=3)
-score = cross_val_score(knn_clf, X_train_small, y_train_small, cv=3)
-
-print( score.mean() )
-#end time
-elapsed = (time.clock() - start)
-print("Time used:",int(elapsed), "s")
-#k=3
-#0.942300738697
-#0.946100822903 weights='distance'
-#0.950799888775 p=3
-#k=5
-#0.939899237556
-#0.94259888029
-#k=7
-#0.935395994386 
-#0.938997377902
-#k=9
-#0.933897851978
-</pre>
-<pre>#最后用全量数据训练，提交kaggle。代码模版
-clf=knn_clf
-
-start = time.clock()
-clf.fit(X_train,y_train)
-elapsed = (time.clock() - start)
-print("Training Time used:",int(elapsed/60) , "min")
-
-result=clf.predict(X_test)
-result = np.c_[range(1,len(result)+1), result.astype(int)]
-df_result = pd.DataFrame(result, columns=['ImageId', 'Label'])
-
-df_result.to_csv('./results.knn.csv', index=False)
-#end time
-elapsed = (time.clock() - start)
-print("Test Time used:",int(elapsed/60) , "min")
-</pre>
-# 回归
-- sklearn
-### 数据导入
-
-<pre>
-# Code example
-import matplotlib
 import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import sklearn.linear_model
 
-# Load the data
-oecd_bli = pd.read_csv(datapath + "oecd_bli_2015.csv", thousands=',')
-gdp_per_capita = pd.read_csv(datapath + "gdp_per_capita.csv",thousands=',',delimiter='\t',
-                             encoding='latin1', na_values="n/a")
+# b+ is for "blue cross"
+plt.plot(epochs, original_val_loss, 'b+', label='Original model')
+# "bo" is for "blue dot"
+plt.plot(epochs, smaller_model_val_loss, 'bo', label='Smaller model')
+plt.xlabel('Epochs')
+plt.ylabel('Validation loss')
+plt.legend()
 
-def prepare_country_stats(oecd_bli, gdp_per_capita):
-    oecd_bli = oecd_bli[oecd_bli["INEQUALITY"]=="TOT"]
-    oecd_bli = oecd_bli.pivot(index="Country", columns="Indicator", values="Value")
-    gdp_per_capita.rename(columns={"2015": "GDP per capita"}, inplace=True)
-    gdp_per_capita.set_index("Country", inplace=True)
-    full_country_stats = pd.merge(left=oecd_bli, right=gdp_per_capita,
-                                  left_index=True, right_index=True)
-    full_country_stats.sort_values(by="GDP per capita", inplace=True)
-    remove_indices = [0, 1, 6, 8, 33, 34, 35]
-    keep_indices = list(set(range(36)) - set(remove_indices))
-    return full_country_stats[["GDP per capita", 'Life satisfaction']].iloc[keep_indices]
-
-# Prepare the data
-country_stats = prepare_country_stats(oecd_bli, gdp_per_capita)
-X = np.c_[country_stats["GDP per capita"]]
-y = np.c_[country_stats["Life satisfaction"]]
-# np.c从列上合并数据，numpy的列表是个列向量
-</pre>
-
-<h3 id="数据处理-1"><a href="#数据处理-1" class="headerlink" title="数据处理"></a>数据处理</h3><pre>
-# Visualize the data
-country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
 plt.show()
 </pre>
-### 核心算法
-<pre>
-# Select a linear model
-# model = sklearn.linear_model.LinearRegression()
-model = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
 
-# Train the model
-model.fit(X, y)
+<h4 id="添加权重正则化"><a href="#添加权重正则化" class="headerlink" title="添加权重正则化"></a>添加权重正则化</h4><pre>
+from keras import regularizers
 
-# Make a prediction for Cyprus
-X_new = [[22587]]  # Cyprus' GDP per capita
-print(model.predict(X_new)) # outputs [[ 5.96242338]]
+l2_model = models.Sequential()
+l2_model.add(layers.Dense(16, kernel_regularizer=regularizers.l2(0.001),
+                          activation='relu', input_shape=(10000,)))
+l2_model.add(layers.Dense(16, kernel_regularizer=regularizers.l2(0.001),
+                          activation='relu'))
+l2_model.add(layers.Dense(1, activation='sigmoid'))
+
+l2_model.compile(optimizer='rmsprop',
+                 loss='binary_crossentropy',
+                 metrics=['acc'])
+#训练和评估方法见上
 </pre>
+
+<h4 id="添加dropout"><a href="#添加dropout" class="headerlink" title="添加dropout"></a>添加dropout</h4><pre>
+dpt_model = models.Sequential()
+dpt_model.add(layers.Dense(16, activation='relu', input_shape=(10000,)))
+dpt_model.add(layers.Dropout(0.5))
+dpt_model.add(layers.Dense(16, activation='relu'))
+dpt_model.add(layers.Dropout(0.5))
+dpt_model.add(layers.Dense(1, activation='sigmoid'))
+
+dpt_model.compile(optimizer='rmsprop',
+                  loss='binary_crossentropy',
+                  metrics=['acc'])
+</pre>
+
+<h3 id="机器学习通用工作流程"><a href="#机器学习通用工作流程" class="headerlink" title="机器学习通用工作流程"></a>机器学习通用工作流程</h3><h4 id="定义问题，收集数据集"><a href="#定义问题，收集数据集" class="headerlink" title="定义问题，收集数据集"></a>定义问题，收集数据集</h4><blockquote>
+<p>你的输入数据是什么,你要预测什么<br>面对的是什么类型的问题</p>
+<ul>
+<li>选择衡量成功的指标(将指引你选择损失函数)<br>平衡分类： 精度，接收者操作特征曲线下面积<br>非平衡分类： 精确率和召回率<br>排序问题或者多标签分类： 平均精确率均值</li>
+</ul>
+</blockquote>
+<h4 id="确定评估方法（训练集，验证集，测试集）"><a href="#确定评估方法（训练集，验证集，测试集）" class="headerlink" title="确定评估方法（训练集，验证集，测试集）"></a>确定评估方法（训练集，验证集，测试集）</h4><blockquote>
+<p>留出验证集： 数据量很大<br>K折交叉验证： 留出验证的样本量少<br>重复K折验证： 可用数据少，同时评估模型又需非常准确</p>
+</blockquote>
+<h4 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h4><blockquote>
+<p>数据转化为张量<br>张量应该缩放到很小的值,比如[-1,1]或[0,1]区间<br>如果不同特征取值范围不同(异质数据)，应该左标准化</p>
+</blockquote>
+<p><pre><br>mean = train_data.mean(axis=0)<br>train_data -= mean<br>std = train_data.std(axis=0)<br>train_data /= std</pre></p>
+<p>test_data -= mean<br>test_data /= std<br></p>
+<blockquote>
+<p>可能需要做特征工程，尤其是小数据</p>
+</blockquote>
+<h4 id="开发比基准更好的模型"><a href="#开发比基准更好的模型" class="headerlink" title="开发比基准更好的模型"></a>开发比基准更好的模型</h4><blockquote>
+<p>目的是获得统计功效，即开发一个模型，它能够打败随机的基准</p>
+</blockquote>
+<p><pre></pre></p>
+<p>#Our approach reaches an accuracy of ~78%. With a balanced binary classification problem, the accuracy reached by a purely random classifier would be 50%, but in our case it is closer to 19%, so our results seem pretty good, at least when compared to a random baseline:</p>
+<p>import copy</p>
+<p>test_labels_copy = copy.copy(test_labels)<br>np.random.shuffle(test_labels_copy)<br>float(np.sum(np.array(test_labels) == np.array(test_labels_copy))) / len(test_labels)<br></p>
+<blockquote>
+<p>最后一层的激活</p>
+</blockquote>
+<p><pre><br>例如，IMDB在最后一层使用了sigmoid函数，回归的例子最后一层没有使用激活函数<br></pre></p>
+<blockquote>
+<p>损失函数</p>
+</blockquote>
+<p><pre><br>例如，IMDB使用binary_crossentropy，回归的例子使用mse<br></pre></p>
+<blockquote>
+<p>pre优化配置</p>
+</blockquote>
+<p><pre><br>大多数情况下，使用rmsprop及其默认学习率是稳妥的<br>但分类指标ROC AUC就不能被直接优化<br></pre><br><a href="https://blog.csdn.net/BVL10101111/article/details/72616378" target="_blank" rel="noopener">rmsprop</a><br><a href="https://blog.csdn.net/shenxiaoming77/article/details/72627882" target="_blank" rel="noopener">ROC AUC</a></p>
+<h4 id="扩大模型规模：开发过拟合的模型"><a href="#扩大模型规模：开发过拟合的模型" class="headerlink" title="扩大模型规模：开发过拟合的模型"></a>扩大模型规模：开发过拟合的模型</h4><blockquote>
+<p>添加更多的层<br>让每一层变得更大<br>训练更多的轮次</p>
+</blockquote>
+<h4 id="模型正则化和调节超参数"><a href="#模型正则化和调节超参数" class="headerlink" title="模型正则化和调节超参数"></a>模型正则化和调节超参数</h4><blockquote>
+<p>添加dropout<br>尝试不同的框架：增加或者减少层数<br>添加L1 / L2正则化<br>尝试不同的超参数(每层单元格数或优化器的学习率)<br>(可选)反复做特征工程</p>
+</blockquote>
+
       
     </div>
     
@@ -603,8 +482,8 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/01/Scrapy框架笔记/" rel="next" title="Scrapy框架笔记">
-                <i class="fa fa-chevron-left"></i> Scrapy框架笔记
+              <a href="/2018/09/08/Reuters新闻分类/" rel="next" title="Reuters新闻分类">
+                <i class="fa fa-chevron-left"></i> Reuters新闻分类
               </a>
             
           </div>
@@ -612,10 +491,6 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/04/创建测试机集——数据层分割-随机·分层/" rel="prev" title="创建测试机集——数据层分割(随机·分层)">
-                创建测试机集——数据层分割(随机·分层) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -738,7 +613,7 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KNN"><span class="nav-number">1.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">1.0.4.</span> <span class="nav-text">核心算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">数据处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#防止神经网络过拟合的常用方法："><span class="nav-number">1.</span> <span class="nav-text">防止神经网络过拟合的常用方法：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#减小网络容量"><span class="nav-number">1.1.</span> <span class="nav-text">减小网络容量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加权重正则化"><span class="nav-number">1.2.</span> <span class="nav-text">添加权重正则化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加dropout"><span class="nav-number">1.3.</span> <span class="nav-text">添加dropout</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#机器学习通用工作流程"><span class="nav-number">2.</span> <span class="nav-text">机器学习通用工作流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义问题，收集数据集"><span class="nav-number">2.1.</span> <span class="nav-text">定义问题，收集数据集</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定评估方法（训练集，验证集，测试集）"><span class="nav-number">2.2.</span> <span class="nav-text">确定评估方法（训练集，验证集，测试集）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备数据"><span class="nav-number">2.3.</span> <span class="nav-text">准备数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开发比基准更好的模型"><span class="nav-number">2.4.</span> <span class="nav-text">开发比基准更好的模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩大模型规模：开发过拟合的模型"><span class="nav-number">2.5.</span> <span class="nav-text">扩大模型规模：开发过拟合的模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#模型正则化和调节超参数"><span class="nav-number">2.6.</span> <span class="nav-text">模型正则化和调节超参数</span></a></li></ol></li></ol></div>
             
 
           </div>
