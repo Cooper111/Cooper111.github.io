@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="(基本)参考的博文：  https://blog.csdn.net/poem_qianmo/article/details/25560901  Laplacian函数 C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intbord">
+<meta name="description" content="猫狗大战—使用预训练模型VGG16① 法①: 将输出保存成Numpy数组作为独立的密集连接分类器的输入，速度快代价低，但不能使用数据增强 法②:   在顶部添加Dense层来扩展已有模型（即conv_base）,并在输入数据上端到端的运行整个模型，可以使用数据增强。 本篇现将法①    数据导入将图像复制到训练，验证和测试目录 import os import shutil  TRAIN_DIR">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Opencv边缘检测：Laplacian函数和scharr滤波器">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/index.html">
+<meta property="og:title" content="猫狗大战---使用预训练模型①">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/11/猫狗大战-使用预训练模型①/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="(基本)参考的博文：  https://blog.csdn.net/poem_qianmo/article/details/25560901  Laplacian函数 C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intbord">
+<meta property="og:description" content="猫狗大战—使用预训练模型VGG16① 法①: 将输出保存成Numpy数组作为独立的密集连接分类器的输入，速度快代价低，但不能使用数据增强 法②:   在顶部添加Dense层来扩展已有模型（即conv_base）,并在输入数据上端到端的运行整个模型，可以使用数据增强。 本篇现将法①    数据导入将图像复制到训练，验证和测试目录 import os import shutil  TRAIN_DIR">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T14:02:17.225Z">
+<meta property="og:updated_time" content="2018-09-11T14:31:05.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Opencv边缘检测：Laplacian函数和scharr滤波器">
-<meta name="twitter:description" content="(基本)参考的博文：  https://blog.csdn.net/poem_qianmo/article/details/25560901  Laplacian函数 C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intbord">
+<meta name="twitter:title" content="猫狗大战---使用预训练模型①">
+<meta name="twitter:description" content="猫狗大战—使用预训练模型VGG16① 法①: 将输出保存成Numpy数组作为独立的密集连接分类器的输入，速度快代价低，但不能使用数据增强 法②:   在顶部添加Dense层来扩展已有模型（即conv_base）,并在输入数据上端到端的运行整个模型，可以使用数据增强。 本篇现将法①    数据导入将图像复制到训练，验证和测试目录 import os import shutil  TRAIN_DIR">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/11/猫狗大战-使用预训练模型①/"/>
 
 
 
 
 
-  <title>Opencv边缘检测：Laplacian函数和scharr滤波器 | Cooper111's Blog</title>
+  <title>猫狗大战---使用预训练模型① | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/11/猫狗大战-使用预训练模型①/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Opencv边缘检测：Laplacian函数和scharr滤波器</h1>
+          <h1 class="post-title" itemprop="name headline">猫狗大战---使用预训练模型①</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-11T22:29:13+08:00">
+                2018-09-11
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,72 +333,153 @@
       
 
       
-        <p>(基本)参考的博文：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/poem_qianmo/article/details/25560901" target="_blank" rel="noopener">https://blog.csdn.net/poem_qianmo/article/details/25560901</a></p>
-</blockquote>
-<h3 id="Laplacian函数"><a href="#Laplacian函数" class="headerlink" title="Laplacian函数"></a>Laplacian函数</h3><pre>
-C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, int ksize=1, double scale=1, double delta=0, intborderType=BORDER_DEFAULT );
+        <h3 id="猫狗大战—使用预训练模型VGG16①"><a href="#猫狗大战—使用预训练模型VGG16①" class="headerlink" title="猫狗大战—使用预训练模型VGG16①"></a>猫狗大战—使用预训练模型VGG16①</h3><ul>
+<li><strong>法①:</strong> 将输出保存成Numpy数组作为独立的密集连接分类器的输入，速度快代价低，但不能使用数据增强</li>
+<li><strong>法②:</strong>   在顶部添加Dense层来扩展已有模型（即conv_base）,并在输入数据上端到端的运行整个模型，可以使用数据增强。</li>
+<li>本篇现将法①</li>
+</ul>
+<hr>
 
-第一个参数，InputArray类型的image，输入图像，即源图像，填Mat类的对象即可，且需为单通道8位图像。
-第二个参数，OutputArray类型的edges，输出的边缘图，需要和源图片有一样的尺寸和通道数。
-第三个参数，int类型的ddept，目标图像的深度。
-第四个参数，int类型的ksize，用于计算二阶导数的滤波器的孔径尺寸，大小必须为正奇数，且有默认值1。
-第五个参数，double类型的scale，计算拉普拉斯值的时候可选的比例因子，有默认值1。
-第六个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
-第七个参数， int类型的borderType，边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate()处得到更详细的信息。
+<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><h4 id="将图像复制到训练，验证和测试目录"><a href="#将图像复制到训练，验证和测试目录" class="headerlink" title="将图像复制到训练，验证和测试目录"></a>将图像复制到训练，验证和测试目录</h4><pre>
+import os
+import shutil
+
+TRAIN_DIR = 'D:\\Jupyter\\dogs-vs-cats\\'
+BASE_DIR = 'E:\\BaiduNetdiskDownload\\kaggle\\train\\'
+
+#举一个train文件夹的例子
+train_dir = os.path.join(TRAIN_DIR, 'train')
+#os.mkdir(train_dir)
+
+train_cats_dir = os.path.join(train_dir, 'cats')
+#os.mkdir(train_cats_dir)
+train_dogs_dir = os.path.join(train_dir, 'dogs')
+#os.mkdir(train_dogs_dir)
+
+#举一个复制图片里猫猫的例子
+fnames = ['cat.{}.jpg'.format(i) for i in range(1000)]
+for fname in fnames:
+    src = os.path.join(BASE_DIR, fname)
+    dst = os.path.join(train_cats_dir, fname)
+    shutil.copyfile(src, dst)
+
+fnames = ['cat.{}.jpg'.format(i) for i in range(1000,1500)]
+for fname in fnames:
+    src = os.path.join(BASE_DIR, fname)
+    dst = os.path.join(validation_cats_dir, fname)
+    shutil.copyfile(src, dst)
+
+fnames = ['cat.{}.jpg'.format(i) for i in range(1500,2000)]
+for fname in fnames:
+    src = os.path.join(BASE_DIR, fname)
+    dst = os.path.join(test_cats_dir, fname)
+    shutil.copyfile(src, dst)
+
 </pre>
-Laplacian( )函数其实主要是利用sobel算子的运算。它通过加上sobel算子运算出的图像x方向和y方向上的导数，来得到我们载入图像的拉普拉斯变换结果。
-<br>
-其中，sobel算子（ksize>1）如下：
-![image](http://img.blog.csdn.net/20140511215812515?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-<br>
-而当ksize=1时，Laplacian()函数采用以下3x3的孔径：
-![image](http://img.blog.csdn.net/20140511215703203?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcG9lbV9xaWFubW8=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
-<br>
-#### 部分实例：(先高斯滤波，转灰度图)
+![目录结构](https://upload-images.jianshu.io/upload_images/2145769-86964833bc33a46a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/245)
+
+<hr>
+
+### 构建模型
 <pre>
-Laplacian( src_gray, dst, CV_16S, 3, 1, 0, BORDER_DEFAULT ); 
-convertScaleAbs( dst, abs_dst );  
+#定义密集分类器
+from keras import models
+from keras import layers
+from keras import optimizers
+
+model = models.Sequential()
+model.add(layers.Dense(256, activation='relu', input_dim=4 * 4 * 512))
+model.add(layers.Dropout(0.5))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer=optimizers.RMSprop(lr=2e-5),
+             loss='binary_crossentropy',
+             metrics=['acc']
+             )
 </pre>
 
-<h3 id="scharr滤波器"><a href="#scharr滤波器" class="headerlink" title="scharr滤波器"></a>scharr滤波器</h3><pre>
-C++: void Scharr(  
-InputArray src, //源图  
- OutputArray dst, //目标图  
- int ddepth,//图像深度  
- int dx,// x方向上的差分阶数  
- int dy,//y方向上的差分阶数  
- double scale=1,//缩放因子  
- double delta=0,// delta值  
- intborderType=BORDER_DEFAULT )// 边界模式 
+<hr>
 
- 第一个参数，InputArray 类型的src，为输入图像，填Mat类型即可。
-第二个参数，OutputArray类型的dst，即目标图像，函数的输出参数，需要和源图片有一样的尺寸和类型。
-第三个参数，int类型的ddepth，输出图像的深度，支持如下src.depth()和ddepth的组合：
-若src.depth() = CV_8U, 取ddepth =-1/CV_16S/CV_32F/CV_64F
-若src.depth() = CV_16U/CV_16S, 取ddepth =-1/CV_32F/CV_64F
-若src.depth() = CV_32F, 取ddepth =-1/CV_32F/CV_64F
-若src.depth() = CV_64F, 取ddepth = -1/CV_64F
-第四个参数，int类型dx，x方向上的差分阶数。
-第五个参数，int类型dy，y方向上的差分阶数。
-第六个参数，double类型的scale，计算导数值时可选的缩放因子，默认值是1，表示默认情况下是没有应用缩放的。我们可以在文档中查阅getDerivKernels的相关介绍，来得到这个参数的更多信息。
-第七个参数，double类型的delta，表示在结果存入目标图（第二个参数dst）之前可选的delta值，有默认值0。
-第八个参数， int类型的borderType，我们的老朋友了（万年是最后一个参数），边界模式，默认值为BORDER_DEFAULT。这个参数可以在官方文档中borderInterpolate处得到更详细的信息。
+<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><h4 id="不使用数据增强"><a href="#不使用数据增强" class="headerlink" title="不使用数据增强"></a>不使用数据增强</h4><pre>
+import os
+import numpy as np
+from keras.preprocessing.image import ImageDataGenerator
+
+base_dir = 'D:\\Jupyter\\dogs-vs-cats\\'
+train_dir = os.path.join(base_dir, 'train')
+validation_dir = os.path.join(base_dir, 'validation')
+test_dir = os.path.join(base_dir, 'test')
+
+datagen = ImageDataGenerator(rescale=1./255)
 </pre>
 
-<blockquote>
-<p>使用Scharr滤波器运算符计算x或y方向的图像差分。其实它的参数变量和Sobel基本上是一样的，除了没有ksize核的大小。</p>
-</blockquote>
-<h4 id="（部分）代码实例："><a href="#（部分）代码实例：" class="headerlink" title="（部分）代码实例："></a>（部分）代码实例：</h4><pre>
-Scharr( src, grad_x, CV_16S, 1, 0, 1, 0, BORDER_DEFAULT );  
-convertScaleAbs( grad_x, abs_grad_x ); 
+<h4 id="使用ImageDataGenerator从目录中读取图像"><a href="#使用ImageDataGenerator从目录中读取图像" class="headerlink" title="使用ImageDataGenerator从目录中读取图像"></a>使用ImageDataGenerator从目录中读取图像</h4><pre>
+batch_size = 20
 
-Scharr( src, grad_y, CV_16S, 0, 1, 1, 0, BORDER_DEFAULT );  
-convertScaleAbs( grad_y, abs_grad_y ); 
+def extract_features(directory, sample_count):
+    features = np.zeros(shape=(sample_count, 4, 4, 512))
+    labels = np.zeros(shape=(sample_count))
+    generator = datagen.flow_from_directory(
+        directory,
+        target_size=(150, 150),
+        batch_size=batch_size,
+        class_mode='binary'
+    )
+    i = 0
+    for inputs_batch, labels_batch in generator:
+        features_batch = conv_base.predict(inputs_batch)
+        features[i * batch_size : (i+1) * batch_size] = features_batch
+        labels[i * batch_size : (i+1) * batch_size] = labels_batch
+        i += 1
+        if i * batch_size >= sample_count:
+            break
+    return features, labels
 
-addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
+#张量变形   
+train_features, train_labels = extract_features(train_dir, 2000)
+validation_features, validation_labels = extract_features(validation_dir, 1000)
+test_features, test_labels = extract_features(test_dir, 1000)
+
+train_features = np.reshape(train_features, (2000, 4 * 4 * 512))
+validation_features = np.reshape(validation_features, (1000, 4 * 4 * 512))
+test_features = np.reshape(test_features, (1000, 4 * 4 * 512))
 </pre>
+
+<h4 id="利用批量生成器拟合模型"><a href="#利用批量生成器拟合模型" class="headerlink" title="利用批量生成器拟合模型"></a>利用批量生成器拟合模型</h4><pre>
+history = model.fit(train_features, train_labels,
+                   epochs=30,
+                   batch_size=20,
+                   validation_data=(validation_features, validation_labels))
+</pre>
+
+<h4 id="绘制训练过程中的损失曲线和精度曲线"><a href="#绘制训练过程中的损失曲线和精度曲线" class="headerlink" title="绘制训练过程中的损失曲线和精度曲线"></a>绘制训练过程中的损失曲线和精度曲线</h4><pre>
+import matplotlib.pyplot as plt
+
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(1, len(acc)+1)
+
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validaton acc')
+plt.title('Training and Validation accuracy')
+plt.legend()
+
+plt.figure()
+
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and Validation loss')
+plt.legend()
+
+plt.show()
+</pre>
+
+<hr>
+
+
       
     </div>
     
@@ -400,8 +503,8 @@ addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/OpenCV边缘检测：Canny算子/" rel="next" title="OpenCV边缘检测：Canny算子">
-                <i class="fa fa-chevron-left"></i> OpenCV边缘检测：Canny算子
+              <a href="/2018/09/11/猫狗大战-自制模型/" rel="next" title="猫狗大战---自制模型">
+                <i class="fa fa-chevron-left"></i> 猫狗大战---自制模型
               </a>
             
           </div>
@@ -410,8 +513,8 @@ addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/28/opencv颜色空间转换/" rel="prev" title="邻域算子和线性滤波函数">
-                邻域算子和线性滤波函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/11/猫狗大战-使用预训练模型②/" rel="prev" title="猫狗大战 ---使用预训练模型②">
+                猫狗大战 ---使用预训练模型② <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -535,7 +638,7 @@ addWeighted( abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst );
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Laplacian函数"><span class="nav-number">1.</span> <span class="nav-text">Laplacian函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scharr滤波器"><span class="nav-number">2.</span> <span class="nav-text">scharr滤波器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（部分）代码实例："><span class="nav-number">2.1.</span> <span class="nav-text">（部分）代码实例：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#猫狗大战—使用预训练模型VGG16①"><span class="nav-number">1.</span> <span class="nav-text">猫狗大战—使用预训练模型VGG16①</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">2.</span> <span class="nav-text">数据导入</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#将图像复制到训练，验证和测试目录"><span class="nav-number">2.1.</span> <span class="nav-text">将图像复制到训练，验证和测试目录</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据预处理"><span class="nav-number">3.</span> <span class="nav-text">数据预处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不使用数据增强"><span class="nav-number">3.1.</span> <span class="nav-text">不使用数据增强</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用ImageDataGenerator从目录中读取图像"><span class="nav-number">3.2.</span> <span class="nav-text">使用ImageDataGenerator从目录中读取图像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用批量生成器拟合模型"><span class="nav-number">3.3.</span> <span class="nav-text">利用批量生成器拟合模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘制训练过程中的损失曲线和精度曲线"><span class="nav-number">3.4.</span> <span class="nav-text">绘制训练过程中的损失曲线和精度曲线</span></a></li></ol></li></ol></div>
             
 
           </div>
