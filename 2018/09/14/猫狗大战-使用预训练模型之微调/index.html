@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Boston房价预测输入数据要求 回归问题 标准化处理输入数据 k-折评估少样本模型 滑动均值平滑epoch均方差观测图  输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。  train_data.shape#(404, 13) test_data.shape#(102, 13) train_targets.">
+<meta name="description" content="0X00 概念模型微调指对于用特征提取的冻结的模型基，将模型顶部的几层“解冻”，并将解冻的几层和新增加的几层联合训练。 0X01 导入模型 from keras.applications import VGG16  conv_base = VGG16(weights=&apos;imagenet&apos;,                  include_top=False,                  i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Boston房价预测">
-<meta property="og:url" content="https://cooper111.github.io/2018/09/08/Boston房价预测/index.html">
+<meta property="og:title" content="猫狗大战 ---使用预训练模型之微调">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/14/猫狗大战-使用预训练模型之微调/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="Boston房价预测输入数据要求 回归问题 标准化处理输入数据 k-折评估少样本模型 滑动均值平滑epoch均方差观测图  输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。  train_data.shape#(404, 13) test_data.shape#(102, 13) train_targets.">
+<meta property="og:description" content="0X00 概念模型微调指对于用特征提取的冻结的模型基，将模型顶部的几层“解冻”，并将解冻的几层和新增加的几层联合训练。 0X01 导入模型 from keras.applications import VGG16  conv_base = VGG16(weights=&apos;imagenet&apos;,                  include_top=False,                  i">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-08T03:26:46.417Z">
+<meta property="og:updated_time" content="2018-09-14T08:57:01.967Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Boston房价预测">
-<meta name="twitter:description" content="Boston房价预测输入数据要求 回归问题 标准化处理输入数据 k-折评估少样本模型 滑动均值平滑epoch均方差观测图  输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。  train_data.shape#(404, 13) test_data.shape#(102, 13) train_targets.">
+<meta name="twitter:title" content="猫狗大战 ---使用预训练模型之微调">
+<meta name="twitter:description" content="0X00 概念模型微调指对于用特征提取的冻结的模型基，将模型顶部的几层“解冻”，并将解冻的几层和新增加的几层联合训练。 0X01 导入模型 from keras.applications import VGG16  conv_base = VGG16(weights=&apos;imagenet&apos;,                  include_top=False,                  i">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/09/08/Boston房价预测/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/14/猫狗大战-使用预训练模型之微调/"/>
 
 
 
 
 
-  <title>Boston房价预测 | Cooper111's Blog</title>
+  <title>猫狗大战 ---使用预训练模型之微调 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/08/Boston房价预测/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/14/猫狗大战-使用预训练模型之微调/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Boston房价预测</h1>
+          <h1 class="post-title" itemprop="name headline">猫狗大战 ---使用预训练模型之微调</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-08T11:21:38+08:00">
-                2018-09-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T16:55:13+08:00">
+                2018-09-14
               </time>
             
 
@@ -333,189 +333,121 @@
       
 
       
-        <h1 id="Boston房价预测"><a href="#Boston房价预测" class="headerlink" title="Boston房价预测"></a>Boston房价预测</h1><h4 id="输入数据要求"><a href="#输入数据要求" class="headerlink" title="输入数据要求"></a>输入数据要求</h4><ul>
-<li>回归问题</li>
-<li>标准化处理输入数据</li>
-<li>k-折评估少样本模型</li>
-<li>滑动均值平滑epoch均方差观测图</li>
-</ul>
-<p>输入数据是向量，对应13个特征，且每个特征都有不同的取值范围.标签是标量,代表房价中位数。样本数很少，404个训练样本和102个测试样本。</p>
-<pre>
-train_data.shape#(404, 13)
-test_data.shape#(102, 13)
-train_targets.shape#(404,)
-</pre>
-### 数据导入
-<pre>
-from keras.datasets import boston_housing
+        <h3 id="0X00-概念"><a href="#0X00-概念" class="headerlink" title="0X00 概念"></a>0X00 概念</h3><p>模型微调指对于用特征提取的冻结的模型基，将模型顶部的几层“解冻”，并将解冻的几层和新增加的几层联合训练。</p>
+<h3 id="0X01-导入模型"><a href="#0X01-导入模型" class="headerlink" title="0X01 导入模型"></a>0X01 导入模型</h3><pre>
+from keras.applications import VGG16
 
-(train_data, train_targets), (test_data, test_targets) =  boston_housing.load_data()
+conv_base = VGG16(weights='imagenet',
+                 include_top=False,
+                 input_shape=(150, 150, 3)
+                 )
+#查看模型
+conv_base.summary()
 </pre>
-### 数据观测
-<pre>
-train_data.shape#(404, 13)
-test_data.shape#(102, 13)
-train_targets.shape#(404,)
-</pre>
-### 数据处理
-<pre>
-#目的是均衡取值范围，将特征标准化。将取值范围差别很大的输入神经网络会产生很大问题。
-mean = train_data.mean(axis=0)
-train_data -= mean
-std = train_data.std(axis=0)
-train_data /= std
 
-test_data -= mean
-test_data /= std
+<h3 id="0x02-解冻知道某一层的所有层"><a href="#0x02-解冻知道某一层的所有层" class="headerlink" title="0x02 解冻知道某一层的所有层"></a>0x02 解冻知道某一层的所有层</h3><pre>
+conv_base.trainable = True
+
+set_trainable = False
+for layer in conv_base.layers:
+    if layer.name == 'block5_conv1 (Conv2D) ':
+        set_trainable = True
+    if set_trainable:
+        layer.trainable = True
+    else:
+        layer.trainable = False
 </pre>
-### 模型搭建
-<pre>
-#函数式编程返回编译好的模型
+
+<h3 id="0x03-微调模型"><a href="#0x03-微调模型" class="headerlink" title="0x03 微调模型"></a>0x03 微调模型</h3><pre>
+#构建ImageDataGenerator生成训练和验证集
+import os
+base_dir = 'D:\\Jupyter\\dogs-vs-cats\\'
+train_dir = os.path.join(base_dir, 'train')
+validation_dir = os.path.join(base_dir, 'validation')
+test_dir = os.path.join(base_dir, 'test')
+
+from keras.preprocessing.image import ImageDataGenerator
+from keras import optimizers
+
+train_datagen = ImageDataGenerator(
+    rescale = 1./255,
+    rotation_range = 40,
+    width_shift_range = 0.2,
+    height_shift_range = 0.2,
+    shear_range = 0.2,
+    zoom_range = 0.2,
+    horizontal_flip = True,
+    fill_mode = 'nearest'
+)
+
+test_datagen = ImageDataGenerator(rescale = 1./255)
+
+train_generator = train_datagen.flow_from_directory(
+    train_dir,
+    target_size = (150, 150),
+    batch_size = 20,
+    class_mode = 'binary',#因为使用binary_crossentropy，所以得使用binary二进制标签
+)
+
+validation_generator = test_datagen.flow_from_directory(
+    validation_dir,
+    target_size = (150,150),
+    batch_size = 20,
+    class_mode = 'binary',
+)
+#构建完整模型
 from keras import models
 from keras import layers
 
-def build_model():
-    # Because we will need to instantiate
-    # the same model multiple times,
-    # we use a function to construct it.
-    model = models.Sequential()
-    model.add(layers.Dense(64, activation='relu',
-                           input_shape=(train_data.shape[1],)))
-    model.add(layers.Dense(64, activation='relu'))
-    model.add(layers.Dense(1))
-    model.compile(optimizer='rmsprop', loss='mse', metrics=['mae'])#均方差
-    return model
+model = models.Sequential()
+model.add(conv_base)
+model.add(layers.Flatten())
+model.add(layers.Dense(256, activation='relu'))
+model.add(layers.Dense(1, activation='sigmoid'))
+
+model.compile(optimizer=optimizers.RMSprop(lr=2e-5),
+             loss='binary_crossentropy',
+             metrics=['acc'])
+#训练
+history = model.fit_generator(
+    train_generator,
+    steps_per_epoch=100,
+    epochs=100,
+    validation_data = validation_generator,
+    validation_steps=50
+)
+
 </pre>
 
-<h3 id="模型训练与评估"><a href="#模型训练与评估" class="headerlink" title="模型训练与评估"></a>模型训练与评估</h3><ul>
-<li>k折交叉验证</li>
-<li>&lt;对少样本数据进行可靠的评估&gt;<br><pre><br>#样本很少，验证分数会有很大波动，验证集的划分方式可能会造成验证分数上很大的方差<br>import numpy as np</pre></li>
-</ul>
-<p>k = 4<br>num_val_samples = len(train_data) // k<br>num_epochs = 100<br>all_scores = []<br>for i in range(k):<br>    print(‘processing fold #’, i)</p>
-<pre><code># Prepare the validation data: data from partition # k
-val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
-val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
-
-# Prepare the training data: data from all other partitions
-partial_train_data = np.concatenate(
-    [train_data[:i * num_val_samples],
-     train_data[(i + 1) * num_val_samples:]],
-    axis=0)
-partial_train_targets = np.concatenate(
-    [train_targets[:i * num_val_samples],
-     train_targets[(i + 1) * num_val_samples:]],
-    axis=0)
-
-# Build the Keras model (already compiled)
-model = build_model()
-# Train the model (in silent mode, verbose=0)
-model.fit(partial_train_data, partial_train_targets,
-          epochs=num_epochs, batch_size=1, verbose=0)
-# Evaluate the model on the validation data
-val_mse, val_mae = model.evaluate(val_data, val_targets, verbose=0)
-all_scores.append(val_mae)
-</code></pre><p>#all_scores</p>
-<p>#[2.0750808349930412, 2.117215852926273, 2.9140411863232605, 2.4288365227161068]</p>
-<p>#np.mean(all_scores)</p>
-<p>#2.3837935992396706<br></p>
-<h3 id="模型评估"><a href="#模型评估" class="headerlink" title="模型评估"></a>模型评估</h3><pre>
-from keras import backend as K
-
-# Some memory clean-up
-K.clear_session()
-# 延长训练时间达到500轮次，为了记录模型在每轮的表现，我们需要修改训练循环，以保存每轮的验证分数记录
-num_epochs = 500
-all_mae_histories = []
-for i in range(k):
-    print('processing fold #', i)
-    # Prepare the validation data: data from partition # k
-    val_data = train_data[i * num_val_samples: (i + 1) * num_val_samples]
-    val_targets = train_targets[i * num_val_samples: (i + 1) * num_val_samples]
-
-    # Prepare the training data: data from all other partitions
-    partial_train_data = np.concatenate(
-        [train_data[:i * num_val_samples],
-         train_data[(i + 1) * num_val_samples:]],
-        axis=0)
-    partial_train_targets = np.concatenate(
-        [train_targets[:i * num_val_samples],
-         train_targets[(i + 1) * num_val_samples:]],
-        axis=0)
-
-    # Build the Keras model (already compiled)
-    model = build_model()
-    # Train the model (in silent mode, verbose=0)
-    history = model.fit(partial_train_data, partial_train_targets,
-                        validation_data=(val_data, val_targets),
-                        epochs=num_epochs, batch_size=1, verbose=0)
-    mae_history = history.history['val_mean_absolute_error']
-    all_mae_histories.append(mae_history)
-
-
-#计算每个轮次中所有折MAE，取每轮的k个模型的均值
-#all_mae_histories.shape()
-#[4,500]
-
-average_mae_history = [
-    np.mean([x[i] for x in all_mae_histories]) for i in range(num_epochs)]
-#average_mae_history.shape()
-#[500,]
-
-#绘制按轮次的验证分数
+<h3 id="0x04-评估"><a href="#0x04-评估" class="headerlink" title="0x04 评估"></a>0x04 评估</h3><pre>
 import matplotlib.pyplot as plt
 
-plt.plot(range(1, len(average_mae_history) + 1), average_mae_history)
-plt.xlabel('Epochs')
-plt.ylabel('Validation MAE')
+acc = history.history['acc']
+val_acc = history.history['val_acc']
+loss = history.history['loss']
+val_loss = history.history['val_loss']
+
+epochs = range(1, len(acc) + 1)
+
+plt.plot(epochs, acc, 'bo', label='Training acc')
+plt.plot(epochs, val_acc, 'b', label='Validation acc')
+plt.title('Training and Validation accuary')
+plt.legend()
+
+plt.figure()
+
+plt.plot(epochs, loss, 'bo', label='Training loss')
+plt.plot(epochs, val_loss, 'b', label='Validation loss')
+plt.title('Training and Validation loss')
+plt.legend()
+
 plt.show()
 
-# 得知前10个epoch异常，先删除前10点
-#之后波动过大，采用滑动均值模型得到光滑曲线继续观测
-def smooth_curve(points, factor=0.9):
-  smoothed_points = []
-  for point in points:
-    if smoothed_points:
-      previous = smoothed_points[-1]
-      smoothed_points.append(previous * factor + point * (1 - factor))
-    else:
-      smoothed_points.append(point)
-  return smoothed_points
-
-smooth_mae_history = smooth_curve(average_mae_history[10:])
-
-plt.plot(range(1, len(smooth_mae_history) + 1), smooth_mae_history)
-plt.xlabel('Epochs')
-plt.ylabel('Validation MAE')
-plt.show()
-
-</pre>
-### 模型优化
->画图得知模型在8轮后过拟合了，所以8轮时停止
-
-<pre>
-# Get a fresh, compiled model.
-model = build_model()
-# Train it on the entirety of the data.
-model.fit(train_data, train_targets,
-          epochs=80, batch_size=16, verbose=0)
-test_mse_score, test_mae_score = model.evaluate(test_data, test_targets)
-#test_mae_score
-#2.5532484335057877
-
-</pre>
-### 模型使用
->model.predict(x_test)#估计是好评的概率
-<pre>
-array([[0.20031697],
-       [0.99983263],
-       [0.9702985 ],
-       ...,
-       [0.12498155],
-       [0.05971182],
-       [0.7418488 ]], dtype=float32)
+#最后可以保存模型
+#model.save('cats_and_dogs_VGG16_unfreeze.h5')
 </pre>
 
-
+<p><a href="https://github.com/Cooper111/deep-learning-with-python-notebooks/blob/master/5.3-using-a-pretrained-convnet.ipynb" target="_blank" rel="noopener">完整参见</a></p>
 
       
     </div>
@@ -540,8 +472,8 @@ array([[0.20031697],
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/04/快速浏览数据结构——Pandas/" rel="next" title="快速浏览数据结构——Pandas">
-                <i class="fa fa-chevron-left"></i> 快速浏览数据结构——Pandas
+              <a href="/2018/09/11/猫狗大战-使用预训练模型②/" rel="next" title="猫狗大战 ---使用预训练模型②">
+                <i class="fa fa-chevron-left"></i> 猫狗大战 ---使用预训练模型②
               </a>
             
           </div>
@@ -549,10 +481,6 @@ array([[0.20031697],
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/08/IMDB影评分类/" rel="prev" title="IMDB影评分类">
-                IMDB影评分类 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -675,7 +603,7 @@ array([[0.20031697],
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Boston房价预测"><span class="nav-number">1.</span> <span class="nav-text">Boston房价预测</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#输入数据要求"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">输入数据要求</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型训练与评估"><span class="nav-number">1.0.1.</span> <span class="nav-text">模型训练与评估</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型评估"><span class="nav-number">1.0.2.</span> <span class="nav-text">模型评估</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#0X00-概念"><span class="nav-number">1.</span> <span class="nav-text">0X00 概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0X01-导入模型"><span class="nav-number">2.</span> <span class="nav-text">0X01 导入模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x02-解冻知道某一层的所有层"><span class="nav-number">3.</span> <span class="nav-text">0x02 解冻知道某一层的所有层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x03-微调模型"><span class="nav-number">4.</span> <span class="nav-text">0x03 微调模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0x04-评估"><span class="nav-number">5.</span> <span class="nav-text">0x04 评估</span></a></li></ol></div>
             
 
           </div>
