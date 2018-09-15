@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
+<meta name="description" content="Imputer -&amp;gt;Impute在Boston房价数据处理中  旧版对于数值型的缺失值使用Imputer填充缺失值，调用方式： from sklearn.preprocessing import Imputer     imputer =Imputer(strategy=”median”)  或者使用常量  sample_incomplete_rows.dropna(subset=[&quot;tot">
 <meta property="og:type" content="article">
-<meta property="og:title" content="快速浏览数据结构——Pandas">
-<meta property="og:url" content="https://cooper111.github.io/2018/09/04/快速浏览数据结构——Pandas/index.html">
+<meta property="og:title" content="Scikit-learn2.0上手">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/15/Scikit-learn2-0上手/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
+<meta property="og:description" content="Imputer -&amp;gt;Impute在Boston房价数据处理中  旧版对于数值型的缺失值使用Imputer填充缺失值，调用方式： from sklearn.preprocessing import Imputer     imputer =Imputer(strategy=”median”)  或者使用常量  sample_incomplete_rows.dropna(subset=[&quot;tot">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-08T03:20:09.004Z">
+<meta property="og:updated_time" content="2018-09-15T14:30:47.329Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="快速浏览数据结构——Pandas">
-<meta name="twitter:description" content="知识点data.iloc[train_indices]对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。 数据观测 #返回一个DataFrame对象 housing  = pd.read_csv(&quot;housing.csv&quot;) #预览头n行 housing.head(6) #查看此列的不同值统计 housing[&quot;ocean_pr">
+<meta name="twitter:title" content="Scikit-learn2.0上手">
+<meta name="twitter:description" content="Imputer -&amp;gt;Impute在Boston房价数据处理中  旧版对于数值型的缺失值使用Imputer填充缺失值，调用方式： from sklearn.preprocessing import Imputer     imputer =Imputer(strategy=”median”)  或者使用常量  sample_incomplete_rows.dropna(subset=[&quot;tot">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/09/04/快速浏览数据结构——Pandas/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/15/Scikit-learn2-0上手/"/>
 
 
 
 
 
-  <title>快速浏览数据结构——Pandas | Cooper111's Blog</title>
+  <title>Scikit-learn2.0上手 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/04/快速浏览数据结构——Pandas/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/15/Scikit-learn2-0上手/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">快速浏览数据结构——Pandas</h1>
+          <h1 class="post-title" itemprop="name headline">Scikit-learn2.0上手</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T21:07:38+08:00">
-                2018-09-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-15T22:26:39+08:00">
+                2018-09-15
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据处理与分析/" itemprop="url" rel="index">
-                    <span itemprop="name">数据处理与分析</span>
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
                   </a>
                 </span>
 
@@ -333,67 +333,91 @@
       
 
       
-        <h1 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h1><p>data.iloc[train_indices]<br><br>对于一个DataFrame A，A.loc[k]是读取A中index为k的那一行。A.iloc[k]是读取A中的第k行。</p>
-<h1 id="数据观测"><a href="#数据观测" class="headerlink" title="数据观测"></a>数据观测</h1><pre>
-#返回一个DataFrame对象
-housing  = pd.read_csv("housing.csv")
-#预览头n行
-housing.head(6)
-#查看此列的不同值统计
-housing["ocean_proximity"].value_counts()
-#查看表的列的总体情况count总数,mean均值,std(标准差),min，25%，50%，75%
-housing.describe()
-#数据展示，bins代表条数
-%matplotlib inline
-import matplotlib.pyplot as plt
-housing.hist(bins=50, figsize=(20,15))
-plt.show()
-#查看单列
-housing["median_income"].hist()
+        <h3 id="Imputer-gt-Impute"><a href="#Imputer-gt-Impute" class="headerlink" title="Imputer -&gt;Impute"></a>Imputer -&gt;Impute</h3><p>在Boston房价数据处理中</p>
+<ul>
+<li>旧版对于数值型的缺失值使用Imputer填充缺失值，调用方式：<blockquote>
+<p>from sklearn.preprocessing import Imputer</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>imputer =Imputer(strategy=”median”)</p>
+</blockquote>
+<p>或者使用常量</p>
+<pre>
+sample_incomplete_rows.dropna(subset=["total_bedrooms"])    # option 1
+sample_incomplete_rows.drop("total_bedrooms", axis=1)       # option 2
+median = housing["total_bedrooms"].median()
+sample_incomplete_rows["total_bedrooms"].fillna(median, inplace=True) # option 3
 </pre>
 
-<h1 id="选取数据集"><a href="#选取数据集" class="headerlink" title="选取数据集"></a>选取数据集</h1><h5 id="loc与iloc函数"><a href="#loc与iloc函数" class="headerlink" title="loc与iloc函数"></a>loc与iloc函数</h5><ul>
-<li><p>loc函数</p>
+<ul>
+<li>新版<blockquote>
+<p>from sklearn.impute import SimpleImputer</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>imputer =SimpleImputer(strategy=”median”)</p>
+</blockquote>
+<p>或者使用常量</p>
+<blockquote>
+<p>si = SimpleImputer(strategy=’constant’, fill_value=’MISSING’)</p>
+</blockquote>
+<h3 id="scikitlearn-Gotcha必须有2D数据"><a href="#scikitlearn-Gotcha必须有2D数据" class="headerlink" title="scikitlearn Gotcha必须有2D数据"></a>scikitlearn Gotcha必须有2D数据</h3><p>大多数Scikit-Learn估计器严格要求数据是的2D的。从技术角度讲，如果我们选择上面的列作为train[“HouseStyle”]，Pandas Series是数据的单一维度。我们可以强制Pandas<strong>创建一个单列DataFrame</strong>，方法是将一个单项列表<strong>传递到方括号</strong>中<br><br>eg:<pre>hs_train = train[[‘HouseStyle’]].copy()<br>hs_train.ndim</pre></p>
+<p>#2</p>
+<h5 id="注意！在copy的时候改变维度，别再在fit-transform-里加个’-’"><a href="#注意！在copy的时候改变维度，别再在fit-transform-里加个’-’" class="headerlink" title="注意！在copy的时候改变维度，别再在fit_transform()里加个’[]’"></a>注意！在copy的时候改变维度，别再在fit_transform()里加个’[]’</h5><h3 id="future-encoders-去除"><a href="#future-encoders-去除" class="headerlink" title="future_encoders 去除"></a>future_encoders 去除</h3><p>过去：<pre><br>from future_encoders import OrdinalEncoder（或LabelBinarizer）<br>from future_encoders import OneHotEncoder<br>from future_encoders import ColumnTransformer<br></pre><br>from<br>现在：<pre><br>from sklearn.preprocessing import OrdinalEncoder<br>from sklearn.preprocessing import OneHotEncoder<br>from sklearn.compose import ColumnTransformer<br></pre></p>
+<p>注：<pre></pre></p>
+<p>#将文本标签转化为数字的转换器，老版使用LabelEncoder，但是换成 OrdinalEncoder </p>
+<p>#且现在OneHotEncoder能处理字符串，也就是处理字符串只用OneHotEncoder就行。<br></p>
+<h3 id="转换流水线"><a href="#转换流水线" class="headerlink" title="转换流水线"></a>转换流水线</h3><h4 id="新版—ColumnTransformer"><a href="#新版—ColumnTransformer" class="headerlink" title="新版—ColumnTransformer"></a>新版—ColumnTransformer</h4><ul>
+<li>Pipline()里喂进去各个API</li>
+<li>full_pipeline里ColumnTransformer()喂进去各个API,响应的column名的集合</li>
+</ul>
 <pre>
-import pandas as pd
-import numpy
-# 导入数据
-df = pd.read_csv(filepath_or_buffer="D://movie.csv")
-#1：根据列中的元素，选取对应元素的数据集 
-df_new = df.set_index(["country"])
-#2：根据元素的选取条件来选取对应的数据集 
-df_new.loc[list(["Canada"])] # 1
-#3：根据元素的选取条件来来选取对应的数据集，并在符合条件的数据行添加flage标签
-df_new.loc[df_new["duration"]>160] # 2
-df_new.loc[((df_new["duration"] > 200) & (df_new["director_facebook_likes"] > 300 )),"flage"] =1 # 3
-#4：isin函数是series用来判断值是否在目标值是否在series 
-df_new.loc[df_new["duration"].isin([100])] # 4
-#5：query函数中用来判断条件符合的数据集并返回
-df_new.query("duration > 100 & index == 'UK'") # 5
+num_pipeline = Pipeline([
+        ('imputer', SimpleImputer(strategy="median")),
+        ('attribs_adder', CombinedAttributesAdder()),
+        ('std_scaler', StandardScaler()),
+    ])
+
+from sklearn.compose import ColumnTransformer
+num_attribs = list(housing_num)
+cat_attribs = ["ocean_proximity"]
+
+full_pipeline = ColumnTransformer([
+        ("num", num_pipeline, num_attribs),
+        ("cat", OneHotEncoder(), cat_attribs),
+    ])
+
+housing_prepared = full_pipeline.fit_transform(housing)
+
 </pre>
-</li>
-<li><p>iloc函数</p>
-<blockquote>
-<p>df_new.iloc[0:4]</p>
-</blockquote>
-</li>
+
+<h4 id="旧版–OldDataFrameSelector-FeatureUnion"><a href="#旧版–OldDataFrameSelector-FeatureUnion" class="headerlink" title="旧版–OldDataFrameSelector,FeatureUnion"></a>旧版–OldDataFrameSelector,FeatureUnion</h4><ul>
+<li>Pipline()里先OldDataFrameSelector取出column对应值再喂进去各个API</li>
+<li>full_pipeline里喂进去API</li>
 </ul>
-<blockquote>
-<p>iloc比较简单，它是基于索引位来选取数据集，0:4就是选取 0，1，2，3这四行，需要注意的是这里是前闭后开集合</p>
-</blockquote>
-<p>其他用到的函数(见KNN.md)<br><a href="https://www.cnblogs.com/sunbigdata/p/8134441.html" target="_blank" rel="noopener">pandas.DataFrame.pivot</a></p>
-<p><a href="https://blog.csdn.net/tz_zs/article/details/81355537" target="_blank" rel="noopener">pandas 之 rename、reindex</a></p>
-<p><a href="https://blog.csdn.net/jingyi130705008/article/details/78162758" target="_blank" rel="noopener">pandas中关于set_index和reset_index的用法</a></p>
-<p><a href="https://blog.csdn.net/zhouwenyuan1015/article/details/77334889" target="_blank" rel="noopener">python—pandas.merge</a></p>
-<p><a href="https://blog.csdn.net/wendaomudong_l2d4/article/details/80648633" target="_blank" rel="noopener">Pandas—排序sort_values</a></p>
-<p><a href="https://blog.csdn.net/stevenkwong/article/details/52528616" target="_blank" rel="noopener">PANDAS 数据合并与重塑（concat篇）</a></p>
-<p><a href="https://blog.csdn.net/qq_36523839/article/details/80061326" target="_blank" rel="noopener">pandas的DataFrame、Series删除列</a></p>
-<h1 id="小小项目-两班成绩统计"><a href="#小小项目-两班成绩统计" class="headerlink" title="小小项目: 两班成绩统计"></a>小小项目: 两班成绩统计</h1><ul>
-<li>合并两班成绩表</li>
-<li>追加排名</li>
-<li>做数据分析</li>
-<li><a href="https://github.com/Cooper111/Analysis-of-twoClassse-s-score" target="_blank" rel="noopener">项目地址</a></li>
-</ul>
+<pre>
+#OldDataFrameSelector（）自制，传属性取值
+#核心: return  X[self.attribute_names].values
+old_num_pipeline = Pipeline([
+        ('selector', OldDataFrameSelector(num_attribs)),
+        ('imputer', SimpleImputer(strategy="median")),
+        ('attribs_adder', CombinedAttributesAdder()),
+        ('std_scaler', StandardScaler()),
+    ])
+
+from sklearn.pipeline import FeatureUnion
+
+old_full_pipeline = FeatureUnion(transformer_list=[
+        ("num_pipeline", old_num_pipeline),
+        ("cat_pipeline", old_cat_pipeline),
+    ])   
+
+</pre>
+
+<h4 id="结"><a href="#结" class="headerlink" title="结"></a>结</h4><p>今天刚接触2.0的特性···是与书上和Jupytr教程的新老对比来的，对2.0了解还没有多少，慢更</p>
 
       
     </div>
@@ -418,8 +442,8 @@ df_new.query("duration > 100 & index == 'UK'") # 5
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/04/创建测试机集——数据层分割-随机·分层/" rel="next" title="创建测试机集——数据层分割(随机·分层)">
-                <i class="fa fa-chevron-left"></i> 创建测试机集——数据层分割(随机·分层)
+              <a href="/2018/09/15/数据探索与可视化/" rel="next" title="数据探索与可视化">
+                <i class="fa fa-chevron-left"></i> 数据探索与可视化
               </a>
             
           </div>
@@ -427,10 +451,6 @@ df_new.query("duration > 100 & index == 'UK'") # 5
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/08/Boston房价预测/" rel="prev" title="Boston房价预测">
-                Boston房价预测 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -553,7 +573,7 @@ df_new.query("duration > 100 & index == 'UK'") # 5
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#知识点"><span class="nav-number">1.</span> <span class="nav-text">知识点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据观测"><span class="nav-number">2.</span> <span class="nav-text">数据观测</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选取数据集"><span class="nav-number">3.</span> <span class="nav-text">选取数据集</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#loc与iloc函数"><span class="nav-number">3.0.0.0.1.</span> <span class="nav-text">loc与iloc函数</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小小项目-两班成绩统计"><span class="nav-number">4.</span> <span class="nav-text">小小项目: 两班成绩统计</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Imputer-gt-Impute"><span class="nav-number">1.</span> <span class="nav-text">Imputer -&gt;Impute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#scikitlearn-Gotcha必须有2D数据"><span class="nav-number">2.</span> <span class="nav-text">scikitlearn Gotcha必须有2D数据</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#注意！在copy的时候改变维度，别再在fit-transform-里加个’-’"><span class="nav-number">2.0.1.</span> <span class="nav-text">注意！在copy的时候改变维度，别再在fit_transform()里加个’[]’</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#future-encoders-去除"><span class="nav-number">3.</span> <span class="nav-text">future_encoders 去除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换流水线"><span class="nav-number">4.</span> <span class="nav-text">转换流水线</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#新版—ColumnTransformer"><span class="nav-number">4.1.</span> <span class="nav-text">新版—ColumnTransformer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#旧版–OldDataFrameSelector-FeatureUnion"><span class="nav-number">4.2.</span> <span class="nav-text">旧版–OldDataFrameSelector,FeatureUnion</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#结"><span class="nav-number">4.3.</span> <span class="nav-text">结</span></a></li></ol></li></ol></div>
             
 
           </div>
