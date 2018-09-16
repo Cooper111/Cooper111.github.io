@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta name="description" content="Keras在房价预测有编写k折交叉验证的函数for循环k次，每次划分训练和验证集并加以操作 Sklearn有专门函数实现交叉验证 from sklearn.model_selection import cross_val_score  scores = cross_val_score(tree_reg, housing_prepared, housing_labels,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="OpenCV边缘检测：filter2D和prewwit算子">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/index.html">
+<meta property="og:title" content="使用交叉验证">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/16/使用交叉验证/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta property="og:description" content="Keras在房价预测有编写k折交叉验证的函数for循环k次，每次划分训练和验证集并加以操作 Sklearn有专门函数实现交叉验证 from sklearn.model_selection import cross_val_score  scores = cross_val_score(tree_reg, housing_prepared, housing_labels,">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-31T10:50:15.378Z">
+<meta property="og:updated_time" content="2018-09-16T12:53:53.163Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="OpenCV边缘检测：filter2D和prewwit算子">
-<meta name="twitter:description" content="Filter2D函数： CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,                             InputArray kernel, Point anchor=Point(-1,-1),                             double delta=">
+<meta name="twitter:title" content="使用交叉验证">
+<meta name="twitter:description" content="Keras在房价预测有编写k折交叉验证的函数for循环k次，每次划分训练和验证集并加以操作 Sklearn有专门函数实现交叉验证 from sklearn.model_selection import cross_val_score  scores = cross_val_score(tree_reg, housing_prepared, housing_labels,">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/16/使用交叉验证/"/>
 
 
 
 
 
-  <title>OpenCV边缘检测：filter2D和prewwit算子 | Cooper111's Blog</title>
+  <title>使用交叉验证 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/16/使用交叉验证/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">OpenCV边缘检测：filter2D和prewwit算子</h1>
+          <h1 class="post-title" itemprop="name headline">使用交叉验证</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-16T20:49:37+08:00">
+                2018-09-16
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,43 +333,37 @@
       
 
       
-        <h3 id="Filter2D函数："><a href="#Filter2D函数：" class="headerlink" title="Filter2D函数："></a>Filter2D函数：</h3><pre>
-CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
-                            InputArray kernel, Point anchor=Point(-1,-1),
-                            double delta=0, int borderType=BORDER_DEFAULT );
-参数说明：
-    InputArray src: 输入图像
-    OutputArray dst: 输出图像，和输入图像具有相同的尺寸和通道数量
-    int ddepth: 目标图像深度，如果没写将生成与原图像深度相同的图像。原图像和目标图像支持的图像深度如下：
-        src.depth() = CV_8U, ddepth = -1/CV_16S/CV_32F/CV_64F
-        src.depth() = CV_16U/CV_16S, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_32F, ddepth = -1/CV_32F/CV_64F
-        src.depth() = CV_64F, ddepth = -1/CV_64F
-    当ddepth输入值为-1时，目标图像和原图像深度保持一致。
-    InputArray kernel:卷积核（或者是相关核）,一个单通道浮点型矩阵。如果想在图像不同的通道使用不同的kernel，可以先使用split()函数将图像通道事先分开。
-    Point anchor: 内核的基准点(anchor)，其默认值为(-1,-1)说明位于kernel的中心位置。基准点即kernel中与进行处理的像素点重合的点。
-    double delta: 在储存目标图像前可选的添加到像素的值，默认值为0
-    int borderType: 像素向外逼近的方法，默认值是BORDER_DEFAULT,即对全部边界进行计算。
+        <h3 id="Keras在房价预测有编写k折交叉验证的函数"><a href="#Keras在房价预测有编写k折交叉验证的函数" class="headerlink" title="Keras在房价预测有编写k折交叉验证的函数"></a>Keras在房价预测有编写k折交叉验证的函数</h3><p>for循环k次，每次划分训练和验证集并加以操作</p>
+<h3 id="Sklearn有专门函数实现交叉验证"><a href="#Sklearn有专门函数实现交叉验证" class="headerlink" title="Sklearn有专门函数实现交叉验证"></a>Sklearn有专门函数实现交叉验证</h3><pre>
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(tree_reg, housing_prepared, housing_labels,
+                        scoring="neg_mean_squared_error", cv=10)
+tree_rmse_scores = np.sqrt(-scores)
+
+def display_score(scores):
+    print("Scores:", scores)
+    print("Mean:", scores.mean())
+    print("Standard deviation:", scores.std())
+
+display_score(tree_rmse_scores)
+pd.Series(np.sqrt(-scores)).describe()
 </pre>
-该函数使用于任意线性滤波器的图像，支持就地操作。当其中心移动到图像外，函数可以根据指定的边界模式进行插值运算。函数实质上是计算kernel与图像的相关性而不是卷积
-![Filter2D](http://img.blog.csdn.net/20131110140727656)
-也就是说kernel并不是中心点的镜像，如果需要一个正真的卷积，使用函数flip()并将中心点设置为(kernel.cols - anchor.x - 1, kernel.rows - anchor.y -1). 
-该函数在大核(11x11或更大)的情况下使用基于DFT的算法，而在小核情况下使用直接算法(使用createLinearFilter()检索得到). 
-
-### prewwit算子
-加入均值处理，对噪声有一定抑制作用
-算法实现如下：
+eg: 
 <pre>
-Kernelx = (Mat_<double>(3, 3) << 1, 1, 1, 0, 0, 0, -1, -1, -1);
-Kernely = (Mat_<double>(3, 3) << -1, 0, 1, -1, 0, 1, -1, 0, 1);
-filter2D(gray, grad_x, CV_16S, Kernelx, Point(-1, -1));
-filter2D(gray, grad_y, CV_16S, Kernely, Point(-1, -1));
-convertScaleAbs(grad_x, abs_grad_x);
-convertScaleAbs(grad_y, abs_grad_y);
-addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
+scores = cross_val_score(lin_reg, housing_prepared, housing_labels, scoring="neg_mean_squared_error", cv=10)
+pd.Series(np.sqrt(-scores)).describe()
 
-</double></double></pre>
-
+count       10.000000
+mean     69051.635544
+std       2880.193332
+min      64969.630564
+25%      67136.363758
+50%      68149.396085
+75%      70985.098467
+max      74742.024207
+dtype: float64
+</pre>
       
     </div>
     
@@ -371,8 +387,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/" rel="next" title="Opencv边缘检测：Laplacian函数和scharr滤波器">
-                <i class="fa fa-chevron-left"></i> Opencv边缘检测：Laplacian函数和scharr滤波器
+              <a href="/2018/09/15/Scikit-learn2-0上手/" rel="next" title="Scikit-learn2.0上手">
+                <i class="fa fa-chevron-left"></i> Scikit-learn2.0上手
               </a>
             
           </div>
@@ -381,8 +397,8 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/26/线性领域滤波/" rel="prev" title="邻域算子和线性滤波函数">
-                邻域算子和线性滤波函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/16/微调模型，分析与测试/" rel="prev" title="微调模型，分析与测试">
+                微调模型，分析与测试 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -506,7 +522,7 @@ addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, grad);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Filter2D函数："><span class="nav-number">1.</span> <span class="nav-text">Filter2D函数：</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Keras在房价预测有编写k折交叉验证的函数"><span class="nav-number">1.</span> <span class="nav-text">Keras在房价预测有编写k折交叉验证的函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sklearn有专门函数实现交叉验证"><span class="nav-number">2.</span> <span class="nav-text">Sklearn有专门函数实现交叉验证</span></a></li></ol></div>
             
 
           </div>

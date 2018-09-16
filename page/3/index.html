@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/Mat处理第二弹/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" itemprop="url">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h1>
+                <a class="post-title-link" href="/2018/09/01/Mat处理第二弹/" itemprop="url">Mat处理第二弹</a></h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:53:27+08:00">
-                2018-04-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T21:06:59+08:00">
+                2018-09-01
               </time>
             
 
@@ -282,6 +282,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据处理与分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理与分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -312,17 +334,321 @@
       
         
           
-          
-#include "opencv2/highgui/highgui.hpp"  
-#include "opencv2/core/core.hpp"  
-#include "opencv2/imgproc/imgproc.hpp"  
+          代码功能: 读取高光谱mat文件，按照领域窗口进行分割,制作数据集和标签集
+Ps:是分割······
 
-using namespace cv;
-using names
+import numpy as npimport scipy.io as scioimport matplotlib.pyplot as pltimport mathfrom sklearn.cr
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/#more" rel="contents">
+            <a class="btn" href="/2018/09/01/Mat处理第二弹/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/正则化，学习率指数衰减和滑动均值模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/" itemprop="url">正则化，学习率指数衰减和滑动均值模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T00:32:55+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          序浏览学长博客有感，稍微记一点：1.正则化损失函数L22.学习率的指数衰减3.滑动平均模型ps：看到类似的博客也不错
+
+
+正则化损失函数L2概念简述：由于数据存在很多干扰或者噪声，容易产生过拟合现象。在相同网络结构下，决策面越复杂，参数w的值往往更大，而w较小时候，得到的决策面相对平缓。L2正则化是
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/01/正则化，学习率指数衰减和滑动均值模型/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/01/处理mat数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/01/处理mat数据/" itemprop="url">处理mat数据</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-01T00:31:01+08:00">
+                2018-09-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据处理与分析/" itemprop="url" rel="index">
+                    <span itemprop="name">数据处理与分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          解析原mat的索引，分割训练和测试制作新mat
+
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jul  1 15:55:32 2018
+
+
+HSGAN dataset:
+Semisupervised Hyperspectral Image Classific
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/01/处理mat数据/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -458,6 +784,138 @@ static void on_im
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2018/04/08/颜色识别，开闭/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/" itemprop="url">Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-08T14:53:27+08:00">
+                2018-04-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+#include "opencv2/highgui/highgui.hpp"  
+#include "opencv2/core/core.hpp"  
+#include "opencv2/imgproc/imgproc.hpp"  
+
+using namespace cv;
+using names
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/08/ Opencv均值漂移pyrMeanShiftFiltering彩色图像分割流程剖析/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -786,139 +1244,6 @@ int main()
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/第二周作业/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="花郎世纪">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cooper111's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/28/第二周作业/" itemprop="url">第二周作业</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
-                2018-03-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          矿堆识别（绿）思路
-1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······
-
-
-2.如何做–&gt;&gt;HSV，颜色检测
-
-
-3.优化–&gt;&gt
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/28/第二周作业/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/opencv颜色空间转换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1054,7 +1379,7 @@ int main()
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Canny算子/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/第二周作业/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -1073,7 +1398,7 @@ int main()
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/OpenCV边缘检测：Canny算子/" itemprop="url">OpenCV边缘检测：Canny算子</a></h1>
+                <a class="post-title-link" href="/2018/03/28/第二周作业/" itemprop="url">第二周作业</a></h1>
         
 
         <div class="post-meta">
@@ -1085,8 +1410,8 @@ int main()
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
               </time>
             
 
@@ -1125,17 +1450,18 @@ int main()
       
         
           
-          边缘检测的一般步骤1.滤波2.增强3.检测现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充
-Canny 算子大致步骤如同老师讲时记得笔记：
-二维高斯函数平滑图像
-计算结果梯度
-使用梯度幅度来估计每一点边缘强度
-非极大值抑制和细化边缘
-阈值处理，去掉伪边缘一、最简单的canny
+          矿堆识别（绿）思路
+1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······
+
+
+2.如何做–&gt;&gt;HSV，颜色检测
+
+
+3.优化–&gt;&gt
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/OpenCV边缘检测：Canny算子/#more" rel="contents">
+            <a class="btn" href="/2018/03/28/第二周作业/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1186,7 +1512,7 @@ Canny 算子大致步骤如同老师讲时记得笔记：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/分离颜色通道&多通道图像混合/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/学习进度/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -1205,7 +1531,7 @@ Canny 算子大致步骤如同老师讲时记得笔记：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/分离颜色通道&多通道图像混合/" itemprop="url">OpenCV分离颜色通道&多通道图像混合</a></h1>
+                <a class="post-title-link" href="/2018/03/26/学习进度/" itemprop="url">学习进度</a></h1>
         
 
         <div class="post-meta">
@@ -1257,289 +1583,18 @@ Canny 算子大致步骤如同老师讲时记得笔记：
       
         
           
-          分离颜色通道&amp;多通道图像混合
+          3.249:00，第一次参加挑战杯会议，基本没听懂下午开始配置vs和opencv，半夜成功，并且学到博客第三节
+3.25上午搭建了博客
 
-Split函数
+“https://cooper111.github.io/”；
 
-C++: void split(const Mat& src, Mat*mvbegin);  
-C++: void split(InputArray m,OutputArrayOfArrays mv); 
-第一个参数，InputArray类型
+接下午，学到博客第六章，撰写了2个md笔记；Mat通道的理解：
+
+https://blog.cs
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/分离颜色通道&多通道图像混合/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/线性领域滤波/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="花郎世纪">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cooper111's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/26/线性领域滤波/" itemprop="url">邻域算子和线性滤波函数</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······
-
-方框滤波——boxblur函数
-均值滤波——blur函数
-高斯滤波——GaussianBlur函数
-
-函数的原理和源代码分析见：
-
-https://blog.csdn.net/poem_qianmo/article/deta
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/线性领域滤波/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/常用语法笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="花郎世纪">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cooper111's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/26/常用语法笔记/" itemprop="url">OpenCV常用语法笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          imread()第二个参数
-
-
-0:返回3通道=0:返回灰度图&lt;0:返回原图
-
-
-Mat 的API：
-
-( Mat image; )Mat new_image;new_image =  image.clone()
-
-向下采样：
-
-Mat dstImage;pyrDown(srcImage, d
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/常用语法笔记/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/学习进度/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1627,7 +1682,7 @@ Mat dstImage;pyrDown(srcImage, d
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

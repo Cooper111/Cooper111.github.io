@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签 回归问题   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike">
 <meta property="og:type" content="article">
 <meta property="og:title" content="KNN">
 <meta property="og:url" content="https://cooper111.github.io/2018/09/03/KNN/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta property="og:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签 回归问题   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-04T13:03:29.779Z">
+<meta property="og:updated_time" content="2018-09-16T12:48:26.559Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KNN">
-<meta name="twitter:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike    二进">
+<meta name="twitter:description" content="KNN 缺点:每次计算得遍历所有样本   注:以下导入,处理是对trainmat,但testmat同理  数据格式 特征值-标签 回归问题   40920   8.326976    0.953952    largeDoses 14488   7.153469    1.673904    smallDoses 26052   1.441871    0.805124    didntLike">
 
 
 
@@ -341,15 +341,72 @@
 </blockquote>
 <h3 id="数据格式"><a href="#数据格式" class="headerlink" title="数据格式"></a>数据格式</h3><ul>
 <li>特征值-标签</li>
+<li>回归问题</li>
 </ul>
 <pre>
 40920   8.326976    0.953952    largeDoses
 14488   7.153469    1.673904    smallDoses
 26052   1.441871    0.805124    didntLike
 </pre>
+>x [n, 3]
 
-<ul>
-<li>二进制图片<blockquote>
+>y [n,]
+
+#### 算法
+<pre>
+model = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
+X = np.c_[country_stats["GDP per capita"]]
+y = np.c_[country_stats["Life satisfaction"]]
+
+# Train the model
+model.fit(X, y)
+
+# Make a prediction for Cyprus
+X_new = np.array([[22587.0]])  # Cyprus' GDP per capita
+print(model.predict(X_new)) 
+# outputs [[ 5.76666667]]
+# =======================用同一集训练和验证，差==============================
+</pre>
+- 还有数据格式(20640, 16)，label（20640，）的
+
+### 评估
+<pre>
+#使用mean_squared_error,测量整个训练集上的RMSE
+from sklearn.metrics import mean_squared_error
+
+housing_predictions = lin_reg.predict(housing_prepared)
+lin_mse = mean_squared_error(housing_labels, housing_predictions)
+lin_rmse = np.sqrt(lin_mse)
+lin_rmse
+
+#使用mean_absolute_error,测量整个训练集上的MAE
+from sklearn.metrics import mean_absolute_error
+
+lin_mae = mean_absolute_error(housing_labels, housing_predictions)
+lin_mae
+</pre>
+### 评估 (二)
+<pre>
+from sklearn.model_selection import cross_val_score
+
+scores = cross_val_score(tree_reg, housing_prepared, housing_labels,
+                        scoring="neg_mean_squared_error", cv=10)
+tree_rmse_scores = np.sqrt(-scores)
+
+def display_score(scores):
+    print("Scores:", scores)
+    print("Mean:", scores.mean())
+    print("Standard deviation:", scores.std())
+
+display_score(tree_rmse_scores)
+</pre>
+
+
+<h3 id="数据格式-1"><a href="#数据格式-1" class="headerlink" title="数据格式"></a>数据格式</h3><ul>
+<li>二进制图像</li>
+<li>分类问题</li>
+</ul>
+<blockquote>
 <p>eg:手写数字识别</p>
 </blockquote>
 <pre>
@@ -386,102 +443,10 @@
 00000000000111111111000000000000
 00000000000011111100000000000000
 </pre>
+> x [n, 32*32]
+> y [n,]
 
-</li>
-</ul>
-<h3 id="数据导入"><a href="#数据导入" class="headerlink" title="数据导入"></a>数据导入</h3><ul>
-<li><p>特征值-标签</p>
-<pre>
-def file2matrix(filename):
-  fr = open(filename)
-  numberOfLines = len(fr.readlines())         #get the number of lines in the file
-  returnMat = zeros((numberOfLines,3))        #prepare matrix to return
-  classLabelVector = []                       #prepare labels return   
-  fr = open(filename)
-  index = 0
-  for line in fr.readlines():
-      line = line.strip()
-      listFromLine = line.split('\t')
-      returnMat[index,:] = listFromLine[0:3]
-      classLabelVector.append(int(listFromLine[-1]))
-      index += 1
-  return returnMat,classLabelVector
-</pre>
-</li>
-<li><p>二进制图像</p>
-<pre>
-trainingFileList = listdir('trainingDigits')           #load the training set
-  m = len(trainingFileList)
-  trainingMat = zeros((m,1024))
-  for i in range(m):
-      fileNameStr = trainingFileList[i]
-      fileStr = fileNameStr.split('.')[0]     #take off .txt
-      classNumStr = int(fileStr.split('_')[0])
-      hwLabels.append(classNumStr)
-      trainingMat[i,:] = img2vector('trainingDigits/%s' % fileNameStr)
-      #img2vector使图片成向量,见处理
-</pre>
-
-
-
-</li>
-</ul>
-<h3 id="数据处理"><a href="#数据处理" class="headerlink" title="数据处理"></a>数据处理</h3><ul>
-<li>解析“特征值-标签”类的文本数据</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def autoNorm(dataSet):
-    minVals = dataSet.min(0)
-    maxVals = dataSet.max(0)
-    ranges = maxVals - minVals
-    normDataSet = zeros(shape(dataSet))
-    m = dataSet.shape[0]
-    normDataSet = dataSet - tile(minVals, (m,1))
-    normDataSet = normDataSet/tile(ranges, (m,1))   #element wise divide
-    return normDataSet, ranges, minVals
-
-</pre>
-
-<ul>
-<li>解析二进制图像<blockquote>
-<p>示例为读取32*32的转为1*1024</p>
-</blockquote>
-</li>
-</ul>
-<pre>#参见导入，如果数据没有归一化，则导入后调用归一化函数
-def img2vector(filename):
-    returnVect = zeros((1,1024))
-    fr = open(filename)
-    for i in range(32):
-        lineStr = fr.readline()
-        for j in range(32):
-            returnVect[0,32*i+j] = int(lineStr[j])
-    return returnVect
-</pre>
-
-<h3 id="核心算法"><a href="#核心算法" class="headerlink" title="核心算法"></a>核心算法</h3><blockquote>
-<p>直接计算平方和的根(RMSE)对应欧几里得范数，很好懂</p>
-<ul>
-<li>python</li>
-</ul>
-</blockquote>
-<pre>
-def classify0(inX, dataSet, labels, k):
-    dataSetSize = dataSet.shape[0]
-    diffMat = tile(inX, (dataSetSize,1)) - dataSet
-    sqDiffMat = diffMat**2
-    sqDistances = sqDiffMat.sum(axis=1)
-    distances = sqDistances**0.5
-    sortedDistIndicies = distances.argsort()     
-    classCount={}          
-    for i in range(k):
-        voteIlabel = labels[sortedDistIndicies[i]]
-        classCount[voteIlabel] = classCount.get(voteIlabel,0) + 1
-    sortedClassCount = sorted(classCount.iteritems(), key=operator.itemgetter(1), reverse=True)
-    return sortedClassCount[0][0]
-
-</pre>
-- sklearn
+#### 算法
 <pre>
 #knn
 from sklearn.neighbors import KNeighborsClassifier
@@ -509,6 +474,8 @@ print("Time used:",int(elapsed), "s")
 #k=9
 #0.933897851978
 </pre>
+
+
 <pre>#最后用全量数据训练，提交kaggle。代码模版
 clf=knn_clf
 
@@ -525,60 +492,6 @@ df_result.to_csv('./results.knn.csv', index=False)
 #end time
 elapsed = (time.clock() - start)
 print("Test Time used:",int(elapsed/60) , "min")
-</pre>
-# 回归
-- sklearn
-### 数据导入
-
-<pre>
-# Code example
-import matplotlib
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import sklearn.linear_model
-
-# Load the data
-oecd_bli = pd.read_csv(datapath + "oecd_bli_2015.csv", thousands=',')
-gdp_per_capita = pd.read_csv(datapath + "gdp_per_capita.csv",thousands=',',delimiter='\t',
-                             encoding='latin1', na_values="n/a")
-
-def prepare_country_stats(oecd_bli, gdp_per_capita):
-    oecd_bli = oecd_bli[oecd_bli["INEQUALITY"]=="TOT"]
-    oecd_bli = oecd_bli.pivot(index="Country", columns="Indicator", values="Value")
-    gdp_per_capita.rename(columns={"2015": "GDP per capita"}, inplace=True)
-    gdp_per_capita.set_index("Country", inplace=True)
-    full_country_stats = pd.merge(left=oecd_bli, right=gdp_per_capita,
-                                  left_index=True, right_index=True)
-    full_country_stats.sort_values(by="GDP per capita", inplace=True)
-    remove_indices = [0, 1, 6, 8, 33, 34, 35]
-    keep_indices = list(set(range(36)) - set(remove_indices))
-    return full_country_stats[["GDP per capita", 'Life satisfaction']].iloc[keep_indices]
-
-# Prepare the data
-country_stats = prepare_country_stats(oecd_bli, gdp_per_capita)
-X = np.c_[country_stats["GDP per capita"]]
-y = np.c_[country_stats["Life satisfaction"]]
-# np.c从列上合并数据，numpy的列表是个列向量
-</pre>
-
-<h3 id="数据处理-1"><a href="#数据处理-1" class="headerlink" title="数据处理"></a>数据处理</h3><pre>
-# Visualize the data
-country_stats.plot(kind='scatter', x="GDP per capita", y='Life satisfaction')
-plt.show()
-</pre>
-### 核心算法
-<pre>
-# Select a linear model
-# model = sklearn.linear_model.LinearRegression()
-model = sklearn.neighbors.KNeighborsRegressor(n_neighbors=3)
-
-# Train the model
-model.fit(X, y)
-
-# Make a prediction for Cyprus
-X_new = [[22587]]  # Cyprus' GDP per capita
-print(model.predict(X_new)) # outputs [[ 5.96242338]]
 </pre>
       
     </div>
@@ -692,7 +605,7 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -738,7 +651,7 @@ print(model.predict(X_new)) # outputs [[ 5.96242338]]
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KNN"><span class="nav-number">1.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据导入"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据导入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理"><span class="nav-number">1.0.3.</span> <span class="nav-text">数据处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#核心算法"><span class="nav-number">1.0.4.</span> <span class="nav-text">核心算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据处理-1"><span class="nav-number">1.0.5.</span> <span class="nav-text">数据处理</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#KNN"><span class="nav-number">1.</span> <span class="nav-text">KNN</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据格式-1"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据格式</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
