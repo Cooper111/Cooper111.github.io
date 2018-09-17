@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
 <meta property="og:description" content="文本首先要转为向量 one-hot 词嵌入  转one-hot Tokenizer将单词fit进去，得出单词对应一一索引，zeros矩阵遍历赋值【samples，words，one-hot】 取word的Hash来作为索引，非显性（注意上限）  词嵌入 Ebedding层学习词嵌入 学习单词之间的关系，使向量距离，方向，几何变换都有其意义 构造方式Embedding（标记的个数，嵌入的维度dims">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-17T14:19:21.805Z">
+<meta property="og:updated_time" content="2018-09-17T14:24:54.732Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="文本和序列Embedding-词嵌入-提要">
 <meta name="twitter:description" content="文本首先要转为向量 one-hot 词嵌入  转one-hot Tokenizer将单词fit进去，得出单词对应一一索引，zeros矩阵遍历赋值【samples，words，one-hot】 取word的Hash来作为索引，非显性（注意上限）  词嵌入 Ebedding层学习词嵌入 学习单词之间的关系，使向量距离，方向，几何变换都有其意义 构造方式Embedding（标记的个数，嵌入的维度dims">
@@ -380,6 +380,7 @@
 
 </li>
 </ul>
+<h4 id="项目代码"><a href="#项目代码" class="headerlink" title="项目代码"></a>项目代码</h4><p><a href="https://github.com/Cooper111/Keras_And_Scikt-learn_Practice/blob/master/using%20word-embedding.ipynb" target="_blank" rel="noopener">点击这里</a></p>
 
       
     </div>
@@ -535,7 +536,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文本首先要转为向量"><span class="nav-number">1.</span> <span class="nav-text">文本首先要转为向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转one-hot"><span class="nav-number">2.</span> <span class="nav-text">转one-hot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词嵌入"><span class="nav-number">3.</span> <span class="nav-text">词嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取原始文本使用预训练词嵌入流程"><span class="nav-number">4.</span> <span class="nav-text">读取原始文本使用预训练词嵌入流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据制作"><span class="nav-number">4.1.</span> <span class="nav-text">数据制作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备Glove词嵌入"><span class="nav-number">4.2.</span> <span class="nav-text">准备Glove词嵌入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建模型"><span class="nav-number">4.3.</span> <span class="nav-text">构建模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估"><span class="nav-number">4.4.</span> <span class="nav-text">评估</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文本首先要转为向量"><span class="nav-number">1.</span> <span class="nav-text">文本首先要转为向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转one-hot"><span class="nav-number">2.</span> <span class="nav-text">转one-hot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词嵌入"><span class="nav-number">3.</span> <span class="nav-text">词嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取原始文本使用预训练词嵌入流程"><span class="nav-number">4.</span> <span class="nav-text">读取原始文本使用预训练词嵌入流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据制作"><span class="nav-number">4.1.</span> <span class="nav-text">数据制作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备Glove词嵌入"><span class="nav-number">4.2.</span> <span class="nav-text">准备Glove词嵌入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建模型"><span class="nav-number">4.3.</span> <span class="nav-text">构建模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估"><span class="nav-number">4.4.</span> <span class="nav-text">评估</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目代码"><span class="nav-number">4.5.</span> <span class="nav-text">项目代码</span></a></li></ol></li></ol></div>
             
 
           </div>
