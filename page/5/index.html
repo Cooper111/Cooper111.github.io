@@ -79,17 +79,13 @@
 
 
 
-<meta name="description" content="思路： 因为图像近于水平，所以采用sobel或者canny效果好一些； 车辙--sobel--滤波（不高斯）--   载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和  附上代码： #include   #include    #include   #include  using namespace cv; using namespace std;  int m">
-<meta property="og:type" content="article">
-<meta property="og:title" content="邻域算子和线性滤波函数">
-<meta property="og:url" content="https://cooper111.github.io/2018/04/01/第一周作业/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Cooper111&#39;s Blog">
+<meta property="og:url" content="https://cooper111.github.io/page/5/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="思路： 因为图像近于水平，所以采用sobel或者canny效果好一些； 车辙--sobel--滤波（不高斯）--   载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和  附上代码： #include   #include    #include   #include  using namespace cv; using namespace std;  int m">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T14:11:22.057Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邻域算子和线性滤波函数">
-<meta name="twitter:description" content="思路： 因为图像近于水平，所以采用sobel或者canny效果好一些； 车辙--sobel--滤波（不高斯）--   载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和  附上代码： #include   #include    #include   #include  using namespace cv; using namespace std;  int m">
+<meta name="twitter:title" content="Cooper111&#39;s Blog">
 
 
 
@@ -119,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/04/01/第一周作业/"/>
+  <link rel="canonical" href="https://cooper111.github.io/page/5/"/>
 
 
 
 
 
-  <title>邻域算子和线性滤波函数 | Cooper111's Blog</title>
+  <title>Cooper111's Blog</title>
   
 
 
@@ -144,7 +140,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 	
 	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -229,9 +226,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -244,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/01/第一周作业/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/25/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +258,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">邻域算子和线性滤波函数</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/25/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -273,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T14:53:27+08:00">
-                2018-04-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-25T10:57:33+08:00">
+                2018-03-25
               </time>
             
 
@@ -311,172 +310,18 @@
       
 
       
-        <h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><blockquote>
-<pre><code>因为图像近于水平，所以采用sobel或者canny效果好一些；
-车辙--sobel--滤波（不高斯）--
-</code></pre></blockquote>
-<blockquote>
-<pre><code>载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
-</code></pre></blockquote>
-<h4 id="附上代码："><a href="#附上代码：" class="headerlink" title="附上代码："></a>附上代码：</h4><pre>
-#include<iostream>  
-#include <opencv2 opencv.hpp="">  
-#include<opencv2 highgui="" highgui.hpp="">  
-#include<opencv2 imgproc="" imgproc.hpp="">
-
-using namespace cv;
-using namespace std;
-
-int main()
-{
-    //载入原始图    
-    Mat image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  //工程目录下应该有一张名为1.jpg的素材图  
-    Mat img_gray = image_gray_row.clone();
-
-    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6),0,0,INTER_LINEAR);
-    imshow("【原图】", img_gray);
-
-    blur(img_gray, img_gray, Size(3, 3));
-    imshow("滤波", img_gray);
-    imwrite("滤波.jpg",img_gray);
-
-    Mat img_sobelX;
-    Mat abs_img_sobelX;
-    Sobel(img_gray, img_sobelX,CV_16S,1,0,3,1,1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelX, abs_img_sobelX);
-    imshow("【效果图】 X方向Sobel", abs_img_sobelX);
-    imwrite("【效果图】 X方向Sobel.jpg",abs_img_sobelX);
-
-    Mat img_sobelY;
-    Mat abs_img_sobelY;
-    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelY, abs_img_sobelY);
-    imshow("【效果图】 Y方向Sobel", abs_img_sobelY);
-    imwrite("【效果图】 Y方向Sobel.jpg", abs_img_sobelY);
-
-    Mat dst;
-    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
-    imshow("【效果图】整体方向Sobel", dst);
-    imwrite("【效果图】整体方向Sobel.jpg",dst);
-
-    Mat dst_up;
-    Mat dst_upX;
-    Mat dst_upY;
-    dst_up.create(dst.size(), dst.type());
-    dst_upX.create(dst.size(), dst.type());
-    dst_upY.create(dst.size(), dst.type());
-
-//    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
-//    imshow("检测垂直阈值分割", dst_upY);
-
-//    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
-//    imshow("检测水平阈值分割", dst_upX);
-
-    threshold(dst, dst_up, 84, 255, THRESH_BINARY);
-    imshow("整体二值化",dst_up);
-    imwrite("整体二值化.jpg", dst_up);
-
-
-    waitKey(0);
-    return 0;
-}
-
-</opencv2></opencv2></opencv2></iostream></pre>
-
-<p>提示：注意全局变量！！！！ Mat 和 参数都得是全局变量！main里面不要重申！<br>附上带trackbar的代码：</p>
-<pre>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include<iostream>  
-#include <opencv2 opencv.hpp="">  
-#include<opencv2 highgui="" highgui.hpp="">  
-#include<opencv2 imgproc="" imgproc.hpp="">  
-
-
-
-using namespace cv;
-using namespace std;
-
-int threshold_value = 30;
-
-Mat image_gray_row, img_gray, img_sobelX, abs_img_sobelX, img_sobelY, abs_img_sobelY, dst, dst_up, dst_upX, dst_upY;
-
-/// 自定义函数声明
-static void Threshold_Demo(int, void*);
-
-
-int main()
-{
-    //载入原始图    
-    image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  
-    img_gray = image_gray_row.clone();
-
-    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6), 0, 0, INTER_LINEAR);
-
-
-    blur(img_gray, img_gray, Size(3, 3));
-
-
-
-
-
-    Sobel(img_gray, img_sobelX, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelX, abs_img_sobelX);
-
-
-
-
-    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelY, abs_img_sobelY);
-
-
-    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
-
-
-
-    dst_up.create(dst.size(), dst.type());
-    dst_upX.create(dst.size(), dst.type());
-    dst_upY.create(dst.size(), dst.type());
-
-    //    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
-    //    imshow("检测垂直阈值分割", dst_upY);
-
-    //    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
-    //    imshow("检测水平阈值分割", dst_upX);
-
-
-
-    namedWindow("Demo", CV_WINDOW_AUTOSIZE);
-    //创建滑动条来控制阈值
-    createTrackbar("Threshold",
-        "Demo", &threshold_value,
-        255, Threshold_Demo);
-
-    Threshold_Demo(0, 0);//结果在回调函数中显示
-
-
-    waitKey(0);
-    return 0;
-}
-
-void Threshold_Demo(int, void*)
-{
-
-    threshold(dst, dst_up, threshold_value, 255, THRESH_BINARY);
-
-    imshow("Demo", dst_up);
-}
-</opencv2></opencv2></opencv2></iostream></stdio.h></stdlib.h></pre>
-
-<p><strong>待改进：</strong><br><br><br>霍夫变换–找线<br>路–k只有一个，路正交—-拉普拉斯强化边缘，二值化</p>
-<p>管道（拉普拉斯锐化/膨胀和腐蚀，二值化，分离，零交叉）</p>
-<p>–以下为闭环区域</p>
-<p>颜色特征识别（煤堆）—闭环后中间杂质（）可忽略，已闭环<br>RGB，UIV，LAD，色态聚类（不固定集群，需要贪婪，簇的合并问题-中心点相近放一块-！-！-同一簇的分离(根据像素的距离再聚类)，sobel算子迭代，识别出边缘轮廓后拼接填洞</p>
-<p>膨胀和腐蚀</p>
-<p>检测纹理复杂程度–判断煤堆</p>
-<p>路灯（路灯两侧相对比较高–波峰波谷）</p>
-
+        
+          
+          Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/25/hello-world/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
       
     </div>
     
@@ -493,32 +338,12 @@ void Threshold_Demo(int, void*)
       
 
       
-      
+
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/03/28/opencv颜色空间转换/" rel="next" title="邻域算子和线性滤波函数">
-                <i class="fa fa-chevron-left"></i> 邻域算子和线性滤波函数
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/08/颜色识别，开闭/" rel="prev" title="Opencv颜色识别,开闭">
-                Opencv颜色识别,开闭 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
       
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -528,11 +353,14 @@ void Threshold_Demo(int, void*)
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+  </nav>
+
 
 
           </div>
@@ -540,10 +368,6 @@ void Threshold_Demo(int, void*)
 
 
           
-
-  
-
-
 
         </div>
         
@@ -564,17 +388,8 @@ void Threshold_Demo(int, void*)
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -625,22 +440,6 @@ void Threshold_Demo(int, void*)
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-number">1.</span> <span class="nav-text">思路：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#附上代码："><span class="nav-number">1.1.</span> <span class="nav-text">附上代码：</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -794,10 +593,6 @@ void Threshold_Demo(int, void*)
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 

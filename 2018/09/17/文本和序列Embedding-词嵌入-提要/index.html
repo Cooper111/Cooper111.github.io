@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="思路： 因为图像近于水平，所以采用sobel或者canny效果好一些； 车辙--sobel--滤波（不高斯）--   载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和  附上代码： #include   #include    #include   #include  using namespace cv; using namespace std;  int m">
+<meta name="description" content="文本首先要转为向量 one-hot 词嵌入  转one-hot Tokenizer将单词fit进去，得出单词对应一一索引，zeros矩阵遍历赋值【samples，words，one-hot】 取word的Hash来作为索引，非显性（注意上限）  词嵌入 Ebedding层学习词嵌入 学习单词之间的关系，使向量距离，方向，几何变换都有其意义 构造方式Embedding（标记的个数，嵌入的维度dims">
 <meta property="og:type" content="article">
-<meta property="og:title" content="邻域算子和线性滤波函数">
-<meta property="og:url" content="https://cooper111.github.io/2018/04/01/第一周作业/index.html">
+<meta property="og:title" content="文本和序列Embedding-词嵌入-提要">
+<meta property="og:url" content="https://cooper111.github.io/2018/09/17/文本和序列Embedding-词嵌入-提要/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="思路： 因为图像近于水平，所以采用sobel或者canny效果好一些； 车辙--sobel--滤波（不高斯）--   载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和  附上代码： #include   #include    #include   #include  using namespace cv; using namespace std;  int m">
+<meta property="og:description" content="文本首先要转为向量 one-hot 词嵌入  转one-hot Tokenizer将单词fit进去，得出单词对应一一索引，zeros矩阵遍历赋值【samples，words，one-hot】 取word的Hash来作为索引，非显性（注意上限）  词嵌入 Ebedding层学习词嵌入 学习单词之间的关系，使向量距离，方向，几何变换都有其意义 构造方式Embedding（标记的个数，嵌入的维度dims">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T14:11:22.057Z">
+<meta property="og:updated_time" content="2018-09-17T14:19:21.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="邻域算子和线性滤波函数">
-<meta name="twitter:description" content="思路： 因为图像近于水平，所以采用sobel或者canny效果好一些； 车辙--sobel--滤波（不高斯）--   载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和  附上代码： #include   #include    #include   #include  using namespace cv; using namespace std;  int m">
+<meta name="twitter:title" content="文本和序列Embedding-词嵌入-提要">
+<meta name="twitter:description" content="文本首先要转为向量 one-hot 词嵌入  转one-hot Tokenizer将单词fit进去，得出单词对应一一索引，zeros矩阵遍历赋值【samples，words，one-hot】 取word的Hash来作为索引，非显性（注意上限）  词嵌入 Ebedding层学习词嵌入 学习单词之间的关系，使向量距离，方向，几何变换都有其意义 构造方式Embedding（标记的个数，嵌入的维度dims">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/04/01/第一周作业/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/09/17/文本和序列Embedding-词嵌入-提要/"/>
 
 
 
 
 
-  <title>邻域算子和线性滤波函数 | Cooper111's Blog</title>
+  <title>文本和序列Embedding-词嵌入-提要 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/04/01/第一周作业/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/17/文本和序列Embedding-词嵌入-提要/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">邻域算子和线性滤波函数</h1>
+          <h1 class="post-title" itemprop="name headline">文本和序列Embedding-词嵌入-提要</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T14:53:27+08:00">
-                2018-04-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-17T22:18:13+08:00">
+                2018-09-17
               </time>
             
 
@@ -283,6 +283,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -311,171 +333,53 @@
       
 
       
-        <h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><blockquote>
-<pre><code>因为图像近于水平，所以采用sobel或者canny效果好一些；
-车辙--sobel--滤波（不高斯）--
-</code></pre></blockquote>
-<blockquote>
-<pre><code>载入灰度图，先滤波，然后x，y方向梯度计算，分别水平/垂直阈值分割二值化，然后加权和
-</code></pre></blockquote>
-<h4 id="附上代码："><a href="#附上代码：" class="headerlink" title="附上代码："></a>附上代码：</h4><pre>
-#include<iostream>  
-#include <opencv2 opencv.hpp="">  
-#include<opencv2 highgui="" highgui.hpp="">  
-#include<opencv2 imgproc="" imgproc.hpp="">
+        <h3 id="文本首先要转为向量"><a href="#文本首先要转为向量" class="headerlink" title="文本首先要转为向量"></a>文本首先要转为向量</h3><ul>
+<li>one-hot</li>
+<li>词嵌入</li>
+</ul>
+<h3 id="转one-hot"><a href="#转one-hot" class="headerlink" title="转one-hot"></a>转one-hot</h3><ul>
+<li>Tokenizer将单词fit进去，得出单词对应一一索引，zeros矩阵遍历赋值【samples，words，one-hot】</li>
+<li>取word的Hash来作为索引，非显性（注意上限）</li>
+</ul>
+<h3 id="词嵌入"><a href="#词嵌入" class="headerlink" title="词嵌入"></a>词嵌入</h3><ul>
+<li>Ebedding层学习词嵌入<pre>
+学习单词之间的关系，使向量距离，方向，几何变换都有其意义
+构造方式Embedding（标记的个数，嵌入的维度dims）
+层输入【samples， maxlen】
+层输出【samples， maxlen， dims】
+之后会被Flatten（）拉平成【samples，maxlen*dims】
+</pre>
 
-using namespace cv;
-using namespace std;
+</li>
+</ul>
+<h3 id="读取原始文本使用预训练词嵌入流程"><a href="#读取原始文本使用预训练词嵌入流程" class="headerlink" title="读取原始文本使用预训练词嵌入流程"></a>读取原始文本使用预训练词嵌入流程</h3><h4 id="数据制作"><a href="#数据制作" class="headerlink" title="数据制作"></a>数据制作</h4><ul>
+<li>读取文本，文本内容添加进texts，标签添加进labels</li>
+<li>使用Tokenizer，指定词汇容量，fit导入texts</li>
+<li>texts_to_sequences方法，原始数据texts字符串转化为整数索引的列表</li>
+<li>pad_sequences使其规定长度，适应于张量</li>
+<li>labels使用asarray方法转成numpy矩阵<br>-对数据进行打乱，分割训练，验证集</li>
+</ul>
+<h4 id="准备Glove词嵌入"><a href="#准备Glove词嵌入" class="headerlink" title="准备Glove词嵌入"></a>准备Glove词嵌入</h4><ul>
+<li>导入glove文本，获得单词，和单词对应的向量，制成字典</li>
+<li>制作层权重矩阵：【max_words单词，embedding_dims单词对应的维度向量】，遍历训练集的（单词-》数值）元祖，获得每个单词的向量，制成（数值-》词向量）的权重矩阵</li>
+<li>得（数值-&gt;向量）的权重矩阵</li>
+</ul>
+<h4 id="构建模型"><a href="#构建模型" class="headerlink" title="构建模型"></a>构建模型</h4><ul>
+<li>Embedding层，Flatten层，Dense层，sigmoid层</li>
+<li>model.layers[0].set_weights([embedding_matrix])改变权重</li>
+<li>model.layers[0].trainable = False 设置冻结，不加入训练</li>
+<li>模型编译，喂数据</li>
+</ul>
+<h4 id="评估"><a href="#评估" class="headerlink" title="评估"></a>评估</h4><ul>
+<li>绘制图表</li>
+<li>最终使用测试集<pre>
+1.数据导入同“数据制作”
+2.model.load_weights('pre_trained_glove_model.h5')
+3.model.evaluate(x_test, y_test)
+</pre>
 
-int main()
-{
-    //载入原始图    
-    Mat image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  //工程目录下应该有一张名为1.jpg的素材图  
-    Mat img_gray = image_gray_row.clone();
-
-    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6),0,0,INTER_LINEAR);
-    imshow("【原图】", img_gray);
-
-    blur(img_gray, img_gray, Size(3, 3));
-    imshow("滤波", img_gray);
-    imwrite("滤波.jpg",img_gray);
-
-    Mat img_sobelX;
-    Mat abs_img_sobelX;
-    Sobel(img_gray, img_sobelX,CV_16S,1,0,3,1,1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelX, abs_img_sobelX);
-    imshow("【效果图】 X方向Sobel", abs_img_sobelX);
-    imwrite("【效果图】 X方向Sobel.jpg",abs_img_sobelX);
-
-    Mat img_sobelY;
-    Mat abs_img_sobelY;
-    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelY, abs_img_sobelY);
-    imshow("【效果图】 Y方向Sobel", abs_img_sobelY);
-    imwrite("【效果图】 Y方向Sobel.jpg", abs_img_sobelY);
-
-    Mat dst;
-    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
-    imshow("【效果图】整体方向Sobel", dst);
-    imwrite("【效果图】整体方向Sobel.jpg",dst);
-
-    Mat dst_up;
-    Mat dst_upX;
-    Mat dst_upY;
-    dst_up.create(dst.size(), dst.type());
-    dst_upX.create(dst.size(), dst.type());
-    dst_upY.create(dst.size(), dst.type());
-
-//    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
-//    imshow("检测垂直阈值分割", dst_upY);
-
-//    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
-//    imshow("检测水平阈值分割", dst_upX);
-
-    threshold(dst, dst_up, 84, 255, THRESH_BINARY);
-    imshow("整体二值化",dst_up);
-    imwrite("整体二值化.jpg", dst_up);
-
-
-    waitKey(0);
-    return 0;
-}
-
-</opencv2></opencv2></opencv2></iostream></pre>
-
-<p>提示：注意全局变量！！！！ Mat 和 参数都得是全局变量！main里面不要重申！<br>附上带trackbar的代码：</p>
-<pre>
-
-#include <stdlib.h>
-#include <stdio.h>
-#include<iostream>  
-#include <opencv2 opencv.hpp="">  
-#include<opencv2 highgui="" highgui.hpp="">  
-#include<opencv2 imgproc="" imgproc.hpp="">  
-
-
-
-using namespace cv;
-using namespace std;
-
-int threshold_value = 30;
-
-Mat image_gray_row, img_gray, img_sobelX, abs_img_sobelX, img_sobelY, abs_img_sobelY, dst, dst_up, dst_upX, dst_upY;
-
-/// 自定义函数声明
-static void Threshold_Demo(int, void*);
-
-
-int main()
-{
-    //载入原始图    
-    image_gray_row = imread("kuang1.jpg", CV_LOAD_IMAGE_GRAYSCALE);  
-    img_gray = image_gray_row.clone();
-
-    resize(image_gray_row, img_gray, Size(image_gray_row.cols / 6, image_gray_row.rows / 6), 0, 0, INTER_LINEAR);
-
-
-    blur(img_gray, img_gray, Size(3, 3));
-
-
-
-
-
-    Sobel(img_gray, img_sobelX, CV_16S, 1, 0, 3, 1, 1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelX, abs_img_sobelX);
-
-
-
-
-    Sobel(img_gray, img_sobelY, CV_16S, 0, 1, 3, 1, 1, BORDER_DEFAULT);
-    convertScaleAbs(img_sobelY, abs_img_sobelY);
-
-
-    addWeighted(abs_img_sobelX, 0.5, abs_img_sobelY, 0.5, 0, dst);
-
-
-
-    dst_up.create(dst.size(), dst.type());
-    dst_upX.create(dst.size(), dst.type());
-    dst_upY.create(dst.size(), dst.type());
-
-    //    threshold(abs_img_sobelY, dst_upY, 96, 255, THRESH_OTSU + THRESH_BINARY);
-    //    imshow("检测垂直阈值分割", dst_upY);
-
-    //    threshold(img_sobelX, dst_upX, 96, 255, THRESH_OTSU + THRESH_BINARY);
-    //    imshow("检测水平阈值分割", dst_upX);
-
-
-
-    namedWindow("Demo", CV_WINDOW_AUTOSIZE);
-    //创建滑动条来控制阈值
-    createTrackbar("Threshold",
-        "Demo", &threshold_value,
-        255, Threshold_Demo);
-
-    Threshold_Demo(0, 0);//结果在回调函数中显示
-
-
-    waitKey(0);
-    return 0;
-}
-
-void Threshold_Demo(int, void*)
-{
-
-    threshold(dst, dst_up, threshold_value, 255, THRESH_BINARY);
-
-    imshow("Demo", dst_up);
-}
-</opencv2></opencv2></opencv2></iostream></stdio.h></stdlib.h></pre>
-
-<p><strong>待改进：</strong><br><br><br>霍夫变换–找线<br>路–k只有一个，路正交—-拉普拉斯强化边缘，二值化</p>
-<p>管道（拉普拉斯锐化/膨胀和腐蚀，二值化，分离，零交叉）</p>
-<p>–以下为闭环区域</p>
-<p>颜色特征识别（煤堆）—闭环后中间杂质（）可忽略，已闭环<br>RGB，UIV，LAD，色态聚类（不固定集群，需要贪婪，簇的合并问题-中心点相近放一块-！-！-同一簇的分离(根据像素的距离再聚类)，sobel算子迭代，识别出边缘轮廓后拼接填洞</p>
-<p>膨胀和腐蚀</p>
-<p>检测纹理复杂程度–判断煤堆</p>
-<p>路灯（路灯两侧相对比较高–波峰波谷）</p>
+</li>
+</ul>
 
       
     </div>
@@ -500,8 +404,8 @@ void Threshold_Demo(int, void*)
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/28/opencv颜色空间转换/" rel="next" title="邻域算子和线性滤波函数">
-                <i class="fa fa-chevron-left"></i> 邻域算子和线性滤波函数
+              <a href="/2018/09/16/Scikt-learn的Models-慢更/" rel="next" title="Scikt-learn的Models-慢更">
+                <i class="fa fa-chevron-left"></i> Scikt-learn的Models-慢更
               </a>
             
           </div>
@@ -509,10 +413,6 @@ void Threshold_Demo(int, void*)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/04/08/颜色识别，开闭/" rel="prev" title="Opencv颜色识别,开闭">
-                Opencv颜色识别,开闭 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -635,7 +535,7 @@ void Threshold_Demo(int, void*)
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#思路："><span class="nav-number">1.</span> <span class="nav-text">思路：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#附上代码："><span class="nav-number">1.1.</span> <span class="nav-text">附上代码：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文本首先要转为向量"><span class="nav-number">1.</span> <span class="nav-text">文本首先要转为向量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转one-hot"><span class="nav-number">2.</span> <span class="nav-text">转one-hot</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#词嵌入"><span class="nav-number">3.</span> <span class="nav-text">词嵌入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取原始文本使用预训练词嵌入流程"><span class="nav-number">4.</span> <span class="nav-text">读取原始文本使用预训练词嵌入流程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据制作"><span class="nav-number">4.1.</span> <span class="nav-text">数据制作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#准备Glove词嵌入"><span class="nav-number">4.2.</span> <span class="nav-text">准备Glove词嵌入</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#构建模型"><span class="nav-number">4.3.</span> <span class="nav-text">构建模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#评估"><span class="nav-number">4.4.</span> <span class="nav-text">评估</span></a></li></ol></li></ol></div>
             
 
           </div>
