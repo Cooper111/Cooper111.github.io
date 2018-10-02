@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="正则线性模型（回归） Ridge Lasso 早期停止法（分类）  概率模型 LogisticRegression逻辑回归 Softmax回归  Softmax只不过y值变为categorial #logistic只取一个特征 X = iris[&quot;data&quot;][:, 3:]  # petal width y = (iris[&quot;target&quot;] == 2).astype(np.int)  # 1 i">
+<meta name="description" content="①见Hands-on-ml 03 ②见 Kaggle-Appache  归纳通用的按照属性取数据 用于后继Pipeline（出自①）#Now let’s build our preprocessing pipelines. We will reuse the DataframeSelector we built in the previous chapter to select specific">
 <meta property="og:type" content="article">
-<meta property="og:title" content="三种正则线性模型，概率，逻辑回归和softmax回归">
-<meta property="og:url" content="https://cooper111.github.io/2018/09/24/三种正则线性模型，概率，逻辑回归和softmax回归/index.html">
+<meta property="og:title" content="泰坦尼克">
+<meta property="og:url" content="https://cooper111.github.io/2018/10/02/泰坦尼克/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="正则线性模型（回归） Ridge Lasso 早期停止法（分类）  概率模型 LogisticRegression逻辑回归 Softmax回归  Softmax只不过y值变为categorial #logistic只取一个特征 X = iris[&quot;data&quot;][:, 3:]  # petal width y = (iris[&quot;target&quot;] == 2).astype(np.int)  # 1 i">
+<meta property="og:description" content="①见Hands-on-ml 03 ②见 Kaggle-Appache  归纳通用的按照属性取数据 用于后继Pipeline（出自①）#Now let’s build our preprocessing pipelines. We will reuse the DataframeSelector we built in the previous chapter to select specific">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-24T14:52:31.560Z">
+<meta property="og:updated_time" content="2018-10-02T14:58:11.011Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="三种正则线性模型，概率，逻辑回归和softmax回归">
-<meta name="twitter:description" content="正则线性模型（回归） Ridge Lasso 早期停止法（分类）  概率模型 LogisticRegression逻辑回归 Softmax回归  Softmax只不过y值变为categorial #logistic只取一个特征 X = iris[&quot;data&quot;][:, 3:]  # petal width y = (iris[&quot;target&quot;] == 2).astype(np.int)  # 1 i">
+<meta name="twitter:title" content="泰坦尼克">
+<meta name="twitter:description" content="①见Hands-on-ml 03 ②见 Kaggle-Appache  归纳通用的按照属性取数据 用于后继Pipeline（出自①）#Now let’s build our preprocessing pipelines. We will reuse the DataframeSelector we built in the previous chapter to select specific">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/09/24/三种正则线性模型，概率，逻辑回归和softmax回归/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/10/02/泰坦尼克/"/>
 
 
 
 
 
-  <title>三种正则线性模型，概率，逻辑回归和softmax回归 | Cooper111's Blog</title>
+  <title>泰坦尼克 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/09/24/三种正则线性模型，概率，逻辑回归和softmax回归/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/10/02/泰坦尼克/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">三种正则线性模型，概率，逻辑回归和softmax回归</h1>
+          <h1 class="post-title" itemprop="name headline">泰坦尼克</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-24T22:50:27+08:00">
-                2018-09-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-02T22:56:29+08:00">
+                2018-10-02
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/机器学习/" itemprop="url" rel="index">
-                    <span itemprop="name">机器学习</span>
+                  <a href="/categories/实战/" itemprop="url" rel="index">
+                    <span itemprop="name">实战</span>
                   </a>
                 </span>
 
@@ -333,101 +333,73 @@
       
 
       
-        <h1 id="正则线性模型（回归）"><a href="#正则线性模型（回归）" class="headerlink" title="正则线性模型（回归）"></a>正则线性模型（回归）</h1><ul>
-<li>Ridge</li>
-<li>Lasso</li>
-<li>早期停止法（分类）</li>
+        <ul>
+<li>①见Hands-on-ml 03</li>
+<li>②见 <a href="https://github.com/apachecn/kaggle/tree/dev/competitions/getting-started/titanic" target="_blank" rel="noopener">Kaggle-Appache</a></li>
 </ul>
-<h1 id="概率模型"><a href="#概率模型" class="headerlink" title="概率模型"></a>概率模型</h1><ul>
-<li>LogisticRegression逻辑回归</li>
-<li>Softmax回归</li>
+<h2 id="归纳通用的"><a href="#归纳通用的" class="headerlink" title="归纳通用的"></a>归纳通用的</h2><h3 id="按照属性取数据"><a href="#按照属性取数据" class="headerlink" title="按照属性取数据"></a>按照属性取数据</h3><ul>
+<li>用于后继Pipeline（出自①）<br><pre><br>#Now let’s build our preprocessing pipelines. We will reuse the DataframeSelector we built in the previous chapter to select specific attributes from the DataFrame:</pre></li>
 </ul>
-<h5 id="Softmax只不过y值变为categorial"><a href="#Softmax只不过y值变为categorial" class="headerlink" title="Softmax只不过y值变为categorial"></a>Softmax只不过y值变为categorial</h5><pre>
-#logistic只取一个特征
-X = iris["data"][:, 3:]  # petal width
-y = (iris["target"] == 2).astype(np.int)  # 1 if Iris-Virginica, else 0
-
-from sklearn.linear_model import LogisticRegression
-log_reg = LogisticRegression(random_state=42)
-log_reg.fit(X, y)
-</pre>
-<pre>
-#logistic取多个特征
-from sklearn.linear_model import LogisticRegression
-
-X = iris['data'][:, (2,3)] #length, width
-y = (iris['target']==2).astype(np.int)
-
-log_reg = LogisticRegression(C=10**10, random_state=42)
-log_reg.fit(X, y)
-</pre>
-LogisticRegression默认使用一对多的训练方式，<br> 不过将超参数multi_class设置为"multinomial"可以切换到softmax回归。<br>
-还得指定softmax回归的求解器，比如“lbfgs”求解器,<br>
-默认使用里l2正则化，可通过超参数C控制
-<pre>
-#softmax 取多特征，输出多类别的分类
-X = iris['data'][:, (2,3)]
-y = iris['target']
-
-softmax_reg = LogisticRegression(multi_class='multinomial', solver='lbfgs', C=10, random_state=42)
-softmax_reg.fit(X, y)
-
-softmax_reg.predict([[5, 2]])
-#array([2])
-
-softmax_reg.predict_proba([[5, 2]])
-#array([[6.38014896e-07, 5.74929995e-02, 9.42506362e-01]])
-</pre>
-
-<h5 id="再次区分model-predict-和model-predict-proba"><a href="#再次区分model-predict-和model-predict-proba" class="headerlink" title="再次区分model.predict()和model.predict_proba()"></a>再次区分model.predict()和model.predict_proba()</h5><h2 id="技巧-用于画图。。"><a href="#技巧-用于画图。。" class="headerlink" title="技巧(用于画图。。)"></a>技巧(用于画图。。)</h2><ul>
-<li>C是正则化参数，越大正则程度越高</li>
-<li>逻辑回归鸢尾花里，写到了</li>
-<li>如何把两个特征合并</li>
-<li>(200, 500)是为了取不同值方便展示</li>
-<li>(200, 500)* (200, 500)变成</li>
-<li>(100000, 2)<br><pre><br>x0, x1 = np.meshgrid(<pre><code>np.linspace(0, 8, 500).reshape(-1, 1),
-np.linspace(0, 3.5, 200).reshape(-1, 1),
-</code></pre>  )<br>X_new = np.c_[x0.ravel(), x1.ravel()]</pre></li>
+<p>from sklearn.base import BaseEstimator, TransformerMixin</p>
+<h1 id="A-class-to-select-numerical-or-categorical-columns"><a href="#A-class-to-select-numerical-or-categorical-columns" class="headerlink" title="A class to select numerical or categorical columns"></a>A class to select numerical or categorical columns</h1><h1 id="since-Scikit-Learn-doesn’t-handle-DataFrames-yet"><a href="#since-Scikit-Learn-doesn’t-handle-DataFrames-yet" class="headerlink" title="since Scikit-Learn doesn’t handle DataFrames yet"></a>since Scikit-Learn doesn’t handle DataFrames yet</h1><p>class DataFrameSelector(BaseEstimator, TransformerMixin):<br>    def <strong>init</strong>(self, attribute_names):<br>        self.attribute_names = attribute_names<br>    def fit(self, X, y=None):<br>        return self<br>    def transform(self, X):<br>        return X[self.attribute_names]</p>
+<p>Let’s build the pipeline for the numerical attributes:<br>from sklearn.pipeline import Pipeline<br>from sklearn.preprocessing import Imputer</p>
+<p>imputer = Imputer(strategy=”median”)</p>
+<p>num_pipeline = Pipeline([<br>        (“select_numeric”, DataFrameSelector([“Age”, “SibSp”, “Parch”, “Fare”])),<br>        (“imputer”, Imputer(strategy=”median”)),<br>    ])<br></p>
+<h2 id="分析做法不同的"><a href="#分析做法不同的" class="headerlink" title="分析做法不同的"></a>分析做法不同的</h2><h3 id="Kaggle"><a href="#Kaggle" class="headerlink" title="Kaggle"></a>Kaggle</h3><h4 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h4><ul>
+<li>info(),describe(),value_counts()</li>
+<li>corr(), heatmap</li>
+<li>进一步探索分析各个数据与结果的关系<br><pre><br>train.groupby([‘Pclass’])[‘Pclass’,’Survived’].mean()</pre></li>
 </ul>
-<p>y_proba = softmax_reg.predict_proba(X_new)<br>y_predict = softmax_reg.predict(X_new)<br></p>
-<h2 id="绘图做出contour图"><a href="#绘图做出contour图" class="headerlink" title="绘图做出contour图"></a>绘图做出contour图</h2><pre>
-X = iris["data"][:, (2, 3)]  # petal length, petal width
-y = iris["target"]
+<p>train[[‘Parch’,’Survived’]].groupby([‘Parch’]).mean().plot.bar()</p>
+<p>g = sns.FacetGrid(train, col=’Survived’,size=5)<br>g.map(plt.hist, ‘Age’, bins=40)</p>
+<p>sns.countplot(‘Embarked’,hue=’Survived’,data=train)<br></p>
+<h4 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h4><h5 id="总体来说，1-将少量的缺失值用分层级后的平均值填充，2-文字特征提取后分类分列，3-将大量的缺失值用回归模型预测值填充"><a href="#总体来说，1-将少量的缺失值用分层级后的平均值填充，2-文字特征提取后分类分列，3-将大量的缺失值用回归模型预测值填充" class="headerlink" title="总体来说，1.将少量的缺失值用分层级后的平均值填充，2.文字特征提取后分类分列，3.将大量的缺失值用回归模型预测值填充"></a>总体来说，1.将少量的缺失值用分层级后的平均值填充，2.文字特征提取后分类分列，3.将大量的缺失值用回归模型预测值填充</h5><ul>
+<li>pd.get_dummies分列</li>
+<li>在数据的Name项中包含了对该乘客的称呼,将这些关键词提取出来,然后做分列处理</li>
+<li>⑤ Name</li>
+<li>从姓名中提取出姓做特征</li>
+<li>⑥ Fare</li>
+<li>该特征有缺失值,先找出缺失值的那调数据,然后用平均数填充</li>
+<li>⑦ Ticket</li>
+<li>该列和名字做类似的处理,先提取,然后分列</li>
+<li>⑧ Age</li>
+<li>该列有大量缺失值,考虑用一个回归模型进行填充；在模型修改的时候,考虑到年龄缺失值可能影响死亡情况,用年龄是否缺失值来构造新特征</li>
+<li>⑨Cabin</li>
+<li>cabin项缺失太多，只能将有无Cain首字母进行分类,缺失值为一类,作为特征值进行建模,也可以考虑直接舍去该特征</li>
+<li>⑩ 特征工程处理完了,划分数据集</li>
+</ul>
+<h4 id="建立模型"><a href="#建立模型" class="headerlink" title="建立模型"></a>建立模型</h4><ul>
+<li>SVM</li>
+<li>随机森林</li>
+<li>Logisitic</li>
+<li>CBDT</li>
+<li>xgboost</li>
+<li>注：3和1网格调参<h5 id="模型融合-voting（除了SVM）"><a href="#模型融合-voting（除了SVM）" class="headerlink" title="模型融合 voting（除了SVM）"></a>模型融合 voting（除了SVM）</h5><h5 id="模型融合-stacking（除了SVM）"><a href="#模型融合-stacking（除了SVM）" class="headerlink" title="模型融合 stacking（除了SVM）"></a>模型融合 stacking（除了SVM）</h5></li>
+</ul>
+<h3 id="Hands-ml"><a href="#Hands-ml" class="headerlink" title="Hands-ml"></a>Hands-ml</h3><h4 id="数据分析-1"><a href="#数据分析-1" class="headerlink" title="数据分析"></a>数据分析</h4><ul>
+<li>info(),describe(),value_counts()</li>
+</ul>
+<h4 id="特征工程-1"><a href="#特征工程-1" class="headerlink" title="特征工程"></a>特征工程</h4><ul>
+<li>①处理数值属性的缺失值</li>
+<li>使用Imputer将缺失值替换成中位数(我觉得没有考虑层级关系，不如Kaggle对Fare的做法)</li>
+<li>②处理文本属性的缺失值</li>
+<li>使用OneHotEncoder</li>
+<li>使用流水线：1.对数值型数据，先处理缺省值，然后增加三属性，最后特征缩放2.对文本OneHotEncoder<br><pre><br>from sklearn.pipeline import Pipeline<br>from sklearn.preprocessing import StandardScaler</pre></li>
+</ul>
+<p>num_pipeline = Pipeline([<br>        (‘imputer’, SimpleImputer(strategy=”median”)),<br>        (‘attribs_adder’, CombinedAttributesAdder()),<br>        (‘std_scaler’, StandardScaler()),<br>    ])</p>
+<p>housing_num_tr = num_pipeline.fit_transform(housing_num)</p>
+<p>from sklearn.compose import ColumnTransformer<br>num_attribs = list(housing_num)<br>cat_attribs = [“ocean_proximity”]</p>
+<p>full_pipeline = ColumnTransformer([<br>        (“num”, num_pipeline, num_attribs),<br>        (“cat”, OneHotEncoder(), cat_attribs),<br>    ])</p>
+<p>housing_prepared = full_pipeline.fit_transform(housing)<br></p>
+<h4 id="建立模型-1"><a href="#建立模型-1" class="headerlink" title="建立模型"></a>建立模型</h4><ul>
+<li>线性回归LinearRegression()</li>
+<li>DecisionTreeRegressor决策树</li>
+<li>使用交叉验证评估</li>
+<li>RandomForestRegressor随机森林</li>
+<li>网格下降微调</li>
+<li>RandomForestRegressor可以指出每个属性的相对重要程度，调整属性</li>
+</ul>
 
-softmax_reg = LogisticRegression(multi_class="multinomial",solver="lbfgs", C=10, random_state=42)
-softmax_reg.fit(X, y)
-
-x0, x1 = np.meshgrid(
-        np.linspace(0, 8, 500).reshape(-1, 1),
-        np.linspace(0, 3.5, 200).reshape(-1, 1),
-    )
-X_new = np.c_[x0.ravel(), x1.ravel()]
-
-
-y_proba = softmax_reg.predict_proba(X_new)
-y_predict = softmax_reg.predict(X_new)
-
-zz1 = y_proba[:, 1].reshape(x0.shape)
-zz = y_predict.reshape(x0.shape)
-
-plt.figure(figsize=(10, 4))
-plt.plot(X[y==2, 0], X[y==2, 1], "g^", label="Iris-Virginica")
-plt.plot(X[y==1, 0], X[y==1, 1], "bs", label="Iris-Versicolor")
-plt.plot(X[y==0, 0], X[y==0, 1], "yo", label="Iris-Setosa")
-
-from matplotlib.colors import ListedColormap
-custom_cmap = ListedColormap(['#fafab0','#9898ff','#a0faa0'])
-
-plt.contourf(x0, x1, zz, cmap=custom_cmap)
-contour = plt.contour(x0, x1, zz1, cmap=plt.cm.brg)
-plt.clabel(contour, inline=1, fontsize=12)
-plt.xlabel("Petal length", fontsize=14)
-plt.ylabel("Petal width", fontsize=14)
-plt.legend(loc="center left", fontsize=14)
-plt.axis([0, 7, 0, 3.5])
-save_fig("softmax_regression_contour_plot")
-plt.show()
-</pre>
       
     </div>
     
@@ -451,8 +423,8 @@ plt.show()
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/22/二分类器的RP曲线，ROC曲线/" rel="next" title="二分类器的RP曲线，ROC曲线">
-                <i class="fa fa-chevron-left"></i> 二分类器的RP曲线，ROC曲线
+              <a href="/2018/10/02/Inception，Xception，Resnet慢更/" rel="next" title="Inception，Xception，Resnet慢更">
+                <i class="fa fa-chevron-left"></i> Inception，Xception，Resnet慢更
               </a>
             
           </div>
@@ -460,10 +432,6 @@ plt.show()
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/24/梯度下降三种，多项式回归，学习曲线，早期停止法/" rel="prev" title="梯度下降三种，多项式回归，学习曲线，早期停止法">
-                梯度下降三种，多项式回归，学习曲线，早期停止法 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -586,7 +554,7 @@ plt.show()
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正则线性模型（回归）"><span class="nav-number">1.</span> <span class="nav-text">正则线性模型（回归）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概率模型"><span class="nav-number">2.</span> <span class="nav-text">概率模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Softmax只不过y值变为categorial"><span class="nav-number">2.0.0.0.1.</span> <span class="nav-text">Softmax只不过y值变为categorial</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#再次区分model-predict-和model-predict-proba"><span class="nav-number">2.0.0.0.2.</span> <span class="nav-text">再次区分model.predict()和model.predict_proba()</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#技巧-用于画图。。"><span class="nav-number">2.1.</span> <span class="nav-text">技巧(用于画图。。)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绘图做出contour图"><span class="nav-number">2.2.</span> <span class="nav-text">绘图做出contour图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#归纳通用的"><span class="nav-number">1.</span> <span class="nav-text">归纳通用的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按照属性取数据"><span class="nav-number">1.1.</span> <span class="nav-text">按照属性取数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-class-to-select-numerical-or-categorical-columns"><span class="nav-number"></span> <span class="nav-text">A class to select numerical or categorical columns</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#since-Scikit-Learn-doesn’t-handle-DataFrames-yet"><span class="nav-number"></span> <span class="nav-text">since Scikit-Learn doesn’t handle DataFrames yet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析做法不同的"><span class="nav-number">1.</span> <span class="nav-text">分析做法不同的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kaggle"><span class="nav-number">1.1.</span> <span class="nav-text">Kaggle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程"><span class="nav-number">1.1.2.</span> <span class="nav-text">特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#总体来说，1-将少量的缺失值用分层级后的平均值填充，2-文字特征提取后分类分列，3-将大量的缺失值用回归模型预测值填充"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">总体来说，1.将少量的缺失值用分层级后的平均值填充，2.文字特征提取后分类分列，3.将大量的缺失值用回归模型预测值填充</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立模型"><span class="nav-number">1.1.3.</span> <span class="nav-text">建立模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模型融合-voting（除了SVM）"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">模型融合 voting（除了SVM）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型融合-stacking（除了SVM）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">模型融合 stacking（除了SVM）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hands-ml"><span class="nav-number">1.2.</span> <span class="nav-text">Hands-ml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据分析-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立模型-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">建立模型</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
