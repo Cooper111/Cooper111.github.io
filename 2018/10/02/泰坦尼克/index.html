@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
 <meta property="og:description" content="①见Hands-on-ml 03 ②见 Kaggle-Appache  归纳通用的按照属性取数据 用于后继Pipeline（出自①）#Now let’s build our preprocessing pipelines. We will reuse the DataframeSelector we built in the previous chapter to select specific">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-02T14:58:11.011Z">
+<meta property="og:updated_time" content="2018-10-04T10:19:05.522Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="泰坦尼克">
 <meta name="twitter:description" content="①见Hands-on-ml 03 ②见 Kaggle-Appache  归纳通用的按照属性取数据 用于后继Pipeline（出自①）#Now let’s build our preprocessing pipelines. We will reuse the DataframeSelector we built in the previous chapter to select specific">
@@ -345,6 +345,44 @@
 <p>Let’s build the pipeline for the numerical attributes:<br>from sklearn.pipeline import Pipeline<br>from sklearn.preprocessing import Imputer</p>
 <p>imputer = Imputer(strategy=”median”)</p>
 <p>num_pipeline = Pipeline([<br>        (“select_numeric”, DataFrameSelector([“Age”, “SibSp”, “Parch”, “Fare”])),<br>        (“imputer”, Imputer(strategy=”median”)),<br>    ])<br></p>
+<h3 id="一些函数"><a href="#一些函数" class="headerlink" title="一些函数"></a>一些函数</h3><ul>
+<li>loc<br>感jio要赋值了第二个参数就不加[],否则对DataFrame操作加[]<br><pre><br>train_test.loc[train_test[‘Name2_sum’] == 1 , ‘Name2_new’] = ‘one’</pre></li>
+</ul>
+<p>train.loc[train[‘TotalBsmtSF’]==0,’TotalBsmtSF’] = 1</p>
+<p>train.loc[train[‘TotalBsmtSF’]==0,’TotalBsmtSF’] = 1</p>
+<p>print(train.loc[train[‘TotalBsmtSF’]==0, [‘TotalBsmtSF’]].count())</p>
+<p>tmp = np.array(tmp.loc[tmp[‘TotalBsmtSF’]&gt;0, [‘TotalBsmtSF’]])[:, 0]<br></p>
+<ul>
+<li>get_dummies<blockquote>
+<p>pd.get_dummies(train_test,columns=[“Sex”])</p>
+</blockquote>
+</li>
+<li>isnull<blockquote>
+<p>(DataFrame[DataFrame[..].isnull().values==False]</p>
+</blockquote>
+</li>
+<li>mean<blockquote>
+<p>train.groupby([‘Pclass’])[‘Pclass’,’Survived’].mean()</p>
+</blockquote>
+</li>
+<li>drop和del<br><pre><h1 id="drop删除列，axis-1-inplace-True"><a href="#drop删除列，axis-1-inplace-True" class="headerlink" title="(drop删除列，axis=1,inplace=True)"></a>(drop删除列，axis=1,inplace=True)</h1>train = train.drop(train[(train[‘GrLivArea’]&gt;4000) &amp; (train[‘SalePrice’]&lt;300000)].index)</pre></li>
+</ul>
+<p>del train_test[‘Name2’]</p>
+<p>missing_age_X_train = missing_age_train.drop([‘Age’], axis=1)<br></p>
+<ul>
+<li>apply<pre>
+train_test['Ticket_Letter'] = train_test['Ticket_Letter'].apply(lambda x:np.nan if x.isnumeric() else x)
+</pre></li>
+<li>count()<br><pre><br>age_null_count = dataset[‘Age’].isnull().sum()</pre></li>
+</ul>
+<p>print(train.loc[train[‘TotalBsmtSF’]==0, [‘TotalBsmtSF’]].count())</p>
+<p>percent = (train_test.isnull().sum()/train_test.isnull().count()).sort_values(ascending=False)<br></p>
+<ul>
+<li>value_counts()<blockquote>
+<p>Name2_sum = train_test[‘Name2’].value_counts().reset_index()</p>
+</blockquote>
+</li>
+</ul>
 <h2 id="分析做法不同的"><a href="#分析做法不同的" class="headerlink" title="分析做法不同的"></a>分析做法不同的</h2><h3 id="Kaggle"><a href="#Kaggle" class="headerlink" title="Kaggle"></a>Kaggle</h3><h4 id="数据分析"><a href="#数据分析" class="headerlink" title="数据分析"></a>数据分析</h4><ul>
 <li>info(),describe(),value_counts()</li>
 <li>corr(), heatmap</li>
@@ -433,6 +471,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2018/10/04/绘图实例/" rel="prev" title="绘图实例">
+                绘图实例 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -508,7 +550,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">52</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -519,7 +561,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -554,7 +596,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#归纳通用的"><span class="nav-number">1.</span> <span class="nav-text">归纳通用的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按照属性取数据"><span class="nav-number">1.1.</span> <span class="nav-text">按照属性取数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-class-to-select-numerical-or-categorical-columns"><span class="nav-number"></span> <span class="nav-text">A class to select numerical or categorical columns</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#since-Scikit-Learn-doesn’t-handle-DataFrames-yet"><span class="nav-number"></span> <span class="nav-text">since Scikit-Learn doesn’t handle DataFrames yet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析做法不同的"><span class="nav-number">1.</span> <span class="nav-text">分析做法不同的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kaggle"><span class="nav-number">1.1.</span> <span class="nav-text">Kaggle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程"><span class="nav-number">1.1.2.</span> <span class="nav-text">特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#总体来说，1-将少量的缺失值用分层级后的平均值填充，2-文字特征提取后分类分列，3-将大量的缺失值用回归模型预测值填充"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">总体来说，1.将少量的缺失值用分层级后的平均值填充，2.文字特征提取后分类分列，3.将大量的缺失值用回归模型预测值填充</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立模型"><span class="nav-number">1.1.3.</span> <span class="nav-text">建立模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模型融合-voting（除了SVM）"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">模型融合 voting（除了SVM）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型融合-stacking（除了SVM）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">模型融合 stacking（除了SVM）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hands-ml"><span class="nav-number">1.2.</span> <span class="nav-text">Hands-ml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据分析-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立模型-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">建立模型</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#归纳通用的"><span class="nav-number">1.</span> <span class="nav-text">归纳通用的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#按照属性取数据"><span class="nav-number">1.1.</span> <span class="nav-text">按照属性取数据</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#A-class-to-select-numerical-or-categorical-columns"><span class="nav-number"></span> <span class="nav-text">A class to select numerical or categorical columns</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#since-Scikit-Learn-doesn’t-handle-DataFrames-yet"><span class="nav-number"></span> <span class="nav-text">since Scikit-Learn doesn’t handle DataFrames yet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一些函数"><span class="nav-number">0.1.</span> <span class="nav-text">一些函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#drop删除列，axis-1-inplace-True"><span class="nav-number"></span> <span class="nav-text">(drop删除列，axis=1,inplace=True)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析做法不同的"><span class="nav-number">1.</span> <span class="nav-text">分析做法不同的</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Kaggle"><span class="nav-number">1.1.</span> <span class="nav-text">Kaggle</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据分析"><span class="nav-number">1.1.1.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程"><span class="nav-number">1.1.2.</span> <span class="nav-text">特征工程</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#总体来说，1-将少量的缺失值用分层级后的平均值填充，2-文字特征提取后分类分列，3-将大量的缺失值用回归模型预测值填充"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">总体来说，1.将少量的缺失值用分层级后的平均值填充，2.文字特征提取后分类分列，3.将大量的缺失值用回归模型预测值填充</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立模型"><span class="nav-number">1.1.3.</span> <span class="nav-text">建立模型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#模型融合-voting（除了SVM）"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">模型融合 voting（除了SVM）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#模型融合-stacking（除了SVM）"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">模型融合 stacking（除了SVM）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hands-ml"><span class="nav-number">1.2.</span> <span class="nav-text">Hands-ml</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据分析-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">数据分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特征工程-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">特征工程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#建立模型-1"><span class="nav-number">1.2.3.</span> <span class="nav-text">建立模型</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
