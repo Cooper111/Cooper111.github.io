@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="李宏毅的Attention讲解 之前看到的,与论文无关的 自注意力和文本分类 现在看到的比较精华的 知乎专栏 聊聊Transform-包含attention精华 attention实战-用户情感分析  其中包含Kaggle大佬的代码)    自己de归纳 大多是搬运知乎大佬的··· 先看看Attention的科普 然后看看上面聊聊Transform里文头列出的文章 最后看看Transform作者的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Attention汇总">
+<meta property="og:url" content="https://cooper111.github.io/2018/11/04/Attention汇总/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="李宏毅的Attention讲解 之前看到的,与论文无关的 自注意力和文本分类 现在看到的比较精华的 知乎专栏 聊聊Transform-包含attention精华 attention实战-用户情感分析  其中包含Kaggle大佬的代码)    自己de归纳 大多是搬运知乎大佬的··· 先看看Attention的科普 然后看看上面聊聊Transform里文头列出的文章 最后看看Transform作者的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.zhihu.com/equation?tex=Attention%28Q%2CK%2CV%29%3Dsoftmax%28%5Cfrac%7BQK%5ET%7D%7B%5Csqrt%7Bd_k%7D%7D%29V">
+<meta property="og:updated_time" content="2018-11-04T03:07:08.798Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Attention汇总">
+<meta name="twitter:description" content="李宏毅的Attention讲解 之前看到的,与论文无关的 自注意力和文本分类 现在看到的比较精华的 知乎专栏 聊聊Transform-包含attention精华 attention实战-用户情感分析  其中包含Kaggle大佬的代码)    自己de归纳 大多是搬运知乎大佬的··· 先看看Attention的科普 然后看看上面聊聊Transform里文头列出的文章 最后看看Transform作者的">
+<meta name="twitter:image" content="http://www.zhihu.com/equation?tex=Attention%28Q%2CK%2CV%29%3Dsoftmax%28%5Cfrac%7BQK%5ET%7D%7B%5Csqrt%7Bd_k%7D%7D%29V">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2018/11/04/Attention汇总/"/>
+
+
+
+
+
+  <title>Attention汇总 | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/11/04/Attention汇总/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Attention汇总</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-04T11:05:41+08:00">
+                2018-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NLP/" itemprop="url" rel="index">
+                    <span itemprop="name">NLP</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>李宏毅的Attention讲解</p>
+<p><a href="https://github.com/philipperemy/keras-attention-mechanism" target="_blank" rel="noopener">之前看到的,与论文无关的</a></p>
+<p><a href="https://github.com/foamliu/Self-Attention-Keras" target="_blank" rel="noopener">自注意力和文本分类</a></p>
+<p><hr><br>现在看到的比较精华的<br></p>
+<p><a href="https://zhuanlan.zhihu.com/c_1036549603415556096" target="_blank" rel="noopener">知乎专栏</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/47812375" target="_blank" rel="noopener">聊聊Transform-包含attention精华</a></p>
+<p><a href="https://zhuanlan.zhihu.com/p/47207009" target="_blank" rel="noopener">attention实战-用户情感分析</a></p>
+<ul>
+<li>其中包含Kaggle大佬的<a href="(https://www.kaggle.com/qqgeogor/keras-lstm-attention-glove840b-lb-0-043">代码</a><br>)</li>
+</ul>
+<hr>
+
+<h4 id="自己de归纳"><a href="#自己de归纳" class="headerlink" title="自己de归纳"></a>自己de归纳</h4><ul>
+<li>大多是搬运知乎大佬的···</li>
+<li>先看看Attention的<a href="https://cloud.tencent.com/developer/article/1143127?utm_source=qq&amp;utm_medium=social&amp;utm_oi=842084562019426304" target="_blank" rel="noopener">科普</a></li>
+<li>然后看看上面聊聊Transform里文头列出的文章</li>
+<li>最后看看Transform作者的Attention实战</li>
+</ul>
+<p>Attention公式<br><br><img src="http://www.zhihu.com/equation?tex=Attention%28Q%2CK%2CV%29%3Dsoftmax%28%5Cfrac%7BQK%5ET%7D%7B%5Csqrt%7Bd_k%7D%7D%29V" alt="公式"></p>
+<p>将softmax展开，则为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Attention(\boldsymbol&#123;q&#125;_t,\boldsymbol&#123;K&#125;,\boldsymbol&#123;V&#125;) = \sum_&#123;s=1&#125;^m \frac&#123;1&#125;&#123;Z&#125;\exp\left(\frac&#123;\langle\boldsymbol&#123;q&#125;_t, \boldsymbol&#123;k&#125;_s\rangle&#125;&#123;\sqrt&#123;d_k&#125;&#125;\right)\boldsymbol&#123;v&#125;_s</span><br></pre></td></tr></table></figure></p>
+<h4 id="在Pytorch中的实现"><a href="#在Pytorch中的实现" class="headerlink" title="在Pytorch中的实现"></a>在Pytorch中的实现</h4><p><a href="https://zhuanlan.zhihu.com/p/47812375" target="_blank" rel="noopener">出处</a><br><br><strong>Scaled Dot-Product Attention</strong></p>
+<pre>
+import torch
+import torch.nn as nn
+
+class ScaledDotProductAttention(nn.Module):
+    """Scaled dot-product attention mechanism."""
+
+    def __init__(self, attention_dropout=0.0):
+        super(ScaledDotProductAttention, self).__init__()
+        self.dropout = nn.Dropout(attention_dropout)
+        self.softmax = nn.Softmax(dim=2)
+
+    def forward(self, q, k, v, scale=None, attn_mask=None):
+        """
+        前向传播.
+        Args:
+            q: Queries张量，形状为[B, L_q, D_q]
+            k: Keys张量，形状为[B, L_k, D_k]
+            v: Values张量，形状为[B, L_v, D_v]，一般来说就是k
+            scale: 缩放因子，一个浮点标量
+            attn_mask: Masking张量，形状为[B, L_q, L_k]
+
+        Returns:
+            上下文张量和attention张量
+        """
+        attention = torch.bmm(q, k.transpose(1, 2))
+        if scale:
+            attention = attention * scale
+        if attn_mask:
+            # 给需要mask的地方设置一个负无穷
+            attention = attention.masked_fill_(attn_mask, -np.inf)
+    # 计算softmax
+        attention = self.softmax(attention)
+    # 添加dropout
+        attention = self.dropout(attention)
+    # 和V做点积
+        context = torch.bmm(attention, v)
+        return context, attention
+</pre>
+
+<h4 id="在Keras中的实现"><a href="#在Keras中的实现" class="headerlink" title="在Keras中的实现"></a>在Keras中的实现</h4><p><a href="http://link.zhihu.com/?target=https%3A//www.kaggle.com/qqgeogor/keras-lstm-attention-glove840b-lb-0-043" target="_blank" rel="noopener">源出处</a><br><br><a href="https://zhuanlan.zhihu.com/p/47207009" target="_blank" rel="noopener">出处</a></p>
+<pre># coding=utf8
+from keras import backend as K
+from keras.engine.topology import Layer
+from keras import initializers, regularizers, constraints
+from keras.layers.merge import _Merge
+
+
+class Attention(Layer):
+    def __init__(self, step_dim,
+                 W_regularizer=None, b_regularizer=None,
+                 W_constraint=None, b_constraint=None,
+                 bias=True, **kwargs):
+        """
+        Keras Layer that implements an Attention mechanism for temporal data.
+        Supports Masking.
+        Follows the work of Raffel et al. [https://arxiv.org/abs/1512.08756]
+        # Input shape
+            3D tensor with shape: `(samples, steps, features)`.
+        # Output shape
+            2D tensor with shape: `(samples, features)`.
+        :param kwargs:
+        Just put it on top of an RNN Layer (GRU/LSTM/SimpleRNN) with return_sequences=True.
+        The dimensions are inferred based on the output shape of the RNN.
+        Example:
+            model.add(LSTM(64, return_sequences=True))
+            model.add(Attention())
+        """
+        self.supports_masking = True
+        # self.init = initializations.get('glorot_uniform')
+        self.init = initializers.get('glorot_uniform')
+
+        self.W_regularizer = regularizers.get(W_regularizer)
+        self.b_regularizer = regularizers.get(b_regularizer)
+
+        self.W_constraint = constraints.get(W_constraint)
+        self.b_constraint = constraints.get(b_constraint)
+
+        self.bias = bias
+        self.step_dim = step_dim
+        self.features_dim = 0
+        super(Attention, self).__init__(**kwargs)
+
+    def build(self, input_shape):
+        assert len(input_shape) == 3
+
+        self.W = self.add_weight((input_shape[-1],),
+                                 initializer=self.init,
+                                 name='{}_W'.format(self.name),
+                                 regularizer=self.W_regularizer,
+                                 constraint=self.W_constraint)
+        self.features_dim = input_shape[-1]
+
+        if self.bias:
+            self.b = self.add_weight((input_shape[1],),
+                                     initializer='zero',
+                                     name='{}_b'.format(self.name),
+                                     regularizer=self.b_regularizer,
+                                     constraint=self.b_constraint)
+        else:
+            self.b = None
+
+        self.built = True
+
+    def compute_mask(self, input, input_mask=None):
+        # do not pass the mask to the next layers
+        return None
+
+    def call(self, x, mask=None):
+        input_shape = K.int_shape(x)
+
+        features_dim = self.features_dim
+        # step_dim = self.step_dim
+        step_dim = input_shape[1]
+
+        eij = K.reshape(K.dot(K.reshape(x, (-1, features_dim)), K.reshape(self.W, (features_dim, 1))), (-1, step_dim))
+
+        if self.bias:
+            eij += self.b[:input_shape[1]]
+
+        eij = K.tanh(eij)
+
+        a = K.exp(eij)
+
+        # apply mask after the exp. will be re-normalized next
+        if mask is not None:
+            # Cast the mask to floatX to avoid float64 upcasting in theano
+            a *= K.cast(mask, K.floatx())
+
+        # in some cases especially in the early stages of training the sum may be almost zero
+        # and this results in NaN's. A workaround is to add a very small positive number ε to the sum.
+        a /= K.cast(K.sum(a, axis=1, keepdims=True) + K.epsilon(), K.floatx())
+
+        a = K.expand_dims(a)
+        weighted_input = x * a
+        # print weigthted_input.shape
+        return K.sum(weighted_input, axis=1)
+
+    def compute_output_shape(self, input_shape):
+        # return input_shape[0], input_shape[-1]
+        return input_shape[0], self.features_dim
+# end Attention</pre>
+Keras版本自己理解：K，Q，V对应 x, 权重W， x，然后根号dx替换成tanh激活来稳定...?
+
+
+##### 用法区别(雾)
+自己的感觉啦
+- **Pytorch**的实现Scaled Dot-Product Attention用于Multi-head attention，**总体用于Transform框架**
+- **Keras**实现用于**当做Layer**，单纯对输入/出做一个Attention
+
+
+### 含Attention的模型构建(Keras)
+##### Attention RNN Model
+<pre>
+#Attention代码见上
+import keras
+from keras import Model
+from keras.layers import *
+from JoinAttLayer import Attention
+
+class TextClassifier():
+
+    def model(self, embeddings_matrix, maxlen, word_index, num_class):
+        inp = Input(shape=(maxlen,))
+        encode = Bidirectional(CuDNNGRU(128, return_sequences=True))
+        encode2 = Bidirectional(CuDNNGRU(128, return_sequences=True))
+        attention = Attention(maxlen)
+        x_4 = Embedding(len(word_index) + 1,
+                        embeddings_matrix.shape[1],
+                        weights=[embeddings_matrix],
+                        input_length=maxlen,
+                        trainable=True)(inp)
+        x_3 = SpatialDropout1D(0.2)(x_4)
+        x_3 = encode(x_3)
+        x_3 = Dropout(0.2)(x_3)
+        x_3 = encode2(x_3)
+        x_3 = Dropout(0.2)(x_3)
+        avg_pool_3 = GlobalAveragePooling1D()(x_3)
+        max_pool_3 = GlobalMaxPooling1D()(x_3)
+        attention_3 = attention(x_3)
+        x = keras.layers.concatenate([avg_pool_3, max_pool_3, attention_3], name="fc")
+        x = Dense(num_class, activation="sigmoid")(x)
+
+        adam = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08,amsgrad=True)
+        model = Model(inputs=inp, outputs=x)
+        model.compile(
+            loss='categorical_crossentropy',
+            optimizer=adam)
+        return model
+</pre>
+
+<h5 id="Attention-RcNN-Model"><a href="#Attention-RcNN-Model" class="headerlink" title="Attention RcNN Model"></a>Attention RcNN Model</h5><pre>
+import keras
+from keras import Model
+from keras.layers import *
+from JoinAttLayer import Attention
+
+class TextClassifier():
+
+    def model(self, embeddings_matrix, maxlen, word_index, num_class):
+        inp = Input(shape=(maxlen,))
+        encode = Bidirectional(GRU(1, return_sequences=True))
+        encode2 = Bidirectional(GRU(1, return_sequences=True))
+        attention = Attention(maxlen)
+        x_4 = Embedding(len(word_index) + 1,
+                        embeddings_matrix.shape[1],
+                        weights=[embeddings_matrix],
+                        input_length=maxlen,
+                        trainable=True)(inp)
+        x_3 = SpatialDropout1D(0.2)(x_4)
+        x_3 = encode(x_3)
+        x_3 = Dropout(0.2)(x_3)
+        x_3 = encode2(x_3)
+        x_3 = Dropout(0.2)(x_3)
+        x_3 = Conv1D(64, kernel_size=3, padding="valid", kernel_initializer="glorot_uniform")(x_3)
+        x_3 = Dropout(0.2)(x_3)
+        avg_pool_3 = GlobalAveragePooling1D()(x_3)
+        max_pool_3 = GlobalMaxPooling1D()(x_3)
+        attention_3 = attention(x_3)
+        x = keras.layers.concatenate([avg_pool_3, max_pool_3, attention_3])
+        x = Dense(num_class, activation="sigmoid")(x)
+
+        adam = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999, epsilon=1e-08)
+        model = Model(inputs=inp, outputs=x)
+        model.compile(
+            loss='categorical_crossentropy',
+            optimizer=adam
+            )
+        return model
+</pre>
+
+<h4 id="Capsule-Model"><a href="#Capsule-Model" class="headerlink" title="Capsule Model"></a>Capsule Model</h4><p><a href="http://link.zhihu.com/?target=https%3A//www.jiqizhixin.com/articles/2017-11-05" target="_blank" rel="noopener">暂未阅读架构，还不会···</a></p>
+<h4 id="训练技巧"><a href="#训练技巧" class="headerlink" title="训练技巧"></a>训练技巧</h4><p><a href="https://zhuanlan.zhihu.com/p/47278559" target="_blank" rel="noopener">戳~</a></p>
+<ul>
+<li>Loss Function（损失函数）：不用seq2seq做，使用简单分成20个模型，loss function 设置为 categorical crossentropy</li>
+<li>Early Stop（提前停止）</li>
+<li>Class Weight（类别权重）</li>
+<li>EMA（指数平滑）</li>
+<li>Learning Rate （学习率）</li>
+<li>Max Length (padding 的最大句子长度)</li>
+<li>如果要一次性训练20个模型的话，记得加上 python 的 gc 和 keras 的 clear_session。</li>
+</ul>
+<pre>del model1
+del history
+gc.collect()
+K.clear_session()</pre>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/01/Word2vec/" rel="next" title="Word2vec">
+                <i class="fa fa-chevron-left"></i> Word2vec
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#自己de归纳"><span class="nav-number">1.</span> <span class="nav-text">自己de归纳</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在Pytorch中的实现"><span class="nav-number">2.</span> <span class="nav-text">在Pytorch中的实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在Keras中的实现"><span class="nav-number">3.</span> <span class="nav-text">在Keras中的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Attention-RcNN-Model"><span class="nav-number">3.1.</span> <span class="nav-text">Attention RcNN Model</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Capsule-Model"><span class="nav-number">4.</span> <span class="nav-text">Capsule Model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#训练技巧"><span class="nav-number">5.</span> <span class="nav-text">训练技巧</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
