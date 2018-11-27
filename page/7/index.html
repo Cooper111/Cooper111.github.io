@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/学习进度/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Sobel算子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/学习进度/" itemprop="url">学习进度【到2018.3.27】</a></h1>
+                <a class="post-title-link" href="/2018/03/26/OpenCV边缘检测：Sobel算子/" itemprop="url">OpenCV边缘检测：Sobel算子</a></h1>
         
 
         <div class="post-meta">
@@ -334,18 +334,20 @@
       
         
           
-          3.249:00，第一次参加挑战杯会议，基本没听懂下午开始配置vs和opencv，半夜成功，并且学到博客第三节
-3.25上午搭建了博客
+          OpenCV边缘检测：Sobel算子基础概念：图像梯度:
 
-“https://cooper111.github.io/”；
+G(x,y) = dx i + dy j; 
+dx(i,j) = I(i+1,j) - I(i,j); 
+dy(i,j) = I(i,j+1) - I(i,j); 
 
-接下午，学到博客第六章，撰写了2个md笔记；Mat通道的理解：
+其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
 
-https://blog.cs
+
+理解
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/学习进度/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/OpenCV边缘检测：Sobel算子/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -396,7 +398,7 @@ https://blog.cs
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Canny算子/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -415,7 +417,7 @@ https://blog.cs
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/OpenCV边缘检测：Canny算子/" itemprop="url">OpenCV边缘检测：Canny算子</a></h1>
+                <a class="post-title-link" href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/" itemprop="url">Opencv边缘检测：Laplacian函数和scharr滤波器</a></h1>
         
 
         <div class="post-meta">
@@ -489,17 +491,16 @@ https://blog.cs
       
         
           
-          边缘检测的一般步骤1.滤波2.增强3.检测现在我只能理解到概念性的···细化到代码和数学公式，真的吃不进去，待补充
-Canny 算子大致步骤如同老师讲时记得笔记：
-二维高斯函数平滑图像
-计算结果梯度
-使用梯度幅度来估计每一点边缘强度
-非极大值抑制和细化边缘
-阈值处理，去掉伪边缘一、最简单的canny
+          (基本)参考的博文：
+
+https://blog.csdn.net/poem_qianmo/article/details/25560901
+
+Laplacian函数
+C++: void Laplacian(InputArray src,OutputArray dst, int ddepth, in
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/OpenCV边缘检测：Canny算子/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/Opencv边缘检测：Laplacian函数和scharr滤波器/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -550,7 +551,7 @@ Canny 算子大致步骤如同老师讲时记得笔记：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/分离颜色通道&多通道图像混合/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -569,7 +570,7 @@ Canny 算子大致步骤如同老师讲时记得笔记：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/分离颜色通道&多通道图像混合/" itemprop="url">OpenCV分离颜色通道&多通道图像混合</a></h1>
+                <a class="post-title-link" href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/" itemprop="url">OpenCV边缘检测：filter2D和prewwit算子</a></h1>
         
 
         <div class="post-meta">
@@ -604,8 +605,8 @@ Canny 算子大致步骤如同老师讲时记得笔记：
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">Opencv</span>
+                  <a href="/categories/实战/" itemprop="url" rel="index">
+                    <span itemprop="name">实战</span>
                   </a>
                 </span>
 
@@ -643,17 +644,13 @@ Canny 算子大致步骤如同老师讲时记得笔记：
       
         
           
-          分离颜色通道&amp;多通道图像混合
-
-Split函数
-
-C++: void split(const Mat& src, Mat*mvbegin);  
-C++: void split(InputArray m,OutputArrayOfArrays mv); 
-第一个参数，InputArray类型
+          Filter2D函数：
+CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
+                            InputArray kernel, Point anchor=Point
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/分离颜色通道&多通道图像混合/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/OpenCV边缘检测：filter2D和prewwit算子/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
