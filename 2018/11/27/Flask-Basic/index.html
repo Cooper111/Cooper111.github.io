@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="矿堆识别（绿）思路 1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······   2.如何做–&amp;gt;&amp;gt;HSV，颜色检测   3.优化–&amp;gt;&amp;gt;拼接,填洞  步骤：  1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚">
+<meta name="description" content="项目后端的人两个月成效不大，耐不住性子我也加入学习了Flask一些基础，以下进行简要记录    Flask的运行  if __name__ == &amp;apos;__main__&amp;apos;:     app.run(debug=True)  Flask的基本运作  @app.route(&amp;apos;/up_photo&amp;apos;, methods=[&amp;apos;POST&amp;apos;], strict">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第二周作业">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/28/第二周作业/index.html">
+<meta property="og:title" content="Flask_Basic">
+<meta property="og:url" content="https://cooper111.github.io/2018/11/27/Flask-Basic/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="矿堆识别（绿）思路 1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······   2.如何做–&amp;gt;&amp;gt;HSV，颜色检测   3.优化–&amp;gt;&amp;gt;拼接,填洞  步骤：  1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚">
+<meta property="og:description" content="项目后端的人两个月成效不大，耐不住性子我也加入学习了Flask一些基础，以下进行简要记录    Flask的运行  if __name__ == &amp;apos;__main__&amp;apos;:     app.run(debug=True)  Flask的基本运作  @app.route(&amp;apos;/up_photo&amp;apos;, methods=[&amp;apos;POST&amp;apos;], strict">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-04T12:09:05.476Z">
+<meta property="og:updated_time" content="2018-11-27T11:13:05.493Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第二周作业">
-<meta name="twitter:description" content="矿堆识别（绿）思路 1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······   2.如何做–&amp;gt;&amp;gt;HSV，颜色检测   3.优化–&amp;gt;&amp;gt;拼接,填洞  步骤：  1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚">
+<meta name="twitter:title" content="Flask_Basic">
+<meta name="twitter:description" content="项目后端的人两个月成效不大，耐不住性子我也加入学习了Flask一些基础，以下进行简要记录    Flask的运行  if __name__ == &amp;apos;__main__&amp;apos;:     app.run(debug=True)  Flask的基本运作  @app.route(&amp;apos;/up_photo&amp;apos;, methods=[&amp;apos;POST&amp;apos;], strict">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/28/第二周作业/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/11/27/Flask-Basic/"/>
 
 
 
 
 
-  <title>第二周作业 | Cooper111's Blog</title>
+  <title>Flask_Basic | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/第二周作业/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/11/27/Flask-Basic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第二周作业</h1>
+          <h1 class="post-title" itemprop="name headline">Flask_Basic</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
-                2018-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T18:55:31+08:00">
+                2018-11-27
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">Opencv</span>
+                  <a href="/categories/Flask/" itemprop="url" rel="index">
+                    <span itemprop="name">Flask</span>
                   </a>
                 </span>
 
@@ -333,56 +333,157 @@
       
 
       
-        <h1 id="矿堆识别（绿）"><a href="#矿堆识别（绿）" class="headerlink" title="矿堆识别（绿）"></a>矿堆识别（绿）</h1><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><blockquote>
-<p>1.要对颜色进行处理–了解颜色的聚类算法（无监督）<br>{<br>    ‘k-mean’:选定簇的数目；<br>    ‘mean-shift’:无须选定簇的数目；<br>}<br>簇的合并和分离（根据像素距离重组）—》不会······</p>
-</blockquote>
-<blockquote>
-<p>2.如何做–&gt;&gt;HSV，颜色检测</p>
-</blockquote>
-<blockquote>
-<p>3.优化–&gt;&gt;拼接,填洞</p>
-</blockquote>
-<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><blockquote>
-<p> 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）</p>
-</blockquote>
-<blockquote>
-<p> 2.然后转为HSV模型，做直方图均衡化</p>
-</blockquote>
-<blockquote>
-<p> 3.进行颜色检测，得到目标颜色的二值图像</p>
-</blockquote>
-<blockquote>
-<p> 4.开操作-删除一些零零星星的噪点</p>
-</blockquote>
-<blockquote>
-<p> 5.再使用闭操作-连接一些连通域，也就是删除一些目标区域的白色的洞</p>
-</blockquote>
+        <p>项目后端的人两个月成效不大，耐不住性子我也加入学习了Flask一些基础，以下进行简要记录</p>
 <hr>
 
-<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><h4 id="pyrMeanShiftFiltering–meanShfit均值漂移算法"><a href="#pyrMeanShiftFiltering–meanShfit均值漂移算法" class="headerlink" title="pyrMeanShiftFiltering–meanShfit均值漂移算法"></a>pyrMeanShiftFiltering–meanShfit均值漂移算法</h4><p>聚类算法解释和分析：</p>
+<ul>
+<li><h3 id="Flask的运行"><a href="#Flask的运行" class="headerlink" title="Flask的运行"></a>Flask的运行</h3></li>
+</ul>
+<pre><code>if __name__ == &apos;__main__&apos;:
+    app.run(debug=True)
+</code></pre><ul>
+<li><h3 id="Flask的基本运作"><a href="#Flask的基本运作" class="headerlink" title="Flask的基本运作"></a>Flask的基本运作</h3></li>
+</ul>
+<pre><code>@app.route(&apos;/up_photo&apos;, methods=[&apos;POST&apos;], strict_slashes=False)
+    def func():
+        ==============
+        #add more
+        ==============
+        return jsonify({...})
+</code></pre><ul>
+<li><h3 id="Flask的blueprint机制"><a href="#Flask的blueprint机制" class="headerlink" title="Flask的blueprint机制"></a>Flask的blueprint机制</h3><p><strong>在app.py加入：</strong><br><pre><br>app = Flask(<strong>name</strong>)<br>app.register_blueprint(user, url_prefix=’/user’)<br>注：主页里是【@app.route(‘/xxx’, methods=[‘POST’], strict_slashes=False)】这样<br></pre><br><strong>在对应api的py文件里加入：</strong><br><pre></pre></p>
+<h1 id="导入flask模块"><a href="#导入flask模块" class="headerlink" title="导入flask模块"></a>导入flask模块</h1><p>from flask import Blueprint, Flask, request</p>
+<h1 id="创建类的实例"><a href="#创建类的实例" class="headerlink" title="创建类的实例"></a>创建类的实例</h1><p>user = Blueprint(‘user’, <strong>name</strong>)<br>注：api里是【@user.route(‘/xxx’, methods=[‘POST’])】这样<br><br><strong>对api进行访问，比如上述例子：</strong></p>
 <blockquote>
-<p><a href="https://blog.csdn.net/dcrmg/article/details/52705087" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/52705087</a></p>
+<p>127.0.0.1:5000/user/xxx</p>
 </blockquote>
-<p>meanshift算法深入</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/qq_23968185/article/details/51804574" target="_blank" rel="noopener">https://blog.csdn.net/qq_23968185/article/details/51804574</a></p>
-</blockquote>
-<p>注：这个函数严格来说并不是图像的分割，而是图像在色彩层面的平滑滤波，它可以中和色彩分布相近的颜色，平滑色彩细节，侵蚀掉面积较小的颜色区域</p>
-<hr>
+</li>
+<li><h3 id="Flask的数据库访问"><a href="#Flask的数据库访问" class="headerlink" title="Flask的数据库访问"></a>Flask的数据库访问</h3><p><strong>建立连接</strong><br><pre><br>from DBUtils.PersistentDB import PersistentDB</pre></p>
+<h1 id="导入数据库模块"><a href="#导入数据库模块" class="headerlink" title="导入数据库模块"></a>导入数据库模块</h1><p>import pymysql</p>
+<h1 id="创建数据库连接池"><a href="#创建数据库连接池" class="headerlink" title="创建数据库连接池"></a>创建数据库连接池</h1><p>POOL = PersistentDB(<br>  creator=pymysql,    # 使用链接数据库的模块<br>  maxusage=None,      # 一个链接最多被重复使用的次数，None表示无限制<br>  setsession=[],      # 开始会话前执行的命令列表。<br>  ping=0,             # ping MySQL服务端，检查是否服务可用。<br>  closeable=False,    # 如果为False时， conn.close() 实际上被忽略，供下次使用，再线程关闭时，才会自动关闭链接。如果为True时， conn.close()则关闭链接，那么再次调用pool.connection时就会报错，因为已经真的关闭了连接（pool.steady_connection()可以获取一个新的链接）<br>  threadlocal=None,   # 本线程独享值得对象，用于保存链接对象，如果链接对象被重置<br>  host=’127.0.0.1’,<br>  port=3306,<br>  user=’root’,<br>  password=’123456’,<br>  database=’test’,<br>  charset=’utf8’<br>)<br><br><strong>执行函数</strong><br><pre><br>def func(sql):<br>  conn = POOL.connection(shareable=False)<br>  cursor = conn.cursor()<br>  cursor.execute(sql)<br>  result = cursor.fetchall()<br>  cursor.close()<br>  conn.close()<br>  return result<br></pre><br><strong>封装Sql</strong><br><pre><br>#!/usr/bin/python3</pre></p>
+<h1 id="coding-utf-8"><a href="#coding-utf-8" class="headerlink" title="-- coding: utf-8 --"></a>-<em>- coding: utf-8 -</em>-</h1></li>
+</ul>
+<p>from mySQL_config import func</p>
+<h1 id="定义用户表类"><a href="#定义用户表类" class="headerlink" title="定义用户表类"></a>定义用户表类</h1><p>class UserTB:<br>    ‘’’ 用户增加、查询 ‘’’</p>
+<pre><code>def __init__(self, user, pwd):
+    self.user = user
+    self.pwd = pwd
 
-<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><h4 id="颜色识别："><a href="#颜色识别：" class="headerlink" title="颜色识别："></a>颜色识别：</h4><blockquote>
-<p>1.RGB转HSV<br>cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV);<br><br>2.直方图均衡化<br><br>split(imgHSV, hsvSplit);<br><br>    equalizeHist(hsvSplit[2],hsvSplit[2]);<br><br>    merge(hsvSplit,imgHSV);<br><br>3.颜色检测<br><br>void inRange(InputArray src, InputArray lowerb, InputArray upperb,<br> OutputArray dst);<br><br>4.存为二值图<br></p>
-</blockquote>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="对二值图像进行开操作，删除一些零零星星的噪点，"><a href="#对二值图像进行开操作，删除一些零零星星的噪点，" class="headerlink" title="对二值图像进行开操作，删除一些零零星星的噪点，"></a>对二值图像进行开操作，删除一些零零星星的噪点，<br></h4><blockquote>
-<p>Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));<br><br>   morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);<br></p>
-</blockquote>
-<h4 id="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"><a href="#再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。" class="headerlink" title="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"></a>再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。<br></h4><blockquote>
-<p> morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);<br></p>
-</blockquote>
-<p>待改进：<br><br>1.簇的合并分离<br><br>2.优化的进步<br><br>3.利用pyrMeanShiftFiltering来优化道路<br><br>源码：<a href="http://blog.sina.com.cn/s/blog_63913ba601013336.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_63913ba601013336.html</a><br><br>      <a href="https://blog.csdn.net/Dinosoft/article/details/78877917" target="_blank" rel="noopener">https://blog.csdn.net/Dinosoft/article/details/78877917</a><br><br>      都没看懂···<br><br>4.开，闭操作研究<br><br>5.看一个聚类实现代码<br></p>
-<blockquote>
-<p><a href="https://blog.csdn.net/yangtrees/article/details/7386723" target="_blank" rel="noopener">https://blog.csdn.net/yangtrees/article/details/7386723</a></p>
-</blockquote>
+# 查询用户名
+def selectUser(self):
+    sql = &quot;select * from user where USERNAME = &apos;%s&apos;&quot; % self.user
+    result = func(sql)
+    return result
+
+# 查询用户名密码
+def selectUserPwd(self):
+    sql = &quot;select * from user where USERNAME = &apos;%s&apos; and PASSWORD = &apos;%s&apos; limit 1&quot; % (self.user, self.pwd)
+    result = func(sql)
+    return result
+
+# 插入
+def insetinto(self):
+    sql = &quot;INSERT INTO user (USERNAME,PASSWORD) VALUES (&apos;%s&apos;,&apos;%s&apos;)&quot; % (self.user, self.pwd)
+    # print(&apos;user&apos;,self.user)
+    # print(&apos;pwd&apos;,self.pwd)
+    result = func(sql)
+    # print(&apos;result&apos;,result)
+    return result
+</code></pre><p><br><strong>使用</strong></p>
+<pre>
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
+# 导入flask模块
+from flask import Blueprint, Flask, request
+# 导入json模块
+import json
+# 导入自定义模块
+from Utils.utils import *
+# 导入mySQL_config
+from sql.user import UserTB
+import base64
+
+# 创建类的实例
+user = Blueprint('user', __name__)
+
+# 登录
+# @param：{string}     user         用户名
+# @param：{string}     pwd          密码
+# @returns：{json}
+
+#确定服务器ip地址
+host_ip='192.168.1.105'
+
+# 登入逻辑
+@user.route('/login', methods=['POST'])
+def login():
+    if request.method == 'POST':
+        # POST、GET:
+        # request.form获得所有post参数放在一个类似dict类中,to_dict()是字典化
+        # 单个参数可以通过request.form.to_dict().get("xxx","")获得
+        param = request.form.to_dict()
+        if param.get("username") != None and param.get("password") != None:
+            if param.get("username") != "" and len(param.get("username")) < 8 and param.get("password") != "" and len(
+                    param.get("password")) < 20:
+                user = UserTB(param.get("username"), param.get("password"))
+                user = user.selectUser()
+                if user == ():
+                    content = json.dumps(formatres(False, {}, "用户名不存在"), ensure_ascii=False)
+                else:
+                    userPwd = UserTB(param.get("username"), param.get("password"))
+                    userPwd = userPwd.selectUserPwd()
+                    if userPwd == ():
+                        content = json.dumps(formatres(False, {}, "用户名密码不正确"), ensure_ascii=False)
+                    else:
+                        content = json.dumps(formatres(True, {}, "登录成功"), ensure_ascii=False)
+            else:
+                content = json.dumps(formatres(False, {}, "用户名密码为空或者过长"), ensure_ascii=False)
+        else:
+            content = json.dumps(formatres(False, {}, "请检查参数"), ensure_ascii=False)
+    else:
+        content = json.dumps(formatres(False, {}, "101"))
+    resp = Response_headers(content)
+    return content
+
+
+
+
+# 注册逻辑
+@user.route('/register', methods=['POST'])
+def register():
+    if request.method == 'POST':
+        param = request.form.to_dict()
+        if param.get("username") != None and param.get("password") != None and param.get("password2") != None:
+            if param.get("password") == param.get("password2"):
+                if param.get("username") != "" and len(param.get("username")) < 8 and param.get("password") != "" and len(
+                        param.get("password")) < 20:
+                    user = UserTB(param.get("username"), param.get("password"))
+                    user = user.selectUser()
+                    if user != ():
+                        content = json.dumps(formatres(False, {}, "用户名已存在"), ensure_ascii=False)
+                    else:
+                        try:
+                            insetintouser = UserTB(param.get("username"), param.get("password"))
+                            insetintouser = insetintouser.insetinto()
+                            if insetintouser == ():
+                                content = json.dumps(formatres(True, {}, "用户创建成功"), ensure_ascii=False)
+                            else:
+                                content = json.dumps(formatres(False, {}, "用户创建失败"), ensure_ascii=False)
+                        except:
+                            content = json.dumps(formatres(False, {}, "用户创建失败，可能用户名过长"), ensure_ascii=False)
+                else:
+                    content = json.dumps(formatres(False, {}, "用户名密码为空或者过长"), ensure_ascii=False)
+            else:
+                content = json.dumps(formatres(False, {}, "两次输入密码不一致"), ensure_ascii=False)
+        else:
+            content = json.dumps(formatres(False, {}, "请检查参数"), ensure_ascii=False)
+    else:
+        content = json.dumps(formatres(False, {}, "101"))
+    resp = Response_headers(content)
+    return content
+</pre>
+
+
 
       
     </div>
@@ -407,8 +508,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/28/三色通道分离/" rel="next" title="三色通道分离">
-                <i class="fa fa-chevron-left"></i> 三色通道分离
+              <a href="/2018/11/23/使用特征向量/" rel="next" title="使用特征向量">
+                <i class="fa fa-chevron-left"></i> 使用特征向量
               </a>
             
           </div>
@@ -417,8 +518,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/28/opencv颜色空间转换/" rel="prev" title="邻域算子和线性滤波函数">
-                邻域算子和线性滤波函数 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/11/27/DC竞赛房价预测/" rel="prev" title="DC竞赛房价预测">
+                DC竞赛房价预测 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -542,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矿堆识别（绿）"><span class="nav-number">1.</span> <span class="nav-text">矿堆识别（绿）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤："><span class="nav-number">1.0.1.</span> <span class="nav-text">步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步"><span class="nav-number">1.0.2.</span> <span class="nav-text">第一步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pyrMeanShiftFiltering–meanShfit均值漂移算法"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">pyrMeanShiftFiltering–meanShfit均值漂移算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步"><span class="nav-number">1.0.3.</span> <span class="nav-text">第二步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色识别："><span class="nav-number">1.0.3.1.</span> <span class="nav-text">颜色识别：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">1.0.4.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对二值图像进行开操作，删除一些零零星星的噪点，"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">对二值图像进行开操作，删除一些零零星星的噪点，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask的运行"><span class="nav-number">1.</span> <span class="nav-text">Flask的运行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask的基本运作"><span class="nav-number">2.</span> <span class="nav-text">Flask的基本运作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask的blueprint机制"><span class="nav-number">3.</span> <span class="nav-text">Flask的blueprint机制</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入flask模块"><span class="nav-number"></span> <span class="nav-text">导入flask模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建类的实例"><span class="nav-number"></span> <span class="nav-text">创建类的实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flask的数据库访问"><span class="nav-number">1.</span> <span class="nav-text">Flask的数据库访问</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入数据库模块"><span class="nav-number"></span> <span class="nav-text">导入数据库模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建数据库连接池"><span class="nav-number"></span> <span class="nav-text">创建数据库连接池</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#coding-utf-8"><span class="nav-number"></span> <span class="nav-text">-- coding: utf-8 --</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#定义用户表类"><span class="nav-number"></span> <span class="nav-text">定义用户表类</span></a></div>
             
 
           </div>

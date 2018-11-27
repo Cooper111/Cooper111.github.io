@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="矿堆识别（绿）思路 1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······   2.如何做–&amp;gt;&amp;gt;HSV，颜色检测   3.优化–&amp;gt;&amp;gt;拼接,填洞  步骤：  1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚">
+<meta name="description" content="0x00 概述比赛名称：计算机应用大赛(DC房价预测) 队名： 0x01 最终名次： 51 获奖： 二等奖  比赛基本是我打得，收获一些了，做一下记录  ## 0x01 值得留意的  - [赛后别人的开源~](https://github.com/notplaid/prices) - 聊天记录的经验分享(见自己笔记) - 自己的特征工程 - Lgb，Xgb现学现卖的使用  **放一个别人做得处理流">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第二周作业">
-<meta property="og:url" content="https://cooper111.github.io/2018/03/28/第二周作业/index.html">
+<meta property="og:title" content="DC竞赛房价预测">
+<meta property="og:url" content="https://cooper111.github.io/2018/11/27/DC竞赛房价预测/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="矿堆识别（绿）思路 1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······   2.如何做–&amp;gt;&amp;gt;HSV，颜色检测   3.优化–&amp;gt;&amp;gt;拼接,填洞  步骤：  1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚">
+<meta property="og:description" content="0x00 概述比赛名称：计算机应用大赛(DC房价预测) 队名： 0x01 最终名次： 51 获奖： 二等奖  比赛基本是我打得，收获一些了，做一下记录  ## 0x01 值得留意的  - [赛后别人的开源~](https://github.com/notplaid/prices) - 聊天记录的经验分享(见自己笔记) - 自己的特征工程 - Lgb，Xgb现学现卖的使用  **放一个别人做得处理流">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-04T12:09:05.476Z">
+<meta property="og:updated_time" content="2018-11-27T11:13:14.694Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第二周作业">
-<meta name="twitter:description" content="矿堆识别（绿）思路 1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······   2.如何做–&amp;gt;&amp;gt;HSV，颜色检测   3.优化–&amp;gt;&amp;gt;拼接,填洞  步骤：  1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚">
+<meta name="twitter:title" content="DC竞赛房价预测">
+<meta name="twitter:description" content="0x00 概述比赛名称：计算机应用大赛(DC房价预测) 队名： 0x01 最终名次： 51 获奖： 二等奖  比赛基本是我打得，收获一些了，做一下记录  ## 0x01 值得留意的  - [赛后别人的开源~](https://github.com/notplaid/prices) - 聊天记录的经验分享(见自己笔记) - 自己的特征工程 - Lgb，Xgb现学现卖的使用  **放一个别人做得处理流">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="https://cooper111.github.io/2018/03/28/第二周作业/"/>
+  <link rel="canonical" href="https://cooper111.github.io/2018/11/27/DC竞赛房价预测/"/>
 
 
 
 
 
-  <title>第二周作业 | Cooper111's Blog</title>
+  <title>DC竞赛房价预测 | Cooper111's Blog</title>
   
 
 
@@ -244,7 +244,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/第二周作业/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/11/27/DC竞赛房价预测/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -261,7 +261,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">第二周作业</h1>
+          <h1 class="post-title" itemprop="name headline">DC竞赛房价预测</h1>
         
 
         <div class="post-meta">
@@ -273,8 +273,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
-                2018-03-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T19:10:36+08:00">
+                2018-11-27
               </time>
             
 
@@ -296,8 +296,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">Opencv</span>
+                  <a href="/categories/实战/" itemprop="url" rel="index">
+                    <span itemprop="name">实战</span>
                   </a>
                 </span>
 
@@ -333,56 +333,207 @@
       
 
       
-        <h1 id="矿堆识别（绿）"><a href="#矿堆识别（绿）" class="headerlink" title="矿堆识别（绿）"></a>矿堆识别（绿）</h1><h4 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h4><blockquote>
-<p>1.要对颜色进行处理–了解颜色的聚类算法（无监督）<br>{<br>    ‘k-mean’:选定簇的数目；<br>    ‘mean-shift’:无须选定簇的数目；<br>}<br>簇的合并和分离（根据像素距离重组）—》不会······</p>
-</blockquote>
-<blockquote>
-<p>2.如何做–&gt;&gt;HSV，颜色检测</p>
-</blockquote>
-<blockquote>
-<p>3.优化–&gt;&gt;拼接,填洞</p>
-</blockquote>
-<h3 id="步骤："><a href="#步骤：" class="headerlink" title="步骤："></a>步骤：</h3><blockquote>
-<p> 1.均值漂移pyrMeanShiftFiltering彩色图像分割（色彩聚类平滑滤波  ）</p>
-</blockquote>
-<blockquote>
-<p> 2.然后转为HSV模型，做直方图均衡化</p>
-</blockquote>
-<blockquote>
-<p> 3.进行颜色检测，得到目标颜色的二值图像</p>
-</blockquote>
-<blockquote>
-<p> 4.开操作-删除一些零零星星的噪点</p>
-</blockquote>
-<blockquote>
-<p> 5.再使用闭操作-连接一些连通域，也就是删除一些目标区域的白色的洞</p>
-</blockquote>
-<hr>
+        <h2 id="0x00-概述"><a href="#0x00-概述" class="headerlink" title="0x00 概述"></a>0x00 概述</h2><pre>比赛名称：计算机应用大赛(DC房价预测)
+队名： 0x01
+最终名次： 51
+获奖： 二等奖
+</pre>
+比赛基本是我打得，收获一些了，做一下记录
 
-<h3 id="第一步"><a href="#第一步" class="headerlink" title="第一步"></a>第一步</h3><h4 id="pyrMeanShiftFiltering–meanShfit均值漂移算法"><a href="#pyrMeanShiftFiltering–meanShfit均值漂移算法" class="headerlink" title="pyrMeanShiftFiltering–meanShfit均值漂移算法"></a>pyrMeanShiftFiltering–meanShfit均值漂移算法</h4><p>聚类算法解释和分析：</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/dcrmg/article/details/52705087" target="_blank" rel="noopener">https://blog.csdn.net/dcrmg/article/details/52705087</a></p>
-</blockquote>
-<p>meanshift算法深入</p>
-<blockquote>
-<p><a href="https://blog.csdn.net/qq_23968185/article/details/51804574" target="_blank" rel="noopener">https://blog.csdn.net/qq_23968185/article/details/51804574</a></p>
-</blockquote>
-<p>注：这个函数严格来说并不是图像的分割，而是图像在色彩层面的平滑滤波，它可以中和色彩分布相近的颜色，平滑色彩细节，侵蚀掉面积较小的颜色区域</p>
-<hr>
+## 0x01 值得留意的 
+- [赛后别人的开源~](https://github.com/notplaid/prices)
+- 聊天记录的经验分享(见自己笔记)
+- 自己的特征工程
+- Lgb，Xgb现学现卖的使用
 
-<h3 id="第二步"><a href="#第二步" class="headerlink" title="第二步"></a>第二步</h3><h4 id="颜色识别："><a href="#颜色识别：" class="headerlink" title="颜色识别："></a>颜色识别：</h4><blockquote>
-<p>1.RGB转HSV<br>cvtColor(imgOriginal, imgHSV, COLOR_BGR2HSV);<br><br>2.直方图均衡化<br><br>split(imgHSV, hsvSplit);<br><br>    equalizeHist(hsvSplit[2],hsvSplit[2]);<br><br>    merge(hsvSplit,imgHSV);<br><br>3.颜色检测<br><br>void inRange(InputArray src, InputArray lowerb, InputArray upperb,<br> OutputArray dst);<br><br>4.存为二值图<br></p>
-</blockquote>
-<h3 id="优化"><a href="#优化" class="headerlink" title="优化"></a>优化</h3><h4 id="对二值图像进行开操作，删除一些零零星星的噪点，"><a href="#对二值图像进行开操作，删除一些零零星星的噪点，" class="headerlink" title="对二值图像进行开操作，删除一些零零星星的噪点，"></a>对二值图像进行开操作，删除一些零零星星的噪点，<br></h4><blockquote>
-<p>Mat element = getStructuringElement(MORPH_RECT, Size(5, 5));<br><br>   morphologyEx(imgThresholded, imgThresholded, MORPH_OPEN, element);<br></p>
-</blockquote>
-<h4 id="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"><a href="#再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。" class="headerlink" title="再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"></a>再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。<br></h4><blockquote>
-<p> morphologyEx(imgThresholded, imgThresholded, MORPH_CLOSE, element);<br></p>
-</blockquote>
-<p>待改进：<br><br>1.簇的合并分离<br><br>2.优化的进步<br><br>3.利用pyrMeanShiftFiltering来优化道路<br><br>源码：<a href="http://blog.sina.com.cn/s/blog_63913ba601013336.html" target="_blank" rel="noopener">http://blog.sina.com.cn/s/blog_63913ba601013336.html</a><br><br>      <a href="https://blog.csdn.net/Dinosoft/article/details/78877917" target="_blank" rel="noopener">https://blog.csdn.net/Dinosoft/article/details/78877917</a><br><br>      都没看懂···<br><br>4.开，闭操作研究<br><br>5.看一个聚类实现代码<br></p>
-<blockquote>
-<p><a href="https://blog.csdn.net/yangtrees/article/details/7386723" target="_blank" rel="noopener">https://blog.csdn.net/yangtrees/article/details/7386723</a></p>
-</blockquote>
+**放一个别人做得处理流程图**
+![流程图](https://mmbiz.qpic.cn/mmbiz_png/E5ayiaFQcPF3riaR75qWyj4evW8RaO8TShicuuB21jsl7eUnxTib1RVVhNTNW6CcicFyx3TRhgS36AUmibnGZXbEib2sw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+## 0x02 感想
+骚操作：
+- 犬哥的去验证集，是我见过最骚的没有之一···(效果是大幅提升)
+- 简单但是有效的：去早期停止，减小学习率，增加轮次
+
+## 0x03 特征工程
+记录下我的处理房屋朝向的代码:
+<pre>
+def check_bool(arr, str_):
+    bool_list = []
+    for i in arr:
+        if str_ in i:
+            bool_list.append(True)
+        else:
+            bool_list.append(False)
+    return bool_list
+
+def split_map(str_):
+    arr = str_.strip().split(' ')
+    return arr
+
+def process_face(dataset):
+
+    temp = dataset['房屋朝向'].map(lambda x: split_map(x))
+    dataset['东'] = 0
+    dataset['南'] = 0
+    dataset['西'] = 0
+    dataset['北'] = 0
+    dataset['东北'] = 0
+    dataset['东南'] = 0
+    dataset['西北'] = 0
+    dataset['西南'] = 0
+    bool_dong = check_bool(temp, '东')
+    bool_nan = check_bool(temp, '南')
+    bool_xi = check_bool(temp, '西')
+    bool_bei = check_bool(temp, '北')
+    bool_dongnan = check_bool(temp, '东南')
+    bool_dongbei = check_bool(temp, '东北')
+    bool_xinan = check_bool(temp, '西南')
+    bool_xibei = check_bool(temp, '西北')
+    dataset.loc[bool_dong, '东'] = 1
+    dataset.loc[bool_nan, '南'] = 1
+    dataset.loc[bool_xi, '西'] = 1
+    dataset.loc[bool_bei, '北'] = 1
+    dataset.loc[bool_dongnan, '东南'] = 1
+    dataset.loc[bool_xibei, '西北'] = 1
+    dataset.loc[bool_dongbei, '东北'] = 1
+    dataset.loc[bool_xinan, '西南'] = 1
+    dataset['东南'].fillna(0, inplace=True)
+    dataset['东北'].fillna(0, inplace=True)
+    dataset['西南'].fillna(0, inplace=True)
+    dataset['西北'].fillna(0, inplace=True)
+</pre>
+
+<h2 id="Xgb-Lgb学习"><a href="#Xgb-Lgb学习" class="headerlink" title="Xgb,Lgb学习"></a>Xgb,Lgb学习</h2><p>贴一下这次比赛我用过的参数~（偷懒直接复制Ipynb文件里的，有点乱）</p>
+<h4 id="XGB"><a href="#XGB" class="headerlink" title="XGB"></a>XGB</h4><ul>
+<li><p>犬哥的（无验证集）</p>
+<pre>
+  # xgb_val = xgb.DMatrix(X_test, label=y_test)
+  xgb_train = xgb.DMatrix(train_data ,label=train_result)
+  xgb_test = xgb.DMatrix(test_data)
+  # xgbooster
+  params = {
+      'booster': 'gbtree',
+      'objective': 'reg:linear',  # 多分类的问题
+      'n_estimators': 2000,
+      'gamma': 0.2,  # 用于控制是否后剪枝的参数,越大越保守，一般0.1、0.2这样子。
+      'max_depth': 12,  # 构建树的深度，越大越容易过拟合
+      "reg_alpha": 3,
+      'lambda': 5,  # 控制模型复杂度的权重值的L2正则化项参数，参数越大，模型越不容易过拟合。
+      'subsample': 0.9,  # 随机采样训练样本
+      'colsample_bytree': 0.6,  # 生成树时进行的列采样
+      'colsample_bylevel': 0.7,
+      'min_child_weight': 7,
+      # 这个参数默认是 1，是每个叶子里面 h 的和至少是多少，对正负样本不均衡时的 0-1 分类而言
+      # ，假设 h 在 0.01 附近，min_child_weight 为 1 意味着叶子节点中最少需要包含 100 个样本。
+      # 这个参数非常影响结果，控制叶子节点中二阶导的和的最小值，该参数值越小，越容易 overfitting。
+      'silent': 1,  # 设置成1则没有运行信息输出，最好是设置为0.
+      'eta': 0.05,  # 如同学习率  0.007
+      'seed': 2017,
+      # 'nthread': 7,  # cpu 线程数
+      # 'eval_metric': 'auc'
+  }
+
+  plst = list(params.items())
+  num_rounds =10000 # 迭代次数
+  # watchlist = [(xgb_train, 'train'), (xgb_val, 'val')]
+
+  # 训练模型并保存
+  # early_stopping_rounds 当设置的迭代次数较大时，early_stopping_rounds 可在一定的迭代次数内准确率没有提升就停止训练
+  model = xgb.train(plst, xgb_train, num_rounds, verbose_eval=50, )
+  # model = xgb.train(plst, xgb_train, num_rounds, watchlist, early_stopping_rounds=300, verbose_eval=50, )
+  model.save_model('xgb.model')  # 用于存储训练出的模型
+  print("模型训练完成")
+</pre></li>
+<li>我的<pre>"import xgboost as xgb\n",
+  "xgb_model = xgb.XGBRegressor(\n",
+  "    colsample_bytree=0.4603,\n",
+  "    gamma=0.0468,\n",
+  "    learning_rate=0.05,\n",
+  "    max_depth=5,\n",
+  "    min_child_weight=1.7817,\n",
+  "    n_estimators=2200,\n",
+  "    reg_alpha=0.4640,\n",
+  "    reg_lambda=0.8571,\n",
+  "    subsample=0.5213,\n",
+  "    silent=1,\n",
+  "    random_state=7,\n",
+  "    nthread=-1)"
+ ]
+},
+{
+ "cell_type": "code",
+ "execution_count": 34,
+ "metadata": {},
+ "outputs": [
+  {
+   "data": {
+    "text/plain": [
+     "XGBRegressor(base_score=0.5, booster='gbtree', colsample_bylevel=1,\n",
+     "       colsample_bytree=0.4603, gamma=0.0468, learning_rate=0.05,\n",
+     "       max_delta_step=0, max_depth=5, min_child_weight=1.7817,\n",
+     "       missing=None, n_estimators=2200, n_jobs=1, nthread=-1,\n",
+     "       objective='reg:linear', random_state=7, reg_alpha=0.464,\n",
+     "       reg_lambda=0.8571, scale_pos_weight=1, seed=None, silent=1,\n",
+     "       subsample=0.5213)"
+    ]
+   },
+   "execution_count": 34,
+   "metadata": {},
+   "output_type": "execute_result"
+  }
+ ],
+ "source": [
+  "xgb_model.fit(x_train, y_train)"
+</pre>
+
+</li>
+</ul>
+<h4 id="LGB"><a href="#LGB" class="headerlink" title="LGB"></a>LGB</h4><ul>
+<li><p>犬哥的</p>
+<pre>
+# lgb
+  train = lgb.Dataset(train_data, label=train_result)
+  #test = lgb.Dataset(X_test, label=y_test, reference=train)
+  # xgbooster
+  params = {
+      'boosting_type': 'gbdt',
+      'objective': 'regression_l2',
+      'metric': 'l2',
+      # 'objective': 'multiclass',
+      # 'metric': 'multi_error',
+      # 'num_class':5,
+      'min_child_weight': 3,
+      'num_leaves': 2 ** 9,
+      'lambda_l2': 5,
+      #'subsample': 0.9,
+      'colsample_bytree': 0.7,
+      'colsample_bylevel': 0.7,
+      'learning_rate': 0.05,
+      'tree_method': 'exact',
+      'seed': 2017,
+      'nthread': 4,
+      #'silent': False
+  }
+
+  plst = list(params.items())
+  num_round = 14000
+
+  # 训练模型并保存
+  # early_stopping_rounds 当设置的迭代次数较大时，early_stopping_rounds 可在一定的迭代次数内准确率没有提升就停止训练
+  gbm = lgb.train(params,
+                  train,
+                  num_round,
+                  verbose_eval=50,
+                  #early_stopping_rounds=300,
+                  #valid_sets=[train, test]
+                  )
+
+  print("模型训练完成")
+</pre></li>
+<li>我的<br><pre><br>params = {‘boosting_type’: ‘gbdt’,\n”,<br>  “          ‘num_leaves’: 28,\n”,<br>  “          ‘max_depth’: -1,\n”,<br>  “          ‘objective’: ‘regression’,\n”,<br>  “          ‘learning_rate’: 0.1,\n”,<br>  “          ‘seed’: 2018,\n”,<br>  “          ‘num_threads’: -1,\n”,<br>  “          ‘max_bin’: 425,\n”,<br>  “          \”metric\”: \”rmse\”,\n”,<br>  “          # \”lambda_l1\”: 0.1,\n”,<br>  “          \”lambda_l2\”: 0.2,\n”,<br>  “          }\n”,<br>  “\n”,<br>  “params2 = {\n”,<br>  “        ‘boosting_type’: ‘gbdt’,\n”,<br>  “        ‘objective’: ‘regression_l2’,\n”,<br>  “        ‘metric’: ‘l2’,\n”,<br>  “        # ‘objective’: ‘multiclass’,\n”,<br>  “        # ‘metric’: ‘multi_error’,\n”,<br>  “        # ‘num_class’:5,\n”,<br>  “        ‘min_child_weight’: 3,\n”,<br>  “        #’num_leaves’: 2 ** 9,\n”,<br>  “        ‘num_leaves’: 100,\n”,<br>  “        ‘lambda_l2’: 5,\n”,<br>  “        #’subsample’: 0.9,\n”,<br>  “        ‘colsample_bytree’: 0.7,\n”,<br>  “        ‘colsample_bylevel’: 0.7,\n”,<br>  “        ‘learning_rate’: 0.05,\n”,<br>  “        ‘tree_method’: ‘exact’,\n”,<br>  “        ‘seed’: 2017,\n”,<br>  “        ‘nthread’: 4,\n”,<br>  “        #’silent’: False\n”,<br>  “    }\n”,<br>  “\n”,<br>  “params3 = {‘boosting_type’: ‘gbdt’,\n”,<br>  “          ‘num_leaves’: 28,\n”,<br>  “          ‘max_depth’: -1,\n”,<br>  “          ‘objective’: ‘regression’,\n”,<br>  “          ‘learning_rate’: 0.05,\n”,<br>  “          ‘seed’: 2018,\n”,<br>  “          ‘num_threads’: -1,\n”,<br>  “          ‘max_bin’: 425,\n”,<br>  “          \”metric\”: \”rmse\”,\n”,<br>  “          # \”lambda_l1\”: 0.1,\n”,<br>  “          \”lambda_l2\”: 0.5,\n”,<br>  “          }\n”,<br>  “\n”,</pre></li>
+</ul>
+<p>clf = lgb.train(params2,\n”,<br>    “                train_data,\n”,<br>    “                num_boost_round=14000,\n”,<br>    “                valid_sets=[train_data, val_data],\n”,<br>    “                valid_names=[‘train’, ‘valid’],\n”,<br>    “                early_stopping_rounds=100,\n”,<br>    “                feval=None,\n”,<br>    “                verbose_eval=50\n”,<br>    “               )\n”,<br></p>
+<p>冠军的参数见我自己笔记，Github的见Github~</p>
 
       
     </div>
@@ -407,8 +558,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/28/三色通道分离/" rel="next" title="三色通道分离">
-                <i class="fa fa-chevron-left"></i> 三色通道分离
+              <a href="/2018/11/27/Flask-Basic/" rel="next" title="Flask_Basic">
+                <i class="fa fa-chevron-left"></i> Flask_Basic
               </a>
             
           </div>
@@ -416,10 +567,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/28/opencv颜色空间转换/" rel="prev" title="邻域算子和线性滤波函数">
-                邻域算子和线性滤波函数 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -542,7 +689,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#矿堆识别（绿）"><span class="nav-number">1.</span> <span class="nav-text">矿堆识别（绿）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#思路"><span class="nav-number">1.0.0.1.</span> <span class="nav-text">思路</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤："><span class="nav-number">1.0.1.</span> <span class="nav-text">步骤：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步"><span class="nav-number">1.0.2.</span> <span class="nav-text">第一步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#pyrMeanShiftFiltering–meanShfit均值漂移算法"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">pyrMeanShiftFiltering–meanShfit均值漂移算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步"><span class="nav-number">1.0.3.</span> <span class="nav-text">第二步</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#颜色识别："><span class="nav-number">1.0.3.1.</span> <span class="nav-text">颜色识别：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优化"><span class="nav-number">1.0.4.</span> <span class="nav-text">优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对二值图像进行开操作，删除一些零零星星的噪点，"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">对二值图像进行开操作，删除一些零零星星的噪点，</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。"><span class="nav-number">1.0.4.2.</span> <span class="nav-text">再使用闭操作，连接一些连通域，也就是删除一些目标区域的白色的洞。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x00-概述"><span class="nav-number">1.</span> <span class="nav-text">0x00 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Xgb-Lgb学习"><span class="nav-number">2.</span> <span class="nav-text">Xgb,Lgb学习</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#XGB"><span class="nav-number">2.0.1.</span> <span class="nav-text">XGB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LGB"><span class="nav-number">2.0.2.</span> <span class="nav-text">LGB</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
