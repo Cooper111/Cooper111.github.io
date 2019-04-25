@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Seq2Seq 神经网络学习教程本文是对教程的部分翻译，并加入了一些自己的理解和归纳（Edit by Kevin）   课程中一些注意点：  ①Sequence to Sequence Learning with Neural Networks 使用LSTM；上下文向量$z^n = (h_T^n, c_T^n)$   ②Learning Phrase Representations using R">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Seq2Seq神经网络学习教程第一章">
+<meta property="og:url" content="https://cooper111.github.io/2019/04/25/Seq2Seq神经网络学习教程第一章/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="Seq2Seq 神经网络学习教程本文是对教程的部分翻译，并加入了一些自己的理解和归纳（Edit by Kevin）   课程中一些注意点：  ①Sequence to Sequence Learning with Neural Networks 使用LSTM；上下文向量$z^n = (h_T^n, c_T^n)$   ②Learning Phrase Representations using R">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq1.png">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?x_t">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?h_{t-1}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?x_t">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?h_{t-1}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?h_t = \text{EncoderRNN}(x_t, h_{t-1})">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?X = \{x_1, x_2, ..., x_T\}">
+<meta property="og:image" content="http://latex.codecogs.com/gif.latex?h_T = z">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq2.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq3.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq4.png">
+<meta property="og:updated_time" content="2019-04-25T14:12:49.353Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Seq2Seq神经网络学习教程第一章">
+<meta name="twitter:description" content="Seq2Seq 神经网络学习教程本文是对教程的部分翻译，并加入了一些自己的理解和归纳（Edit by Kevin）   课程中一些注意点：  ①Sequence to Sequence Learning with Neural Networks 使用LSTM；上下文向量$z^n = (h_T^n, c_T^n)$   ②Learning Phrase Representations using R">
+<meta name="twitter:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2019/04/25/Seq2Seq神经网络学习教程第一章/"/>
+
+
+
+
+
+  <title>Seq2Seq神经网络学习教程第一章 | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2019/04/25/Seq2Seq神经网络学习教程第一章/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Seq2Seq神经网络学习教程第一章</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-25T22:11:21+08:00">
+                2019-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Seq2Seq-神经网络学习教程"><a href="#Seq2Seq-神经网络学习教程" class="headerlink" title="Seq2Seq 神经网络学习教程"></a>Seq2Seq 神经网络学习教程</h1><p>本文是对<a href="https://github.com/bentrevett/pytorch-seq2seq" target="_blank" rel="noopener">教程</a>的部分翻译，并加入了一些自己的理解和归纳（Edit by Kevin）</p>
+<hr>
+
+<p>课程中一些注意点：</p>
+<ul>
+<li>①Sequence to Sequence Learning with Neural Networks<blockquote>
+<p>使用LSTM；上下文向量$z^n = (h_T^n, c_T^n)$</p>
+</blockquote>
+</li>
+<li>②Learning Phrase Representations using RNN Encoder-Decoder for Statistical Machine Translation<blockquote>
+<p>使用GRU；解码时加入不变的上下文向量(context vector z)</p>
+</blockquote>
+</li>
+<li>③Neural Machine Translation by Jointly Learning to Align and Translate<blockquote>
+<p>使用双向RNN(GRU);解码时加入Attention</p>
+</blockquote>
+</li>
+<li>④Packed Padded Sequences, Masking and Inference</li>
+<li>⑤Convolutional Sequence to Sequence Learning</li>
+<li>⑥Attention is All You Need</li>
+</ul>
+<h2 id="课程一：-Basic学习"><a href="#课程一：-Basic学习" class="headerlink" title="课程一： Basic学习"></a>课程一： Basic学习</h2><h2 id="1-1-概况"><a href="#1-1-概况" class="headerlink" title="1.1 概况"></a>1.1 概况</h2><p>在本系列文章中，我们将使用PyTorch和TorchText构建一个机器学习模型，从一个德语序列转换到另一个英语序列。模型可以应用于涉及从一个序列到另一个序列的任何问题，例如翻译、摘要总结。</p>
+<p>在第一个笔记本中，我们将通过实现<a href="https://arxiv.org/abs/1409.3215" target="_blank" rel="noopener"> Sequence to Sequence Learning with Neural Networks</a>来简单地理解一般概念。</p>
+<p>最常见的seq2seq模型是 <em>encoder-decoder</em> 模型, 通常使用一个 <em>recurrent neural network</em> (RNN) 去 <em>编码(encode)</em> 输入的源文本 (input) 语句成一个向量。在课程一中, 我们将把这个向量称为<em>上下文向量</em>。我们可以将上下文向量看作是整个输入语句的抽象表示。然后，第二个RNN对这个向量进行 <em>解码</em>。第二个RNN通过每次生成一个单词，来学习去输出目标句子。</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq1.png" alt=""></p>
+<p>上图显示了一个翻译示例。输入的源语句“guten morgen”，一次输入一个单词到绿色的编码器。 我们还分别在句首和句尾追加了一个<em>start of sequence</em> (‘&lt;sos> ‘)和<em>end of sequence</em> (‘ &lt;eos> ‘)令牌(Token)。在每一个时间步, 编码器RNN的输入都是当前单词, <a><img src="http://latex.codecogs.com/gif.latex?x_t"></a>, 以及前一个时间步的隐藏状态, <a><img src="http://latex.codecogs.com/gif.latex?h_{t-1}"></a>。然后编码器RNN输出一个新的隐藏状态 $h_t$.。你可以把隐藏状态看作是至此句子的所有句的向量表示。这RNN可以表示为 <a><img src="http://latex.codecogs.com/gif.latex?x_t"></a> 和 <a><img src="http://latex.codecogs.com/gif.latex?h_{t-1}"></a>的一个函数:</p>
+<p><a><img src="http://latex.codecogs.com/gif.latex?h_t = \text{EncoderRNN}(x_t, h_{t-1})"></a></p>
+<p>我们通常在这里使用术语RNN，它可以是任何递归架构，比如<em>LSTM</em> (长短时记忆)或 <em>GRU</em> (门控递归单元)。 </p>
+<p>这里，我们有 <a><img src="http://latex.codecogs.com/gif.latex?X = \{x_1, x_2, ..., x_T\}"></a>, 并且 $x_1 = \text{<sos>}, x_2 = \text{guten}$, etc. 初始化的隐藏层状态, $h_0$, 通常要么初始化为零，要么初始化为习得参数。</sos></p>
+<p>最后一个单词, $x_T$, 被传递到RNN后, 我们使用最后的隐藏层状态, $h_T$, 作为上下文文向量(context vector), i.e. <a><img src="http://latex.codecogs.com/gif.latex?h_T = z"></a>。 这是整个源语句的向量表示。</p>
+<p>现在我们有上下文向量, $z$, 我们可以开始解码得到目标句子, “good morning”。 同样，我们将开始和结束序列标记附加到目标语句中。在每一个时间步, 解码器RNN(蓝色)的输入是当前单词, $y_t$, 以及前一个时间步长的隐藏状态, $s_{t-1}$, 其中初始解码器隐藏状态, $s_0$, 是那个上下文向量, $s_0 = z = h_T$, i.e. 初始解码器(decoder)隐藏状态为最终编码器(encoder)隐藏状态.。因此，与编码器类似，我们可以将解码器表示为:</p>
+<p>$$s_t = \text{DecoderRNN}(y_t, s_{t-1})$$</p>
+<p>在解码器中, 我们需要将隐藏状态变成一个实际的单词,。因此，在每一个时间步我们使用 $s_t$ 去预测 (通过通过一个线性层<code>Linear</code> layer，用紫色表示) 序列中的下一个单词, $\hat{y}_t$. </p>
+<p>$$\hat{y}_t = f(s_t)$$</p>
+<p>我们总是使用 <code>&lt;sos&gt;</code>作为解码器的第一个输入， $y_1$, 但是对于后续的输入, $y_{t&gt;1}$, 我们有时候会用真实的输出单词作为下一个输入单词, $y_t$ 有时候我们使用解码器的输出作为下一个输入单词, $\hat{y}_{t-1}$。这就是所谓的 <em>teacher forcing</em>。</p>
+<p>我这里简要概括一下<em>teacher forcing</em> ：对于模型的预测输出结果，我们计算错误带来的损失后丢弃此输出，而使用真实的输出单词作为下一个输入单词。你可以在<a href="https://machinelearningmastery.com/teacher-forcing-for-recurrent-neural-networks/" target="_blank" rel="noopener">这里</a>了解更多。</p>
+<p>当训练或测试模型的时候, 我们总是知道目标句中有多少个单词, 所以一旦我们达到这个数量，我们就停止创造单词。 在inference过程中(i.e. real world usage)，通常会一直生成单词，直到模型输出一个“<eos>”Token，或者生成一定数量的单词之后。</eos></p>
+<p>一旦我们有了预期的目标句, $\hat{Y} = { \hat{y}_1, \hat{y}_2, …, \hat{y}_T }$, 我们将它与我们的实际目标句进行比较, $Y = { y_1, y_2, …, y_T }$, 计算我们的损失(Loss)。然后，我们使用这个损失来更新模型中的所有参数。</p>
+<h2 id="1-2-数据处理"><a href="#1-2-数据处理" class="headerlink" title="1.2 数据处理"></a>1.2 数据处理</h2><p>我们将在PyTorch中编写模型代码，并使用TorchText帮助我们完成所需的所有预处理。我们还将使用spaCy来辅助数据的标记化。</p>
+<p>步骤：</p>
+<ul>
+<li>为确定性结果设置随机种子</li>
+<li>使用spaCy创建对应语种的分词器(Tokenizer)，用于将句子转为Token序列，e.g. “good morning!” becomes [“good”, “morning”, “!”]。<blockquote>
+<p>spacy_en = spacy.load(‘en_core_web_sm’)<br>spacy_de = spacy.load(‘de_core_news_sm’)</p>
+</blockquote>
+</li>
+<li>创建可以传递给TorchText的tokenizer functions来实现分词器功能；这里将输入顺序颠倒，因为实现的论文认为颠倒次序“在数据中引入了许多短期依赖关系，使优化问题变得容易得多”。<blockquote>
+<p>def tokenize_de(text):<br>   “””<br>   Tokenizes German text from a string into a list of strings (tokens) and reverses it<br>   “””<br>   return [tok.text for tok in spacy_de.tokenizer(text)][::-1]</p>
+</blockquote>
+</li>
+<li><p>TorchText的<code>Field</code>类处理数据。你可以在<a href="https://github.com/pytorch/text/blob/master/torchtext/data/field.py#L61" target="_blank" rel="noopener">这里</a>阅读所有可能的函数参数。</p>
+<blockquote>
+<p>SRC = Field(tokenize=tokenize_de, init_token=’<sos>‘, eos_token=’<eos>‘, lower=True)<br>TRG = Field(tokenize=tokenize_en, init_token=’<sos>‘, eos_token=’<eos>‘, lower=True)</eos></sos></eos></sos></p>
+</blockquote>
+</li>
+<li><p>我们下载并加载训练、验证和测试数据。我们将使用的数据集是Multi30k数据集。这是一个包含约30000个平行的英语、德语和法语句子的数据集，每个句子包含约12个单词。<code>exts</code>指定使用哪种语言作为source和target(source goes first)，<code>fields</code> 指定使用哪个fields 为 source和target所使用。</p>
+<blockquote>
+<p>train_data, valid_data, test_data = Multi30k.splits(exts=(‘.de’, ‘.en’), fields=(SRC, TRG))</p>
+</blockquote>
+</li>
+<li><p>为源语言和目标语言分别构建词汇表，使每个Token对应唯一的一个索引，用于构建最终输出的One-hot向量。注：词汇表只从训练集构建，而不是验证集或测试集</p>
+<blockquote>
+<p>SRC.build_vocab(train_data, min_freq=2)<br><br>TRG.build_vocab(train_data, min_freq=2)<br><br>//min_freq指定最小频数，低于此数，Token使用 <code>&lt;unk&gt;</code> 代替</p>
+</blockquote>
+</li>
+<li><p>创建迭代器，对训练验证测试数据进行迭代，以返回一批具有<code>src</code>属性和<code>trg</code>的数据（数据已使用索引代替Token）padding</p>
+<blockquote>
+<p>BATCH_SIZE = 128<br><br>device = torch.device(‘cuda’ if torch.cuda.is_available() else ‘cpu’)<br><br>train_iterator, valid_iterator, test_iterator = BucketIterator.splits(<br>   (train_data, valid_data, test_data), batch_size=BATCH_SIZE, device=device)</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="1-3-构建Seq2Seq模型"><a href="#1-3-构建Seq2Seq模型" class="headerlink" title="1.3 构建Seq2Seq模型"></a>1.3 构建Seq2Seq模型</h2><p>我们将分三部分构建模型。编码器、解码器和封装编码器和解码器的seq2seq模型，并将提供一种与它们进行交互的方法。</p>
+<h2 id="Encoder"><a href="#Encoder" class="headerlink" title="Encoder"></a>Encoder</h2><p>编码器，使用一个2层LSTM构建。</p>
+<p>对于多层RNN，输入的句子 $X$ 和隐藏状态 $H={h_1, h_2, …, h_T}$ ，进入多层RNN的底部第一层。该层的输出用作上面层RNN的输入。因此，用上标表示每一层，第一层中的隐藏状态可表示为：</p>
+<p>$$h_t^1 = \text{EncoderRNN}^1(x_t, h_{t-1}^1)$$</p>
+<p>第二层的隐藏状态可表示为：</p>
+<p>$$h_t^2 = \text{EncoderRNN}^2(h_t^1, h_{t-1}^2)$$</p>
+<p>使用多层RNN也意味着我们还需要给每层输入一个初始隐藏状态,$h_0^l$,每层也会输出一个上下文向量, $z^l$。</p>
+<p>这里不详细介绍LSTMs（如果您想了解关于它们的更多信息，请参阅<a href="https://colah.github.io/posts/2015-08-Understanding-LSTMs/" target="_blank" rel="noopener">本文</a>）。但我们需要知道的是，LSTM不仅在每个时间步中接收并返回隐藏状态，还接收并返回单元格状态 <em>cell state</em>, $c_t$：</p>
+<p>$$\begin{align<em>}<br>h_t &amp;= \text{RNN}(x_t, h_{t-1})\<br>(h_t, c_t) &amp;= \text{LSTM}(x_t, (h_{t-1}, c_{t-1}))<br>\end{align</em>}$$</p>
+<p>你可以将$c_t$看做另一种隐藏层状态。类似于$h_0^l$， $c_0^l$将初始化为一个所有0的张量。同样，我们的上下文向量现在将是最终的隐藏状态和最终的单元格状态，即$z^l = (h_T^l, c_T^l)$</p>
+<p>将我们的multi-layer方程推广到LSTMs，得到：</p>
+<p>$$\begin{align<em>}<br>(h_t^1, c_t^1) &amp;= \text{EncoderLSTM}^1(x_t, (h_{t-1}^1, c_{t-1}^1))\<br>(h_t^2, c_t^2) &amp;= \text{EncoderLSTM}^2(h_t^1, (h_{t-1}^2, c_{t-1}^2))<br>\end{align</em>}$$</p>
+<p>注意！只有来自第一层的隐藏状态作为输入传递到第二层，单元格状态并没有传递到第二层。</p>
+<p>我们的编码器是这样的:</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq2.png" alt=""></p>
+<p>这里不对Embedding和Pytorch的LSTM构建展开过多叙述，详细可以查看Pytorch官方文档和<a href="https://github.com/bentrevett/pytorch-seq2seq" target="_blank" rel="noopener">原教程</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Encoder</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, input_dim, emb_dim, hid_dim, n_layers, dropout)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        </span><br><span class="line">        self.input_dim = input_dim</span><br><span class="line">        self.emb_dim = emb_dim</span><br><span class="line">        self.hid_dim = hid_dim</span><br><span class="line">        self.n_layers = n_layers</span><br><span class="line">        self.dropout = dropout</span><br><span class="line">        </span><br><span class="line">        self.embedding = nn.Embedding(input_dim, emb_dim)</span><br><span class="line">        </span><br><span class="line">        self.rnn = nn.LSTM(emb_dim, hid_dim, n_layers, dropout=dropout)</span><br><span class="line">        </span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, src)</span>:</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#src = [sent len, batch size]</span></span><br><span class="line">        </span><br><span class="line">        embedded = self.dropout(self.embedding(src))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#embedded = [sent len, batch size, emb dim]</span></span><br><span class="line">        </span><br><span class="line">        outputs, (hidden, cell) = self.rnn(embedded)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#outputs = [sent len, batch size, hid dim * n directions]</span></span><br><span class="line">        <span class="comment">#hidden = [n layers * n directions, batch size, hid dim]</span></span><br><span class="line">        <span class="comment">#cell = [n layers * n directions, batch size, hid dim]</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#outputs are always from the top hidden layer</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> hidden, cell</span><br></pre></td></tr></table></figure>
+<h2 id="Decoder"><a href="#Decoder" class="headerlink" title="Decoder"></a>Decoder</h2><p>接下来，我们将构建解码器，解码器也是一个2层LSTM。</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq3.png" alt=""></p>
+<p>解码器只执行一个解码步骤。第一层将接收前一个时间步的隐藏状态和单元格状态$(s_{t-1}^1, c_{t-1}^1)$，并使用当前Token  $y_t$  一起传递给LSTM，生成一个新的隐藏状态和单元格状态$(s_t^1, c_t^1)$。后面的层将使用他们下面一层的隐藏状态$s_t^{l-1}$，还有前面一层的隐藏状态和单元格状态$(s_{t-1}^l, c_{t-1}^l)$。这提供了与编码器中非常相似的方程。</p>
+<p>$$\begin{align<em>}<br>(s_t^1, c_t^1) = \text{DecoderLSTM}^1(y_t, (s_{t-1}^1, c_{t-1}^1))\<br>(s_t^2, c_t^2) = \text{DecoderLSTM}^2(s_t^1, (s_{t-1}^2, c_{t-1}^2))<br>\end{align</em>}$$</p>
+<p>记住，解码器的初始隐藏状态和单元状态是来自同一层的编码器的最终隐藏状态和单元状态，也叫做上下文向量, i.e. </p>
+<p>$$\begin{align<em>}<br>$(s_0^l,c_0^l)=z^l=(h_T^l,c_T^l)$.<br>\end{align</em>}$$</p>
+<p>然后我们把顶层RNN的隐藏层状态, $s_t^L$,传递给线性层 ，$f$，去预测输出的目标序列的下一个Token是什么，$\hat{y}_{t+1}$。</p>
+<p>$$\hat{y}_{t+1} = f(s_t^L)$$</p>
+<p>Docoder模型查看Pytorch官方文档和<a href="https://github.com/bentrevett/pytorch-seq2seq" target="_blank" rel="noopener">原教程</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Decoder</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, output_dim, emb_dim, hid_dim, n_layers, dropout)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line"></span><br><span class="line">        self.emb_dim = emb_dim</span><br><span class="line">        self.hid_dim = hid_dim</span><br><span class="line">        self.output_dim = output_dim<span class="comment">#输出的one-hot大小，起决于词汇表大小</span></span><br><span class="line">        self.n_layers = n_layers</span><br><span class="line">        self.dropout = dropout</span><br><span class="line">        </span><br><span class="line">        self.embedding = nn.Embedding(output_dim, emb_dim)</span><br><span class="line">        </span><br><span class="line">        self.rnn = nn.LSTM(emb_dim, hid_dim, n_layers, dropout=dropout)</span><br><span class="line">        </span><br><span class="line">        self.out = nn.Linear(hid_dim, output_dim)</span><br><span class="line">        </span><br><span class="line">        self.dropout = nn.Dropout(dropout)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, input, hidden, cell)</span>:</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#input = [batch size]</span></span><br><span class="line">        <span class="comment">#hidden = [n layers * n directions, batch size, hid dim]</span></span><br><span class="line">        <span class="comment">#cell = [n layers * n directions, batch size, hid dim]</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#n directions in the decoder will both always be 1, therefore:</span></span><br><span class="line">        <span class="comment">#hidden = [n layers, batch size, hid dim]</span></span><br><span class="line">        <span class="comment">#context = [n layers, batch size, hid dim]</span></span><br><span class="line">        </span><br><span class="line">        input = input.unsqueeze(<span class="number">0</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#input = [1, batch size]</span></span><br><span class="line">        </span><br><span class="line">        embedded = self.dropout(self.embedding(input))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#embedded = [1, batch size, emb dim]</span></span><br><span class="line">                </span><br><span class="line">        output, (hidden, cell) = self.rnn(embedded, (hidden, cell))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#output = [sent len, batch size, hid dim * n directions]</span></span><br><span class="line">        <span class="comment">#hidden = [n layers * n directions, batch size, hid dim]</span></span><br><span class="line">        <span class="comment">#cell = [n layers * n directions, batch size, hid dim]</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#sent len and n directions will always be 1 in the decoder, therefore:</span></span><br><span class="line">        <span class="comment">#output = [1, batch size, hid dim]</span></span><br><span class="line">        <span class="comment">#hidden = [n layers, batch size, hid dim]</span></span><br><span class="line">        <span class="comment">#cell = [n layers, batch size, hid dim]</span></span><br><span class="line">        </span><br><span class="line">        prediction = self.out(output.squeeze(<span class="number">0</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#prediction = [batch size, output dim]</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> prediction, hidden, cell</span><br></pre></td></tr></table></figure>
+<h3 id="Seq2Seq"><a href="#Seq2Seq" class="headerlink" title="Seq2Seq"></a>Seq2Seq</h3><p>实现Seq2seq模型的最后一部分, 我们将要处理以下问题： </p>
+<ul>
+<li>接收原句输入</li>
+<li>使用编码器生成上下文向量 </li>
+<li>使用解码器生成预测的输出/目标句</li>
+</ul>
+<p>我们的完整模型将是这样的:</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/seq2seq/seq2seq4.png" alt=""></p>
+<p>注意，我们必须确保在编码器和解码器中层(layer)数和隐藏状态(和单元格)维数相等。不然多层编码器产生的多个上下文向量无法被一一对应接收。</p>
+<p>我讲在这部分再回顾一遍整体过程：</p>
+<p>模型的forward方法喂入源句、目标句和teacher-forcing比率。在对模型进行训练时，采用了 teacher forcing比率。解码时,在每个时间步我们将预测目标序列中的下一个Token将从以前的令牌解码,  $\hat{y}_{t+1}=f(s_t^L)$ 。当概率等于teacher-forcing比率(teacher_forcing_ratio)时，我们将使用序列中的实际ground-truth next Token作为下一个时间步的解码器输入。但是，对于概率为1 - teacher_forced ing_ratio的情况，我们将使用模型预测的Token。</p>
+<p>我们在模型forward方法中做的第一件事是创建一个<code>outputs</code>张量，它将存储我们所有的预测，$\hat{Y}$。</p>
+<p>然后给模型Encoder喂入原句, $X$/<code>src</code>, 接收Encoder的最终输出隐藏层状态（hidden states）和单元状态（cell states）。</p>
+<p>解码器的第一个输入是句子的开始—— (<code>&lt;sos&gt;</code>) token。 由于我们的<code>trg</code>张量已经附加了<code>&lt;sos&gt;</code>token(回溯到我们在<code>TRG</code>Field中定义<code>init_token</code>的时候)，我们通过切片得到了$y_1$。 我们使用 <code>max_len</code>规定句子长度, 我们循环了很多次。在循环的每次迭代中，我们：</p>
+<ul>
+<li>喂入输入数据, 输出 ($y_t, s_{t-1}, c_{t-1}$) 进入解码器</li>
+<li>从解码器接收输出预测、下个隐藏层状态和单元状态 ($\hat{y}<em>{t+1}, s</em>{t}, c_{t}$) </li>
+<li>把我们的预测结果, $\hat{y}_{t+1}$/<code>output</code> 放置入存储预测结果集合的张量Tensor中, $\hat{Y}$/<code>outputs</code></li>
+<li>决定我们是否要”teacher force” ：<ul>
+<li>如果要, 下一个时间步的解码器输入 <code>input</code> 使用序列中的实际ground-truth next Token, $y_{t+1}$/<code>trg[t]</code></li>
+<li>如果不要, 下一个时间步的解码器输入 <code>input</code> 使用模型预测的Token, $\hat{y}_{t+1}$/<code>top1</code></li>
+</ul>
+</li>
+</ul>
+<p>一旦我们做出了所有的预测，我们就会返回一个充满预测的张量, $\hat{Y}$/<code>outputs</code>.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Seq2Seq</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, encoder, decoder, device)</span>:</span></span><br><span class="line">        super().__init__()</span><br><span class="line">        </span><br><span class="line">        self.encoder = encoder</span><br><span class="line">        self.decoder = decoder</span><br><span class="line">        self.device = device</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">assert</span> encoder.hid_dim == decoder.hid_dim, <span class="string">"Hidden dimensions of encoder and decoder must be equal!"</span></span><br><span class="line">        <span class="keyword">assert</span> encoder.n_layers == decoder.n_layers, <span class="string">"Encoder and decoder must have equal number of layers!"</span></span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, src, trg, teacher_forcing_ratio=<span class="number">0.5</span>)</span>:</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">#src = [sent len, batch size]</span></span><br><span class="line">        <span class="comment">#trg = [sent len, batch size]</span></span><br><span class="line">        <span class="comment">#teacher_forcing_ratio is probability to use teacher forcing</span></span><br><span class="line">        <span class="comment">#e.g. if teacher_forcing_ratio is 0.75 we use ground-truth inputs 75% of the time</span></span><br><span class="line">        </span><br><span class="line">        batch_size = trg.shape[<span class="number">1</span>]</span><br><span class="line">        max_len = trg.shape[<span class="number">0</span>]</span><br><span class="line">        trg_vocab_size = self.decoder.output_dim</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#tensor to store decoder outputs</span></span><br><span class="line">        outputs = torch.zeros(max_len, batch_size, trg_vocab_size).to(self.device)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#last hidden state of the encoder is used as the initial hidden state of the decoder</span></span><br><span class="line">        hidden, cell = self.encoder(src)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">#first input to the decoder is the &lt;sos&gt; tokens</span></span><br><span class="line">        input = trg[<span class="number">0</span>,:]</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">1</span>, max_len):</span><br><span class="line">            </span><br><span class="line">            output, hidden, cell = self.decoder(input, hidden, cell)</span><br><span class="line">            outputs[t] = output</span><br><span class="line">            teacher_force = random.random() &lt; teacher_forcing_ratio</span><br><span class="line">            top1 = output.max(<span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">            input = (trg[t] <span class="keyword">if</span> teacher_force <span class="keyword">else</span> top1)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> outputs</span><br></pre></td></tr></table></figure>
+<h2 id="训练-测试-模型"><a href="#训练-测试-模型" class="headerlink" title="训练/测试  模型"></a>训练/测试  模型</h2><p>此处基本与通常训练步骤相似，不再展开。</p>
+<p>注意点：</p>
+<ul>
+<li><p>损失函数只对2d输入、1d输出的起效，所以计算损失前需要使用<code>.view</code>降维</p>
+</li>
+<li><p>我们也不想计算序列开头<code>&lt;sos&gt;</code>token带来的损失。因此，我们切掉输出和目标张量的第一列</p>
+</li>
+</ul>
+<blockquote>
+<p>loss = criterion(output[1:].view(-1, output.shape[2]), trg[1:].view(-1))</p>
+</blockquote>
+<h3 id="更多请见我的Github"><a href="#更多请见我的Github" class="headerlink" title="更多请见我的Github~"></a>更多请见我的<a href="https://github.com/Cooper111/Seq2Seq-tutorial-Chin" target="_blank" rel="noopener">Github</a>~</h3>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/25/目标侦测rcnn系列学习笔记/" rel="next" title="目标侦测rcnn系列学习笔记">
+                <i class="fa fa-chevron-left"></i> 目标侦测rcnn系列学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">70</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Seq2Seq-神经网络学习教程"><span class="nav-number">1.</span> <span class="nav-text">Seq2Seq 神经网络学习教程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#课程一：-Basic学习"><span class="nav-number">1.1.</span> <span class="nav-text">课程一： Basic学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-概况"><span class="nav-number">1.2.</span> <span class="nav-text">1.1 概况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-数据处理"><span class="nav-number">1.3.</span> <span class="nav-text">1.2 数据处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-构建Seq2Seq模型"><span class="nav-number">1.4.</span> <span class="nav-text">1.3 构建Seq2Seq模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Encoder"><span class="nav-number">1.5.</span> <span class="nav-text">Encoder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Decoder"><span class="nav-number">1.6.</span> <span class="nav-text">Decoder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Seq2Seq"><span class="nav-number">1.6.1.</span> <span class="nav-text">Seq2Seq</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#训练-测试-模型"><span class="nav-number">1.7.</span> <span class="nav-text">训练/测试  模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更多请见我的Github"><span class="nav-number">1.7.1.</span> <span class="nav-text">更多请见我的Github~</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
