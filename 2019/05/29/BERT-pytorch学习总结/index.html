@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="NLP," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="BERT学习笔记Task 看懂高明豪老哥代码 熟悉BERT-Pytorch分类任务训练流程 了解如何加孪生神经网络为分类头 学一些融合技巧 学BERT生成预测结果  Refence pytorch-pretrained-BERT BERT中文语义相似度实战1 BERT中文语义相似度实战2 一起读BERT文本分类代码（Pytorch篇）  使用代码初读注：run_classifier.py Data">
+<meta name="keywords" content="NLP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BERT-pytorch学习总结">
+<meta property="og:url" content="https://cooper111.github.io/2019/05/29/BERT-pytorch学习总结/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="BERT学习笔记Task 看懂高明豪老哥代码 熟悉BERT-Pytorch分类任务训练流程 了解如何加孪生神经网络为分类头 学一些融合技巧 学BERT生成预测结果  Refence pytorch-pretrained-BERT BERT中文语义相似度实战1 BERT中文语义相似度实战2 一起读BERT文本分类代码（Pytorch篇）  使用代码初读注：run_classifier.py Data">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/Dataprocessor.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/MnliProcessor.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/main_processoes.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/InputExample.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/FullTokenizer.png">
+<meta property="og:updated_time" content="2019-05-28T16:33:48.839Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BERT-pytorch学习总结">
+<meta name="twitter:description" content="BERT学习笔记Task 看懂高明豪老哥代码 熟悉BERT-Pytorch分类任务训练流程 了解如何加孪生神经网络为分类头 学一些融合技巧 学BERT生成预测结果  Refence pytorch-pretrained-BERT BERT中文语义相似度实战1 BERT中文语义相似度实战2 一起读BERT文本分类代码（Pytorch篇）  使用代码初读注：run_classifier.py Data">
+<meta name="twitter:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/Dataprocessor.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2019/05/29/BERT-pytorch学习总结/"/>
+
+
+
+
+
+  <title>BERT-pytorch学习总结 | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2019/05/29/BERT-pytorch学习总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">BERT-pytorch学习总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-29T00:32:56+08:00">
+                2019-05-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="BERT学习笔记"><a href="#BERT学习笔记" class="headerlink" title="BERT学习笔记"></a>BERT学习笔记</h1><h2 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h2><ul>
+<li>看懂高明豪老哥代码</li>
+<li>熟悉BERT-Pytorch分类任务训练流程</li>
+<li>了解如何加孪生神经网络为分类头</li>
+<li>学一些融合技巧</li>
+<li>学BERT生成预测结果</li>
+</ul>
+<h2 id="Refence"><a href="#Refence" class="headerlink" title="Refence"></a>Refence</h2><ul>
+<li><a href="https://github.com/huggingface/pytorch-pretrained-BERT" target="_blank" rel="noopener">pytorch-pretrained-BERT</a></li>
+<li><a href="https://blog.csdn.net/weixin_37947156/article/details/84877254" target="_blank" rel="noopener">BERT中文语义相似度实战1</a></li>
+<li><a href="https://blog.csdn.net/u012526436/article/details/84637834?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="noopener">BERT中文语义相似度实战2</a></li>
+<li><a href="https://zhuanlan.zhihu.com/p/56326356" target="_blank" rel="noopener">一起读BERT文本分类代码（Pytorch篇）</a></li>
+</ul>
+<h2 id="使用代码初读"><a href="#使用代码初读" class="headerlink" title="使用代码初读"></a>使用代码初读</h2><p>注：run_classifier.py</p>
+<h3 id="DataProcessor"><a href="#DataProcessor" class="headerlink" title="DataProcessor"></a>DataProcessor</h3><p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/Dataprocessor.png" alt="Dataprocessor"></p>
+<ul>
+<li>定位：是对输入进行数据处理的抽象父类</li>
+<li>说明：自定义的processor里需要继承<strong>DataProcessor</strong>，并重载<strong>获取label</strong>的<strong>get_labels</strong>和<strong>获取单个输入</strong>的<strong>get_train_examples</strong>和<strong>get_dev_examples</strong>函数。</li>
+<li>继承实例：<img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/MnliProcessor.png" alt=""></li>
+</ul>
+<p><code>InputExample</code>类用于封装输入，之后再展开。</p>
+<p><code>tokenization.convert_to_unicode</code>确保输入为str，否则使用utf-8解码</p>
+<ul>
+<li><p>调用：在main()函数内：</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/main_processoes.png" alt="main_processoes.png"></p>
+<p>然后获取参数对应的Processor实例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">if task_name not in processors:</span><br><span class="line">    raise ValueError(&quot;Task not found: %s&quot; % (task_name))</span><br><span class="line">  </span><br><span class="line">processor = processors[task_name]()</span><br><span class="line">label_list = processor.get_labels()</span><br><span class="line">  </span><br><span class="line">···</span><br><span class="line">然后</span><br><span class="line">在args.do_train里</span><br><span class="line">train_examples = processor.get_train_examples(args.data_dir)</span><br><span class="line">在args.do_eval里</span><br><span class="line">eval_examples = processor.get_dev_examples(args.data_dir)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>InputExample类：一个简单的输入封装</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/InputExample.png" alt="InputExample"></p>
+</li>
+</ul>
+<p>其中<strong>guid</strong>是用于<strong>区分每一个InputExample</strong></p>
+<h2 id="Tokenizer"><a href="#Tokenizer" class="headerlink" title="Tokenizer"></a>Tokenizer</h2><p>首先看一下main()函数内的调用：</p>
+<pre><code>import tokenization
+
+···
+
+tokenizer = tokenization.FullTokenizer(
+    vocab_file=args.vocab_file, do_lower_case=args.do_lower_case)
+</code></pre><p>追踪到<strong>FullTokenizer</strong>类：</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/bert/FullTokenizer.png" alt="FullTokenizer.png"></p>
+<p>再看<strong>BasicTokenizer</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">def tokenize(self, text)内</span><br><span class="line">首先调用convert_to_unicode，将text解码——若为str则不变，若为bytes则以utf-8解码</span><br><span class="line">然后调用_clean_text，将文本中无效字符和空白清除</span><br><span class="line">然后调用_tokenize_chinese_chars，在任何中文字符(CJK)周围添加空格（所以中文vocab里都是单个字）</span><br><span class="line">然后调用whitespace_tokenize，将文本以空白进行分割成token的list</span><br><span class="line">然后对每个token_list的每个token：</span><br><span class="line">	①转换成小写</span><br><span class="line">	②调用_run_strip_accents，去掉文本中的piece，做法是unicode转NFD字符串，再对字符返回再Unicode里分类类型，如果类型为[Mn]	Mark, Nonspacing，则删除</span><br><span class="line">	③调用_run_split_on_punc， 在一段文字上分割标点符号，因为空白分割未考虑标点</span><br><span class="line">最后将每个处理完毕的token使用空白连接(join)，再进行空白分割，得出output_tokens</span><br><span class="line">解释：输出目标为token的list</span><br></pre></td></tr></table></figure>
+<p>再看 <strong>WordpieceTokenizer</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;Tokenizes a piece of text into its word pieces.</span><br><span class="line"></span><br><span class="line">        This uses a greedy longest-match-first algorithm to perform tokenization</span><br><span class="line">        using the given vocabulary.</span><br><span class="line"></span><br><span class="line">        For example:</span><br><span class="line">          input = &quot;unaffable&quot;</span><br><span class="line">          output = [&quot;un&quot;, &quot;##aff&quot;, &quot;##able&quot;]</span><br><span class="line"></span><br><span class="line">        Args:</span><br><span class="line">          text: A single token or whitespace separated tokens. This should have</span><br><span class="line">            already been passed through `BasicTokenizer.</span><br><span class="line"></span><br><span class="line">        Returns:</span><br><span class="line">          A list of wordpiece tokens.</span><br><span class="line">        &quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+<p>由此，我认为<strong>FullTokenizer</strong>作用是<strong>将输入的文本清洗后细分到词再到单词碎片(Wordpiece)</strong></p>
+<h2 id="convert-examples-to-features"><a href="#convert-examples-to-features" class="headerlink" title="convert_examples_to_features"></a>convert_examples_to_features</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#位置：在模型输入之前</span><br><span class="line">#说明：processor产生train_examples，和tokenizer相连，将数据文件加载到&apos; InputBatch &apos;列表中</span><br><span class="line">①其中label_map是key为label值为对应id的字典</span><br><span class="line">②对每个example的text_a和text_b调用tokenizer.tokenize方法获得token序列</span><br><span class="line">③调用_truncate_seq_pair，将token序列长度缩为max_length-3 (Account for [CLS], [SEP], [SEP] with &quot;- 3&quot;)</span><br><span class="line">④增加[CLS], [SEP], [SEP]，效果如下： </span><br><span class="line">        # The convention in BERT is:</span><br><span class="line">        # (a) For sequence pairs:</span><br><span class="line">        #  tokens:   [CLS] is this jack ##son ##ville ? [SEP] no it is not . [SEP]</span><br><span class="line">        #  type_ids: 0   0  0    0    0     0       0 0    1  1  1  1   1 1</span><br><span class="line">        # (b) For single sequences:</span><br><span class="line">        #  tokens:   [CLS] the dog is hairy . [SEP]</span><br><span class="line">        #  type_ids: 0   0   0   0  0     0 0</span><br><span class="line">   		#注：type_id用于区分第一句话(0)第二句话(1)， 在代码中为segment_ids</span><br><span class="line">   		</span><br><span class="line">⑤调用convert_tokens_to_ids，将token转为vocab映射的id，得结果input_ids</span><br><span class="line">⑥制作input_mask，即[1] * len(input_ids)</span><br><span class="line">⑦对input_ids， input_mask， segment_ids进行填0来padding到定长。</span><br><span class="line">⑧label_id = label_map[example.label]</span><br><span class="line">⑨将输入封装到feature类里，如下：</span><br><span class="line">    features.append(</span><br><span class="line">                    InputFeatures(</span><br><span class="line">                            input_ids=input_ids,</span><br><span class="line">                            input_mask=input_mask,</span><br><span class="line">                            segment_ids=segment_ids,</span><br><span class="line">                            label_id=label_id))</span><br></pre></td></tr></table></figure>
+<h2 id="最终输入"><a href="#最终输入" class="headerlink" title="最终输入"></a>最终输入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># Already been converted into WordPiece token ids</span><br><span class="line">input_ids = torch.LongTensor([[31, 51, 99], [15, 5, 0]])</span><br><span class="line">input_mask = torch.LongTensor([[1, 1, 1], [1, 1, 0]])</span><br><span class="line">token_type_ids = torch.LongTensor([[0, 0, 1], [0, 2, 0]])</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/NLP/" rel="tag"># NLP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/25/图像增强/" rel="next" title="图像增强">
+                <i class="fa fa-chevron-left"></i> 图像增强
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/05/29/CTC学习笔记/" rel="prev" title="CTC学习笔记">
+                CTC学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">74</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BERT学习笔记"><span class="nav-number">1.</span> <span class="nav-text">BERT学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Task"><span class="nav-number">1.1.</span> <span class="nav-text">Task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Refence"><span class="nav-number">1.2.</span> <span class="nav-text">Refence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用代码初读"><span class="nav-number">1.3.</span> <span class="nav-text">使用代码初读</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataProcessor"><span class="nav-number">1.3.1.</span> <span class="nav-text">DataProcessor</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Tokenizer"><span class="nav-number">1.4.</span> <span class="nav-text">Tokenizer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#convert-examples-to-features"><span class="nav-number">1.5.</span> <span class="nav-text">convert_examples_to_features</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最终输入"><span class="nav-number">1.6.</span> <span class="nav-text">最终输入</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

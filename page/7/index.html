@@ -241,7 +241,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/线性领域滤波/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/第二周作业/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -260,7 +260,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/线性领域滤波/" itemprop="url">邻域算子和线性滤波函数</a></h1>
+                <a class="post-title-link" href="/2018/03/28/第二周作业/" itemprop="url">第二周作业</a></h1>
         
 
         <div class="post-meta">
@@ -272,8 +272,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
               </time>
             
 
@@ -334,19 +334,18 @@
       
         
           
-          邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······
+          矿堆识别（绿）思路
+1.要对颜色进行处理–了解颜色的聚类算法（无监督）{    ‘k-mean’:选定簇的数目；    ‘mean-shift’:无须选定簇的数目；}簇的合并和分离（根据像素距离重组）—》不会······
 
-方框滤波——boxblur函数
-均值滤波——blur函数
-高斯滤波——GaussianBlur函数
 
-函数的原理和源代码分析见：
+2.如何做–&gt;&gt;HSV，颜色检测
 
-https://blog.csdn.net/poem_qianmo/article/deta
+
+3.优化–&gt;&gt
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/线性领域滤波/#more" rel="contents">
+            <a class="btn" href="/2018/03/28/第二周作业/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -397,7 +396,7 @@ https://blog.csdn.net/poem_qianmo/article/deta
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/学习进度/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/opencv颜色空间转换/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -416,7 +415,7 @@ https://blog.csdn.net/poem_qianmo/article/deta
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/学习进度/" itemprop="url">学习进度【到2018.3.27】</a></h1>
+                <a class="post-title-link" href="/2018/03/28/opencv颜色空间转换/" itemprop="url">邻域算子和线性滤波函数</a></h1>
         
 
         <div class="post-meta">
@@ -428,8 +427,8 @@ https://blog.csdn.net/poem_qianmo/article/deta
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
               </time>
             
 
@@ -490,18 +489,20 @@ https://blog.csdn.net/poem_qianmo/article/deta
       
         
           
-          3.249:00，第一次参加挑战杯会议，基本没听懂下午开始配置vs和opencv，半夜成功，并且学到博客第三节
-3.25上午搭建了博客
-
-“https://cooper111.github.io/”；
-
-接下午，学到博客第六章，撰写了2个md笔记；Mat通道的理解：
-
-https://blog.cs
+          
+#include 
+#include 
+#include 
+#include 
+#include 
+using namespace std;
+int main()
+{
+    cv::Mat srcImage = cv::imread("C:\\Users\\LP\\Desktop\\C++\\C
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/学习进度/#more" rel="contents">
+            <a class="btn" href="/2018/03/28/opencv颜色空间转换/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -552,7 +553,7 @@ https://blog.cs
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/常用语法笔记/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/28/三色通道分离/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -571,7 +572,7 @@ https://blog.cs
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/常用语法笔记/" itemprop="url">OpenCV常用语法笔记</a></h1>
+                <a class="post-title-link" href="/2018/03/28/三色通道分离/" itemprop="url">三色通道分离</a></h1>
         
 
         <div class="post-meta">
@@ -583,8 +584,8 @@ https://blog.cs
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-28T14:53:27+08:00">
+                2018-03-28
               </time>
             
 
@@ -645,23 +646,26 @@ https://blog.cs
       
         
           
-          imread()第二个参数
+          其一
+
+#include   
+#include   
+#include   
+
+using namespace cv;
+using namespace std;
 
 
-0:返回3通道=0:返回灰度图&lt;0:返回原图
+bool MultiChannelBlending();
 
+int main()
+{
+    system("color5E");
 
-Mat 的API：
-
-( Mat image; )Mat new_image;new_image =  image.clone()
-
-向下采样：
-
-Mat dstImage;pyrDown(srcImage, d
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/常用语法笔记/#more" rel="contents">
+            <a class="btn" href="/2018/03/28/三色通道分离/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1019,7 +1023,7 @@ Canny 算子大致步骤如同老师讲时记得笔记：
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/分离颜色通道&多通道图像混合/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/线性领域滤波/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -1038,7 +1042,7 @@ Canny 算子大致步骤如同老师讲时记得笔记：
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/26/分离颜色通道&多通道图像混合/" itemprop="url">OpenCV分离颜色通道&多通道图像混合</a></h1>
+                <a class="post-title-link" href="/2018/03/26/线性领域滤波/" itemprop="url">邻域算子和线性滤波函数</a></h1>
         
 
         <div class="post-meta">
@@ -1112,174 +1116,19 @@ Canny 算子大致步骤如同老师讲时记得笔记：
       
         
           
-          分离颜色通道&amp;多通道图像混合
+          邻域算子和线性滤波函数ps: 只能说数学基础不好，得慢慢补呐······
 
-Split函数
+方框滤波——boxblur函数
+均值滤波——blur函数
+高斯滤波——GaussianBlur函数
 
-C++: void split(const Mat& src, Mat*mvbegin);  
-C++: void split(InputArray m,OutputArrayOfArrays mv); 
-第一个参数，InputArray类型
+函数的原理和源代码分析见：
+
+https://blog.csdn.net/poem_qianmo/article/deta
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/分离颜色通道&多通道图像混合/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/OpenCV边缘检测：Sobel算子/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="花郎世纪">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Cooper111's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/26/OpenCV边缘检测：Sobel算子/" itemprop="url">OpenCV边缘检测：Sobel算子</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
-                2018-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Opencv/" itemprop="url" rel="index">
-                    <span itemprop="name">Opencv</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          OpenCV边缘检测：Sobel算子基础概念：图像梯度:
-
-G(x,y) = dx i + dy j; 
-dx(i,j) = I(i+1,j) - I(i,j); 
-dy(i,j) = I(i,j+1) - I(i,j); 
-
-其中，I是图像像素的值(如：RGB值)，(i,j)为像素的坐标
-
-
-理解
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/26/OpenCV边缘检测：Sobel算子/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/线性领域滤波/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1480,7 +1329,7 @@ CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/25/图像载入，初级图像混合/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/常用语法笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -1499,7 +1348,7 @@ CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/25/图像载入，初级图像混合/" itemprop="url">图像载入，初级图像混合</a></h1>
+                <a class="post-title-link" href="/2018/03/26/常用语法笔记/" itemprop="url">OpenCV常用语法笔记</a></h1>
         
 
         <div class="post-meta">
@@ -1511,8 +1360,8 @@ CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-25T14:53:27+08:00">
-                2018-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
+                2018-03-26
               </time>
             
 
@@ -1573,20 +1422,23 @@ CV_EXPORTS_W void filter2D( InputArray src, OutputArray dst, int ddepth,
       
         
           
-          图像载入，初级图像混合标配
-#include   
-#include  
-
-using namespace cv; 
+          imread()第二个参数
 
 
+0:返回3通道=0:返回灰度图&lt;0:返回原图
 
-图像读取
-Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1.jpg”
+
+Mat 的API：
+
+( Mat image; )Mat new_image;new_image =  image.clone()
+
+向下采样：
+
+Mat dstImage;pyrDown(srcImage, d
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/25/图像载入，初级图像混合/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/常用语法笔记/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1637,7 +1489,7 @@ Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/25/你好，Hexo/">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/分离颜色通道&多通道图像混合/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="花郎世纪">
@@ -1656,7 +1508,7 @@ Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/25/你好，Hexo/" itemprop="url">你好，Hexo</a></h1>
+                <a class="post-title-link" href="/2018/03/26/分离颜色通道&多通道图像混合/" itemprop="url">OpenCV分离颜色通道&多通道图像混合</a></h1>
         
 
         <div class="post-meta">
@@ -1668,8 +1520,8 @@ Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-25T11:30:17+08:00">
-                2018-03-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
+                2018-03-26
               </time>
             
 
@@ -1691,8 +1543,8 @@ Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Hello/" itemprop="url" rel="index">
-                    <span itemprop="name">Hello~</span>
+                  <a href="/categories/Opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">Opencv</span>
                   </a>
                 </span>
 
@@ -1730,13 +1582,172 @@ Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1
       
         
           
-          使用Hexo，是一件非常简单的事.
-拖拖拖的慢更Blog内容初涉，有误请指教( • ̀ω•́ )✧
+          分离颜色通道&amp;多通道图像混合
 
-          
+Split函数
+
+C++: void split(const Mat& src, Mat*mvbegin);  
+C++: void split(InputArray m,OutputArrayOfArrays mv); 
+第一个参数，InputArray类型
+          ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2018/03/25/你好，Hexo/#more" rel="contents">
+            <a class="btn" href="/2018/03/26/分离颜色通道&多通道图像混合/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2018/03/26/学习进度/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/26/学习进度/" itemprop="url">学习进度【到2018.3.27】</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T14:53:27+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">Opencv</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          3.249:00，第一次参加挑战杯会议，基本没听懂下午开始配置vs和opencv，半夜成功，并且学到博客第三节
+3.25上午搭建了博客
+
+“https://cooper111.github.io/”；
+
+接下午，学到博客第六章，撰写了2个md笔记；Mat通道的理解：
+
+https://blog.cs
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/26/学习进度/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1824,7 +1835,7 @@ Mat imread(const string&amp; filename, intflags=1 ); eg: Mat image = imread(“1
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">71</span>
+                  <span class="site-state-item-count">74</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
