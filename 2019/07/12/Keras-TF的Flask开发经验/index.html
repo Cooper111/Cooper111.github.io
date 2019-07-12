@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Task 理解 Keras+TF 项目部署 使用Keras+TF在Falsk中部署 Flask使用进阶 Flask托管和部署  Reference global示例 python中的模块、库、包有什么区别？ python的构建工具setup.py Python项目中的Makefiles Cython的用法以及填坑姿势 pyx文件 生成pyd 文件用于 cython调用 Python深入：Distu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keras+TF的Flask开发经验">
+<meta property="og:url" content="https://cooper111.github.io/2019/07/12/Keras-TF的Flask开发经验/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="Task 理解 Keras+TF 项目部署 使用Keras+TF在Falsk中部署 Flask使用进阶 Flask托管和部署  Reference global示例 python中的模块、库、包有什么区别？ python的构建工具setup.py Python项目中的Makefiles Cython的用法以及填坑姿势 pyx文件 生成pyd 文件用于 cython调用 Python深入：Distu">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/lib_dir.jpg">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/make.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/issue.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/setup_nvcc.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/setup_ext.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/ext_modules.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/setup_retina.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/BuildExtension.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/sess_tf.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/sess_keras.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/predict.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/train_sess.png">
+<meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/train_tf.png">
+<meta property="og:updated_time" content="2019-07-12T15:14:38.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keras+TF的Flask开发经验">
+<meta name="twitter:description" content="Task 理解 Keras+TF 项目部署 使用Keras+TF在Falsk中部署 Flask使用进阶 Flask托管和部署  Reference global示例 python中的模块、库、包有什么区别？ python的构建工具setup.py Python项目中的Makefiles Cython的用法以及填坑姿势 pyx文件 生成pyd 文件用于 cython调用 Python深入：Distu">
+<meta name="twitter:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/lib_dir.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2019/07/12/Keras-TF的Flask开发经验/"/>
+
+
+
+
+
+  <title>Keras+TF的Flask开发经验 | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2019/07/12/Keras-TF的Flask开发经验/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Keras+TF的Flask开发经验</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-12T23:13:37+08:00">
+                2019-07-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Flask/" itemprop="url" rel="index">
+                    <span itemprop="name">Flask</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Task"><a href="#Task" class="headerlink" title="Task"></a>Task</h1><ul>
+<li>理解 <code>Keras+TF</code> 项目部署</li>
+<li>使用<code>Keras+TF</code>在<code>Falsk</code>中部署</li>
+<li><code>Flask</code>使用进阶</li>
+<li><code>Flask</code>托管和部署</li>
+</ul>
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ul>
+<li><a href="https://blog.csdn.net/onlyanyz/article/details/45009697" target="_blank" rel="noopener">global示例</a></li>
+<li><a href="https://www.zhihu.com/question/30082392?sort=created" target="_blank" rel="noopener">python中的模块、库、包有什么区别？</a></li>
+<li><a href="https://www.cnblogs.com/maociping/p/6633948.html" target="_blank" rel="noopener">python的构建工具setup.py</a></li>
+<li><a href="https://www.ctolib.com/mip/topics-104258.html" target="_blank" rel="noopener">Python项目中的Makefiles</a></li>
+<li><a href="https://www.cnblogs.com/jianmu/p/7497274.html" target="_blank" rel="noopener">Cython的用法以及填坑姿势</a></li>
+<li><a href="https://blog.csdn.net/darren2015zdc/article/details/54574911" target="_blank" rel="noopener">pyx文件 生成pyd 文件用于 cython调用</a></li>
+<li><a href="https://blog.csdn.net/gqtcgq/article/details/49255995" target="_blank" rel="noopener">Python深入：Distutils发布Python模块</a></li>
+<li><a href="https://www.cnblogs.com/cnXuYang/p/8336370.html" target="_blank" rel="noopener">Python程序执行顺序</a></li>
+<li><a href="https://www.cnblogs.com/svenwu/p/10189557.html" target="_blank" rel="noopener">Keras + Flask 提供接口服务的坑~~~</a></li>
+<li><a href="http://www.aibbt.com/a/39243.html" target="_blank" rel="noopener">keras+tornado多次加载model时的bug</a></li>
+</ul>
+<h1 id="Start"><a href="#Start" class="headerlink" title="Start"></a>Start</h1><ul>
+<li><p>一份程序为了区分主动执行还是被调用，Python引入了变量<code>__name__</code>，当文件是被调用时，<code>__name__</code>的值为模块名，当文件被执行时，<code>__name__</code>为<code>__main__</code></p>
+</li>
+<li><p>如果使用<code>from A import B</code>,其实等于<code>import A</code>,<code>b=A.b</code>·。其中<code>A</code>内非函数代码也会执行</p>
+</li>
+<li><p>介绍<code>globe</code>。首先看一个变量作用域的错误示例</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">n=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></span><br><span class="line">	<span class="keyword">print</span> n</span><br><span class="line">	n+=<span class="number">1</span></span><br><span class="line"> </span><br><span class="line">func()</span><br></pre></td></tr></table></figure>
+<p>报错：<code>UnboundLocalError： local variable &#39;xxx&#39; referenced before assignment</code>,即函数内部不能修改局域变量，使用<code>globe</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">n=0</span><br><span class="line">def func():</span><br><span class="line">	global n</span><br><span class="line">	print n</span><br><span class="line">	n+=1</span><br><span class="line"> </span><br><span class="line">func()</span><br><span class="line">print n</span><br></pre></td></tr></table></figure>
+<p>这时，n就成为了全局变量，在函数内部修改该变量，也就没有问题了。</p>
+</li>
+<li><p>通常定义：<code>Lib</code>为依赖库；<code>Bin</code>类似通常定义<code>默认程序集缓存</code>,可理解为优先级高代码目录</p>
+</li>
+<li><p>Cython: 将Python代码( .py  .pyx )翻译为C( .c )代码,去掉指令解释这个阶段，直接进入C代码层，效率就比较高了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Cython一般出现于“python setup.py build_ext --inplace”</span><br><span class="line">其中“setup.py”内大致出现如下：</span><br><span class="line">===========================</span><br><span class="line">from distutils.core import setup</span><br><span class="line">from Cython.Build import cythonize</span><br><span class="line"></span><br><span class="line">setup(ext_modules = cythonize(&quot;test.py&quot;))</span><br><span class="line">========================================</span><br><span class="line">#test.c是test.py转化后的C代码文件，test.c非常大</span><br><span class="line">#test.pyd是python的动态链接库，我们在使用import test时会加载,  若是Liuix则是(.so)文件而不是(.pyd)</span><br><span class="line">#build目录编译过程中生成的临时文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Makefile：通常情况下，它们用于编写<strong>C程序</strong>，来减轻代码可以作为程序使用前所需要做的所有东西。在<strong>Python项目</strong>中使用<strong>makefile</strong>,其实说白了就是一个<strong>shell</strong>脚本。放在makefile中的一个规则下，<strong>使其他人很容易地运行对项目的测试</strong>。示例见<a href="https://www.ctolib.com/mip/topics-104258.html" target="_blank" rel="noopener">此</a></p>
+</li>
+<li><p>模块<code>module</code>，库<code>lib</code>，包<code>package</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">module：一个 .py 文件就是个 modulelib：抽象概念，和另外两个不是一类，只要你喜欢，什么都是</span><br><span class="line">以下放上详细的：</span><br><span class="line">============================================================</span><br><span class="line">模块（module）：Python中可复用的基本代码单元，可由其他代码import的一块代码，这里我们只关</span><br><span class="line">注三种类型的模块：纯python模块，扩展模块和包。</span><br><span class="line">纯python模块（pure Python module）： 由python编写的模块，包含在单独的py文件中（或者是pyc/pyo文件）。</span><br><span class="line">扩展模块（extension module）：由实现Python的底层语言编写的模块（C/C++ for Python, Java for Jython）。通常包含在单独的动态加载文件中，比如Unix中的so文件，windows中的DLL文件，或者是Jython扩展的java类文件。（注意，目前为止Distutils只能处理Python的C/C++扩展）</span><br><span class="line">=============================================================</span><br><span class="line"></span><br><span class="line">lib，就算只有个 hello world,通常称依赖库</span><br><span class="line"></span><br><span class="line">package：就是个带 __init__.py 的文件夹，并不在乎里面有什么，不过一般来讲会包含一些 packages/modules</span><br><span class="line"></span><br><span class="line">scrapy、flask、Django、numpy、scipy、NLTK、jieba 在你的语境下，一般都被认为是 lib，因为关注点不是他们的代码是怎么组织的。</span><br><span class="line">简单讲，Package是由很多module组成，来实现某种功能，modules由函数和类组成。库是抽象概念，也可以是各种模块组成。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>setup.py</code>本地安装包。不安装可以直接运行包源码吗？答案是可以，不过得首先编译<code>Cython</code>代码，即执行<code>python setup.py build_ext --inplace</code>。详细<code>setup.py</code>解析见<a href="https://www.cnblogs.com/maociping/p/6633948.html" target="_blank" rel="noopener">此</a></p>
+<p>举两个具体例子，串起之前知识点，并说明<code>setup.py</code>的工作：</p>
+<h3 id="①Keras-TF"><a href="#①Keras-TF" class="headerlink" title="①Keras+TF"></a>①Keras+TF</h3><p>在某个<code>Keras+TF</code>项目里，模型的<code>TF</code>部分的实现部分通过调用其内<code>Lib</code>实现，目录如下：</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/lib_dir.jpg" alt="Lib"></p>
+<p>但直接<code>form lib import xxx</code>可能会报错，那为什么要执行<code>make.sh</code>呢？</p>
+<p>查看<code>mask.sh</code>源码:</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/make.png" alt="make"></p>
+</li>
+</ul>
+<ul>
+<li><p>编译pyx文件——Lib库内模型需要；提速；</p>
+<p>若不执行则报错：<code>ImportError: cannot import name &#39;bbox&#39;</code>,对应<code>Github</code>的<code>Issue</code></p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/issue.png" alt="issue"></p>
+<p>（哈哈哈哈哈哈哈哈哈。。。不过这里还真有老哥<a href="https://www.jianshu.com/p/027e9399e699" target="_blank" rel="noopener">搞定</a>了）</p>
+</li>
+<li><p>执行<code>python setup.py build_ext --inplace</code></p>
+</li>
+<li><p>移动文件</p>
+</li>
+<li><p>删除文件</p>
+<p>好了，进入<code>setup.py</code>:</p>
+</li>
+<li><p>配置CUDA</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/setup_nvcc.png" alt="setup_cuda"></p>
+</li>
+<li><p>Distutils发布Python模块——扩展模块</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/setup_ext.png" alt="setup_ext"></p>
+<p><code>Extension</code>是纯Python的扩展模块，构造<code>Extension</code>指定扩展名、源码文件以及其他编译/链接需要的参数（需要包含的目录，需要连接的库等等）。其中第二个参数为指定的源码文件。</p>
+<p><code>nms</code>(非极大值抑制)和<code>bbox</code>(Bounding box)都是<strong>物体侦测</strong>相关的,属于<code>faster-rcnn</code>，具体可见<a href="https://github.com/rbgirshick/py-faster-rcnn/tree/master/lib/nms" target="_blank" rel="noopener">此</a></p>
+</li>
+<li><p>执行setup</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/ext_modules.png" alt="ext_modules"></p>
+<p><code>ext_modules</code>是<code>Extension实例</code>的列表，每一个<code>Extension实例</code>描述了一个独立的扩展模块。这里可理解为部署<code>faster-rcnn</code>。到此，整个<code>mask.sh</code>执行完毕，用户可方便使用项目代码。</p>
+<h3 id="②Keras"><a href="#②Keras" class="headerlink" title="②Keras"></a>②Keras</h3><p>在某个<code>Keras</code>项目里，作者代码没传Pypi，而是提供了包的形式供安装。安装即</p>
+</li>
+<li><p>cd进目录</p>
+</li>
+<li><p><code>pip install .</code>或者<code>python setup.py</code></p>
+<p>查看<code>setup.py</code>:</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/setup_retina.png" alt="setup_retina"></p>
+<p>比较规范的写法~规范可见<a href="https://www.cnblogs.com/maociping/p/6633948.html" target="_blank" rel="noopener">此</a></p>
+<p><strong>其中</strong>：</p>
+</li>
+<li><p><code>cmdclass</code>: 添加自定义命令，我的理解就是解析命令行的初始化媒介。这里传入是构造类;找的一个<a href="https://stackoverflow.com/questions/27817190/what-does-cmdclass-do-in-pythons-setuptools" target="_blank" rel="noopener">扩展</a></p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/BuildExtension.png" alt="BuildExtension"></p>
+</li>
+<li><p><code>entry_points</code>:  <strong>entry_points</strong>中： <strong>console_scripts*</strong> 指明了命令行工具的名称；在<code>retinanet-train=keras_retinanet.bin.train:main</code>中，等号前面指明了工具包的名称，等号后面的内容指明了程序的入口地址</p>
+</li>
+</ul>
+<h1 id="With-Flask"><a href="#With-Flask" class="headerlink" title="With Flask"></a>With Flask</h1><p>在<strong>start</strong>部分学习了解了<strong>Keras+TF</strong>项目的安装部署，方便出错解决。接下来让我们来学习在<strong>Flask</strong>中如何部署<strong>Keras+TF</strong>。</p>
+<p><strong>tensorflow</strong>程序一般分为两个阶段：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、定义计算图所有的计算</span><br><span class="line"></span><br><span class="line">2、在session中执行计算</span><br></pre></td></tr></table></figure>
+<p>在<strong>tensorflow</strong>程序中，系统会自动维护一个默认的计算图，可以通过<code>tf.get_default_graph()</code>函数获取。</p>
+<p>然后我们进入Flask中去。</p>
+<h4 id="首先，在Flask中只有一个Session"><a href="#首先，在Flask中只有一个Session" class="headerlink" title="首先，在Flask中只有一个Session"></a>首先，在Flask中只有一个<strong>Session</strong></h4><p>因为重复生成session浪费时间和资源。如何使<code>Keras+TF</code>的计算图在<strong>Flask</strong>中不变呢？那就是不写进函数，提前<strong>实例化</strong>出来~每次再把<strong>session</strong>和模型喂入识别函数~</p>
+<p>注：代码中是TF模型结果传给Keras。我的理解是Keras一个计算图，TF一个计算图。</p>
+<p>在<code>Tensorflow</code>中:</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/sess_tf.png" alt="sess_tf"></p>
+<p>在<code>Keras</code>中：</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/sess_keras.png" alt="sess_keras"></p>
+<h4 id="其次，Flask中只有一个Graph"><a href="#其次，Flask中只有一个Graph" class="headerlink" title="其次，Flask中只有一个Graph"></a>其次，Flask中只有一个Graph</h4><p>可以这么理解：张量<code>Tensor</code>的计算图要和<code>session</code>中的计算图相同。当前session里的图和模型中的图的各种参数不匹配就报错，所以得<strong>定义了一个全局的图，每次都用这个图</strong>。</p>
+<p><code>Flask</code>自身存在<strong>Bug</strong>，不详细展开，这里写一下<strong>解决方案</strong>。</p>
+<ul>
+<li>保证TF模型单线程</li>
+</ul>
+<blockquote>
+<p>在调用keras的tensorflow的应用程序中，保证tensorflow的模型是单线程加载的。如果多线程加载模型的话，可能需要人为指定不同的Graph，具体还没有研究。</p>
+</blockquote>
+<p>保证方法：①实例化加载；②<code>Flask</code>的<code>app.run()</code>内设置<code>debug</code>为<code>False</code>，因为<code>debug</code>开启了<code>Tensorflow</code>线程，使<code>Tensorflow</code>线程从单变多</p>
+<ul>
+<li><p><code>session</code>中还有其他模型数据</p>
+<p>这个错也可以说叫，当前<code>session</code>里的图和模型中的图的各种参数不匹配，这是<code>Keras</code>的自身<code>Bug</code>。</p>
+<ul>
+<li><p>首先，在Keras预测模块，可以这么写：</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/predict.png" alt="predict"></p>
+<p>即，使用<strong>globe</strong>导入实例化后的<code>Keras</code>模型，然后函数内<code>with _GRAPH_MA.as_default():</code>内进行预测，其中<code>_GRAPH</code>是函数外实例化的<code>Graph</code></p>
+</li>
+<li><p>然后，在<code>app.py</code>主函数<code>__main__</code>内，在<code>app.run()</code>之前，预先跑一遍模型，导通<code>Session</code>和<code>Graph</code></p>
+</li>
+<li><p>题外话</p>
+<p><code>Keras</code>训练时：</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/train_sess.png" alt="train_sess"></p>
+<p>然后<code>K.set_session(get_session())</code> 即可。</p>
+<p><code>Tensorflow</code>训练时:</p>
+<p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/train_tf.png" alt="train_tf"></p>
+<p>然后 <strong>加载预训练</strong>时</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">saver = tf.train.Saver()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        ckpt = tf.train.get_checkpoint_state(cfg.TEST.checkpoints_path)</span><br><span class="line">        print(<span class="string">'Restoring from &#123;&#125;...'</span>.format(ckpt.model_checkpoint_path), end=<span class="string">' '</span>)</span><br><span class="line">        saver.restore(sess, ckpt.model_checkpoint_path)</span><br><span class="line">        print(<span class="string">'done'</span>)</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">raise</span> <span class="string">'Check your pretrained &#123;:s&#125;'</span>.format(ckpt.model_checkpoint_path)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>**训练**时`sess.run(...)`即可。
+</code></pre><h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><ul>
+<li><strong>Other Ticks</strong></li>
+<li>Tf.Config</li>
+<li>tf.GPUOptions</li>
+<li>realse Flask</li>
+<li>托管</li>
+<li>部署</li>
+<li><a href="https://blog.csdn.net/mydistance/article/details/84190749" target="_blank" rel="noopener">【Flask】 Not Found: /favicon.ico 项目logo图标加载</a> </li>
+<li><code>Flask</code>接收<code>Xmlhttprequset</code></li>
+<li>Flask动态静态请求及进阶以及<code>js/zxxFile.js</code></li>
+</ul>
+<p>​                                                                </p>
+<p>​                                                                <strong>————Edit By Kevin</strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/29/ctpn文字检测定位学习笔记/" rel="next" title="ctpn文字检测定位学习笔记">
+                <i class="fa fa-chevron-left"></i> ctpn文字检测定位学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Task"><span class="nav-number">1.</span> <span class="nav-text">Task</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">2.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start"><span class="nav-number">3.</span> <span class="nav-text">Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①Keras-TF"><span class="nav-number">3.0.1.</span> <span class="nav-text">①Keras+TF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#②Keras"><span class="nav-number">3.0.2.</span> <span class="nav-text">②Keras</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#With-Flask"><span class="nav-number">4.</span> <span class="nav-text">With Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先，在Flask中只有一个Session"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">首先，在Flask中只有一个Session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其次，Flask中只有一个Graph"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">其次，Flask中只有一个Graph</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO"><span class="nav-number">5.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
