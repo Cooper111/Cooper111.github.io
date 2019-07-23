@@ -99,7 +99,7 @@
 <meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/predict.png">
 <meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/train_sess.png">
 <meta property="og:image" content="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/train_tf.png">
-<meta property="og:updated_time" content="2019-07-12T15:14:38.507Z">
+<meta property="og:updated_time" content="2019-07-23T09:23:26.043Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Keras+TF的Flask开发经验">
 <meta name="twitter:description" content="Task 理解 Keras+TF 项目部署 使用Keras+TF在Falsk中部署 Flask使用进阶 Flask托管和部署  Reference global示例 python中的模块、库、包有什么区别？ python的构建工具setup.py Python项目中的Makefiles Cython的用法以及填坑姿势 pyx文件 生成pyd 文件用于 cython调用 Python深入：Distu">
@@ -440,13 +440,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1、定义计算图所有的计算</span><br><span class="line"></span><br><span class="line">2、在session中执行计算</span><br></pre></td></tr></table></figure>
 <p>在<strong>tensorflow</strong>程序中，系统会自动维护一个默认的计算图，可以通过<code>tf.get_default_graph()</code>函数获取。</p>
 <p>然后我们进入Flask中去。</p>
-<h4 id="首先，在Flask中只有一个Session"><a href="#首先，在Flask中只有一个Session" class="headerlink" title="首先，在Flask中只有一个Session"></a>首先，在Flask中只有一个<strong>Session</strong></h4><p>因为重复生成session浪费时间和资源。如何使<code>Keras+TF</code>的计算图在<strong>Flask</strong>中不变呢？那就是不写进函数，提前<strong>实例化</strong>出来~每次再把<strong>session</strong>和模型喂入识别函数~</p>
+<p>#### </p>
+<p>因为重复生成session浪费时间和资源。如何使<code>Keras+TF</code>的计算图在<strong>Flask</strong>中不变呢？那就是不写进函数，提前<strong>实例化</strong>出来~每次再把<strong>session</strong>和模型喂入识别函数~</p>
 <p>注：代码中是TF模型结果传给Keras。我的理解是Keras一个计算图，TF一个计算图。</p>
 <p>在<code>Tensorflow</code>中:</p>
 <p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/sess_tf.png" alt="sess_tf"></p>
 <p>在<code>Keras</code>中：</p>
 <p><img src="https://cooper-111-1257761423.cos.ap-chengdu.myqcloud.com/keras%2BTF/sess_keras.png" alt="sess_keras"></p>
-<h4 id="其次，Flask中只有一个Graph"><a href="#其次，Flask中只有一个Graph" class="headerlink" title="其次，Flask中只有一个Graph"></a>其次，Flask中只有一个Graph</h4><p>可以这么理解：张量<code>Tensor</code>的计算图要和<code>session</code>中的计算图相同。当前session里的图和模型中的图的各种参数不匹配就报错，所以得<strong>定义了一个全局的图，每次都用这个图</strong>。</p>
+<p>#### </p>
+<p>可以这么理解：张量<code>Tensor</code>的计算图要和<code>session</code>中的计算图相同。当前session里的图和模型中的图的各种参数不匹配就报错，所以得<strong>定义了一个全局的图，每次都用这个图</strong>。</p>
 <p><code>Flask</code>自身存在<strong>Bug</strong>，不详细展开，这里写一下<strong>解决方案</strong>。</p>
 <ul>
 <li>保证TF模型单线程</li>
@@ -488,6 +490,7 @@
 <li><a href="https://blog.csdn.net/mydistance/article/details/84190749" target="_blank" rel="noopener">【Flask】 Not Found: /favicon.ico 项目logo图标加载</a> </li>
 <li><code>Flask</code>接收<code>Xmlhttprequset</code></li>
 <li>Flask动态静态请求及进阶以及<code>js/zxxFile.js</code></li>
+<li><a href="https://zhuanlan.zhihu.com/p/67997997" target="_blank" rel="noopener">开发技巧·TensorFlow&amp;Keras GPU使用技巧</a></li>
 </ul>
 <p>​                                                                </p>
 <p>​                                                                <strong>————Edit By Kevin</strong></p>
@@ -524,6 +527,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/23/GPU信息提取与可视化/" rel="prev" title="GPU信息提取与可视化">
+                GPU信息提取与可视化 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -600,7 +607,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-count">77</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -655,7 +662,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Task"><span class="nav-number">1.</span> <span class="nav-text">Task</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">2.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start"><span class="nav-number">3.</span> <span class="nav-text">Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①Keras-TF"><span class="nav-number">3.0.1.</span> <span class="nav-text">①Keras+TF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#②Keras"><span class="nav-number">3.0.2.</span> <span class="nav-text">②Keras</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#With-Flask"><span class="nav-number">4.</span> <span class="nav-text">With Flask</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#首先，在Flask中只有一个Session"><span class="nav-number">4.0.0.1.</span> <span class="nav-text">首先，在Flask中只有一个Session</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其次，Flask中只有一个Graph"><span class="nav-number">4.0.0.2.</span> <span class="nav-text">其次，Flask中只有一个Graph</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO"><span class="nav-number">5.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Task"><span class="nav-number">1.</span> <span class="nav-text">Task</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">2.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Start"><span class="nav-number">3.</span> <span class="nav-text">Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#①Keras-TF"><span class="nav-number">3.0.1.</span> <span class="nav-text">①Keras+TF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#②Keras"><span class="nav-number">3.0.2.</span> <span class="nav-text">②Keras</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#With-Flask"><span class="nav-number">4.</span> <span class="nav-text">With Flask</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO"><span class="nav-number">5.</span> <span class="nav-text">TODO</span></a></li></ol></div>
             
 
           </div>
