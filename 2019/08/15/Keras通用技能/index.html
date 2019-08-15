@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Keras通用技能归纳 迁移学习 GPU，Session 训练：metrics 训练：callback 训练：loss 模型融合  迁移学习常见的是预训练模型+全局池化的操作，如下： 123456789101112131415161718192021from keras.applications import Xceptionfrom keras import models#以Xception作示">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Keras通用技能">
+<meta property="og:url" content="https://cooper111.github.io/2019/08/15/Keras通用技能/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="Keras通用技能归纳 迁移学习 GPU，Session 训练：metrics 训练：callback 训练：loss 模型融合  迁移学习常见的是预训练模型+全局池化的操作，如下： 123456789101112131415161718192021from keras.applications import Xceptionfrom keras import models#以Xception作示">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-08-15T14:22:19.375Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Keras通用技能">
+<meta name="twitter:description" content="Keras通用技能归纳 迁移学习 GPU，Session 训练：metrics 训练：callback 训练：loss 模型融合  迁移学习常见的是预训练模型+全局池化的操作，如下： 123456789101112131415161718192021from keras.applications import Xceptionfrom keras import models#以Xception作示">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2019/08/15/Keras通用技能/"/>
+
+
+
+
+
+  <title>Keras通用技能 | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2019/08/15/Keras通用技能/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Keras通用技能</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-15T22:18:35+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技巧/" itemprop="url" rel="index">
+                    <span itemprop="name">技巧</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Keras通用技能归纳"><a href="#Keras通用技能归纳" class="headerlink" title="Keras通用技能归纳"></a>Keras通用技能归纳</h1><ul>
+<li>迁移学习</li>
+<li>GPU，Session</li>
+<li>训练：metrics</li>
+<li>训练：callback</li>
+<li>训练：loss</li>
+<li>模型融合</li>
+</ul>
+<h1 id="迁移学习"><a href="#迁移学习" class="headerlink" title="迁移学习"></a>迁移学习</h1><p>常见的是预训练模型+全局池化的操作，如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras.applications <span class="keyword">import</span> Xception</span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> models</span><br><span class="line"></span><br><span class="line"><span class="comment">#以Xception作示例</span></span><br><span class="line">conv_base = Xception(weights=<span class="string">'imagenet'</span>,</span><br><span class="line">                  include_top=<span class="keyword">False</span>,</span><br><span class="line">                  input_shape=(<span class="number">299</span>, <span class="number">299</span>, <span class="number">3</span>)</span><br><span class="line">                 )</span><br><span class="line">print(conv_base.summary())</span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> conv_base.layers[:FREEZE_LAYERS]:</span><br><span class="line">    layer.trainable = <span class="keyword">False</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> conv_base.layers[FREEZE_LAYERS:]:</span><br><span class="line">    layer.trainable = <span class="keyword">True</span></span><br><span class="line"></span><br><span class="line">model = models.Sequential()</span><br><span class="line">model.add(conv_base)</span><br><span class="line">model.add(layers.GlobalMaxPooling2D())</span><br><span class="line">model.add(layers.Dropout(<span class="number">0.5</span>))</span><br><span class="line">model.add(layers.Dense(<span class="number">256</span>, activation=<span class="string">'relu'</span>))</span><br><span class="line">model.add(layers.Dropout(<span class="number">0.5</span>))</span><br><span class="line">model.add(layers.Dense(<span class="number">1</span>, activation=<span class="string">'sigmoid'</span>))</span><br></pre></td></tr></table></figure>
+<p>如果是提取训练完成的模型几层来生成特征向量用于后续步骤，拆模型常见方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#加载预训练模型，这里build_classifier()是自己的方法</span></span><br><span class="line">model_classifier = build_classifier()</span><br><span class="line">model_classifier.load_weights(<span class="string">'keras_weights_bin-03-0.02.h5'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#‘activation_3'是我们需要输出向量的层名，通过model.summary()方法获得</span></span><br><span class="line">model_feature = Model(inputs=[model_classifier.input], outputs=[model_classifier.get_layer(<span class="string">'activation_3'</span>).output])</span><br></pre></td></tr></table></figure>
+<p>预训练权重也可以在最后，</p>
+<p>以<code>model_feature.local_weights(&#39;keras_weights_bin-03-0.02.h5&#39;, by_name=True)</code>方式导入权重。</p>
+<h1 id="GPU，Session"><a href="#GPU，Session" class="headerlink" title="GPU，Session"></a>GPU，Session</h1><p>这里给出比较全的资料：<a href="https://blog.csdn.net/u013044310/article/details/81433231" target="_blank" rel="noopener">博客1</a>, <a href="https://blog.csdn.net/sinat_26917383/article/details/75633754" target="_blank" rel="noopener">博客2</a></p>
+<p>说一下常用的3个操作~</p>
+<ul>
+<li><p>指定GPU卡号</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line">os.environ[<span class="string">"CUDA_VISIBLE_DEVICES"</span>] = <span class="string">"2"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Session对GPU用量动态调整</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> keras.backend.tensorflow_backend <span class="keyword">as</span> KTF</span><br><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">os.environ[<span class="string">"CUDA_VISIBLE_DEVICES"</span>] = <span class="string">"1"</span></span><br><span class="line"></span><br><span class="line">config = tf.ConfigProto()</span><br><span class="line">config.gpu_options.allow_growth=<span class="keyword">True</span>   <span class="comment">#不全部占满显存, 按需分配</span></span><br><span class="line">sess = tf.Session(config=config)</span><br><span class="line"></span><br><span class="line">KTF.set_session(sess)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>多GPU训练</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parallel_model = multi_gpu_model(model, gpus=<span class="number">8</span>)</span><br><span class="line">parallel_model.compile(loss=<span class="string">'categorical_crossentropy'</span>,</span><br><span class="line">                       optimizer=<span class="string">'rmsprop'</span>)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="训练：metrics"><a href="#训练：metrics" class="headerlink" title="训练：metrics"></a>训练：metrics</h1><p>通常我们在<code>model.compile()</code>内<strong>metrices</strong>会如下写：</p>
+<blockquote>
+<p>metrics=[‘mae’, ‘acc’] </p>
+<p>或者   </p>
+<p><strong>from</strong> keras <strong>import</strong> metrics  &amp;&amp;    metrics=[metrics.mae, metrics.categorical_accuracy]</p>
+</blockquote>
+<p>但比赛等场景评估标准为<strong>f1 score</strong>，以下为添加<strong>f1 score</strong>进<strong>metrics</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> backend <span class="keyword">as</span> K</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">recall</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">        <span class="string">"""Recall metric.</span></span><br><span class="line"><span class="string">        Only computes a batch-wise average of recall.</span></span><br><span class="line"><span class="string">        Computes the recall, a metric for multi-label classification of</span></span><br><span class="line"><span class="string">        how many relevant items are selected.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        true_positives = K.sum(K.round(K.clip(y_true * y_pred, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">        possible_positives = K.sum(K.round(K.clip(y_true, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">        recall = true_positives / (possible_positives + K.epsilon())</span><br><span class="line">        <span class="keyword">return</span> recall</span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">precision</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">        <span class="string">"""Precision metric.</span></span><br><span class="line"><span class="string">        Only computes a batch-wise average of precision.</span></span><br><span class="line"><span class="string">        Computes the precision, a metric for multi-label classification of</span></span><br><span class="line"><span class="string">        how many selected items are relevant.</span></span><br><span class="line"><span class="string">        """</span></span><br><span class="line">        true_positives = K.sum(K.round(K.clip(y_true * y_pred, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">        predicted_positives = K.sum(K.round(K.clip(y_pred, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">        precision = true_positives / (predicted_positives + K.epsilon())</span><br><span class="line">        <span class="keyword">return</span> precision</span><br><span class="line">    precision = precision(y_true, y_pred)</span><br><span class="line">    recall = recall(y_true, y_pred)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">2</span>*((precision*recall)/(precision+recall+K.epsilon()))</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">model.compile(loss=<span class="string">'binary_crossentropy'</span>,</span><br><span class="line">             optimizer=optimizers.rmsprop(lr=<span class="number">2e-4</span>),</span><br><span class="line">             metrics=[<span class="string">'acc'</span>, f1])</span><br></pre></td></tr></table></figure>
+<p>还有就是解决数据不均衡问题时采用的Metrics：<code>sensitivity</code>和<code>specificity</code>，下面会提到</p>
+<h1 id="训练：callback"><a href="#训练：callback" class="headerlink" title="训练：callback"></a>训练：callback</h1><p><strong>callback</strong>传入<code>model.fit_generator()</code>内在每轮结束时调用，这里给出个例子，具体解释可见<a href="https://keras.io/zh/callbacks/" target="_blank" rel="noopener">中文文档</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> keras</span><br><span class="line"><span class="keyword">from</span> keras.callbacks <span class="keyword">import</span> ModelCheckpoint, EarlyStopping</span><br><span class="line"><span class="keyword">from</span> keras.callbacks <span class="keyword">import</span> ReduceLROnPlateau</span><br><span class="line"><span class="comment"># Callbacks</span></span><br><span class="line">tensor_board = keras.callbacks.TensorBoard(log_dir=<span class="string">'./kouzhao_half_shan_xception_logs'</span>, histogram_freq=<span class="number">0</span>, write_graph=<span class="keyword">True</span>, write_images=<span class="keyword">True</span>)</span><br><span class="line"></span><br><span class="line">early_stop = EarlyStopping(<span class="string">'val_acc'</span>, patience=int(<span class="number">200</span>))</span><br><span class="line"></span><br><span class="line">reduce_lr = ReduceLROnPlateau(<span class="string">'val_acc'</span>, factor=<span class="number">0.5</span>, patience=int(<span class="number">200</span>), verbose=<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">trained_models_path = <span class="string">'kouzhao_half_shan_xception_models/model'</span></span><br><span class="line">model_names = trained_models_path + <span class="string">'.&#123;epoch:02d&#125;-&#123;val_acc:.4f&#125;.hdf5'</span></span><br><span class="line">model_checkpoint = ModelCheckpoint(model_names, monitor=<span class="string">'val_acc'</span>, verbose=<span class="number">1</span>, save_best_only=<span class="keyword">False</span>)</span><br><span class="line"></span><br><span class="line">callbacks = [tensor_board, model_checkpoint, early_stop, reduce_lr]</span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：谨慎使用<code>ReduceLROnPlateau</code>，使用不当结果会倒退许多</p>
+<p>附<code>model_checkpoint</code>的自构方法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCbk</span><span class="params">(keras.callbacks.Callback)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, model)</span>:</span></span><br><span class="line">        keras.callbacks.Callback.__init__(self)</span><br><span class="line">        self.model_to_save = model</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">on_epoch_end</span><span class="params">(self, epoch, logs=None)</span>:</span></span><br><span class="line">        fmt = <span class="string">'models/model.%02d-%.4f.hdf5'</span></span><br><span class="line">        highest_acc = get_highest_acc()</span><br><span class="line">        <span class="keyword">if</span> float(logs[<span class="string">'val_acc'</span>]) &gt; highest_acc:</span><br><span class="line">            self.model_to_save.save(fmt % (epoch, logs[<span class="string">'val_acc'</span>]))</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line"><span class="comment">#使用</span></span><br><span class="line">model_checkpoint = MyCbk(model)</span><br></pre></td></tr></table></figure>
+<h1 id="训练：Loss"><a href="#训练：Loss" class="headerlink" title="训练：Loss"></a>训练：Loss</h1><p>通常的就不说了，说一下关于解决<strong>数据样本不均衡问题</strong>的</p>
+<p><a href="http://www.deepideas.net/unbalanced-classes-machine-learning/" target="_blank" rel="noopener">参考1</a>，<a href="https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/discussion/46673" target="_blank" rel="noopener">参考2</a></p>
+<p>首先说明，<code>sample_weights</code>,<code>class_weights</code>用于<code>model.fit()</code>；</p>
+<ul>
+<li><p>class_weight  <strong>针对类</strong></p>
+<blockquote>
+<p>主要针对的上数据不均衡问题，比如：异常检测的二项分类问题，异常数据仅占1%，正常数据占99%; 此时就要设置不同类对loss的影响。</p>
+</blockquote>
+</li>
+<li><p>sample_weight   <strong>针对样本</strong></p>
+<blockquote>
+<p>主要解决的是样本质量不同的问题，比如前1000个样本的可信度，那么它的权重就要高，后1000个样本可能有错、不可信，那么权重就要调低。</p>
+</blockquote>
+<p><code>loss_weights</code>用于<code>model.compile()</code>时候，是多<strong>loss</strong>时各<strong>loss</strong>权重比</p>
+</li>
+</ul>
+<p><a href="">使用1</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># class weights</span></span><br><span class="line">cw = &#123;<span class="number">0</span>: <span class="number">1</span>, <span class="number">1</span>: <span class="number">50</span>&#125;</span><br><span class="line">model.fit(x_train, y_train,batch_size=batch_size,epochs=epochs,verbose=<span class="number">1</span>,callbacks=cbks,validation_data=(x_test, y_test), shuffle=<span class="keyword">True</span>,class_weight=cw)</span><br><span class="line"></span><br><span class="line"><span class="comment"># sample weights</span></span><br><span class="line"><span class="keyword">from</span> sklearn.utils <span class="keyword">import</span> class_weight</span><br><span class="line"> </span><br><span class="line">list_classes = [<span class="string">"toxic"</span>, <span class="string">"severe_toxic"</span>, <span class="string">"obscene"</span>, <span class="string">"threat"</span>, <span class="string">"insult"</span>, <span class="string">"identity_hate"</span>]</span><br><span class="line">y = train[list_classes].values</span><br><span class="line">sample_weights = class_weight.compute_sample_weight(<span class="string">'balanced'</span>, y)</span><br><span class="line"> </span><br><span class="line">model.fit(X_t, y, batch_size=batch_size, epochs=epochs,validation_split=<span class="number">0.1</span>,sample_weight=sample_weights, callbacks=callbacks_list)</span><br></pre></td></tr></table></figure>
+<p><a href="">使用2</a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">class_weight=&#123;</span><br><span class="line">    <span class="number">1</span>: n_non_cancer_samples / n_cancer_samples * t</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sensitivity</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">    true_positives = K.sum(K.round(K.clip(y_true * y_pred, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">    possible_positives = K.sum(K.round(K.clip(y_true, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">    <span class="keyword">return</span> true_positives / (possible_positives + K.epsilon())</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">specificity</span><span class="params">(y_true, y_pred)</span>:</span></span><br><span class="line">    true_negatives = K.sum(K.round(K.clip((<span class="number">1</span>-y_true) * (<span class="number">1</span>-y_pred), <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">    possible_negatives = K.sum(K.round(K.clip(<span class="number">1</span>-y_true, <span class="number">0</span>, <span class="number">1</span>)))</span><br><span class="line">    <span class="keyword">return</span> true_negatives / (possible_negatives + K.epsilon())</span><br><span class="line">model.compile(</span><br><span class="line">    loss=<span class="string">'binary_crossentropy'</span>,</span><br><span class="line">    optimizer=RMSprop(<span class="number">0.001</span>),</span><br><span class="line">    metrics=[sensitivity, specificity]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>有关解决数据不均衡的还有些小姿势,<a href="https://blog.csdn.net/lyxleft/article/details/84580098" target="_blank" rel="noopener">这里</a></p>
+<h1 id="模型融合"><a href="#模型融合" class="headerlink" title="模型融合"></a>模型融合</h1><p>请见之前<a href="http://cooper111.xyz/2018/10/17/%C2%96Keras%E6%A8%A1%E5%9E%8B%E8%9E%8D%E5%90%88/" target="_blank" rel="noopener">俺滴博客~</a></p>
+<h1 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h1><ul>
+<li><a href="https://kexue.fm/archives/6575#%E6%9D%83%E9%87%8D%E6%BB%91%E5%8A%A8%E5%B9%B3%E5%9D%87" target="_blank" rel="noopener">“让Keras更酷一些！”：中间变量、权重滑动和安全生成器</a></li>
+<li><a href="https://blog.csdn.net/qiusuoxiaozi/article/details/78456544" target="_blank" rel="noopener">炼丹经验</a></li>
+<li><a href="https://blog.csdn.net/weixin_43747587/article/details/91444781" target="_blank" rel="noopener">WarmUp</a></li>
+<li><a href="https://kexue.fm/archives/6671" target="_blank" rel="noopener">WarmUp使用例子和  EMA</a></li>
+<li><a href="https://kexue.fm/archives/6810" target="_blank" rel="noopener">“让Keras更酷一些！”：层中层与mask</a></li>
+<li><a href="https://kexue.fm/archives/6869" target="_blank" rel="noopener">Keras实现两个优化器：Lookahead和LazyOptimizer</a></li>
+<li><a href="https://github.com/bojone/accum_optimizer_for_keras" target="_blank" rel="noopener">为Keras实现梯度累积版优化器</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/23/坐标的位置变换方法/" rel="next" title="坐标的位置变换方法">
+                <i class="fa fa-chevron-left"></i> 坐标的位置变换方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/15/基于树莓派的智能闹钟/" rel="prev" title="基于树莓派的智能闹钟">
+                基于树莓派的智能闹钟 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">79</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Keras通用技能归纳"><span class="nav-number">1.</span> <span class="nav-text">Keras通用技能归纳</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#迁移学习"><span class="nav-number">2.</span> <span class="nav-text">迁移学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GPU，Session"><span class="nav-number">3.</span> <span class="nav-text">GPU，Session</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练：metrics"><span class="nav-number">4.</span> <span class="nav-text">训练：metrics</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练：callback"><span class="nav-number">5.</span> <span class="nav-text">训练：callback</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#训练：Loss"><span class="nav-number">6.</span> <span class="nav-text">训练：Loss</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型融合"><span class="nav-number">7.</span> <span class="nav-text">模型融合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TODO"><span class="nav-number">8.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
 <meta property="og:description" content="Keras模型融合0x01 概述sklearn有voting(软/硬)，stacking，bagging(pasting)，boosting等那么Keras呢？  Merge的使用 Concatenate Xception等模型融合 其他  0x01 Merge{“sum”，“mul”，“concat”，“ave”，“cos”，“dot”}  用法 示例 注意点: 我自己在试试的时候，发现两个模型">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-17T15:55:28.560Z">
+<meta property="og:updated_time" content="2019-08-15T13:25:34.362Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Keras模型融合">
 <meta name="twitter:description" content="Keras模型融合0x01 概述sklearn有voting(软/硬)，stacking，bagging(pasting)，boosting等那么Keras呢？  Merge的使用 Concatenate Xception等模型融合 其他  0x01 Merge{“sum”，“mul”，“concat”，“ave”，“cos”，“dot”}  用法 示例 注意点: 我自己在试试的时候，发现两个模型">
@@ -333,7 +333,7 @@
       
 
       
-        <h1 id="Keras模型融合"><a href="#Keras模型融合" class="headerlink" title="Keras模型融合"></a>Keras模型融合</h1><h2 id="0x01-概述"><a href="#0x01-概述" class="headerlink" title="0x01 概述"></a>0x01 概述</h2><p>sklearn有voting(软/硬)，stacking，bagging(pasting)，boosting等<br><br>那么Keras呢？</p>
+        <h1 id="Keras模型融合"><a href="#Keras模型融合" class="headerlink" title="Keras模型融合"></a>Keras模型融合</h1><h2 id="0x01-概述"><a href="#0x01-概述" class="headerlink" title="0x01 概述"></a>0x01 概述</h2><p><strong>sklearn</strong>有voting(软/硬)，stacking，bagging(pasting)，boosting等<br><br>那么<strong>Keras</strong>呢？</p>
 <ul>
 <li>Merge的使用</li>
 <li>Concatenate</li>
@@ -344,72 +344,31 @@
 <ul>
 <li><a href="https://blog.csdn.net/momaojia/article/details/65641408" target="_blank" rel="noopener">用法</a></li>
 <li><a href="http://blog.sina.com.cn/s/blog_a14297610102x1ze.html" target="_blank" rel="noopener">示例</a></li>
-<li>注意点: 我自己在试试的时候，发现两个模型的Node_Name不能有重复，一定药水iUnique的</li>
+<li>注意点: 我自己在试试的时候，发现两个模型的<code>Node_Name</code>不能有重复，一定药水iUnique的</li>
 </ul>
-<h2 id="0x02-Concatenate"><a href="#0x02-Concatenate" class="headerlink" title="0x02 Concatenate"></a>0x02 Concatenate</h2><p>keras2.0 Merge层改为函数式</p>
-<pre>不能再向以前一样使用 
-model.add(Merge([Model1,Model2])) 
-必须使用函数式
-out = Concatenate()([model1.output, model2.output])</pre>
-concatenate从名字可以看出是连接两个数组<br>
-[小小演示](https://blog.csdn.net/hanshuobest/article/details/79488209#commentBox)
-
-## 0x03 Xception等融合
-使用concatenate<br>
-Plant_disease_Recognation时用到过<br>
-- [参考例子](https://blog.csdn.net/qq_19332527/article/details/79829087)
-- 其实和“其他”的那个融合差不多勒··· <br>
-
-### 思想：
-- import 预训练模型输出的特征图
-- 使用concatenate连接各模型的输出
-- 使用Dense-Dropout-Dense学习连接后的特征图
-- 输出为原输出形状
-
-
-### 实现代码: 
-
-<pre>
-def bulid_model():
-    cnn_no_vary = False
-
-    input_layer=Input(shape=(299,299,3))
-
-    xception = build_model_Xception()
-    vgg19 = build_model_VGG19()
-    inceptionresnetv2 = build_model_InceptionResNetV2()
-
-
-#     for i,layer in enumerate(inceptionresnetv2.layers):
-#         inceptionresnetv2.layer[i].trainable = False
-
-#     for i,layer in enumerate(xception.layers):
-#         xception.layers[i].trainable=False
-#     for i,layer in enumerate(vgg19.layers):
-#         vgg19.layers[i].trainable=False
-
-
-    best_vgg19_weights, vgg19_epoch = get_best_model('/home/yjz/lhj/others_model/vgg/models')
-    best_xception_weights, xception_epoch = get_best_model('/home/yjz/lhj/others_model/Crop-Disease-Detection/models')
-    best_inceptionresnetv2_weights, inceptionresnetv2_epoch = get_best_model('/home/yjz/lhj/others_model/Inception/models')
-
-    vgg19.load_weights(best_vgg19_weights)
-    xception.load_weights(best_xception_weights)
-    inceptionresnetv2.load_weights(best_inceptionresnetv2_weights)
-
-    inceptionresnetv2 = inceptionresnetv2(input_layer)
-    xception = xception(input_layer)
-    vgg19 = vgg19(input_layer)
-
-    t=layers.Add()([inceptionresnetv2,xception,vgg19])
-    #x = Dense(num_classes, name='Logits')(t)
-    #x = Dropout(dropout_rate, name='Dropout')(x)
-    top_model = Dense(num_classes, activation='softmax')(t)
-    model=Model(inputs=input_layer,outputs=top_model)
-    print(model.summary())
-    return model
-</pre>
-
+<h2 id="0x02-Concatenate"><a href="#0x02-Concatenate" class="headerlink" title="0x02 Concatenate"></a>0x02 Concatenate</h2><p><strong>keras2.0</strong> <code>Merge层</code>改为函数式<br>不能再向以前一样使用 </p>
+<blockquote>
+<p>model.add(Merge([Model1,Model2])) </p>
+<p>变成了麻烦点的（最好不用）</p>
+<p>merge([tensor1, tensor2], mode=’concat’, concat_axis= )</p>
+<p>推荐使用函数式<br>out = Concatenate()([model1.output, model2.output],axis=1)*#拼接输出，融合成功</p>
+<p>或者</p>
+<p>t=keras.layers.Concatenate(axis=1)([top1_model,top2_model])</p>
+</blockquote>
+<p><code>concatenate</code>从名字可以看出是连接两个数组<br><a href="https://blog.csdn.net/hanshuobest/article/details/79488209#commentBox" target="_blank" rel="noopener">小小演示</a></p>
+<p><a href="https://blog.csdn.net/qq_33266320/article/details/82558740" target="_blank" rel="noopener">三模型融合例子</a></p>
+<h2 id="0x03-Xception等融合"><a href="#0x03-Xception等融合" class="headerlink" title="0x03 Xception等融合"></a>0x03 Xception等融合</h2><p>使用<code>concatenate</code><br><br><strong>Plant_disease_Recognation</strong>时用到过<br></p>
+<ul>
+<li><a href="https://blog.csdn.net/qq_19332527/article/details/79829087" target="_blank" rel="noopener">参考例子</a></li>
+<li>其实和“其他”的那个融合差不多勒··· <br></li>
+</ul>
+<h3 id="思想："><a href="#思想：" class="headerlink" title="思想："></a>思想：</h3><ul>
+<li>import 预训练模型输出的特征图</li>
+<li>使用concatenate连接各模型的输出</li>
+<li>使用Dense-Dropout-Dense学习连接后的特征图</li>
+<li>输出为原输出形状</li>
+</ul>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码:"></a>实现代码:</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulid_model</span><span class="params">()</span>:</span></span><br><span class="line">    cnn_no_vary = <span class="keyword">False</span></span><br><span class="line"></span><br><span class="line">    input_layer=Input(shape=(<span class="number">299</span>,<span class="number">299</span>,<span class="number">3</span>))</span><br><span class="line">    </span><br><span class="line">    xception = build_model_Xception()</span><br><span class="line">    vgg19 = build_model_VGG19()</span><br><span class="line">    inceptionresnetv2 = build_model_InceptionResNetV2()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#     for i,layer in enumerate(inceptionresnetv2.layers):</span></span><br><span class="line"><span class="comment">#         inceptionresnetv2.layer[i].trainable = False</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#     for i,layer in enumerate(xception.layers):</span></span><br><span class="line"><span class="comment">#         xception.layers[i].trainable=False</span></span><br><span class="line"><span class="comment">#     for i,layer in enumerate(vgg19.layers):</span></span><br><span class="line"><span class="comment">#         vgg19.layers[i].trainable=False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    best_vgg19_weights, vgg19_epoch = get_best_model(<span class="string">'/home/yjz/lhj/others_model/vgg/models'</span>)</span><br><span class="line">    best_xception_weights, xception_epoch = get_best_model(<span class="string">'/home/yjz/lhj/others_model/Crop-Disease-Detection/models'</span>)</span><br><span class="line">    best_inceptionresnetv2_weights, inceptionresnetv2_epoch = get_best_model(<span class="string">'/home/yjz/lhj/others_model/Inception/models'</span>)</span><br><span class="line">    </span><br><span class="line">    vgg19.load_weights(best_vgg19_weights)</span><br><span class="line">    xception.load_weights(best_xception_weights)</span><br><span class="line">    inceptionresnetv2.load_weights(best_inceptionresnetv2_weights)</span><br><span class="line">    </span><br><span class="line">    inceptionresnetv2 = inceptionresnetv2(input_layer)</span><br><span class="line">    xception = xception(input_layer)</span><br><span class="line">    vgg19 = vgg19(input_layer)</span><br><span class="line">    </span><br><span class="line">    t=layers.Add()([inceptionresnetv2,xception,vgg19])</span><br><span class="line">    <span class="comment">#x = Dense(num_classes, name='Logits')(t)</span></span><br><span class="line">    <span class="comment">#x = Dropout(dropout_rate, name='Dropout')(x)</span></span><br><span class="line">    top_model = Dense(num_classes, activation=<span class="string">'softmax'</span>)(t)</span><br><span class="line">    model=Model(inputs=input_layer,outputs=top_model)</span><br><span class="line">    print(model.summary())</span><br><span class="line">    <span class="keyword">return</span> model</span><br></pre></td></tr></table></figure>
 <h2 id="0x0-其他"><a href="#0x0-其他" class="headerlink" title="0x0 其他"></a>0x0 其他</h2><ul>
 <li><p><a href="https://blog.csdn.net/qq_33266320/article/details/82558740" target="_blank" rel="noopener">keras实现多个模型融合（非keras自带模型，这里以3个自己的模型为例）</a></p>
 </li>
@@ -529,7 +488,7 @@ def bulid_model():
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">77</span>
+                  <span class="site-state-item-count">79</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -540,7 +499,7 @@ def bulid_model():
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -584,7 +543,7 @@ def bulid_model():
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Keras模型融合"><span class="nav-number">1.</span> <span class="nav-text">Keras模型融合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-概述"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Merge"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 Merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Concatenate"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 Concatenate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x0-其他"><span class="nav-number">1.4.</span> <span class="nav-text">0x0 其他</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Keras模型融合"><span class="nav-number">1.</span> <span class="nav-text">Keras模型融合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-概述"><span class="nav-number">1.1.</span> <span class="nav-text">0x01 概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01-Merge"><span class="nav-number">1.2.</span> <span class="nav-text">0x01 Merge</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-Concatenate"><span class="nav-number">1.3.</span> <span class="nav-text">0x02 Concatenate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-Xception等融合"><span class="nav-number">1.4.</span> <span class="nav-text">0x03 Xception等融合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#思想："><span class="nav-number">1.4.1.</span> <span class="nav-text">思想：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现代码"><span class="nav-number">1.4.2.</span> <span class="nav-text">实现代码:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x0-其他"><span class="nav-number">1.5.</span> <span class="nav-text">0x0 其他</span></a></li></ol></li></ol></div>
             
 
           </div>
