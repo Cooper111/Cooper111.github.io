@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="生成特征图 加GlobeAveragePooling 输出比较  生成特征图见上一篇文章，也可参见此 直接使用 #导入Xception conv_base = Xception(weights=&apos;imagenet&apos;,#指向模型初始化的权重检查点                   include_top=False,#指定模型是否包含密集连接分类器                   input">
+<meta name="description" content="生成特征图 加GlobeAveragePooling 输出比较  生成特征图见上一篇文章，也可参见此 直接使用123456789101112131415161718192021222324252627282930313233#导入Xceptionconv_base = Xception(weights=&apos;imagenet&apos;,#指向模型初始化的权重检查点                  incl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="常见与训练模型使用方式">
 <meta property="og:url" content="https://cooper111.github.io/2018/11/23/常见与训练模型使用方式/index.html">
 <meta property="og:site_name" content="Cooper111&#39;s Blog">
-<meta property="og:description" content="生成特征图 加GlobeAveragePooling 输出比较  生成特征图见上一篇文章，也可参见此 直接使用 #导入Xception conv_base = Xception(weights=&apos;imagenet&apos;,#指向模型初始化的权重检查点                   include_top=False,#指定模型是否包含密集连接分类器                   input">
+<meta property="og:description" content="生成特征图 加GlobeAveragePooling 输出比较  生成特征图见上一篇文章，也可参见此 直接使用123456789101112131415161718192021222324252627282930313233#导入Xceptionconv_base = Xception(weights=&apos;imagenet&apos;,#指向模型初始化的权重检查点                  incl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-23T14:50:29.122Z">
+<meta property="og:updated_time" content="2019-08-15T03:52:31.870Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见与训练模型使用方式">
-<meta name="twitter:description" content="生成特征图 加GlobeAveragePooling 输出比较  生成特征图见上一篇文章，也可参见此 直接使用 #导入Xception conv_base = Xception(weights=&apos;imagenet&apos;,#指向模型初始化的权重检查点                   include_top=False,#指定模型是否包含密集连接分类器                   input">
+<meta name="twitter:description" content="生成特征图 加GlobeAveragePooling 输出比较  生成特征图见上一篇文章，也可参见此 直接使用123456789101112131415161718192021222324252627282930313233#导入Xceptionconv_base = Xception(weights=&apos;imagenet&apos;,#指向模型初始化的权重检查点                  incl">
 
 
 
@@ -339,92 +339,29 @@
 <li>输出比较</li>
 </ul>
 <h3 id="生成特征图"><a href="#生成特征图" class="headerlink" title="生成特征图"></a>生成特征图</h3><p>见上一篇文章，也可参见<a href="https://github.com/ypwhs/dogs_vs_cats" target="_blank" rel="noopener">此</a></p>
-<h3 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h3><pre>
-#导入Xception
-conv_base = Xception(weights='imagenet',#指向模型初始化的权重检查点
-                  include_top=False,#指定模型是否包含密集连接分类器
-                  input_shape=(299, 299, 3)#输入到网络的张量形状
-                 )
-conv_base.summary()
-#解冻
-# conv_base.trainable = True
-# set_trainable = False
-# for layer in conv_base.layers:
-#     if layer.name == 'block13_pool (MaxPooling2D) ':
-#         set_trainable = True
-#     if set_trainable:
-#         layer.trainable = True
-#     else:
-#         layer.trainable = False
-FREEZE_LAYERS = 2
-for layer in conv_base.layers[:FREEZE_LAYERS]:
-    layer.trainable = False
-for layer in conv_base.layers[FREEZE_LAYERS:]:
-    layer.trainable = True
-#构建
-from keras import models
-from keras import layers
-
-model = models.Sequential()
-model.add(conv_base)
-model.add(layers.GlobalMaxPooling2D())
-model.add(layers.Dropout(0.3))
-model.add(layers.Dense(12, activation='softmax'))#categorical的话用‘softmax’
-</pre>
-- 使用例子1——特征图
->GlobalAveragePooling2D()(base_model.output)
-
-- 使用例子2——输出比较里的‘avg_pool’
-- [使用例子3——农作物Pytorch实现](https://github.com/spytensor/plants_disease_detection/blob/master/models/model.py)
-- #### [使用例子——4农作物](https://github.com/foamliu/Crop-Disease-Detection/blob/master/model.py)
-
-### 输出比较
-
-我的解释：
-- 这里包括了最后的全连层
-- 但是模型只取到{'layer':'avg_pool'}在加了Dense全连层
-- 输出了Xception，InceptionV3处理后的预测结果等四个预测结果
-- 预测结果比较
-
-[参考链接](https://github.com/ahangchen/keras-dogs/blob/master/single/single_model.py)<br>
-示例代码
-<pre>input_tensor = Input(shape=(299, 299, 3))
-    base_model1 = Xception(include_top=True, weights='imagenet', input_tensor=None, input_shape=None)
-    base_model1 = Model(inputs=[base_model1.input], outputs=[base_model1.get_layer('avg_pool').output], name='xception')
-
-    base_model2 = InceptionV3(include_top=True, weights='imagenet', input_tensor=None, input_shape=None)
-    base_model2 = Model(inputs=[base_model2.input], outputs=[base_model2.get_layer('avg_pool').output],
-                        name='inceptionv3')
-
-    img1 = Input(shape=(299, 299, 3), name='img_1')
-
-    feature1 = base_model1(img1)
-    feature2 = base_model2(img1)
-
-    # let's add a fully-connected layer
-    category_predict1 = Dense(100, activation='softmax', name='ctg_out_1')(
-        Dropout(0.5)(
-            feature1
-        )
-    )
-
-    category_predict2 = Dense(100, activation='softmax', name='ctg_out_2')(
-        Dropout(0.5)(
-            feature2
-        )
-    )
-
-    category_predict = Dense(100, activation='softmax', name='ctg_out')(
-        concatenate([feature1, feature2])
-    )
-    max_category_predict = maximum([category_predict1, category_predict2])
-
-    model = Model(inputs=[img1], outputs=[category_predict1, category_predict2, category_predict, max_category_predict])</pre>
-
-
-
-
-
+<h3 id="直接使用"><a href="#直接使用" class="headerlink" title="直接使用"></a>直接使用</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#导入Xception</span></span><br><span class="line">conv_base = Xception(weights=</span><br><span class="line"><span class="string">'imagenet'</span>,<span class="comment">#指向模型初始化的权重检查点</span></span><br><span class="line">                  include_top=<span class="keyword">False</span>,<span class="comment">#指定模型是否包含密集连接分类器</span></span><br><span class="line">                  input_shape=(<span class="number">299</span>, <span class="number">299</span>, <span class="number">3</span>)<span class="comment">#输入到网络的张量形状</span></span><br><span class="line">                 )</span><br><span class="line">conv_base.summary()</span><br><span class="line"><span class="comment">#解冻</span></span><br><span class="line"><span class="comment"># conv_base.trainable = True</span></span><br><span class="line"><span class="comment"># set_trainable = False</span></span><br><span class="line"><span class="comment"># for layer in conv_base.layers:</span></span><br><span class="line"><span class="comment"># if layer.name == 'block13_pool (MaxPooling2D) ':</span></span><br><span class="line"><span class="comment"># set_trainable = True</span></span><br><span class="line"><span class="comment"># if set_trainable:</span></span><br><span class="line"><span class="comment"># layer.trainable = True</span></span><br><span class="line"><span class="comment"># else:</span></span><br><span class="line"><span class="comment"># layer.trainable = False</span></span><br><span class="line"></span><br><span class="line">FREEZE_LAYERS = <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> conv_base.layers[:FREEZE_LAYERS]:</span><br><span class="line">    layer.trainable = <span class="keyword">False</span></span><br><span class="line"><span class="keyword">for</span> layer <span class="keyword">in</span> conv_base.layers[FREEZE_LAYERS:]:</span><br><span class="line">    layer.trainable = <span class="keyword">True</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">#构建</span></span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> models</span><br><span class="line"><span class="keyword">from</span> keras <span class="keyword">import</span> layers</span><br><span class="line"></span><br><span class="line">model = models.Sequential()</span><br><span class="line">model.add(conv_base)</span><br><span class="line">model.add(layers.GlobalMaxPooling2D())</span><br><span class="line">model.add(layers.Dropout(<span class="number">0.3</span>))</span><br><span class="line">model.add(layers.Dense(<span class="number">12</span>, activation=<span class="string">'softmax'</span>))<span class="comment">#categorical的话用‘softmax’</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>使用例子1——特征图</p>
+<blockquote>
+<p>GlobalAveragePooling2D()(base_model.output)</p>
+</blockquote>
+</li>
+<li><p>使用例子2——输出比较里的‘avg_pool’</p>
+</li>
+<li><a href="https://github.com/spytensor/plants_disease_detection/blob/master/models/model.py" target="_blank" rel="noopener">使用例子3——农作物Pytorch实现</a></li>
+<li><h4 id="使用例子——4农作物"><a href="#使用例子——4农作物" class="headerlink" title="使用例子——4农作物"></a><a href="https://github.com/foamliu/Crop-Disease-Detection/blob/master/model.py" target="_blank" rel="noopener">使用例子——4农作物</a></h4></li>
+</ul>
+<h3 id="输出比较、生成特征向量法②"><a href="#输出比较、生成特征向量法②" class="headerlink" title="输出比较、生成特征向量法②"></a>输出比较、生成特征向量法②</h3><p>我的解释：</p>
+<ul>
+<li>这里包括了最后的全连层</li>
+<li>但是模型只取到{‘layer’:’avg_pool’}<strong>获得特征向量</strong>，在加了Dense全连层</li>
+<li>输出了Xception，InceptionV3处理后的预测结果等四个预测结果</li>
+<li>预测结果比较</li>
+</ul>
+<p><a href="https://github.com/ahangchen/keras-dogs/blob/master/single/single_model.py" target="_blank" rel="noopener">参考链接</a><br><br>示例代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">input_tensor = Input(shape=(<span class="number">299</span>, <span class="number">299</span>, <span class="number">3</span>))</span><br><span class="line">    base_model1 = Xception(include_top=<span class="keyword">True</span>, weights=<span class="string">'imagenet'</span>, input_tensor=<span class="keyword">None</span>, input_shape=<span class="keyword">None</span>)</span><br><span class="line">    base_model1 = Model(inputs=[base_model1.input], outputs=[base_model1.get_layer(<span class="string">'avg_pool'</span>).output], name=<span class="string">'xception'</span>)</span><br><span class="line"></span><br><span class="line">    base_model2 = InceptionV3(include_top=<span class="keyword">True</span>, weights=<span class="string">'imagenet'</span>, input_tensor=<span class="keyword">None</span>, input_shape=<span class="keyword">None</span>)</span><br><span class="line">    base_model2 = Model(inputs=[base_model2.input], outputs=[base_model2.get_layer(<span class="string">'avg_pool'</span>).output],</span><br><span class="line">                        name=<span class="string">'inceptionv3'</span>)</span><br><span class="line">    </span><br><span class="line">    img1 = Input(shape=(<span class="number">299</span>, <span class="number">299</span>, <span class="number">3</span>), name=<span class="string">'img_1'</span>)</span><br><span class="line">    </span><br><span class="line">    feature1 = base_model1(img1)</span><br><span class="line">    feature2 = base_model2(img1)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># let's add a fully-connected layer</span></span><br><span class="line">    category_predict1 = Dense(<span class="number">100</span>, activation=<span class="string">'softmax'</span>, name=<span class="string">'ctg_out_1'</span>)(</span><br><span class="line">        Dropout(<span class="number">0.5</span>)(</span><br><span class="line">            feature1</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    category_predict2 = Dense(<span class="number">100</span>, activation=<span class="string">'softmax'</span>, name=<span class="string">'ctg_out_2'</span>)(</span><br><span class="line">        Dropout(<span class="number">0.5</span>)(</span><br><span class="line">            feature2</span><br><span class="line">        )</span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    category_predict = Dense(<span class="number">100</span>, activation=<span class="string">'softmax'</span>, name=<span class="string">'ctg_out'</span>)(</span><br><span class="line">        concatenate([feature1, feature2])</span><br><span class="line">    )</span><br><span class="line">    max_category_predict = maximum([category_predict1, category_predict2])</span><br><span class="line">    </span><br><span class="line">    model = Model(inputs=[img1], outputs=[category_predict1, category_predict2, category_predict, max_category_predict])</span><br></pre></td></tr></table></figure>
+<p>​    </p>
+<p>​    </p>
 
       
     </div>
@@ -593,7 +530,7 @@ model.add(layers.Dense(12, activation='softmax'))#categorical的话用‘softmax
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成特征图"><span class="nav-number">1.</span> <span class="nav-text">生成特征图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接使用"><span class="nav-number">2.</span> <span class="nav-text">直接使用</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成特征图"><span class="nav-number">1.</span> <span class="nav-text">生成特征图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#直接使用"><span class="nav-number">2.</span> <span class="nav-text">直接使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用例子——4农作物"><span class="nav-number">2.1.</span> <span class="nav-text">使用例子——4农作物</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#输出比较、生成特征向量法②"><span class="nav-number">3.</span> <span class="nav-text">输出比较、生成特征向量法②</span></a></li></ol></div>
             
 
           </div>
