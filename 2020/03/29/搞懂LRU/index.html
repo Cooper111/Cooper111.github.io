@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近的学习产出了大量的笔记，有空会一一上传，慢更···  :man_playing_handball: 搞懂LRU3月11号结束了杭州某公司的三面，第二天告知被拒了，不太意外。在面试中面试官有问我  LRU概念，即算法原本的名字和意思（我只记得LRU缓存淘汰） LRU的实现（我说了LRU的运行机制，和LinkedList实现方式） LRU的应用（我说不知道···）  而我一问三不知，才觉学的囫囵吞">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搞懂LRU">
+<meta property="og:url" content="https://cooper111.github.io/2020/03/29/搞懂LRU/index.html">
+<meta property="og:site_name" content="Cooper111&#39;s Blog">
+<meta property="og:description" content="最近的学习产出了大量的笔记，有空会一一上传，慢更···  :man_playing_handball: 搞懂LRU3月11号结束了杭州某公司的三面，第二天告知被拒了，不太意外。在面试中面试官有问我  LRU概念，即算法原本的名字和意思（我只记得LRU缓存淘汰） LRU的实现（我说了LRU的运行机制，和LinkedList实现方式） LRU的应用（我说不知道···）  而我一问三不知，才觉学的囫囵吞">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-29T07:21:50.890Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搞懂LRU">
+<meta name="twitter:description" content="最近的学习产出了大量的笔记，有空会一一上传，慢更···  :man_playing_handball: 搞懂LRU3月11号结束了杭州某公司的三面，第二天告知被拒了，不太意外。在面试中面试官有问我  LRU概念，即算法原本的名字和意思（我只记得LRU缓存淘汰） LRU的实现（我说了LRU的运行机制，和LinkedList实现方式） LRU的应用（我说不知道···）  而我一问三不知，才觉学的囫囵吞">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://cooper111.github.io/2020/03/29/搞懂LRU/"/>
+
+
+
+
+
+  <title>搞懂LRU | Cooper111's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+	
+	<a href="https://github.com/Cooper111" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#70B7FD; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+	
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Cooper111's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">A lazy student.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://cooper111.github.io/2020/03/29/搞懂LRU/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="花郎世纪">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Cooper111's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">搞懂LRU</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-03-29T15:18:19+08:00">
+                2020-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/面试/" itemprop="url" rel="index">
+                    <span itemprop="name">面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近的学习产出了大量的笔记，有空会一一上传，慢更···  :man_playing_handball:</p>
+<h1 id="搞懂LRU"><a href="#搞懂LRU" class="headerlink" title="搞懂LRU"></a>搞懂LRU</h1><p>3月11号结束了杭州某公司的三面，第二天告知被拒了，不太意外。在面试中面试官有问我</p>
+<ul>
+<li>LRU概念，即算法原本的名字和意思（我只记得LRU缓存淘汰）</li>
+<li>LRU的实现（我说了LRU的运行机制，和<code>LinkedList</code>实现方式）</li>
+<li>LRU的应用（我说不知道···）</li>
+</ul>
+<p>而我一问三不知，才觉学的囫囵吞枣。现在我就按照面试的顺序，好好梳理下LRU相关的知识点。</p>
+<h1 id="LRU概念"><a href="#LRU概念" class="headerlink" title="LRU概念"></a>LRU概念</h1><p>LRU即 <code>Least Rencetly Used</code>（最近最少使用）缓存替换策略。在任何LRU算法中，它必定有以下两个策略组成：</p>
+<ul>
+<li><p><strong>退化策略</strong>：根据访问情况，对节点按热度进行排序（hot-&gt;cold），以便决定哪些节点是热节点（hot）的，哪些节点是冷节点（cold）的。这个退化的策略，一般按以下两种方式去处理：</p>
+<ul>
+<li><p>非集中式</p>
+<p>即每命中一次就进行退化操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">非集中式的退化操作，往往由双向链表的方式去实现。每次命中之后就移动命中节点在链表中的位置。（位置靠前的就是hot的数据）。当然，复杂的策略中，有用queue数组进行hot分级等。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>集中式</p>
+<p>定期去进行退化操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">在集中式的退化操作，常用的策略是：每次命中之后，记录一个时间戳、定时器时间点等等参数。由一个线程去扫描，定期清除老数据。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>清除策略</strong>：即去掉那些cold的数据</p>
+<ul>
+<li>替换：这个在操作系统缓存中应该是一个常用的做法</li>
+<li>删除：删除掉数据，以腾出空间放新的数据。（因为内存是有限的）</li>
+</ul>
+</li>
+</ul>
+<h1 id="LRU的实现"><a href="#LRU的实现" class="headerlink" title="LRU的实现"></a>LRU的实现</h1><pre><code>LRU缓存的运行机制，接触过的都估计熟悉的，主要就是命中后移到头结点、删除尾节点两部分。按照这个思路，是难免问到如何去实现的，于是接下来总结下如何实现，详细可见[此参考链接](&lt;https://www.cnblogs.com/lzrabbit/p/3734850.html#f3&gt;)
+
+Java里面实现LRU缓存通常**有两种选择**，一种是**使用`LinkedHashMap`，**一种是**使用`链表+HashMap`。**
+</code></pre><h4 id="①使用LinkedHashMap"><a href="#①使用LinkedHashMap" class="headerlink" title="①使用LinkedHashMap"></a>①使用<code>LinkedHashMap</code></h4><pre><code>用`LinkedHashMap`的每个节点做一个双向链表。每次访问这个节点，就把该节点移动到双向链表的头部。满了以后，就从链表的尾部删除（`LinkedHashMap`有一个判断是否删除最老数据的方法，默认是返回false，即不删除数据）。所以`LinkedHashMap`自身已经实现了顺序存储，默认情况下是按照元素的添加顺序存储，也可以启用按照访问顺序存储。
+</code></pre><p>使用<code>LinkedHashMap</code>实现LRU缓存的方法就是对<code>LinkedHashMap</code>实现简单的扩展，扩展方式有两种</p>
+<ul>
+<li><p><code>inheritance</code>（继承）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUCache2</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; <span class="keyword">extends</span> <span class="title">LinkedHashMap</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt;</span></span><br><span class="line"><span class="class">//1.构造函数里<span class="title">super</span>构造父类</span></span><br><span class="line"><span class="class">//2.重写方法<span class="title">removeEldestEntry</span>，<span class="title">ToString</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>delegation</code>（代理）</p>
+<p><code>delegation方式</code>实现更加优雅一些，但是由于没有实现Map接口，所以线程同步就需要自己搞定了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LRUCache3</span>&lt;<span class="title">K</span>, <span class="title">V</span>&gt; </span>&#123;</span><br><span class="line">    LinkedHashMap&lt;K, V&gt; map;</span><br><span class="line"><span class="comment">//1.构造函数里map构造参数</span></span><br><span class="line"><span class="comment">//2.map构造时重写方法removeEldestEntry</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;<span class="comment">//自己搞定线程同步</span></span><br><span class="line">        map.put(key, value);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如何使用<code>LinkedHashMap</code>已实现的LRU机制呢？</p>
+<ul>
+<li><p><code>LinkedHashMap</code>构造函数1：参数<code>accessOrder</code>为<strong>true</strong>时，即会<strong>按照访问顺序排序，最近访问的放在最前，最早访问的放在后面</strong></p>
+</li>
+<li><p><code>LinkedHashMap</code>构造函数2：容量 = <code>CatchSize</code> /  装载因子，转为代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LinkedHashMap&lt;String, String&gt;((<span class="keyword">int</span>) Math.ceil(cacheSize / <span class="number">0.75f</span>) + <span class="number">1</span>, <span class="number">0.75f</span>, <span class="keyword">true</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>LinkedHashMap</code>重写方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">boolean</span> <span class="title">removeEldestEntry</span><span class="params">(Map.Entry eldest)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> size() &gt; MAX_CACHE_SIZE;<span class="comment">//这里的MAX_CACHE_SIZE，是cacheSize ，不是cacheSize / 0.75f</span></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="②双向链表-HashMap实现"><a href="#②双向链表-HashMap实现" class="headerlink" title="②双向链表+HashMap实现"></a>②双向链表+<code>HashMap</code>实现</h4><pre><code>    面试的时候LRU相关的我已经忘的差不多了，说实现方法临时想了一个用`LinkedList`实现，然后说了直接拿链表实现的思路。那么问题来了，在插入时一定会先查找特定节点是否存在，只能进行遍历找节点的操作，时间复杂度到了O(n)级别，面试官听完后直言学的不深，工业中LRU性能不能这么低。
+
+那么如何使得查找的时间复杂度为`O(1)`呢？所以得使用Map系列，直接get取出对应节点，下面来介绍`HashMap+双向链表`的实现。
+</code></pre><ul>
+<li><p>实现<strong>将特定节点移到队头</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">moveToFirst</span><span class="params">(Entry entry)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (entry == first) <span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">if</span> (entry.pre != <span class="keyword">null</span>) entry.pre.next = entry.next;</span><br><span class="line">        <span class="keyword">if</span> (entry.next != <span class="keyword">null</span>) entry.next.pre = entry.pre;</span><br><span class="line">        <span class="keyword">if</span> (entry == last) last = last.pre;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (first == <span class="keyword">null</span> || last == <span class="keyword">null</span>) &#123;</span><br><span class="line">            first = last = entry;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        entry.next = first;</span><br><span class="line">        first.pre = entry;</span><br><span class="line">        first = entry;</span><br><span class="line">        entry.pre = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现<strong>将尾部节点删除</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (hashMap.size() &gt;= MAX_CACHE_SIZE) &#123;</span><br><span class="line">    hashMap.remove(last.key);<span class="comment">//删除HashMap中的引用对象</span></span><br><span class="line">    removeLast();<span class="comment">//删除链表中真正的节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现插入函数：put（这里对应的运行机制写，应该很熟）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">put</span><span class="params">(K key, V value)</span> </span>&#123;</span><br><span class="line">       Entry entry = getEntry(key);</span><br><span class="line">       <span class="keyword">if</span> (entry == <span class="keyword">null</span>) &#123;</span><br><span class="line">           <span class="keyword">if</span> (hashMap.size() &gt;= MAX_CACHE_SIZE) &#123;<span class="comment">//如果超出容量</span></span><br><span class="line">               hashMap.remove(last.key);</span><br><span class="line">               removeLast();</span><br><span class="line">           &#125;</span><br><span class="line">           entry = <span class="keyword">new</span> Entry();</span><br><span class="line">           entry.key = key;</span><br><span class="line">       &#125;</span><br><span class="line">       entry.value = value;</span><br><span class="line">       moveToFirst(entry);</span><br><span class="line">       hashMap.put(key, entry);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现获取函数：get（这里对应的运行机制写，应该很熟）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(K key)</span> </span>&#123;</span><br><span class="line">        Entry&lt;K, V&gt; entry = getEntry(key);</span><br><span class="line">        <span class="keyword">if</span> (entry == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        moveToFirst(entry);</span><br><span class="line">        <span class="keyword">return</span> entry.value;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="值得注意的点："><a href="#值得注意的点：" class="headerlink" title="值得注意的点："></a>值得注意的点：</h4><ul>
+<li><p>如果<code>HashMap</code>的<code>Value</code>不是基本类型，那么<strong>只存放引用对象</strong>而不会存放本身，所以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Node node = hashmap.get(<span class="string">'node'</span>);</span><br><span class="line"><span class="comment">//System.out.println(node.getVal());</span></span><br><span class="line">node.setVal(<span class="string">'xxx'</span>);</span><br><span class="line"><span class="comment">//System.out.println(hashmap.get('node').getVal())</span></span><br></pre></td></tr></table></figure>
+<p>此时打印出来的node是修改后的值</p>
+</li>
+<li><p>双向链表+<code>HashMap</code>实现方式，构造的<code>HashMap</code>和链表最好<strong>使用泛型</strong></p>
+</li>
+</ul>
+<h1 id="LRU的应用"><a href="#LRU的应用" class="headerlink" title="LRU的应用"></a>LRU的应用</h1><ul>
+<li><p><code>LInkedHashMap</code></p>
+<blockquote>
+<p>学习方式：学习了<a href="https://www.cnblogs.com/ganchuanpu/p/8908093.html" target="_blank" rel="noopener">博文</a>+查看源码</p>
+</blockquote>
+</li>
+<li><p>操作系统页面置换算法</p>
+</li>
+<li><p><code>Redis</code>中LRU的实现</p>
+</li>
+<li><p><code>mybatis</code>源码<code>LruCache</code>的实现（<code>LinkedHashMap</code>，<code>accessOrder</code>设置为true）</p>
+</li>
+</ul>
+<p>后面是各个应用的源码分析，较长</p>
+<h2 id="0x01LinkedHashMap"><a href="#0x01LinkedHashMap" class="headerlink" title="0x01LinkedHashMap"></a>0x01<code>LinkedHashMap</code></h2><p> <strong>一、概述</strong></p>
+<p> <code>LinkedHashMap</code>是Map接口的哈希表和链接列表实现，具有可预知的迭代顺序。</p>
+<p> <code>LinkedHashMap</code>实现与<code>HashMap</code>的不同之处在于，后者维护着一个<strong>运行于所有条目的双重链接列表</strong>。此链接列表定义了迭代顺序，该迭代顺序可以是插入顺序或者是访问顺序，默认是插入顺序，可将构造参数accessOrder设置为true改为访问顺序。</p>
+<p> <code>LinkedHashMap</code>线程不安全</p>
+<p><strong>概述</strong>：<strong><code>LinkedHashMap</code>是<code>HashMap</code>的子类。只是重写了其中维持顺序的列表的相关的操作</strong></p>
+<p><strong>对于每个节点</strong>都增加了用于迭代顺序的before和after节点，形成维持顺序的双向链表</p>
+<p><strong>在新建节点和插入节点后</strong>加入<code>AfterNodeAcess</code>方法，将节点插入迭代顺序链表尾</p>
+<p><strong>在插入函数结尾时</strong>加入<code>afterNodeInsertion</code>方法判断是否要删除最早节点，将表头节点删除</p>
+<p><strong>二、实现</strong></p>
+<p>见此：<a href="https://blog.csdn.net/weixin_39723544/article/details/83269282" target="_blank" rel="noopener">https://blog.csdn.net/weixin_39723544/article/details/83269282</a></p>
+<p>下面是我的提要：</p>
+<ul>
+<li><p>LinkedHashMap的Entry结构</p>
+<blockquote>
+<p><code>LinkedHashMap的entry在hashmap的基础上多了before和after两个地址，依次来维护顺序。这点和LinkedList一致.</code></p>
+</blockquote>
+</li>
+<li><p>LinkedHashMap字段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">链表的头结点、尾结点、还有迭代顺序标志accessOrder</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>LinkedHashMap</code>构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//四种构造方法对应父类四种，调用super传参构造，多了个accessOrder</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        accessOrder = <span class="keyword">false</span>; <span class="comment">// 是否开启LRU缓冲</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(initialCapacity);</span><br><span class="line">        accessOrder = <span class="keyword">false</span>; <span class="comment">// 是否开启LRU缓冲</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(<span class="keyword">int</span> initialCapacity, <span class="keyword">float</span> loadFactor)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>(initialCapacity, loadFactor);</span><br><span class="line">        accessOrder = <span class="keyword">false</span>; <span class="comment">// 是否开启LRU缓冲</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LinkedHashMap</span><span class="params">(Map&lt;? extends K, ? extends V&gt; m)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        accessOrder = <span class="keyword">false</span>; <span class="comment">// 是否开启LRU缓冲</span></span><br><span class="line">        putMapEntries(m, <span class="keyword">false</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>核心函数：<code>AfterNodeAccess</code></strong></p>
+</li>
+<li><h5 id="存储：putVal方法"><a href="#存储：putVal方法" class="headerlink" title="存储：putVal方法"></a>存储：putVal方法</h5><p>与HashMap的PutVal方法基本一样,区别在于：</p>
+<ul>
+<li>新建节点时，新节点的迭代顺序链表尾部添加</li>
+<li>插入完毕后，插入节点的迭代顺序链表尾部添加</li>
+<li>方法执行完毕后，是否要删除最早元素</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">与HashMap的PutVal方法基本一样，</span><br><span class="line">不同：</span><br><span class="line">①newNode</span><br><span class="line"><span class="function">Node&lt;K,V&gt; <span class="title">newNode</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, Node&lt;K,V&gt; e)</span> </span>&#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            <span class="keyword">new</span> LinkedHashMap.Entry&lt;K,V&gt;(hash, key, value, e);</span><br><span class="line">        <span class="comment">// 作用：将新建的节点添加到维护的双向链表上去</span></span><br><span class="line">        <span class="comment">// 方式：往链表的尾部进行添加</span></span><br><span class="line">        linkNodeLast(p);</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">	<span class="comment">// link at the end of list</span></span><br><span class="line">	<span class="comment">//newNode中要把新建的节点插入到维护迭代顺序的双向链表尾部</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">linkNodeLast</span><span class="params">(LinkedHashMap.Entry&lt;K,V&gt; p)</span> </span>&#123;</span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; last = tail;</span><br><span class="line">       <span class="comment">// p为新的需要追加的结点</span></span><br><span class="line">        tail = p;</span><br><span class="line">        <span class="comment">// 如果last为null.则表示现在链表为空。新new出来的p元素就是链表的头结点</span></span><br><span class="line">        <span class="keyword">if</span> (last == <span class="keyword">null</span>)</span><br><span class="line">            head = p;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 否则就是链表中已存在结点的情况：往尾部添加即可</span></span><br><span class="line">        	<span class="comment">// 把新追加p的结点的前驱结点设置之前的尾部结点</span></span><br><span class="line">        	<span class="comment">// 把之前的尾部结点的后驱结点设为新追加的p结点</span></span><br><span class="line">            p.before = last;</span><br><span class="line">            last.after = p;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">②插入后对于插入的Node e，执行</span><br><span class="line">afterNodeAccess(e);</span><br><span class="line"><span class="comment">//把Entry e插入到维护迭代顺序的双向链表尾部</span></span><br><span class="line">	<span class="comment">// 作用：将结点元素移到链表的最后位置</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterNodeAccess</span><span class="params">(Node&lt;K,V&gt; e)</span> </span>&#123; <span class="comment">// move node to last</span></span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; last;</span><br><span class="line">        <span class="comment">// 根据LRU原则，只有当元素不在尾部的时候，才需要进行以为操作</span></span><br><span class="line">        <span class="comment">// 需要move的e结点有以下几种情况：</span></span><br><span class="line">        <span class="comment">// ①e结点没有前驱结点，有后驱结点情况下：将头结点设为e的后驱结点，然后把e的后驱结点的前驱结点“连接”到e的前驱结点的前驱结点上（这时候为null）。最后把p设为tail结点，置于尾部。</span></span><br><span class="line">        <span class="comment">// ②e结点没有后驱结点，有前驱结点情况下：将e结点的前驱结点和后驱结点（null）直接相连；并把last结点设为e的前驱结点。最后将p(即e)结点设为tail结点，置于尾部。</span></span><br><span class="line">        <span class="comment">// ③链表为空情况下：直接将当前结点p，置为链表的head结点。</span></span><br><span class="line">        <span class="comment">// ④e结点既有前驱结点，也有后驱结点情况下：将p结点的前驱结点和后驱结点直接相连。然后把p结点方法最后一个结点。同时将tail结点赋值为p.</span></span><br><span class="line">        <span class="keyword">if</span> (accessOrder &amp;&amp; (last = tail) != e) &#123;</span><br><span class="line">            LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">                (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">            p.after = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (b == <span class="keyword">null</span>)</span><br><span class="line">                head = a;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                b.after = a;</span><br><span class="line">            <span class="keyword">if</span> (a != <span class="keyword">null</span>)</span><br><span class="line">                a.before = b;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                last = b;</span><br><span class="line">            <span class="keyword">if</span> (last == <span class="keyword">null</span>)</span><br><span class="line">                head = p;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                p.before = last;</span><br><span class="line">                last.after = p;</span><br><span class="line">            &#125;</span><br><span class="line">            tail = p;</span><br><span class="line">            ++modCount;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;        </span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">③在putVal末尾</span><br><span class="line"><span class="comment">// 由LinkedHashMap的实现，并调用</span></span><br><span class="line"><span class="comment">// 作用：在执行一次插入操作都会执行的操作</span></span><br><span class="line"><span class="comment">// 主要就是对LRU算法的支持。</span></span><br><span class="line"><span class="comment">// 是否移动最早的元素，删除策略</span></span><br><span class="line">afterNodeInsertion(evict);</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">afterNodeInsertion</span><span class="params">(<span class="keyword">boolean</span> evict)</span> </span>&#123; <span class="comment">// possibly remove eldest</span></span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; first;</span><br><span class="line">        <span class="keyword">if</span> (evict &amp;&amp; (first = head) != <span class="keyword">null</span> &amp;&amp; removeEldestEntry(first)) &#123;</span><br><span class="line">            <span class="comment">//removeEldestEntry这里一直返回false，如果LRU得改写返回true</span></span><br><span class="line">            K key = first.key;</span><br><span class="line">            removeNode(hash(key), key, <span class="keyword">null</span>, <span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>获取：get函数</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 说明：调用HashMap的get逻辑；如果获取值为null，则直接返回null。否则判断是否开启了LRU,如果开启的话，就把最近访问的元素放到链表的尾部。最后返回需要获取元素的值。</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> V <span class="title">get</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">    Node&lt;K,V&gt; e;</span><br><span class="line">    <span class="keyword">if</span> ((e = getNode(hash(key), key)) == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">if</span> (accessOrder)</span><br><span class="line">        afterNodeAccess(e);</span><br><span class="line">    <span class="keyword">return</span> e.value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>删除：<code>removeNode</code></strong></p>
+<p>删除基本与<code>HashMap</code>相同，但是删除完后对于删除节点，也要在迭代顺序的链表里去除</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">afterNodeRemoval(node);</span><br><span class="line"><span class="comment">// 在这里就是：删除节点，删除其关联的维护顺序的双向列表的操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">afterNodeRemoval</span><span class="params">(Node&lt;K,V&gt; e)</span> </span>&#123; <span class="comment">// unlink</span></span><br><span class="line">        LinkedHashMap.Entry&lt;K,V&gt; p =</span><br><span class="line">            (LinkedHashMap.Entry&lt;K,V&gt;)e, b = p.before, a = p.after;</span><br><span class="line">        <span class="comment">// 此时p节点已删除，将p的前驱和后驱结点均置为null</span></span><br><span class="line">        p.before = p.after = <span class="keyword">null</span>;</span><br><span class="line">        <span class="comment">// 目的：将a,b结点进行相连操作</span></span><br><span class="line">        <span class="keyword">if</span> (b == <span class="keyword">null</span>)</span><br><span class="line">            head = a;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            b.after = a;</span><br><span class="line">        <span class="keyword">if</span> (a == <span class="keyword">null</span>)</span><br><span class="line">            tail = b;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            a.before = b;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>iterator</strong>从head节点指向tail节点</p>
+</li>
+</ul>
+<h2 id="Redis的LRU实现"><a href="#Redis的LRU实现" class="headerlink" title="Redis的LRU实现"></a><code>Redis</code>的LRU实现</h2><p><strong>概述：Redis采用了一个近似的做法，使用了一个全局的LRU时钟，然后每个key都会有一个lru时间，记录上次访问的时间。redis的<code>estimateObjectIdleTime</code>函数计算出对应key没有访问的时长，然后执行相关淘汰策略：</strong></p>
+<p><strong>选取<code>server.maxmemory_samples</code>个数目的key，进行比较，然后淘汰最近最久没有访问的key</strong></p>
+<p>如果按照HashMap和双向链表实现，需要额外的存储存放 next 和 prev 指针，牺牲比较大的存储空间，显然是不划算的。所以Redis采用了一个近似的做法，就是随机取出若干个key，然后按照访问时间排序后，淘汰掉最不经常使用的，具体分析如下：</p>
+<p>为了支持LRU，Redis 2.8.19中使用了一个全局的LRU时钟，<code>server.lruclock</code>，定义如下，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REDIS_LRU_BITS 24</span></span><br><span class="line"><span class="keyword">unsigned</span> lruclock:REDIS_LRU_BITS; <span class="comment">/* Clock for LRU eviction */</span></span><br></pre></td></tr></table></figure>
+<p>默认的LRU时钟的分辨率是1秒，可以通过改变<code>REDIS_LRU_CLOCK_RESOLUTION</code>宏的值来改变，Redis会在<code>serverCron()</code>中调用<code>updateLRUClock</code>定期的更新LRU时钟，更新的频率和hz参数有关，默认为<code>100ms</code>一次，如下，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REDIS_LRU_CLOCK_MAX ((1<span class="meta-string">&lt;&lt;REDIS_LRU_BITS)-1) /* Max value of obj-&gt;lru */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> REDIS_LRU_CLOCK_RESOLUTION 1 <span class="comment">/* LRU clock resolution in seconds */</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateLRUClock</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    server.lruclock = (server.unixtime / REDIS_LRU_CLOCK_RESOLUTION) &amp;</span><br><span class="line">                                                REDIS_LRU_CLOCK_MAX;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>server.unixtime</code>是系统当前的unix时间戳，当 lruclock 的值超出REDIS_LRU_CLOCK_MAX时，会从头开始计算，所以在计算一个key的最长没有访问时间时，可能key本身保存的lru访问时间会比当前的lrulock还要大，这个时候需要计算额外时间，如下，</p>
+<p><strong><code>estimateObjectIdleTime</code>这个方法就是返回没有被访问的时长</strong></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Given an object returns the min number of seconds the object was never</span></span><br><span class="line"><span class="comment"> * requested, using an approximated LRU algorithm. */</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="title">estimateObjectIdleTime</span><span class="params">(robj *o)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (server.lruclock &gt;= o-&gt;lru) &#123;</span><br><span class="line">        <span class="keyword">return</span> (server.lruclock - o-&gt;lru) * REDIS_LRU_CLOCK_RESOLUTION;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ((REDIS_LRU_CLOCK_MAX - o-&gt;lru) + server.lruclock) *</span><br><span class="line">                    REDIS_LRU_CLOCK_RESOLUTION;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Redis支持和LRU相关淘汰策略包括，</p>
+<ul>
+<li><code>volatile-lru</code> 设置了过期时间的key参与近似的lru淘汰策略</li>
+<li><code>allkeys-lru</code> 所有的key均参与近似的lru淘汰策略</li>
+</ul>
+<p>当进行LRU淘汰时，Redis按如下方式进行的，</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line">            <span class="comment">/* volatile-lru and allkeys-lru policy */</span></span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_ALLKEYS_LRU ||</span><br><span class="line">                server.maxmemory_policy == REDIS_MAXMEMORY_VOLATILE_LRU)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">for</span> (k = <span class="number">0</span>; k &lt; server.maxmemory_samples; k++) &#123;</span><br><span class="line">                    sds thiskey;</span><br><span class="line">                    <span class="keyword">long</span> thisval;</span><br><span class="line">                    robj *o;</span><br><span class="line"></span><br><span class="line">                    de = dictGetRandomKey(dict);</span><br><span class="line">                    thiskey = dictGetKey(de);</span><br><span class="line">                    <span class="comment">/* When policy is volatile-lru we need an additional lookup</span></span><br><span class="line"><span class="comment">                     * to locate the real key, as dict is set to db-&gt;expires. */</span></span><br><span class="line">                    <span class="keyword">if</span> (server.maxmemory_policy == REDIS_MAXMEMORY_VOLATILE_LRU)</span><br><span class="line">                        de = dictFind(db-&gt;dict, thiskey);</span><br><span class="line">                    o = dictGetVal(de);</span><br><span class="line">                    thisval = estimateObjectIdleTime(o);</span><br><span class="line"></span><br><span class="line">                    <span class="comment">/* Higher idle time is better candidate for deletion */</span></span><br><span class="line">                    <span class="keyword">if</span> (bestkey == <span class="literal">NULL</span> || thisval &gt; bestval) &#123;</span><br><span class="line">                        bestkey = thiskey;</span><br><span class="line">                        bestval = thisval;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            ......</span><br></pre></td></tr></table></figure>
+<p>Redis会基于<code>server.maxmemory_samples</code>配置选取固定数目的key，然后比较它们的lru访问时间，然后淘汰最近最久没有访问的key，maxmemory_samples的值越大，Redis的近似LRU算法就越接近于严格LRU算法，但是相应消耗也变高，对性能有一定影响，样本值默认为5。</p>
+<h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><ul>
+<li><p><strong>Jdk1.8源码</strong></p>
+</li>
+<li><p><a href="https://www.cnblogs.com/lzrabbit/p/3734850.html" target="_blank" rel="noopener">LRU缓存实现(Java)</a></p>
+</li>
+<li><a href="https://zhuanlan.zhihu.com/p/34133067" target="_blank" rel="noopener">LRU原理和Redis实现——一个今日头条的面试题</a></li>
+<li><a href="https://blog.csdn.net/njchenyi/article/details/8046914" target="_blank" rel="noopener">（转载）ConcurrentHaspLRUHashMap实现初探</a></li>
+<li><a href="https://www.cnblogs.com/ganchuanpu/p/8908093.html" target="_blank" rel="noopener">【这个源码不太对】LinkedHashMap的实现原理</a></li>
+<li><a href="https://blog.csdn.net/weixin_39723544/article/details/83269282" target="_blank" rel="noopener">Map之LinkedHashMap源码实现</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/03/11/阿里供应链-意向面-建议/" rel="next" title="阿里供应链-意向面-建议">
+                <i class="fa fa-chevron-left"></i> 阿里供应链-意向面-建议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">花郎世纪</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">85</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搞懂LRU"><span class="nav-number">1.</span> <span class="nav-text">搞懂LRU</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU概念"><span class="nav-number">2.</span> <span class="nav-text">LRU概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU的实现"><span class="nav-number">3.</span> <span class="nav-text">LRU的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#①使用LinkedHashMap"><span class="nav-number">3.0.0.1.</span> <span class="nav-text">①使用LinkedHashMap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#②双向链表-HashMap实现"><span class="nav-number">3.0.0.2.</span> <span class="nav-text">②双向链表+HashMap实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#值得注意的点："><span class="nav-number">3.0.0.3.</span> <span class="nav-text">值得注意的点：</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU的应用"><span class="nav-number">4.</span> <span class="nav-text">LRU的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01LinkedHashMap"><span class="nav-number">4.1.</span> <span class="nav-text">0x01LinkedHashMap</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#存储：putVal方法"><span class="nav-number">4.1.0.0.1.</span> <span class="nav-text">存储：putVal方法</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis的LRU实现"><span class="nav-number">4.2.</span> <span class="nav-text">Redis的LRU实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文章"><span class="nav-number">5.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">花郎世纪</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
